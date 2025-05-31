@@ -8,9 +8,6 @@ The main topics covered by the analyzed ADRs are displayed in the chart below.
 
 Alternatively, you can get an interactive view of the chart using [top20_adr_topics.html](https://htmlpreview.github.io/?https://github.com/tommantonela/ADRminer/blob/main/top20_adr_topics.html).
 
-<a href="[https://codingbeautydev.com](https://htmlpreview.github.io/?https://github.com/tommantonela/ADRminer/blob/main/top20_adr_topics.html)" 
- target="_blank">top20_adr_topics.html</a>
-
 You can reproduce the experiments reported in the paper using the provided *Jupyter* notebooks. A creation of a Python environment is recommended (see *requirements.txt* file).
 
 
