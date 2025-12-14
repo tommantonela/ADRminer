@@ -1,4 +1,4 @@
-# ADRminer
+# ADRMiner
 
 This is the reproducibility kit for the paper “_What do Architecture Decisions talk about? A Data Mining Study based on Open-source Repositories_”.
 It provides the code, data, and notebooks necessary to replicate the experiments and analyses from the paper.
