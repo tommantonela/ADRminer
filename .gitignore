@@ -1,3 +1,7 @@
 .DS_Store
 .env
 /__pycache__
+.DS_Store
+/notebooks/__pycache__
+/notebooks/catboost_info
+/notebooks/old

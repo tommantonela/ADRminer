@@ -1,0 +1,612 @@
+[
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The 'Context' section is present, but the content is vague and does not provide meaningful, project-specific information. It merely states the need to record architectural decisions without elaborating on the background, system state, or specific motivations. This fails to fulfill the intended purpose of the section, which should include more detailed context such as technical constraints or stakeholder needs.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "No",
+                "purpose_consistency": "Partial",
+                "justification": "The section 'Decision' is present, but the content is vague and does not clearly state a specific architectural decision made in response to the context. It merely mentions the use of ADRs without detailing the selected approach or any specific alternatives considered. This lack of substantial content means it does not fulfill the intended purpose of the section effectively.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Consequences' is present, but it does not provide meaningful, project-specific content. Instead, it references external articles without discussing the actual implications, trade-offs, or expected impacts of the decision made. This fails to fulfill the intended purpose of the section, which should include specific details about technical debt, performance effects, and maintainability implications related to the decision.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. There is no content that fulfills the intended purpose of this section under any other heading. The existing sections ('Context', 'Decision', 'Consequences') do not provide specific criteria or goals that shaped the decision-making process, nor do they clarify what mattered most when choosing between options. The content is minimal and lacks project-specific details.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is missing entirely from the ADR. There are no alternative approaches or solutions evaluated, nor any pros and cons provided. The content is generic and does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Record architecture decisions",
+            "status": "Accepted",
+            "context": "We need to record the architectural decisions made on this project.",
+            "decision_drivers": "",
+            "decision": "We will use Architecture Decision Records, as described by Michael Nygard.",
+            "consequences": "See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's adr-tools.",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and correctly describes the ADR.\n- Status is present and correctly labeled as 'Accepted'.\n- Context is present and clearly states the problem.\n- Decision is present but lacks a clear explanation of why this decision was made, only stating the choice.\n- Consequences are present but could be more detailed regarding the impact of the decision.\n- Decision drivers are missing entirely, which is a significant omission.\n- Alternatives section is missing, which is also a notable gap."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0001-record-architecture-decisions.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The 'Context' section is present and contains meaningful, project-specific content that describes the motivation for using TypeScript, including its benefits and relevance. It does not overlap with other sections and fulfills the intended purpose of providing background information.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice to use TypeScript. The content is specific to the project and provides a clear decision without vagueness. It fulfills the intended purpose of the section without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains meaningful content that discusses the implications of the decision to use TypeScript, including the overhead for developers and potential issues with dependencies. The content is specific to the project and clearly addresses the expected impacts of the decision, fulfilling the intended purpose without overlap with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that might fulfill this role is not found under any other heading, and there is no substantial project-specific content that outlines the criteria or goals that shaped the decision-making process. The decision is stated, but the reasoning behind it is vague and lacks detail on the specific drivers influencing the choice of TypeScript.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that discusses why certain options were not chosen. The content is limited to a decision to use TypeScript without any exploration of alternatives, which does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Use TypeScript",
+            "status": "Accepted",
+            "context": "We want to be confident about the code we write, and for it to be self-documenting as much as possible. TypeScript is a compiled language with optional typing. It's a superset of JavaScript, so is familiar to developers who know JavaScript. It has wide editor support. As of writing, TypeScript is used by over 1.4 million repositories on GitHub.",
+            "decision_drivers": "",
+            "decision": "We will use TypeScript.",
+            "consequences": "This adds some overhead to developers, as they need to become familiar with TypeScript if they aren't. It can also add some overhead when using dependencies without existing type definitions.",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.8,
+            "assessment": "- The title 'Use TypeScript' is present and correctly reflects the decision being made.\n- The 'Date' section is present, but it is not under a specific heading, which could lead to confusion.\n- The 'Status' section is present and correctly labeled.\n- The 'Context' section is present and provides a clear explanation of the problem being addressed.\n- The 'Decision' section is present and clearly states the decision made.\n- The 'Consequences' section is present and outlines the implications of the decision.\n- The 'Decision Drivers' section is missing entirely, which is a significant omission as it should describe the forces influencing the decision.\n- The 'Alternatives' section is missing, which should list any alternatives considered along with their pros and cons."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0002-use-typescript.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Context' is present and contains specific information about the motivation for using Rollup to build distributables. It clearly outlines the background and requirements for the project without overlapping with other sections. The content is meaningful and relevant to the project's goals.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made, which is to build distributables using Rollup.js. The content is specific to the project and provides a clear decision without vagueness. It fulfills the intended purpose of the section without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains meaningful content that explains the implications of using Rollup.js for building distributables. It addresses the positive impact of simplifying the distribution process, which aligns with the expected purpose of this section. There is no overlap with other sections, and the content is specific to the project.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and there is no discussion of the criteria or goals that shaped the decision-making process. The content is minimal and does not provide specific decision drivers, making it vague and lacking substance.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that discusses why certain options were not chosen. The content is limited to a decision and its consequences without any exploration of alternatives, which does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Use Rollup to build distributables",
+            "status": "Accepted",
+            "context": "We want to be able to distribute this library to be ingested by TypeScript or plain JavaScript (both commonJS and module) applications. Rollup is a popular JavaScript bundler with support for TypeScript and simple configuration.",
+            "decision_drivers": "",
+            "decision": "We will build distributables using Rollup.js.",
+            "consequences": "With Rollup.js we can build type declarations, commonJS, and module code using a single simple command, and some simple config. This makes it easier for us to distribute our code.",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and correctly describes the ADR.\n- Status is present and correctly labeled as 'Accepted'.\n- Context is present and provides a clear problem statement.\n- Decision is present and clearly states the chosen option.\n- Consequences are present and describe the impact of the decision.\n- Decision Drivers section is missing; it should describe the forces influencing the decision.\n- Alternatives section is missing; it should list any alternatives considered with their pros and cons."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0003-use-rollup-to-build-distributables.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The 'Context' section is present and contains meaningful, project-specific content that describes the motivation for using Prettier as a code formatter. It outlines the need for a consistent code style across projects and provides relevant background information about Prettier's adoption in the community. The content is well-scoped and does not overlap with other sections, fulfilling the intended purpose of the 'Context' section effectively.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made regarding the use of Prettier for code formatting. It includes specific actions to be taken, such as enforcing style, setting up Git hooks, and implementing continuous integration checks. The content is meaningful and project-specific, fulfilling the intended purpose without overlap with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Partial",
+                "justification": "The section 'Consequences' is present and contains relevant content about the implications of using Prettier, specifically mentioning the overhead for developers. However, it lacks a comprehensive discussion on all expected aspects such as technical debt, performance effects, and maintainability implications, which makes it only partially fulfilling its intended purpose.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and there is no discussion of the main criteria or goals that shaped the decision-making process. The content is primarily focused on the decision itself and its consequences, lacking the necessary detail about the decision drivers.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that fulfills the intended purpose of this section. The content provided is focused on the decision to use Prettier without discussing any alternatives or their pros and cons, which is essential for this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Use Prettier to format code",
+            "status": "Accepted",
+            "context": "We want to ensure we're all using one code style, that is familiar across projects. [Prettier](https://prettier.io/) is an opinionated code formatter with support for most, if not all, of the languages in the JavaScript ecosystem. As of writing, it is used by over [1 million repositories](https://github.com/prettier/prettier/network/dependents?package_id=UGFja2FnZS00OTAwMTEyNTI%3D) on GitHub, and has become a standard.",
+            "decision_drivers": "",
+            "decision": "We will enforce that everything supported by Prettier has its style enforced by it.\n\nWe will set up Git hooks to automatically run the formatter before committing.\n\nWe will set continuous integration up to reject commits that are not correctly formatted.",
+            "consequences": "This adds some overhead to developers committing code, but that can be mitigated using Git hooks and editor integrations.",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.9,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and clearly describes the problem.\n- Decision is present and clearly articulated under the correct heading.\n- Consequences are present and provide insight into the impact of the decision.\n- Decision drivers section is missing; it should describe the forces influencing the decision.\n- Alternatives section is missing; it should list any alternatives considered with their pros and cons."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0004-use-prettier-to-format-code.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Context' is present and contains meaningful, project-specific content that describes the motivation for using ESLint, which aligns with the expected purpose of the section. It does not overlap with other sections and focuses solely on the background and reasons for the decision.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and contains specific, project-related content that clearly states the final choices made regarding the use of ESLint. It outlines the selected approach, accepted alternatives, and implementation details without overlapping with other sections. Therefore, it fulfills the intended purpose effectively.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains meaningful content that explains the implications of using ESLint for code style enforcement. It addresses the positive impact of having a consistent code style and reducing discussions about individual violations, fulfilling the intended purpose of the section without overlap with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and there is no substantial project-specific content that outlines the main criteria or goals that shaped the decision-making process. The existing sections do not address the intended purpose of listing decision drivers such as performance, cost, simplicity, compatibility, or regulatory compliance.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that discusses why certain options were not chosen. The content is primarily focused on the decision to use ESLint without any mention of alternatives or their pros and cons, which does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Use ESLint",
+            "status": "Accepted",
+            "context": "We want to enforce consistency in our code, and catch as many errors automatically as we are able to. Linting the code is good practice to achieve these aims. [ESLint](https://eslint.org/) is the standard linter for modern JavaScript, and has good support for TypeScript though plugins.",
+            "decision_drivers": "",
+            "decision": "We will check code style using ESLint. We will let Prettier have precedence when ESLint and Prettier conflict in their styles. We will use the recommended configuration for plugins where possible. We will run ESLint as part of the test suite.",
+            "consequences": "ESLint enables us to agree on and enforce a code style without having to keep it in the heads of developers, meaning we shouldn't have to discuss individual code style violations as they come up.",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and clearly describes the problem.\n- Decision section is present and clearly labeled, but lacks a detailed explanation of the rationale behind the decision.\n- Consequences section is present and clearly labeled, but could provide more detail on potential negative impacts.\n- Decision Drivers section is missing entirely, which is a significant omission.\n- Alternatives section is missing, which is also a notable gap."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0005-use-eslint.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Context' is present and contains specific information about the motivation for choosing a test framework, including the need for good support for React and TypeScript. This aligns well with the expected purpose of the section, which is to describe the background and motivation without overlapping with other sections. The content is meaningful and project-specific, fulfilling the intended role effectively.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice to use Jest as the testing framework. The content is specific to the project and provides a clear decision without vagueness. It fulfills the intended purpose of the section without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Consequences' is not present in the ADR. There is no content that discusses the results, implications, trade-offs, or expected impact of the decision regarding the use of Jest. The content is minimal and does not provide any substantial analysis or project-specific details about the consequences of the decision.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and the existing sections do not provide meaningful, project-specific criteria or goals that shaped the decision-making process. The context and decision sections are too vague and do not clarify what mattered most when choosing between options.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There is no content that enumerates alternative approaches or solutions that were evaluated, nor is there any discussion of why they were not chosen. The content is minimal and does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Use Jest",
+            "status": "Accepted",
+            "context": "We want a test framework that has good support for React and TypeScript. [Jest](https://jestjs.io) is the standard, recommended test framework for React apps.",
+            "decision_drivers": "",
+            "decision": "We will use Jest as our testing framework.",
+            "consequences": "",
+            "alternatives": [],
+            "date": "2019-10-29",
+            "adherence_score": 0.7,
+            "assessment": "- The 'Title' section is present and correctly titled.\n- The 'Date' section is present and correctly titled.\n- The 'Status' section is present and correctly titled.\n- The 'Context' section is present and correctly titled.\n- The 'Decision' section is present and correctly titled.\n- The 'Decision Drivers' section is missing; there is no mention of the forces influencing the decision.\n- The 'Consequences' section is missing; there is no discussion of the impact of the decision.\n- The 'Alternatives' section is missing; there are no alternatives discussed.\n- Overall, the ADR is missing several key sections, which affects the adherence score."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0006-use-jest.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The 'Context' section is present and contains specific information about the motivation and requirements for building a reusable React library for multipage forms. It clearly outlines the background and technical needs without overlapping with other sections. The content is meaningful and project-specific, fulfilling the intended purpose of the section.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made regarding the project. It provides specific details about the approach to be taken, including the use of orchestration components and the handling of multipage form configurations. The content is meaningful and project-specific, fulfilling the intended purpose without overlap with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains substantial, project-specific content that explains the implications and trade-offs of the decision made. It discusses the expected impact on development speed and the complexity introduced by the configuration, fulfilling the intended purpose without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that might fulfill this role is not clearly defined under any other heading, and there is no specific mention of criteria or goals that shaped the decision-making process. The content provided is more focused on the decision and consequences rather than outlining the main drivers behind the decision.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The ADR does not contain a section titled 'Considered Options' or any content that fulfills the intended purpose of this section. There are no alternative headings that provide a comparison of options or justify decisions made. The content is focused on the decision and consequences without discussing alternative approaches or their pros and cons, which is essential for this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Make remultiform configuration driven",
+            "status": "Accepted",
+            "context": "We want to build a reusable React library, that generates multipage forms quickly. We need logic that extends beyond simple \"show this element on this page\", such as conditional logic for displaying sections dependant on values in other sections, and to skip pages based on values elsewhere in the journey.",
+            "decision_drivers": "",
+            "decision": "We will build remultiform to export a series of small orchestration components. We will pass the entire multipage form configuration in via props to those orchestrators. The configuration should be agnostic of the set of components it might receive.",
+            "consequences": "We believe that separating the logic to render forms and routing to subpages of multipage forms from the definition of those forms will speed up development of multipage forms in general. Putting logic into that configuration adds some complexity in building type definitions for that configuration that is generic enough to be reused in many different situations and agnostic of the components used. We believe that is an ok trade-off to make in exchange for being able to build new forms more quickly, than if we had to build each multipage form as a series of pages. We also believe that the complexity of having generic orchestrators ingesting varied configuration is a trade-off worth making in exchange for making it possible to specify varied forms quickly.",
+            "alternatives": [],
+            "date": "2019-10-30",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and clearly describes the problem.\n- Decision is present and clearly articulated, but could benefit from a more detailed rationale.\n- Consequences are present and provide a good overview of the impacts, but could be more structured.\n- Decision Drivers section is missing entirely, which is a significant omission.\n- Alternatives section is present but empty, indicating no alternatives were considered, which could be elaborated on."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0007-make-remultiform-configuration-driven.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Context' is present and contains specific information about the motivation for using Dependabot, which aligns with the expected purpose of describing the background and problem. The content is meaningful and project-specific, detailing the need to keep dependencies up to date and how Dependabot addresses that need without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made regarding the use of Dependabot for monitoring dependency updates. The content is specific to the project and provides a clear decision without vagueness. It fulfills the intended purpose of the section without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The 'Consequences' section is present, but the content is minimal and lacks depth. It only states that using Dependabot eliminates the need for manual monitoring of dependencies, which is a vague statement and does not address the broader implications, trade-offs, or risks associated with the decision. It fails to fulfill the intended purpose of explaining the results and implications of the decision comprehensively.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content related to decision-making is found under 'Context' and 'Decision', but it does not specifically address the main criteria or goals that shaped the decision-making process. The content is minimal and does not provide substantial project-specific information regarding the decision drivers. Therefore, it fails to fulfill the intended purpose of this section.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that discusses why certain options were not chosen. The content is minimal and does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "7. Use Dependabot to keep dependencies up to date",
+            "status": "Accepted",
+            "context": "We want to ensure all dependencies stay up to date. Dependabot offers a service where a bot opens PRs on GitHub when new versions of dependencies are released.",
+            "decision_drivers": "",
+            "decision": "We will use Dependabot to monitor dependency updates.",
+            "consequences": "Using Dependabot means we don't need to manually monitor dependencies for new versions.",
+            "alternatives": [],
+            "date": "2019-10-30",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and clearly describes the problem.\n- Decision is present and clearly stated.\n- Consequences are present and describe the impact of the decision.\n- Decision drivers section is missing; it should describe the forces influencing the decision.\n- Alternatives section is present but empty; it should list alternatives considered with their pros and cons."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0007-use-dependabot-to-keep-dependencies-up-to-date.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The 'Context' section is present and contains meaningful, project-specific content that describes the background and motivations for using IndexedDB as a data store. It outlines the need for data persistence, offline support, and the ability to handle image uploads, which aligns well with the intended purpose of the section. There is no overlap with other sections, and the content is clear and relevant.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made regarding the data store, which is to support IndexedDB. The content is specific to the project and provides a clear decision without vagueness. It fulfills the intended purpose of the section without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains meaningful, project-specific content discussing the implications of using IndexedDB, including its complexity, overhead, and browser support issues. The content is focused on the expected impacts of the decision without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section titled 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and there is no substantial project-specific content that outlines the main criteria or goals that shaped the decision-making process. The existing sections do not clarify what mattered most when choosing between options, which is essential for this section's intended purpose.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There is no content that enumerates alternative approaches or solutions that were evaluated, nor is there any explanation of why alternatives were not chosen. The content is primarily focused on the decision made without discussing any alternatives, which does not fulfill the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "Support IndexedDB as a data store",
+            "status": "Accepted",
+            "context": "We need to persist the user data to the backend. Rather than building our frontend to be tightly coupled to an API, we want a layer that can sit between the application and the API.\n\nWe know that we will need to support offline use of these forms. We also want users to be able to recover unsubmitted forms if they haven't gone online between sessions.\n\nWe also know that some forms will require the upload of images.\n\nIndexedDB is a well supported browser database that persists data across sessions. It supports storing blob data (such as images), and has decent storage limits.",
+            "decision_drivers": "",
+            "decision": "We will support IndexedDB as a data store layer, sitting between the application and the API.",
+            "consequences": "IndexedDB has a fairly complicated interface. There is some overhead in understanding and using it, but hopefully we can insulate the user for most of it by using libraries and wrapping the implementation.\n\nIf a consumer of this library doesn't need to support offline use, they may not need IndexedDB, and may be able to use a plain object. We should make sure we continue to support that use case.\n\nIndexedDB has good support in modern browsers, except Edge and IE. Those browsers support a subset of features, so we should make sure we're testing on those browsers when we need to support them, and that we polyfill any missing features we need.",
+            "alternatives": [],
+            "date": "2019-11-12",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and contains relevant information.\n- Decision is present and clearly stated.\n- Consequences are present and provide detailed insights.\n- Decision Drivers section is missing entirely, which is a significant omission.\n- Overall, the ADR is well-structured but lacks the Decision Drivers section, affecting the adherence score."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0008-support-indexeddb-as-a-data-store.md"
+        }
+    },
+    {
+        "section_assessments": [
+            {
+                "section_name": "Context",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The 'Context' section is present and contains meaningful, project-specific content that describes the motivation for using TypeDoc for API documentation. It clearly outlines the background and the problem of maintaining separate documentation, fulfilling the intended purpose without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section titled 'Decision' is present and clearly states the final choice made regarding the use of TypeDoc for generating documentation. The content is specific to the project and outlines the selected approach and its implications, fulfilling the intended purpose without overlap with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Consequences",
+                "presence": "Yes",
+                "content_quality": "Yes",
+                "purpose_consistency": "Yes",
+                "justification": "The section 'Consequences' is present and contains meaningful, project-specific content that explains the implications of the decision to use TypeDoc for documentation. It discusses the benefits of self-documenting code and the maintenance burden reduction, as well as the learning curve associated with TypeDoc comments. The content is focused solely on the consequences of the decision without overlapping with other sections.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Decision Drivers",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Decision Drivers' is not present in the ADR. The content that would typically fulfill this role is not found under any other heading, and there is no substantial project-specific content that outlines the criteria or goals that shaped the decision-making process. The existing sections do not provide meaningful insights into the decision drivers, making the content vague and off-topic.",
+                "alternate_title": []
+            },
+            {
+                "section_name": "Considered Options",
+                "presence": "No",
+                "content_quality": "No",
+                "purpose_consistency": "No",
+                "justification": "The section 'Considered Options' is not present in the ADR. There are no alternative approaches or solutions evaluated in the document, nor is there any content that discusses why certain options were not chosen. The content is focused solely on the decision to use TypeDoc without any mention of alternatives or their pros and cons, which is essential for fulfilling the intended purpose of this section.",
+                "alternate_title": []
+            }
+        ],
+        "template_adherence": {
+            "title": "09. Use TypeDoc to generate API documentation",
+            "status": "Accepted",
+            "context": "We want to have API documentation for the code we publish. Rather than writing separate API docs that quickly get out of date, we would like to be able to generate it from our code and comments in our code that live next to the thing they refer to. For JavaScript, the standard is [JSDoc](https://jsdoc.app/), but with TypeScript, we're already defining the types in our code, and duplicating that in the associated comments is repeated effort and requires manual action to keep up-to-date.\n\n[TypeDoc](https://typedoc.org/) is a documentation generator based on JSDoc. It uses a combination of comments and TypeScripts own types to generate API documentation automatically.",
+            "decision_drivers": "",
+            "decision": "We will use TypeDoc to generate documentation.\n\nWe will document all exported code for the benefit of end users.\n\nWe will commit the documentation we generate to the repository alongside changes to behaviour.",
+            "consequences": "If we document our code well, our API will document itself as a build artefact. This greatly reduces the mainenance burden of keeping our documentation up to date.\n\nThere is a slight learning curve to learning how to write TypeDoc comments that turn into useful documentation. We can mitigate some of that by setting up ESLint rules to help us write \"correct\" TypeDoc comments.",
+            "alternatives": [],
+            "date": "2019-11-13",
+            "adherence_score": 0.8,
+            "assessment": "- Title is present and matches the content.\n- Status is present and correctly labeled.\n- Context is present and provides a clear problem statement.\n- Decision is present but lacks a clear heading; it is labeled as 'Decision' but could be more prominently defined.\n- Consequences are present and clearly outline the impact of the decision.\n- Decision Drivers section is missing entirely, which is a significant omission as it should describe the forces influencing the decision.\n- Alternatives section is present but empty, which is acceptable if no alternatives were considered, but it should be noted.\n- Overall, the ADR is well-structured but lacks a section on decision drivers and has a minor issue with the prominence of the decision heading."
+        },
+        "metadata": {
+            "organization": "LBHackney-IT",
+            "project": "remultiform",
+            "adr_key": "0009-use-typedoc-to-generate-api-documentation.md"
+        }
+    }
+]
