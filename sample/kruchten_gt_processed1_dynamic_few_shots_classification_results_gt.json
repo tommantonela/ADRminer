@@ -1,0 +1,3067 @@
+[
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses connecting a store to a component, which involves defining and establishing the existence of data structures and their linkage within the application's architecture.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-003-store-connector-container-component.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about whether certain elements or artifacts will exist in the system, such as deploying clusters, setting up architecture components, or managing infrastructure elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-004.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to versioning and release management, which are driven by business and organizational considerations rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "adr-007.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying architectural decisions into categories such as existence, non-existence, property, or executive. The provided definitions and context indicate that the decision pertains to whether certain configuration elements or features will exist in the system, aligning with the 'Existence (ontocrisis)' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-for-config-prefer-prefix-over-nesting-and-don-t-hide-defaults-in-code.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and management of artifacts, such as release candidates and artifacts associated with release branches, which relates to the existence of system elements and artifacts in the development process.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "005-cutting-release-branch.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the creation, modification, or existence of system elements, such as the folder structure, source information nodes, and P2P architecture components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-message-driven-content-tracker-next-gen.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the use of environment variables and files to manage credentials and configuration, which are elements that will exist in the system's architecture. The decision to use IAM roles and instance profiles also pertains to the existence of specific mechanisms for authentication, indicating structural considerations.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-managing-secrets-used-by-dbp.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses configuring application settings, which relate to system qualities, constraints, and policies that are enduring and cross-cutting concerns, fitting the 'Property' category.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-application-configuration-setup.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation or use of specific artifacts or elements within the system, such as files for private keys or a new client app, which aligns with the 'existence' decision type.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2019-11-20_webapp.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses selecting a routing library (gorilla/mux) to serve application routes, which involves structural decisions about the application's components and their interactions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0014-use-mux-for-routing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR addresses organizational and procedural decisions related to audit logging, which are driven by business environment, policies, and organizational needs rather than direct system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-audit-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to wrapping input elements and styling strategies, which are driven by business and organizational considerations rather than direct architectural element design or system properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-0004-why-wrap-input-textarea.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a decision driven by the business environment, specifically the choice of programming languages for new development, which affects organizational and strategic aspects rather than the system's structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-language-choices-for-new-development.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the creation and structuring of data entities and their relationships within the system, which directly relates to the existence of system components and their organization.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0016-data-structure-tasks-submissions-entries-and-files.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the creation and storage of data entities such as Tasks, Submissions, Entries, and Files, which are elements that will exist in the system's architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-generate-a-data-export-for-finance.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to API versioning and extension mechanisms, which are driven by business needs and organizational considerations rather than direct system structure or properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0008-api-extensions-mechanism.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to use DotEnv for managing environment variables, which pertains to the existence of a system component (environment variable management) in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly states that the data structure will involve specific entities (Tasks, Submissions, Entries, Files), indicating a decision to establish and define these entities within the system, which aligns with the 'Existence' category. However, since the classification is requested for the ADR to classify, and the provided answer indicates the ADR's decision is to store data using these entities, the primary decision is about establishing these data structures, which is an 'Existence' decision.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0012-automate-dqt-integration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "All the provided ADRs describe decisions related to the creation or declaration of system elements, components, or artifacts, such as datasets, APIs, or data structures, indicating they are about elements that will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "007-Integration-Approaches.html.md.erb"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to adopt DotEnv for managing environment variables, which involves declaring the existence of a specific tool in the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-non-integer-trainee-ids.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to use DotEnv for managing environment variables, which involves declaring the existence of environment configuration elements in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-use-skylight-for-performance-monitoring.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to organizational and process aspects, such as migration strategies, environment setups, and documentation practices, which are driven by business and organizational considerations rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004_define_environments_after_gov_uk_paas_migration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses confirming performance issues before optimizing, which pertains to system qualities and constraints rather than structural or business decisions.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0010-confirm-performance-issues-before-optimizing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to the generation and transfer of data exports, which are driven by business environment and organizational needs rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-inverse-relationships-sample-update.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the existence, creation, or non-existence of system elements, artifacts, or source information, which aligns with the 'Existence' category in Kruchten's ontology.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "74-schemaorg-additionalType-vs-RDF-typing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses defining a boolean type, which relates to the existence or non-existence of a boolean value in the system's configuration or data model.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "boolean.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the storage and management of key names, specifically whether to store escaped or unescaped versions, which directly pertains to the existence and handling of system elements (keys).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "functions_with_buffers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying a specific decision related to the structure or presence of files or assets, which aligns with the 'Existence' category, as it pertains to the existence of multiple files in backends.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "multiple_file_backends.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying a specific architectural decision related to AWS credentials management, which involves the existence and use of infrastructure components (IAM roles, instance profiles). This aligns with decisions about what elements or artifacts will exist in the system, fitting the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "store_name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the rationale behind choosing a specific name for a project, which is a structural decision related to the existence of an artifact (the project name). It focuses on defining and selecting the project's identity, a fundamental element in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "project-name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to implement a single HTTP API as the central access point for the system, which involves creating or establishing a new architectural element (the API) that will exist in the system. This aligns with the structural decision to introduce an architectural component responsible for managing access, thus fitting the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-http-api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs describe decisions related to the creation, support, or support of specific architectural elements or artifacts, such as support for module formats, project organization, or technology choices, which align with structural or behavioral existence decisions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0004-use-create-react-app-and-npm-eject-to-create-the-basis-of-the-project-structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the existence and structure of architectural elements, such as whether to keep study as a DTO or replace entries with instances, which pertains to the existence of system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2020-08-10-architecture-decision-records.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a specific decision to classify a type of data (a continuous inpatient spell) and its associated attributes and relationships, which aligns with declaring the existence of a particular element within the system's data model.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "creating_continuous_inpatient_spells.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses the properties and constraints of the system, such as logging formats and configurations, which are characteristics or qualities rather than the existence or non-existence of elements, or decisions driven by business environment.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-application-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses using environment variables to configure applications differently depending on the deployment environment, which is a structural decision about the system's configuration elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "004-configuration-by-environment-variable.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, addition, or removal of system elements, such as components, features, or data structures, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0013-handle-eventual-consistency-with-etags.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses identifiers being created and assigned to elements, which relates to the existence of these elements in the system. It addresses the creation and management of entities (road nodes, segments, junctions), indicating decisions about what elements will exist in the design.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "004-temporary-and-permanent-identifiers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to organizational and process aspects, such as choosing to use a specific repository as the primary source for setup scripts and removing duplication, which are driven by business and organizational considerations rather than direct architectural design elements.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0011-preinstallable-images-on-data-volume.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to documentation standards, which are driven by business and organizational considerations rather than system structure or properties.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0018-use-regular-expression-to-split-multiple-sentence-titles.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the need to modify or deprecate certain API endpoints, which involves the existence or removal of system components and functionalities. This aligns with structural decisions about what elements are present or absent in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-keep-study-as-a-dto.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily declare the existence or non-existence of system elements or artifacts, such as components, identifiers, or help comments, which aligns with the 'Existence' category in Kruchten's ontology.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-cpp-to-interface-with-the-ftduino.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a significant change in the data handling and API structure of the system, affecting deployment, communication, and internal architecture, which aligns with decisions driven by business and organizational considerations rather than direct system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0003-Pipeline_API_Rewrite.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to the structure and management of testing modules, which are driven by business and organizational considerations rather than direct architectural elements.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0004-build-an-abstracted-resident-store.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions about the creation, configuration, or use of system components, infrastructure, or artifacts, which aligns with the 'Existence' category. For example, decisions about using AWS Lambda, layered architecture, or event-driven architecture involve establishing the existence and structure of system elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "Event-Driven-Architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses enforcing code style consistency through tools like ESLint, which pertains to system qualities and constraints rather than structural or organizational elements.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0005-use-eslint.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses implementing or re-implementing JavaScript features to establish or modify the presence of specific functionalities within the system, aligning with structural or behavioral elements that will exist in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-reimplement-gov-uk-frontend-javascript-internally-to-this-library.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to organizational, process, or business environment factors, such as choosing to implement search using existing database features or selecting performance monitoring tools, which are driven by business and organizational considerations rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-use-postgres-search.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of container orchestration, which involves creating and managing container-based workloads, thus relating to the existence of system elements (containers, orchestration tools).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-8-dome-ingest.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation, modification, or removal of system elements such as data structures, APIs, or infrastructure components, which aligns with the 'Existence' category that involves decisions about what elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-lambda.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to use Docker containers for deploying services, which involves creating and managing specific system components (containers). This aligns with structural decisions about system elements and their deployment artifacts.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-docker-containers-for-everything.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the selection and deployment of a container orchestration platform (Kubernetes), which involves establishing the existence of this system within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-kubernetes-for-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to build and deploy infrastructure components (e.g., Prometheus in ECS, Helm charts for Prometheus Operator), which are structural elements of the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0039-prometheus-operator-helm-chart.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and existence of a specific infrastructure component (using files for private keys), which aligns with structural decisions about system elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a fundamental change in the persistence mechanism of the system, specifically replacing the relational database with a JSON document database, which affects the core data storage architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-replace-rdb-with-json.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the structure and storage of data entities such as Tasks, Submissions, Entries, and Files, which are core elements of the system's data architecture. This directly relates to the existence and organization of system components and data structures.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-cookies.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to testing frameworks, which are driven by business and organizational considerations rather than system structure, properties, or existence. Therefore, it fits best into the 'Executive (pericrisis)' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-use-jest-and-cypress-for-tests.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the removal of a local proxy for Elasticsearch, which involves the existence or non-existence of the proxy component in the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-client-side-routing-using-history-api-and-redirects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses enhancing error object structure to include more detailed, structured information about errors, which relates to system properties and constraints rather than existence, non-existence, or organizational decisions.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0016-structure-of-error-object.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the introduction of aliasing mechanisms for API operations, which directly relate to the existence and accessibility of specific system elements (operations) within different namespaces. This decision impacts the structural organization and availability of system components, aligning with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-openapi-generator-naming.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the need to create form field variations and form groups, which are structural elements of the user interface, indicating decisions about what elements will exist and how they are organized.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "form-field-variations.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to write documentation guidelines for components, which relates to establishing the existence and proper documentation of system elements.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "writing-docs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to background task management using Redis and Bull, which are driven by business needs and operational considerations rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-redis-and-bull-for-background-tasks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses reorganizing test code into separate directories and categorizing tests, which relates to development process and organizational decisions rather than system structure, properties, or existence.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0011-put-integration-tests-in-seperate-folder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to store private keys as files, which directly relates to the existence of a system component (private keys).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2020_05_13_handling_non_crud_operations_in_api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a change in the system's structure by reorganizing test directories, which affects the existence and organization of system components.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0005-inject-ab-config-global-values-toPresenter.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to organizational and process aspects, such as adopting code style guides and development processes, which are driven by the business environment and organizational context rather than system structure or properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0011-use-govuk-design-system-form-builder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to data migration tools and deployment procedures, which are driven by business environment considerations rather than system structure or properties.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-use-data-migrations-to-update-live-data.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a change in the system's event handling mechanism, specifically introducing a new way to represent multiple events as a list of events, each with its own set of tags. This directly relates to the existence of a new architectural element (events) and its structure within the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0024-use-scripts-to-rule-them-all.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying and structuring architectural decisions, such as choosing to remove HATEOAS links from entities, which relates to the existence of certain features or elements in the system architecture.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0009-remove-hal-links.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about whether certain elements or features will be included or excluded in the system, such as source information nodes, protocol buffer encodings, or transaction components, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0002-use-sha256-with-base64url-encoding.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about which elements, features, or components will be included or excluded in the system, such as supporting or not supporting certain features, managing environment variables, or organizing architecture components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-0003-nix-for-dependency-management.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, support, or declaration of system elements, such as web applications, container orchestration, and performance monitoring tools. These are structural or infrastructural decisions that establish the existence of components or systems.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-follow-optimistic-concurrency.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses generating a CSV export file as part of the system functionality, which involves creating and managing a data artifact within the system. This aligns with structural or behavioral decisions that establish the existence of a data artifact or process within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-007-pa-dep-client-app.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses re-implementing JavaScript features from an external library (`govuk-frontend`) into this library, focusing on making the implementation more idiomatic React. This decision pertains to development process and technical approach rather than system structure, qualities, or business environment.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0004-asset-integrity-check.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR explicitly discusses the implementation of a new architecture for the Settings Panel, involving the creation and configuration of various components such as Panels, Sections, Widgets, and Controls. These are structural elements that will exist in the system, indicating a decision about what elements will be present in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0277-run-action-shell-options.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying architectural decisions into categories such as existence, non-existence, property, or executive. Given the context, the decision pertains to whether to support node type definitions in TOSCA service templates, which directly relates to the existence or non-existence of a feature in the architecture.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0002-add-default-implementations-to-componentlifecycle.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses exposing data and services through a REST API, which involves defining and creating resources that will exist in the system. This aligns with structural decisions about system components and their organization.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-expose-services-through-rest-api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to use environment variables for configuration, which pertains to the existence of a system element (configuration method).",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0005-help-comments.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR explicitly states the choice of Microsoft Azure as the primary cloud provider, which is a decision about the existence of a specific platform or environment.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-we-chose-our-primary-cloud-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly states that the decision is to not show the kickers for ties, which is a declaration that certain elements (kickers in this case) will not exist in the final implementation when specific conditions are met.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0013-show-no-kickers-for-ties.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses minimizing browser testing by shifting logic to the build process, which relates to decisions affecting development processes and tools rather than system structure, properties, or existence.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0005-minimize-the-amount-of-code-that-must-be-tested-in-the-browser.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses building a data warehouse to store and maintain a copy of information from transactional systems, which involves creating a new data artifact that exists within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-006-track-metrics-via-time-dimension.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the existence and structuring of HTML elements and their styles, such as wrapping inputs in a div and managing CSS classes for JavaScript initialization, which are structural decisions about system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-avoiding-initialisation-flickers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, management, or declaration of system elements, such as infrastructure components, authentication mechanisms, or AWS resources, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0008-interrogation-method-iam-role.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation, modification, and management of system elements such as tables, data models, and data retention strategies, which are structural and behavioral decisions related to system components and their interactions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-initial-data-retention-strategy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to establish or maintain a specific architectural element, such as using a Puppetmaster architecture, which directly relates to the existence of system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-puppet-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the existence or non-existence of architectural elements, such as folder structures, proxies, and data structures, which directly impact the system's architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0017-terraform-data-structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses removing an existing proxy layer for Elasticsearch, which involves decisions about the presence or absence of system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0022-remove-the-elasticsearch-proxy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, addition, or implementation of system elements, components, or artifacts, which aligns with the 'Existence' category. For example, decisions about adding new roles, components, or modules involve declaring that certain elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-use-dex-idp-for-user-web-auth.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs describe decisions related to the creation, structure, or presence of system elements, such as directory structures, data entities, or configuration components, which align with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-structure-for-terraform-projects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses the decision to build upon Kubernetes as the base container orchestrator and IaaS layer, which is a strategic, high-level decision affecting the organization's infrastructure and technology choices, aligning with the 'Executive' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR003-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "All provided ADRs describe decisions related to the creation, selection, or removal of system elements, components, or infrastructure, which aligns with the 'Existence' category. They specify what elements will or will not exist in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR004-tenant-isolation.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the creation, configuration, or deployment of system components and infrastructure, such as using AWS Lambda for processing, implementing service operators, or defining data structures. These are structural or behavioral decisions that establish what elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR022-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the adoption of a layered architecture pattern, which involves defining and establishing the existence of system layers such as presentation, application, domain, and infrastructure. This decision is about creating and structuring system components, fitting the 'existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR034-one-service-operator-different-resource-kinds.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, structure, or deployment of system elements, such as infrastructure components, services, or architectural structures, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0003-use-ecs-for-initial-beta-buildout.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a decision to implement or establish a new system component (the DQT dataset and API), which involves creating or deploying a new element in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR007-paas-taking-ownership.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the use of Kubernetes secrets to identify and manage sensitive data, which relates to the existence of security artifacts within the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR003-AWS-credentials.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the pre-installation of Docker images on a device, which involves creating and managing specific artifacts (images) before deployment, indicating a structural decision about system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR004-domain-naming-scheme.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the selection of a programming language and framework (Ruby and Rails) for developing web applications, which pertains to the existence of these technological elements in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR022-web_app_language_and_framework_selection.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to implement a technical solution\u2014redirecting HTTP to HTTPS\u2014to enforce secure communication, which relates to the existence of a specific system behavior. This decision involves establishing a mechanism to ensure that applications are accessible only via HTTPS, thus affecting the system's operational state.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR033-redirect-http-for-applications.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a decision driven by organizational and process considerations, such as forking a project to ensure stability and future-proofing, which relates to business environment and tooling choices rather than system structure or properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-005-forking-frontend-components-from-govuk-frontend.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to infrastructure support and versioning strategies, which are driven by business and organizational considerations rather than direct architectural element design.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0004-pin-versions-of-jenkins-and-plugins.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the existence of identifiers (temporary and permanent) for entities in a system, which directly relates to the creation and management of system elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-popularity-updating-without-index-locks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to use files for storing private keys, which directly relates to the existence of a system component (private keys).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-use-files-to-store-private-keys copy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and management of specific data structures (e.g., list of events, session cookies, dataset) and the use of files for private keys, which are elements that will exist in the system's architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "20190327-hashing-attributes.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to business environment, such as handling authentication failures and response codes, which are driven by organizational and operational considerations rather than system structure or properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0021-we-will-use-http-200-for-valid-saml.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes a process change in the release workflow, focusing on procedures, approvals, and security measures rather than the creation or elimination of system elements or properties. It pertains to organizational and procedural decisions driven by business needs.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0024-release-process-for-verify-service-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the existence or non-existence of system elements, such as creating new tables, adding configuration objects, or annotating model elements, which align with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0010-shape-annotation-types.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to create or define an element or artifact within the system, such as data structures, source information nodes, or error handling structures, which aligns with the 'existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-source-information-node-storing-source-locations.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about whether certain elements, features, or components will be included or excluded in the system, which aligns with the 'existence' category. For example, decisions about creating, removing, or configuring components or features directly relate to their existence in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-keep-qa-and-devs-html-selectors-separate.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions related to organizational structure, standards, and processes, which are driven by business environment and organizational needs rather than system elements or qualities.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "ADR-20-explorer-settings-panel-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation, assignment, and management of identifiers and data structures that will exist in the system, such as temporary and permanent identifiers, data entities, and data structures.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-32-wearable-committee-reverts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about whether certain components, features, or endpoints will exist or be removed, which aligns with the 'Existence' category. They focus on adding, deprecating, or removing specific API endpoints and system components, indicating decisions about their existence in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-43-catalyst-api-refinment.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of a new module (Royalties Manager) that introduces a new component responsible for managing royalties, which is a structural addition to the system. It defines how royalties are determined and retrieved, effectively adding a new element to the system's architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-46-royalties-manager-v1.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to deploying and managing mailbox listeners, including configuration management, deployment procedures, and operational considerations, which are driven by business environment and operational needs.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0003-cqrs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and provisioning of a service operator, which involves establishing a new system component that will exist in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-distributed-workqueue.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of a distributed task termination acknowledgment system, which involves creating and managing new system components and artifacts related to task execution and event handling. This aligns with decisions that declare the existence of new elements in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-distributed-task-termination-ackowledgement.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of new components or features in different programming languages, specifically focusing on creating mailets and components in Scala. This involves the creation and addition of new system elements, aligning with the 'Existence' decision type.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0024-polyglot-strategy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions to create, support, or declare the existence of system components, features, or infrastructure elements, such as container orchestration primitives, state sync mechanisms, or mailbox listeners.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0026-removing-configured-additional-mailboxListeners.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, configuration, or management of system components, resources, or artifacts, which aligns with the 'Existence' category. For example, decisions about registering mailbox listeners, managing email archives, or handling system components are about what elements will exist or be configured in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0028-Recompute-mailbox-quotas.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the addition, removal, and configuration of mailbox listeners, which are elements that exist within the system to handle mailbox events. The decision revolves around defining, registering, and managing these components, indicating a focus on the existence of system elements.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0035-distributed-listeners-configuration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation or modification of system elements, such as returning a list of events or implementing a corrective task, which are structural or behavioral decisions related to system components and their interactions.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0042-applicative-read-repairs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes implementing a web push notification system, which involves creating and managing new infrastructure components (push gateways, storage, clients). This aligns with the creation or declaration of new system elements, characteristic of the 'Existence' decision type.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0050-jmap-web-push.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR #3 discusses the placement of documentation (README) as the main entry point for new team members, which relates to organizational and process decisions rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-have-the-master-documentation-in-the-readme.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses exposing all available data points in the backend and managing data selectors, which relates to the existence of data elements and their management within the system.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0003-monitor-condition-and-data-selectors.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly states that the system will no longer accept integrations over GPIO, effectively declaring that such elements will not exist in the core system, which aligns with the 'Ban/Non-Existence' decision type.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-GPIO.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the need for a common data model and persistence layer to enable applications to read and write data across multiple backends, which relates to the existence of a data abstraction element within the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-data-abstraction-model.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the design principles and system architecture for Archivematica, focusing on the existence and structure of digital preservation components and their interactions, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0010-archivematica-original-design-principles.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the structure and organization of Terraform projects, which pertains to the existence and arrangement of system components and resources.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-use-row-level-security-in-postgres-to-implement-multitenancy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to API key management, which are driven by business environment considerations rather than system structure, behavior, or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-api-key.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses selecting a backend language/framework (Django with Django Rest Framework), which is a structural decision about the system's components. It declares that a specific technology will be used, fitting the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-0002-backend-language-framework.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to dependency management using Nix, which are driven by business and organizational considerations rather than direct architectural element design.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "2019-05-09-modular-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying a decision related to the inclusion or exclusion of elements (e.g., client app, data structures, quota tracking) within the system architecture, which aligns with decisions about what will exist or not exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2019-09-28-time-estimation-for-links.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about what elements, features, or artifacts will exist or be created within the system architecture, such as classifying types of decisions, standards, or structural elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-003-handling-duplicate-node-ids.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a specific architectural decision about why certain HTML elements are wrapped in a 'div.wrapper' and styled accordingly, which pertains to the existence and structuring of UI components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2018-10-02-component-fonts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of a data export feature, which involves creating and managing a CSV file, its storage, and transfer mechanisms. These are structural and behavioral decisions related to system components and their interactions, fitting the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "geocoder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying a decision related to the use of a specific technology (esbuild) and its runtime behavior, which pertains to the existence and support of a tool within the architecture.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0012-can-t-use-esbuild.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a fundamental architectural decision to adopt TypeScript for the project, which involves declaring the existence of a new technology in the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-use-typescript.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the choice of an ODE solver, which pertains to the existence and stability of system components within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0018-backwards-differential-solver.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the main programming environment and tools used for development, which relates to the existence of a development environment artifact in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr_python-dev-env.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses architectural decisions related to the structure and components of the system, such as layering and application architecture, which are structural elements that will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-layered-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to build upon Kubernetes as the base container orchestrator, which involves establishing the existence of a fundamental system component for container management.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "007-package-repository.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to manage database schema creation and updates, which directly relates to the existence of the database artifacts and their structure.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-jpa-manages-schema.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the selection and implementation of a specific technology (AWS RDS Aurora MySQL) for database persistence, which involves creating and deploying a system component. This aligns with the 'existence' category, as it pertains to the creation and provisioning of an artifact in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-rds-aurora-mysql-for-database-persistence.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the selection and support of different module formats (CommonJS, ES Modules, UMD) to ensure the existence of these module types in the system, which aligns with structural decisions about system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "6_package-module-support.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses establishing standards for `z-index` values to manage front-end layering, which influences the development process, tools, and organizational practices rather than specific system elements or qualities.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "zindex-values.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses implementing a redirect endpoint that listens for HTTP requests and redirects them to HTTPS, which involves the creation or existence of such an endpoint in the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-abci-app-rpc.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying architectural decisions based on whether elements or artifacts will exist, will not exist, or relate to system properties or organizational factors. All examples provided involve decisions about the existence or non-existence of system components or artifacts, fitting into the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-020-block-size.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the classification of architectural decisions, specifically focusing on decisions that declare the existence of system elements, such as data structures, components, or processes, in the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-021-abci-events.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the classification of architectural decisions related to the type of element or artifact that will exist in the system, such as the introduction of new features or components, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-051-double-signing-risk-reduction.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses transitioning to a new serialization format (Protobuf) to replace the existing Amino serialization, which involves creating new proto files and updating encoding mechanisms. This decision primarily concerns the existence of data formats and artifacts within the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-055-protobuf-design.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the inclusion of a data root commitment in the rollup block header, which directly relates to the existence and structuring of data within the system. It focuses on how data is committed to and verified within the block, aligning with the structural aspect of architectural decisions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-056-light-client-amnesia-attacks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the classification of architectural decisions related to the creation, modification, or removal of system elements, such as APIs, modules, or components, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-060-go-api-stability.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the design and implementation of a new P2P architecture, including the introduction of new interfaces, data structures, and protocols to establish and manage peer connections and message routing, which are structural elements of the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-062-p2p-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses implementing a batch verification process for cryptographic signatures, which involves creating and verifying multiple cryptographic elements (signatures, keys, messages). This decision pertains to the creation and management of system elements (cryptographic verification processes) to improve performance, fitting the structural aspect of existence decisions.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-064-batch-verification.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a change in the application's architecture, specifically adopting hexagonal architecture, which influences the overall design and structure of the application. This decision is driven by organizational and strategic considerations to improve architecture quality, rather than directly declaring the existence or non-existence of specific elements, or setting system properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-067-mempool-refactor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the introduction of new P2P message types and protocols to fetch, verify, and store historical light blocks, which directly involve the creation and management of new data elements within the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-068-reverse-sync.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying the type of architectural decision made, which involves declaring the existence of certain data structures and mechanisms within the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-007-header-commit-to-shares.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a decision driven by the business environment and organizational considerations, specifically the choice to adopt TypeScript and support different module systems, which are related to organizational and technological environment factors.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-choice-of-react.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to IAM credentials management, focusing on policies, roles, and operational procedures rather than system structure, behavior, or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-2018-10-04.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs describe decisions that result in the creation or declaration of system elements or artifacts, such as components, styles, or standards, indicating they are about what will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-use-linter-for-css.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the data structure and entities (Tasks, Submissions, Entries, Files) to be stored in the system, which relates to the existence of these elements within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-implement-minimal-api-abstracting-grimoire.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to implement or adopt a specific architectural element or artifact, such as using DotEnv for environment variable management, which directly affects the system's structure.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0008-implement-workarounds-for-capi-and-log-cache-to-unblock-global-strict-mtls.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a refactoring of the 'push' command into smaller, composable functions, which collectively define the steps and structure of the deployment process. This aligns with structural decisions about how the system's components and processes are organized and executed.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0004-v7-push-refactor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses implementing a redirect endpoint to handle HTTP traffic, which involves creating a new system component (the redirect endpoint). This aligns with structural decisions about system elements, thus fitting the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-renaming-space-application-suporter-role-to-space-supporter.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about what system elements or artifacts will exist or be created, such as repositories, documentation, or infrastructure components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-check-in-copilot-dependencies-that-were-already-vendored.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses decisions related to the creation, structuring, and interaction of system elements, such as components, layers, and connectors, which are structural aspects of the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-frame-vs-scale.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and management of a royalties receiver, which involves defining a new resource or element (the royalties receiver) based on on-chain data. This aligns with the 'Existence' category, as it pertains to the existence of a resource in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-004-split-denomination-keys.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a decision to create or replace an element in the system, specifically replacing the current key store backend with a new one, which is a structural change in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-006-secret-store-replacement.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the creation, modification, or removal of system elements, such as generating data exports, generating CSV files, or generating protocol buffer transactions, which are structural or behavioral elements of the architecture.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-020-protobuf-transaction-encoding.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation or provisioning of system elements such as private keys, container orchestration primitives, and fee modules, which are structural or infrastructural components essential for system operation.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-029-fee-grant-module.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about the existence and structure of system components, such as data structures, modules, and elements within the architecture, indicating a focus on what elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-044-protobuf-updates-guidelines.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying an architectural decision related to the IBC Packet Receiver, which involves defining how packets are routed and processed within the system, thus establishing the existence and handling of a specific component or element in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-ibc-packet-receiver.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses adopting a specific application architecture (hexagonal architecture) to improve design, which involves structural decisions about the existence and organization of system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-hexagonal-architecture-for-applications.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of a specific architectural element, such as using environment variables for configuration or files for private keys, which are decisions about the existence of system components or artifacts.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-authenticate-frontstage-users-azure-b2c.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying and understanding different types of architectural decisions, which aligns with decisions that declare the existence or non-existence of elements in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-for-machine-learning-select-a-vendor-specific-stack-of-a-general-stack.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses the decision to not implement versioning for HTTP App Callback APIs, which is a decision driven by operational and organizational considerations rather than changes to system structure or properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "API-010-appcallback-versioning.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of client-side routing and the creation of HTML pages for each image, which involves defining and establishing the existence of specific UI elements and their navigation structure.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0004-use-client-side-rendering-create-react-app.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "All the provided ADRs describe decisions related to the creation, declaration, or management of system elements, artifacts, or identifiers, which aligns with the 'Existence' category. They focus on what exists or will exist in the system, such as data structures, APIs, identifiers, or system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0011-persistent-user-identity-proposal"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation and provisioning of an IAM role and policy, which are elements that will exist in the system to enable specific functionality. This aligns with structural decisions about system elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0002-choice-of-auth-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily describe decisions related to the existence and structure of system components, data structures, and infrastructure elements, which aligns with the 'Existence' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "ADR Folder structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to versioning, folder structure, and dependency management, which are driven by business environment and organizational factors rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-location-of-testing-features.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses establishing a fixed folder structure for the project, which is a structural architectural decision about the organization of system components and files.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-0006.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses classifying architectural decisions into categories such as existence, non-existence, property, or executive. Since it focuses on categorizing decisions based on their nature, it aligns with the 'Existence (ontocrisis)' category, which pertains to decisions about whether elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0002-use-bullet-to-catch-nplus1-queries.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses a decision to handle the complexity of managing AWS variables by implementing a specific approach, which relates to the existence and management of system elements (variables) within the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0008-use-different-aws-account-for-interacting-with-infrastructure-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions related to release management, automation, and tooling, which are driven by business environment considerations rather than system structure or properties.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the decision to include Normalize.css to standardize styles across browsers, which is a structural decision about the system's styling artifacts.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0013-use-normalize-css-to-normalize-styles-across-browsers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the physical structure and organization of configuration files within a directory hierarchy, which pertains to the existence of system artifacts.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-this-repo-as-source-of-setup-scripts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses how to handle CSS rules for editors, which involves creating new packages, CSS files, and presets, indicating the creation or modification of system elements. This aligns with structural decisions about system components and their organization.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "003-editor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the creation or existence of specific identifiers and their management, which relates to elements coming into existence within the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0007 - Nd4j classifiers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the addition or modification of system elements, such as configuration objects, data structures, or code style guidelines, which directly relate to the existence and structure of system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-configuration_objects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses adding a new source information node to track source locations, which pertains to the existence and structure of system components (source location data).",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0009-aliasing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the addition or modification of system elements, such as returning a list of events or implementing signal enrichment features, which involve creating or altering system components or artifacts.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "DADR-0004-signal-enrichment.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses a domain naming scheme, which pertains to organizational and environmental decisions affecting deployment and infrastructure, rather than the creation or removal of system elements or their properties.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0003-double-encoded-urls.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process decisions regarding the structure and management of tests, which are driven by business and organizational considerations rather than direct architectural design or system properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)",
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0014-use-eclipse-orion-as-editor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADRs primarily involve decisions about whether certain elements or features will exist or not in the system, such as support for node types, help comments, or multiple files. These are structural or behavioral choices about the presence of components or functionalities.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0019-version-in-the-name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses organizational and process considerations, such as the decision not to implement a feature flag module, which relates to business environment and strategic planning rather than system structure or properties.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-Feature-Flags.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR discusses the implementation of a retry and persistence mechanism for events, which involves creating, storing, and managing the existence of event records and their retries. This pertains to the existence of event data and the system's handling of these data elements over time.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-persistence-and-retries-for-events.rst"
+        }
+    }
+]

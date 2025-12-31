@@ -47,7 +47,7 @@ If the ADR does not clearly fit any of the defined architectural decision types,
 
 QUALITY_ATTRIBUTES_FRAMEWORK = """
 Your task is to analyze Architectural Decision Records (ADRs) to identify referenced or implied quality attributes (non-functional requirements). 
-Userthe definitions provided below, derived from ISO/IEC 25010 and the Bass/Clements/Kazman framework.
+Use the definitions provided below, derived from ISO/IEC 25010 and the Bass/Clements/Kazman framework.
 
 ## Categories:
 * Performance: The degree to which a system performs its functions within specified time and throughput parameters, efficiently utilizing resources such as CPU, memory, and storage. 
@@ -181,13 +181,13 @@ def get_classification_prompts(include_examples: bool = True) -> dict[str, str]:
 
 CONSISTENCY_PROMPT_ALL_SECTIONS = """
 ## Instructions
-1.  For each MADR section_name (Status, Context, Decision, Consequences, Decision Drivers, Considered Options), return the following information:
+For each MADR section_name (Status, Context, Decision, Consequences, Decision Drivers, Considered Options), return the following information:
 * Presence: Is there a clearly labeled heading for this section in the ADR? (Yes/No) Only answer "Yes" if the ADR includes a heading specifically dedicated to this section.
 * Content Quality: If present, is the section sufficiently filled with meaningful content? (Yes/No)
 * Purpose Consistency: Does the content only fulfill the intended purpose of this section, without overlapping with the role of any other section? (Yes/Partial/No) Check if the section includes material that clearly belongs to a different section (e.g., analysis of options in the Context section). If so, set purpose_consistency = Partial. 
 * Short Justification: Briefly explain your reasoning if the section is missing or misused (i.e., content is insufficient or off-purpose). 
 
-Assume the following expected purposes:
+Assume the following expected purposes for each section:
   * Context. Describes the background, system state, problem, or motivation. It must not include detailed comparisons between solutions, rationales, or final decisions—those belong in "Considered Options" or "Decision". If present, mark purpose_consistency = No. 
       Includes: technical constraints, stakeholder needs, project circumstances, or related issues.
   * Decision. Clearly and explicitly states the final choice that was made in response to the context. This is the core of the ADR and should be unambiguous.
@@ -221,7 +221,7 @@ Assume the following expected purpose of the "{section_name}" section:
 {section_purpose}
 
 ## Instructions
-1. For the MADR section "{section_name}", return the following information:
+For the MADR section "{section_name}", return the following information:
 * Presence: Only answer "Yes" if the ADR includes a heading that exactly matches the expected section title (e.g., "{section_name}"). Otherwise, answer "No".
 * Alternate Title: If the content clearly fulfilling the intended purpose of this section appears under a different heading, return that heading or those headings exactly as written in the ADR, as a list.
     * If multiple headings serve this role, list them all.
@@ -243,12 +243,12 @@ Assume the following expected purpose of the "{section_name}" section:
     * If content is vague, off-topic, or misplaced
     * Why the content does or doesn't fulfill the section's intended role
 
-## Chain-of-Thought Checklist (Follow this reasoning steps)
+## Chain-of-Thought Checklist (Follow these reasoning steps)
 1. Is a section with the expected title present? (Set presence)
 2. If not, is the content fulfilling this role found under another heading? (Set alternate_title)
 3. Is the content substantial and project-specific? (Set content_quality)
 4. Is the content dedicated to this purpose and not another? (Set purpose_consistency)
-5. Explain briefly why in justification.
+5. Explain briefly why your assessments above (1 to 4) in your justification.
 
 ## Important guidelines:
 * Use all available information: Base your assessment on what’s actually in the ADR.
@@ -279,6 +279,7 @@ Note:
 - If such misalignments exist (title vs. content location), describe them in your assessment.
 
 Your adherence score, between 0.0 (lack of alignment) and 1.0 (almost perfect alignment), should be calculated based on the presence and degree of alignment of each section. 
+Please make your assessment of each section before giving the adherence score.
 
 For the assessment, use a string list of bullets to enumerate your individual analysis of each template section.
 

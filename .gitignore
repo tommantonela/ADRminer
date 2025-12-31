@@ -5,3 +5,4 @@
 /notebooks/__pycache__
 /notebooks/catboost_info
 /notebooks/old
+.DS_Store

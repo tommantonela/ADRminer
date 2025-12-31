@@ -3,7 +3,8 @@ from pythonjsonlogger.json import JsonFormatter
 from typing import Dict, Tuple
 import logging
 import sys
-
+import json
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
@@ -82,3 +83,41 @@ def process_projects(dict_adrs: Dict, min_adrs_per_project: int = 5, min_adr_len
         "filtered_projects": list(filtered_projects),
         "valid_projects": list(valid_projects)
     }
+
+def convert_sample_to_examples(df: pd.DataFrame, filename: str, adr_column='text', category_column='human') -> dict:
+    df = df.dropna(subset=[category_column, adr_column])
+    list_dicts = []
+    for index, row in df.iterrows():
+        # print(f"ADR: {row['text']}\nCategory: {row['human']}")
+        list_dicts.append({'ADR': row[adr_column].strip("'"), 'Category': row[category_column]})
+    # Save the dictionary to the JSON file
+    if filename is not None:
+        with open(filename, "w") as f:
+            json.dump(list_dicts, f, indent=4) # Using 'indent=4' makes the file human-readable
+    return list_dicts
+
+def prune_corpus(docs: dict) -> tuple[list[str], list[str]]:
+    """
+    Prune the corpus of documents by removing spurious strings (if any)
+    :param docs: dictionary with the documents
+    :return: pruned corpus
+    """    
+    all_adr_keys = list(docs.keys())
+
+    # Get the corpus of documents for topic modeling
+    logger.info("Corpus (before):", len(docs))
+
+    # Removing spurious strings (if any)
+    corpus = [docs[(org, project, adr)] for org, project, adr in all_adr_keys]
+    corpus = [s for s in corpus if (len(s) > 0) and not s.isspace()]
+
+    keys_to_remove = []
+    for k in all_adr_keys:
+        candidate_adr = docs[k]
+        if candidate_adr not in corpus:
+            logger.info("Removing spurious ADR:", k)
+            keys_to_remove.append(k)
+    all_adr_keys = [k for k in all_adr_keys if k not in keys_to_remove] # Update the keys (for further reference)
+    logger.info("Corpus (after):", len(corpus))
+
+    return corpus, all_adr_keys
