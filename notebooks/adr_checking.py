@@ -22,7 +22,7 @@ import concurrent.futures
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 formatter = JsonFormatter(fmt='%(asctime)s %(levelname)s %(name)s %(message)s')
 logHandler = logging.StreamHandler(sys.stdout)
