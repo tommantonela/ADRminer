@@ -98,6 +98,8 @@ class CustomExampleSelector(_VectorStoreExampleSelector):
     selector: BaseExampleSelector | None = None
     embeddings_model: str = "all-MiniLM-L6-v2"
     embeddings: Embeddings = None
+    k: int = 4
+    class_variety: bool = False
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -119,9 +121,11 @@ class CustomExampleSelector(_VectorStoreExampleSelector):
         return similarity
     
     def select_examples(self, input_variables: dict[str, str]) -> list[dict]:
+        
         main_key = list(input_variables.keys())[0] # TODO: This only work for 1 single key!
         main_question = input_variables.get(main_key, None)
         examples = self.selector.select_examples(input_variables)
+        
         # print("Wrapper!", main_key)
         # print("-"*10)
         # for e in examples:
@@ -130,9 +134,30 @@ class CustomExampleSelector(_VectorStoreExampleSelector):
         #     print("-"*10)
         # Remove instances that are exactly the same as the posed question
         # filtered_examples = [e for e in examples if (main_question != e.get(main_key,None))]
+        
         # TODO: This part is kind of hard-coded (key, threshold)
         filtered_examples = [e for e in examples if self.compute_similarity(main_question, e.get("adr","")) < 0.95]
-        return filtered_examples
+        # print("First round of examples retrieved:", len(filtered_examples))
+        
+        # TODO: I need to select without repeated categories
+        if self.class_variety:
+            final_examples = []
+            considered_classes = []
+            for e in filtered_examples:
+                cat = e.get("category", None)
+                adr = e.get("adr", None)
+                if (cat is not None) and not (cat in considered_classes):
+                    considered_classes.append(cat)
+                    if adr is not None:
+                        final_examples.append(e)
+            # print("Second round of examples:", len(final_examples), considered_classes)
+        else:
+            final_examples = filtered_examples
+            
+        if len(final_examples) > self.k:
+            final_examples = final_examples[:self.k]
+        
+        return final_examples # Return top-k elements
     
     @staticmethod
     def _example_to_text(example: dict[str, str], input_keys: list[str] | None) -> str:
@@ -146,8 +171,9 @@ class CustomExampleSelector(_VectorStoreExampleSelector):
         # examples: list[dict],
         # embeddings: Embeddings,
         # vectorstore_cls: type[VectorStore],
-        # k: int = 4,
+        k: int = 4,
         selector: BaseExampleSelector | None = None,
+        class_variety: bool = False,
         # input_keys: list[str] | None = None,
         # *,
         # example_keys: list[str] | None = None,
@@ -180,7 +206,7 @@ class CustomExampleSelector(_VectorStoreExampleSelector):
         # )
         return cls(
             vectorstore=selector.vectorstore,
-            k=selector.k,
+            k=k, # selector.k
             selector=selector,
             input_keys=selector.input_keys,
             example_keys=selector.example_keys,

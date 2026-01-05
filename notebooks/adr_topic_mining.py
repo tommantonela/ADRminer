@@ -327,8 +327,8 @@ class ADRTopicModel:
         if multiple_topics:
             new_topics = []
             new_probs = []
-            for text in adr_texts:
-                nt, np = self.get_topics_probabilities_per_document(text)
+            for adr in adr_texts.keys():
+                nt, np = self.get_topics_probabilities_per_document(adr_texts[adr])
                 new_topics.append(nt)
                 new_probs.append(np)
         else:
@@ -340,7 +340,7 @@ class ADRTopicModel:
 
         results = []
         all_keybert_labels = list(self.topic_model.topic_labels_.values())
-        for text, topics, probs in tqdm(zip(adr_texts, new_topics, new_probs), desc="Inferring topics for ADRs"):
+        for adr, topics, probs in tqdm(zip(adr_texts.keys(), new_topics, new_probs), desc="Inferring topics for ADRs"):
             if isinstance(topics, list):
                 keybert_labels = [all_keybert_labels[t] for t in topics]
                 keywords = [self.get_topic_words(t, threshold=0.0) for t in topics]
@@ -357,15 +357,18 @@ class ADRTopicModel:
                 topics_ = [topics]   
                 probs_ = [probs]
             
-            result = TopicResult(text=text, topics=topics_, keywords=keywords, keybert_representation=keybert_labels, openai_representation=openai_labels, probabilities=probs_)    
+            result = TopicResult(text=adr_texts[adr], topics=topics_, keywords=keywords, keybert_representation=keybert_labels, openai_representation=openai_labels, probabilities=probs_)    
             if as_dict:
                 json_string = result.model_dump_json()
                 result = json.loads(json_string)
             results.append(result)
         
         # Add metadata of the ADR (name, project, organization), if provided
-        if as_dict and organization is not None and project is not None:
-            results = [{**res, 'metadata': {'organization': organization, 'project': project, 'adr_key': adr_key}} for res, adr_key in zip(results, adr_texts.keys())]
+        if as_dict: 
+            if organization is not None and project is not None:
+                results = [{**res, 'metadata': {'organization': organization, 'project': project, 'adr_key': adr_key}} for res, adr_key in zip(results, adr_texts.keys())]
+            else:
+                results = [{**res, 'metadata': {'adr_key': adr_key}} for res, adr_key in zip(results, adr_texts.keys())]
 
         if (json_file is not None) and as_dict and (len(results) > 0):
             ADRTopicModel.save_results(results, json_file)
