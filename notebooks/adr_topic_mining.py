@@ -271,7 +271,8 @@ class ADRTopicModel:
         return affected_documents
     
     def get_topic_words(self, topic_id, threshold=0.3) -> List[str]:
-        list_keywords = self.topic_model.get_topic(topic_id)
+        list_keywords = self.topic_model.get_topic(topic_id) if topic_id != -1 else []
+        # print("list_keywords:", list_keywords)
         return [x[0] for x in list_keywords if x[1] >= threshold]
     
     def get_topics_probabilities_per_document(self, doc: str, threshold=0.0):
@@ -350,6 +351,7 @@ class ADRTopicModel:
                 probs_ = probs
             else:
                 keybert_labels = [all_keybert_labels[topics]]
+                # print("keybert_labels", topics)
                 keywords = [self.get_topic_words(topics, threshold=0.0)]
                 openai_labels = []
                 if self.open_ai_representation:
