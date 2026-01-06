@@ -318,6 +318,25 @@ def show_classification_mosaic(cm, cm_labels: list[str], color_dict: dict[str, s
 
     labelizer = lambda k: ''
 
+    # TODO: read by "rows", and if all values are 0, then add a black rectangle
+    def chunker(iterable, k):
+        """Yields chunks of k elements from an iterable."""
+        for i in range(0, len(iterable), k):
+            yield iterable[i:i + k]
+    
+    # Create chunk iterators for both lists
+    chunks1 = chunker(list(props.keys()), n_classes)
+    chunks2 = chunker(list(data.keys()), n_classes) 
+
+    # Zip the chunks and iterate
+    for chunk_l1, chunk_l2 in zip(chunks1, chunks2):
+        # print(f"Chunk from list1: {chunk_l1}")
+        # print(f"Chunk from list2: {chunk_l2}")
+        # If the whole "row" has zero proportions, then artificially mark the first one a 1 and set a black color as the default
+        if all(data[key] == 0 for key in chunk_l2): 
+            props[chunk_l1[0]] = {'color': 'black'}
+            data[chunk_l2[0]] = 1
+
     p = mosaic(data, labelizer=labelizer, properties=props, ax=ax)
 
     # title_font_dict = {

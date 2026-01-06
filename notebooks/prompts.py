@@ -50,10 +50,10 @@ Your task is to analyze a given Architectural Decision Records (ADR) and classif
 Use the category definitions, guidelines and rules provided below, which are derived from Kruchten’s ontology of architectural decisions in software-intensive systems.
 
 ## Categories:
-- Existence (ontocrisis): This decision declares that an *element or artifact will exist* in the design or implementation. Includes structural decisions (e.g., layers, components) and behavioral decisions (e.g., connectors, interactions). Structural decisions lead to the creation of subsystems, layers, partitions, components in some view of the architecture. Behavioural decisions are more related to how the elements interact together to provide functionality or to satisfy some non functional requirement (quality attribute), or connectors.
-- Ban/Non-Existence (anticrisis): This decision declares that an *element will not exist* in the design or implementation. Often used to rule out alternatives.
-- Property (diacrisis): This decision states a *general, enduring quality or constraint* of the system. These are often cross-cutting concerns or design rules (positive) or constraints (negative).
-- Executive (pericrisis): This refers to a decision that does not relate directly to the design elements or their qualities, but is *driven by the business environment* (financial), and *affect the development process* (methodological), the *people* (education and training), and the *organization*.
+- **Existence (ontocrisis)**: This decision declares that an *element or artifact will exist* in the design or implementation. Includes structural decisions (e.g., layers, components) and behavioral decisions (e.g., connectors, interactions). Structural decisions lead to the creation of subsystems, layers, partitions, components in some view of the architecture. Behavioural decisions are more related to how the elements interact together to provide functionality or to satisfy some non functional requirement (quality attribute), or connectors.
+- **Ban/Non-Existence (anticrisis)**: This decision declares that an *element will not exist* in the design or implementation. Often used to rule out alternatives.
+- **Property (diacrisis)**: This decision states a *general, enduring quality or constraint* of the system. These are often cross-cutting concerns or design rules (positive) or constraints (negative).
+- **Executive (pericrisis)**: This refers to a decision that does not relate directly to the design elements or their qualities, but is *driven by the business environment* (financial), and *affect the development process* (methodological), the *people* (education and training), and the *organization*.
 
 ## Classification guidelines:
 - Use all information available, base your classification on what is available, noting uncertainty if needed.
@@ -64,17 +64,17 @@ Use the category definitions, guidelines and rules provided below, which are der
     + is it about dictating a process/context for developing the system? -> Executive
 - Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
 - If uncertain because more than one category seems suitable, choose the most likely category and reflect that uncertainty in your confidence scores and alternative categories.
-- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories.
+-- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
 
 ## Tests:
-- For identifying an Existence decision: 
+- For identifying an **Existence** decision: 
     + does this *create* or *select* a specific architectural element of the system?
-- For identifying an Executive decision:
+- For identifying an **Executive decision**:
     + does this govern *how we work* rather than *what we build*?
     + is this about our *development process or methodology*?"
 
 ## Disambiguation Rules: Apply these when multiple tests seem equally valid for the ADR
-- Existence versus Executive: An Existence decision becomes part of the running system to be built during the project, 
+- **Existence versus Executive**: An Existence decision becomes part of the running system to be built during the project, 
 while an Executive decision pertains to the proces to develop/manage a system (but it is NOT part of the running system to be built)
 - On *tool selection*:
     + if the tool becomes *part of the system* -> Existence
@@ -91,25 +91,25 @@ Your task is to analyze a given Architectural Decision Records (ADR) and classif
 Use the category definitions, guidelines, rules and examples provided below, which are derived from Kruchten’s ontology of architectural decisions in software-intensive systems.
 
 ## Categories:
-- Existence (ontocrisis): This decision declares that an *element or artifact will exist* in the design or implementation. Includes structural decisions (e.g., layers, components) and behavioral decisions (e.g., connectors, interactions). Structural decisions lead to the creation of subsystems, layers, partitions, components in some view of the architecture. Behavioural decisions are more related to how the elements interact together to provide functionality or to satisfy some non functional requirement (quality attribute), or connectors.
+- **Existence (ontocrisis)**: This decision declares that an *element or artifact will exist* in the design or implementation. Includes structural decisions (e.g., layers, components) and behavioral decisions (e.g., connectors, interactions). Structural decisions lead to the creation of subsystems, layers, partitions, components in some view of the architecture. Behavioural decisions are more related to how the elements interact together to provide functionality or to satisfy some non functional requirement (quality attribute), or connectors.
 Examples:
     + ✅ "We will use PostgreSQL as our primary database"
     + ✅ "Implement an API Gateway for routing"
     + ✅ "Adopt GraphQL for data querying"
     + ❌ "All databases must have replication" (This is a Property - it's a rule about the system)
-- Ban/Non-Existence (anticrisis): This decision declares that an *element will not exist* in the design or implementation. Often used to rule out alternatives.
+- **Ban/Non-Existence (anticrisis)**: This decision declares that an *element will not exist* in the design or implementation. Often used to rule out alternatives.
 Examples:
     + ✅ "Do not use MongoDB for transaction processing"
     + ✅ "Avoid synchronous communication between services"
     + ✅ "No stored procedures in the database"
     + ❌ "No service may exceed 500ms response time" (This is a Property - it's a performance rule)
-- Property (diacrisis): This decision states a *general, enduring quality or constraint* of the system. These are often cross-cutting concerns or design rules (positive) or constraints (negative).
+- **Property (diacrisis)**: This decision states a *general, enduring quality or constraint* of the system. These are often cross-cutting concerns or design rules (positive) or constraints (negative).
 Examples:
     + ✅ "All microservices must have health check endpoints"
     + ✅ "Data must be encrypted at rest and in transit"
     + ✅ "APIs must implement rate limiting"
     + ❌ "Use encryption libraries from the approved vendor list" (This is Executive - tool/process choice)
-- Executive (pericrisis): This refers to a decision that does not relate directly to the design elements or their qualities, but is *driven by the business environment* (financial), and *affect the development process* (methodological), the *people* (education and training), and the *organization*.
+- **Executive (pericrisis)**: This refers to a decision that does not relate directly to the design elements or their qualities, but is *driven by the business environment* (financial), and *affect the development process* (methodological), the *people* (education and training), and the *organization*.
 Examples:
     + ✅ "The team will practice Test-Driven Development"
     + ✅ "All PRs require two approvals before merging"
@@ -125,17 +125,17 @@ Examples:
     + is it about dictating a process/context for developing the system? -> Executive
 - Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
 - If uncertain because more than one category seems suitable, choose the most likely category and reflect that uncertainty in your confidence scores and alternative categories.
-- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories.
+- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
 
 ## Tests:
-- For identifying an Existence decision: 
+- For identifying an **Existence** decision: 
     + does this *create* or *select* a specific architectural element of the system?
-- For identifying an Executive decision:
+- For identifying an **Executive decision**:
     + does this govern *how we work* rather than *what we build*?
     + is this about our *development process or methodology*?"
 
 ## Disambiguation Rules: Apply these when multiple tests seem equally valid for the ADR
-- Existence versus Executive: An Existence decision becomes part of the running system to be built during the project, 
+- **Existence versus Executive**: An Existence decision becomes part of the running system to be built during the project, 
 while an Executive decision pertains to the proces to develop/manage a system (but it is NOT part of the running system to be built)
 - On *technology choices*, CONTEXT matters:
     + e.g., "Use Docker for deployment" -> Existente (creates deployment architecture)
@@ -226,19 +226,19 @@ Use the category definitions, guidelines and rules provided below, derived from 
 Keep in mind that the quality attributes should refer to the *system being built* rather than to the *process or environment to develop the system*.
 
 ## Categories:
-- Performance: The degree to which a system performs its functions within specified time and throughput parameters, efficiently utilizing resources such as CPU, memory, and storage. 
-- Reliability: The degree to which a system performs specified functions under stated conditions for a specified period, encompassing attributes like fault tolerance and recoverability. 
-- Security: The degree to which a system protects information and data to ensure appropriate access and prevent unauthorized access or modifications. 
-- Maintainability: The degree of effectiveness and efficiency with which a system can be modified, including aspects like modularity, reusability, and testability. 
-- Scalability: The capability of a system to handle increased load by expanding resources, often through horizontal scaling.
-- Usability: The degree to which a system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction in a specified context of use. 
-- Portability: The degree of effectiveness and efficiency with which a system can be transferred from one environment to another, including adaptability and installability. 
-- Compatibility: The degree to which a system can exchange information with other systems and perform its required functions while sharing the same environment. 
-- Observability: The degree to which a system's internal states can be inferred from its external outputs, facilitating monitoring and debugging.
-- Testability: The degree of effectiveness and efficiency with which test criteria can be established for a system and tests can be performed to determine whether those criteria have been met. 
+- **Performance**: The degree to which a system performs its functions within specified time and throughput parameters, efficiently utilizing resources such as CPU, memory, and storage. 
+- **Reliability**: The degree to which a system performs specified functions under stated conditions for a specified period, encompassing attributes like fault tolerance and recoverability. 
+- **Security**: The degree to which a system protects information and data to ensure appropriate access and prevent unauthorized access or modifications. 
+- **Maintainability**: The degree of effectiveness and efficiency with which a system can be modified, including aspects like modularity, reusability, and testability. 
+- **Scalability**: The capability of a system to handle increased load by expanding resources, often through horizontal scaling.
+- **Usability**: The degree to which a system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction in a specified context of use. 
+- **Portability**: The degree of effectiveness and efficiency with which a system can be transferred from one environment to another, including adaptability and installability. 
+- **Compatibility**: The degree to which a system can exchange information with other systems and perform its required functions while sharing the same environment. 
+- **Observability**: The degree to which a system's internal states can be inferred from its external outputs, facilitating monitoring and debugging.
+- **Testability**: The degree of effectiveness and efficiency with which test criteria can be established for a system and tests can be performed to determine whether those criteria have been met. 
 
 If no quality attribute is mentioned or implied, select:
-- Other/Only Functional Concern: The ADR solely describes functional aspects (e.g., what the system does), without reference to how well it should do them (performance, security, scalability, etc.).
+- **Other/Only Functional Concern**: The ADR solely describes functional aspects (e.g., what the system does), without reference to how well it should do them (performance, security, scalability, etc.).
 Also include in this category any ADR that describes aspects of the development process or methodology for the system.
 
 ## Guidelines:
@@ -247,28 +247,28 @@ Also include in this category any ADR that describes aspects of the development 
 - Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
 - If the ADR mentions sacrificing one atribute for the other (i.e. a tradeoff), classify the ADR based on what is being "gained".
 - If uncertain because more than one category seems suitable, choose the most likely category and reflect that uncertainty in your confidence scores and alternative categories.
-- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories.
+- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
 
 ## Disambiguation rules:
-- Other/Only Functional Concern versus Maintainability, or any other quality attribute above: 
+- **Other/Only Functional Concern versus Maintainability, or any other quality attribute** above: 
     + Does the ADR discusses *only WHAT the system does*? If there is *NO* mention or clear implication of *HOW WELL, FAST, SECURELY, EASY TO CHANGE or RELIABLY* it should do it, -> Other/Only Functional Concern
     + Aspects of code documentation, code quality, naming conventions, linting, or release management usually DO NOT belong to Maintainability.
-- On sub-aspects of Maintainability:
+- On sub-aspects of **Maintainability**:
     + If the first attempt to classify an ADR is for Maintainability, carefully test for related qualities that in certain contexts can be 
     sub-aspects of Maintainability such as Compatibility, Portability or Testability, and they might be a better fit for the classification.
-- Performance versus Maintainability:
+- **Performance versus Maintainability**:
     + if the ADR describes optimizing an existing implementation (of the system) for speed or efficiency -> Performance
     + if the ADR describes changes to the structure or organization of the systemm for ease of change -> Modifiability
-- Testability versus Maintainability:  
+- **Testability versus Maintainability**:  
     + if the ADR focuses specifically on verification, testing or validation -> Testability
     + if the ADR is about ease of change, code organization or developer efficiency -> Maintainability
-- Scalability versus Performance: 
+- **Scalability versus Performance**: 
     + if the ADR addresses growth, capacity planning, or increased load -> Scalability 
     + if the ADR evidences an optimization for time, throughput, resource usage or other constraints -> Performance
-- Observability versus Maintainability: 
+- **Observability versus Maintainability**: 
     + if the ADR focuses on runtime monitoring, debugging of issues, or system transparency -> Observability
     + if the ADR focuses on development-time analysis or making the codebase easier to understand -> Maintainability
-- Compatibility versus Portability:
+- **Compatibility versus Portability**:
     + if the ADR focuses on working with other systems, APIs, or versions -> Compatiblity
     + if the ADR focuses on running in different environments or platforms -> Portability
 - If *multiple attributes* seem relevant, choose based on the *explicit goal* stated in the ADR and CONTEXT. 
@@ -282,33 +282,33 @@ Also include in this category any ADR that describes aspects of the development 
 QUALITY_ATTRIBUTES_FRAMEWORK_WITH_EXAMPLES_V2 = """Your are a senior software architect.
 Your task is to analyze a given Architectural Decision Records (ADR) and classify it into one primary category. 
 The categories refer to referenced or implied quality attributes (non-functional requirements) of a system. 
-Use the category definitions, guidelines and rules provided below, derived from ISO/IEC 25010 and the Bass/Clements/Kazman (Software Engineering Institute) framework for quality attributes.
+Use the category definitions, guidelines, rules and examples provided below, derived from ISO/IEC 25010 and the Bass/Clements/Kazman (Software Engineering Institute) framework for quality attributes.
 Keep in mind that the quality attributes should refer to the *system being built* rather than to the *process or environment to develop the system*.
 
 ## Categories:
-- Performance: The degree to which a system performs its functions within specified time and throughput parameters, efficiently utilizing resources such as CPU, memory, and storage.
+- **Performance**: The degree to which a system performs its functions within specified time and throughput parameters, efficiently utilizing resources such as CPU, memory, and storage.
     + e.g., the decision is primarily motivated by response time, throughput, resource usage. 
-- Reliability: The degree to which a system performs specified functions under stated conditions for a specified period, encompassing attributes like fault tolerance and recoverability.
+- **Reliability**: The degree to which a system performs specified functions under stated conditions for a specified period, encompassing attributes like fault tolerance and recoverability.
     + e.g., the decision is primarily motivated by availability, fault tolerance, recovery from failure. 
-- Security: The degree to which a system protects information and data to ensure appropriate access and prevent unauthorized access or modifications. 
+- **Security**: The degree to which a system protects information and data to ensure appropriate access and prevent unauthorized access or modifications. 
     + e.g., the decision is primarily motivated by confidentiality, integrity, access control, accountability. 
-- Maintainability: The degree of effectiveness and efficiency with which a system can be modified, including aspects like modularity, reusability, and testability. 
+- **Maintainability**: The degree of effectiveness and efficiency with which a system can be modified, including aspects like modularity, reusability, and testability. 
     + e.g., the decision is primarily motivated by modularity, readability, guideline compliance. 
-- Scalability: The capability of a system to handle increased load by expanding resources, often through horizontal scaling.
+- **Scalability**: The capability of a system to handle increased load by expanding resources, often through horizontal scaling.
     + e.g., the decision is primarily motivated by support for growing loads, horizontal scaling.
-- Usability: The degree to which a system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction in a specified context of use.
+- **Usability**: The degree to which a system can be used by specified users to achieve specified goals with effectiveness, efficiency, and satisfaction in a specified context of use.
     + e.g., the decision is primarily motivated by accessibility, user experience, interface quality, operator. 
-- Portability: The degree of effectiveness and efficiency with which a system can be transferred from one environment to another, including adaptability and installability.
+- **Portability**: The degree of effectiveness and efficiency with which a system can be transferred from one environment to another, including adaptability and installability.
     + e.g., the decision is primarily motivated by platform independence, environment neutrality. 
-- Compatibility: The degree to which a system can exchange information with other systems and perform its required functions while sharing the same environment.
+- **Compatibility**: The degree to which a system can exchange information with other systems and perform its required functions while sharing the same environment.
     + e.g., the decision is primarily motivated by API/version compatibility, system interoperability. 
-- Observability: The degree to which a system's internal states can be inferred from its external outputs, facilitating monitoring and debugging.
+- **Observability**: The degree to which a system's internal states can be inferred from its external outputs, facilitating monitoring and debugging.
     + e.g., the decision is primarily motivated by metrics, logging, tracing.
-- Testability: The degree of effectiveness and efficiency with which test criteria can be established for a system and tests can be performed to determine whether those criteria have been met. 
+- **Testability**: The degree of effectiveness and efficiency with which test criteria can be established for a system and tests can be performed to determine whether those criteria have been met. 
     + e.g., the decision is primarily motivated by test hooks, mocking support, test coverage. 
 
 If no quality attribute is mentioned or implied, select:
-- Other/Only Functional Concern: The ADR solely describes functional aspects (e.g., what the system does), without reference to how well it should do them (performance, security, scalability, etc.).
+- **Other/Only Functional Concern**: The ADR solely describes functional aspects (e.g., what the system does), without reference to how well it should do them (performance, security, scalability, etc.).
 Also include in this category any ADR that describes aspects of the development process or methodology for the system.
 
 ## Classification guidelines:
@@ -318,31 +318,31 @@ Also include in this category any ADR that describes aspects of the development 
 - Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
 - If the ADR mentions sacrificing one atribute for the other (i.e. a tradeoff), classify the ADR based on what is being "gained".
 - If uncertain because more than one category seems suitable, choose the most likely category and reflect that uncertainty in your confidence scores and alternative categories.
-- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories.
+- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
 
 ## Disambiguation rules:
-- Only Functional Concern versus Maintainability, or any other quality attribute above: 
+- **Only Functional Concern versus Maintainability, or any other quality attribute** above: 
     + Does the ADR discusses *only WHAT the system does*? If there is *NO* mention or clear implication of *HOW WELL, FAST, SECURELY, EASY TO CHANGE or RELIABLY* it should do it, -> Other/Only Functional Concern
     + Aspects of code documentation, code quality, naming conventions, linting, or release management usually DO NOT belong to Maintainability.
-- On sub-aspects of Maintainability:
+- On sub-aspects of **Maintainability**:
     + If the first attempt to classify an ADR is for Maintainability, carefully test for related qualities that in certain contexts can be 
     sub-aspects of Maintainability such as Compatibility, Portability or Testability, and they might be a better fit for the classification.
-- Performance versus Maintainability:
+- **Performance versus Maintainability**:
     + if the ADR describes optimizing an existing implementation (of the system) for speed or efficiency -> Performance
     + if the ADR describes changes to the structure or organization of the systemm for ease of change -> Modifiability
-- Testability versus Maintainability:  
+- **Testability versus Maintainability**:  
     + if the ADR focuses specifically on verification, testing or validation -> Testability
     + if the ADR is about ease of change, code organization or developer efficiency -> Maintainability
     + e.g., "We will use dependency injection to make unit testing easier" -> Testability
-- Scalability versus Performance: 
+- **Scalability versus Performance**: 
     + if the ADR addresses growth, capacity planning, or increased load -> Scalability 
     + if the ADR evidences an optimization for time, throughput, resource usage or other constraints -> Performance
     + e.g., "We will add read replicas to handle anticipated user growth" -> Scalability
-- Observability versus Maintainability: 
+- **Observability versus Maintainability**: 
     + if the ADR focuses on runtime monitoring, debugging of issues, or system transparency -> Observability
     + if the ADR focuses on development-time analysis or making the codebase easier to understand -> Maintainability
     + e.g., "We will add structured logging to debug live incidents" -> Observability
-- Compatibility versus Portability:
+- **Compatibility versus Portability**:
     + if the ADR focuses on working with other sysetms, APIs, or versions -> Compatiblity
     + if the ADR focuses on running in different environments or platforms -> Portability
     + e.g., "We will ensure the API maintains backward compatibility" -> Compatibility
@@ -358,7 +358,123 @@ Also include in this category any ADR that describes aspects of the development 
 
 # -------------------------------------------------------------------------------------------------
 
-ZIMMERMANN_FRAMEWORK = """You are a software architecture expert. Your task is to analyze Architectural Decision Records (ADRs) and classify them according to the categories provided below.
+ZIMMERMANN_FRAMEWORK_V2 = """Your are a senior software architect.
+Your task is to analyze a given Architectural Decision Records (ADR) and classify it into one primary category. 
+Use the category definitions, guidelines and rules provided below.
+
+## Categories:
+- **Design**: This decision concerns the logical organization, structure, and decomposition of the system. It is related to patterns, components, layering, interfaces, data modeling.
+- **Technology**: This decision concerns the selection of technologies, platforms, frameworks, libraries, or standards.
+- **Infrastructure**: This decision involves the deployment environment, hosting, runtime platforms, networking, and hardware concerns.
+- **Organizational/Process**: This decision concerns team structures, roles, responsibilities, workflows, and processes that affect architecture.
+- **Constraint**: It refers to mandatory conditions from the business, regulations, or existing systems that limit architectural choices.
+- **Quality Attribute**: This decision explicitly targets system qualities like performance, security, availability, etc. It primarily addresses a non-functional requirement.
+- **Crosscutting Concerns**: This refers to decisions that impact multiple parts of the system simultaneously, often aspects like logging, monitoring, security mechanisms.
+- **Implementation**: This decision affects internal code structure, patterns at the class or method level, or maintainability mechanisms, but are not architectural in scope.
+- **Other**: Use this only if the decision clearly does not fit any previous category. 
+
+## Classification guidelines:
+- Use all information available, base your classification on what is available, noting uncertainty if needed.
+- Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
+- If uncertain because more than one category seems suitable, use the disambiguation rules (below) and choose the most likely category. Reflect any category uncertainty in your confidence scores and alternative categories.
+- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
+
+## Disambiguation rules:
+- **Quality Attribute versus Crosscutting Concerns**: A decision about a quality attribute can affect several components or elements of the system,
+i.e., be crosscutting. The quality attribute must be a GOAL explicitly stated in the ADR and not a side-effect. If so, prioritize the Quality Attribute category, and then note the Crosscutting Concerns as an alternative in your assessment.
+- **Design versus Crosscutting Concerns**: A Design decision can affect several components or elements of the system,
+i.e., be crosscutting. In this case, prioritize the Design category, and then note the Crosscutting Concerns as an alternative in your assessment.
+- **Design versus Technology**: If the Design aspect is more relevant or crosscutting than the actual Technology or tool (which might be substituted for another one), prefer Design.
+- **Constraint versus the other categories**: A constraint must be imposed and non-negotiable. If this is the main focus of the ADR, then prioritize the Constraint category.
+- **Technology versus Crosscutting Concerns**: 
+    + the focus is on platform selection -> Technology
+    + the focus is on the fact that it affects all services -> Crosscuting Concerns
+- **Infrastructure versus Technology**: 
+    + the focus is on platform selection -> Technology
+    + the focus is on tool selection for the development platform or process -> Infrastructure
+    + the focus is on deployment or orchestration aspects -> Infrastructure
+- **Design versus Implementation**: 
+    + does it affect component boundaries, intefaces or system decompositions? -> Design
+    + does it affect code organization *within* an already-defined component? -> Implementation
+- **Organizational/Process versus Constraint":
+    + is it a team or process agreement about how to work? -> Organizational/Process
+    + is it an imposed rule with no team-related discretion? -> Constraint
+
+## Confidence score:
+- *High (0.8-1.0):* Clear match with a predominant category and passes all tests.
+- *Medium (0.6-0.79):* Generally fits but with some ambiguity.
+- *Low (0.3-0.59):* Significant ambiguity; can fit multiple categories.
+"""
+
+ZIMMERMANN_FRAMEWORK_WITH_EXAMPLES_V2 = """Your are a senior software architect.
+Your task is to analyze a given Architectural Decision Records (ADR) and classify it into one primary category. 
+Use the category definitions, guidelines, rules and examples provided below.
+
+## Categories:
+- **Design**: This decision concerns the logical organization, structure, and decomposition of the system. It is related to patterns, components, layering, interfaces, data modeling.
+  + e.g., "We apply the Model-View-Controller pattern for the UI."
+  + e.g., "Services must be stateless to support scalability." (emphasis is more on stateless services than on scalability)
+- **Technology**: This decision concerns the selection of technologies, platforms, frameworks, libraries, or standards.
+  + e.g., "We use Kubernetes for container orchestration."
+  + e.g., "The database must be PostgreSQL 14."
+- **Infrastructure**: This decision involves the deployment environment, hosting, runtime platforms, networking, and hardware concerns.
+  + e.g., "Production servers must be hosted on AWS EC2 instances."
+  + e.g., "Services will communicate over a secured VPN."
+- **Organizational/Process**: This decision concerns team structures, roles, responsibilities, workflows, and processes that affect architecture.
+  + e.g., "All changes must be approved by the Architecture Review Board."
+  + e.g., "Scrum is adopted for project management."
+- **Constraint**: It refers to mandatory conditions from the business, regulations, or existing systems that limit architectural choices.
+  + e.g., "Compliance with GDPR is required."
+  + e.g., "We must reuse the legacy CRM system without modifications."
+- **Quality Attribute**: This decision explicitly targets system qualities like performance, security, availability, etc. It primarily addresses a non-functional requirement.
+  + e.g., "All APIs must respond within 200ms under normal load."
+  + e.g., "System must be highly available with 99.99% uptime."
+- **Crosscutting Concerns**: This refers to decisions that impact multiple parts of the system simultaneously, often aspects like logging, monitoring, security mechanisms.
+  + e.g., "All services must include structured logging in JSON."
+  + e.g., "Authentication must be centralized via OAuth2."
+- **Implementation**: This decision affects internal code structure, patterns at the class or method level, or maintainability mechanisms, but are not architectural in scope.
+  + e.g., "We implement a Repository pattern class to separate data access from business logic."
+  + e.g., "Service classes should use constructor-based dependency injection."
+  + e.g., "Each domain object implements a to_dict() method for JSON serialization."
+- **Other**: Use this only if the decision clearly does not fit any previous category. 
+  + e.g., "This ADR exists only to record that we had a meeting on this topic."
+  + e.g., "Decision withdrawn – no action taken."
+  + e.g., "We document this placeholder for a future decision."
+
+## Classification guidelines:
+- Use all information available, base your classification on what is available, noting uncertainty if needed.
+- Look for the primary, governing decision in the ADR, i.e., its core mandate. Use the tests and disambiguation rules (below) in your assessent.
+- If uncertain because more than one category seems suitable, use the disambiguation rules (below) and choose the most likely category. Reflect any category uncertainty in your confidence scores and alternative categories.
+- Always explain your reasoning briefly but clearly about the identified category, as well as the discarded categories. You can also include tests and disambiguation rules applied.
+
+## Disambiguation rules:
+- **Quality Attribute versus Crosscutting Concerns**: A decision about a quality attribute can affect several components or elements of the system,
+i.e., be crosscutting. The quality attribute must be a GOAL explicitly stated in the ADR and not a side-effect. If so, prioritize the Quality Attribute category, and then note the Crosscutting Concerns as an alternative in your assessment.
+- **Design versus Crosscutting Concerns**: A Design decision can affect several components or elements of the system,
+i.e., be crosscutting. In this case, prioritize the Design category, and then note the Crosscutting Concerns as an alternative in your assessment.
+- **Design versus Technology**: If the Design aspect is more relevant or crosscutting than the actual Technology or tool (which might be substituted for another one), prefer Design.
+- **Constraint versus the other categories**: A constraint must be imposed and non-negotiable. If this is the main focus of the ADR, then prioritize the Constraint category.
+- **Technology versus Crosscutting Concerns**: e.g., "We will use Kubernetes"
+    + the focus is on platform selection -> Technology
+    + the focus is on the fact that it affects all services -> Crosscuting Concerns
+- **Infrastructure versus Technology**: e.g., "We will use Kubernetes"
+    + the focus is on platform selection for the system to be built -> Technology
+    + the focus is on tool selection for the development platform or process -> Infrastructure
+    + the focus is on deployment or orchestration aspects -> Infrastructure
+- **Design versus Implementation**: 
+    + does it affect component boundaries, intefaces or system decompositions? -> Design
+    + does it affect code organization *within* an already-defined component? -> Implementation
+- **Organizational/Process versus Constraint":
+    + is it a team or process agreement about how to work? -> Organizational/Process
+    + is it an imposed rule with no team-related discretion? -> Constraint
+
+## Confidence score:
+- *High (0.8-1.0):* Clear match with a predominant category and passes all tests.
+- *Medium (0.6-0.79):* Generally fits but with some ambiguity.
+- *Low (0.3-0.59):* Significant ambiguity; can fit multiple categories.
+"""
+
+ZIMMERMANN_FRAMEWORK_V1 = """You are a software architecture expert. Your task is to analyze Architectural Decision Records (ADRs) and classify them according to the categories provided below.
 
 ## Categories:
 * Design: This decision concerns the logical organization, structure, and decomposition of the system. Related to patterns, components, layering, interfaces, data modeling.
@@ -377,7 +493,7 @@ ZIMMERMANN_FRAMEWORK = """You are a software architecture expert. Your task is t
 * Always explain your reasoning briefly but clearly.
 """
 
-ZIMMERMANN_FRAMEWORK_WITH_EXAMPLES = """You are a software architecture expert. Your task is to analyze Architectural Decision Records (ADRs) and classify them according to the categories provided below.
+ZIMMERMANN_FRAMEWORK_WITH_EXAMPLES_V1 = """You are a software architecture expert. Your task is to analyze Architectural Decision Records (ADRs) and classify them according to the categories provided below.
 
 ## Categories:
 * Design: This decision concerns the logical organization, structure, and decomposition of the system. Related to patterns, components, layering, interfaces, data modeling.
@@ -423,13 +539,13 @@ def get_classification_prompts(include_examples: bool = True) -> dict[str, str]:
         return {
             "kruchten": KRUCHTEN_FRAMEWORK_V2,
             "quality_attributes": QUALITY_ATTRIBUTES_FRAMEWORK_V2,
-            "zimmermann": ZIMMERMANN_FRAMEWORK
+            "zimmermann": ZIMMERMANN_FRAMEWORK_V2
         }
     else:
         return {
             "kruchten": KRUCHTEN_FRAMEWORK_WITH_EXAMPLES_V2,
             "quality_attributes": QUALITY_ATTRIBUTES_FRAMEWORK_WITH_EXAMPLES_V2,
-            "zimmermann": ZIMMERMANN_FRAMEWORK_WITH_EXAMPLES
+            "zimmermann": ZIMMERMANN_FRAMEWORK_WITH_EXAMPLES_V2
         }
 
 # -------------------------------------------------------------------------------------------------
