@@ -1,0 +1,512 @@
+[
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting the 'nodemailer' node module for sending invitation emails, which is a technology choice regarding libraries and dependencies. Although it touches on a design aspect (invitation mechanism), the core decision is about technology selection. It is not primarily about system design, infrastructure, or organizational process. Hence, Technology is the best fit. Design is an alternative but less appropriate since the main decision is about the tool choice.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Email invites.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on how users enter destinations into a trip, deciding between typing with autocomplete or clicking on a map to set markers. This concerns the logical organization and structure of user interaction components and input methods, which aligns with Design. It is not primarily about technology selection, infrastructure, or organizational processes. Although it affects multiple parts of the UI, it is a design decision rather than a crosscutting concern. It does not impose constraints or focus on quality attributes explicitly.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Entering destinations for a trip.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines a fixed folder structure for organizing the project files logically into components such as controllers, models, views, routes, and public assets. This concerns the logical organization and decomposition of the system, which aligns with the Design category. It is not primarily about technology selection, infrastructure, or organizational processes. Although it affects multiple parts of the system, it is a design decision rather than a crosscutting concern because it structures the system components. It is not a constraint since the structure is a chosen decision, not an imposed mandatory condition.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Organizational/Process",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Folder structure.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR describes adopting GitHub's Project feature as a Kanban board to manage user stories and sprint backlogs, which directly relates to team workflows and agile process management. It focuses on how the team organizes and tracks work rather than technical design, technology selection, or infrastructure. Other categories like Design or Technology are less relevant because the decision is about process and tooling usage for team collaboration, not system structure or technology choice.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR GitHub Project Board as KanBan.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting and using Google's Login API (OAuth2) as an authentication technology to enable user login. This is a clear technology choice regarding an external platform/service for authentication. It is not primarily about design structure, infrastructure, organizational process, or constraints. Although security is mentioned, the main decision is about adopting a technology (Google Login API) for authentication, so Technology is the best fit. Alternative categories considered include Quality Attribute (security concerns) and Design (authentication mechanism design), but these are secondary to the technology selection.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Login API Choice.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting a map API technology (Google Maps) among several options based on maturity, ease of use, documentation, and cost. This is a clear technology selection decision rather than design or infrastructure. Although the choice affects multiple parts of the system (crosscutting), the primary focus is on the technology platform chosen. It is not a constraint, quality attribute, or organizational/process decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Maps API choice.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the logical organization and user interaction design of a list of destinations within a trip, specifically enabling reordering of the list. This concerns the structure and behavior of a core system component (the trip's destination list) and how it is manipulated, which aligns with the Design category. It is not primarily about technology selection, infrastructure, or organizational processes. Although it mentions UI elements like draggable or buttons, these are part of the design of the component's behavior rather than low-level implementation details, so Implementation is less appropriate. There is no indication of constraints, quality attributes, or crosscutting concerns as the main focus.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Reordering Destinations.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR primarily concerns the planning and scheduling of sprints, roles (Product Manager, SCRUM Master), meeting times, and communication methods (standups, video chats). These are team structures, workflows, and processes affecting how the team works, which fits the Organizational/Process category. It does not focus on system design, technology selection, infrastructure, or constraints. Although it impacts the overall project timeline, it is not a constraint but a team process decision. It is not about code or system structure, so Implementation and Design are not appropriate. Crosscutting Concerns do not apply as this is about team process rather than system-wide technical concerns.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Constraint",
+            "Other"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Sprint Planning and timeline.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR primarily concerns the selection and use of testing technologies and frameworks: Jest for automated testing, Selenium WebDriver for front-end user interaction simulation, and Google Chrome as the browser for automated front-end testing. The decision focuses on choosing specific tools and platforms for testing, which aligns with the Technology category. Although testing impacts quality attributes like reliability, the ADR does not explicitly target a quality attribute goal, so Quality Attribute is less appropriate. It is not about organizational processes or design structure, nor infrastructure or constraints. Crosscutting concerns are not the focus here, as the decision is about tool selection rather than aspects affecting multiple system parts simultaneously.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Testing.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR primarily defines team workflows, branch management policies, code review responsibilities, and deployment processes, which are all aspects of organizational structure and development process. It does not focus on technology selection, design structure, or infrastructure deployment specifics. Although it mentions deployment complexity, the core decision is about team process and branch management, fitting best under Organizational/Process. Other categories like Constraint or Infrastructure are less suitable because the rules are team agreements rather than imposed constraints or infrastructure setup.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Constraint",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "djsing",
+            "project": "ELEN4010",
+            "adr_key": "ADR Trunk-Based Development.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on the decision to use Architecture Decision Records (ADRs) as a process to document architectural decisions. This is about establishing a workflow and documentation practice rather than a design, technology, or infrastructure choice. It concerns how the team organizes and records decisions, which fits the Organizational/Process category. It is not a constraint, technology selection, or design structure, nor is it about implementation details or quality attributes. Although it affects multiple parts of the system indirectly, the primary focus is on the process of recording decisions, not on crosscutting concerns.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Other"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0001-record-architecture-decisions.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decision is to use Redux, which is a specific technology/library for state management. The core decision is about adopting a particular technology to manage state, rather than about the design of the system's structure or process changes. Although it affects state management design, the primary focus is on technology selection. Design category is less appropriate because the ADR does not discuss system decomposition or interfaces, but rather the choice of a state management library. Organizational/Process is not relevant as it does not concern team roles or workflows. Quality Attribute or Crosscutting Concerns are not the main focus here. Therefore, Technology is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0002-contain-and-manage-state.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting webpack as the JavaScript bundler tool to manage dependencies and build steps. This is primarily a technology selection decision about the build tool and development platform. Although it affects the development workflow and code bundling, it is not about system design or component structure, nor about infrastructure deployment. It is not primarily about organizational processes or constraints. Therefore, Technology is the most appropriate category. Alternative categories considered include Infrastructure (due to build process impact) and Organizational/Process (due to developer workflow changes), but these are less central than Technology.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0004-use-webpack.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the logical organization and structure of the frontend source and distribution directories, deciding on folder structure conventions to separate source code from compiled assets. This is a classic design decision about system decomposition and organization rather than technology selection or infrastructure concerns. It is not about team processes, constraints, or quality attributes. Although it affects multiple parts of the system, it is primarily about design rather than crosscutting concerns, as it defines the structure and organization of source files.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0005-frontend-sources-directory-structure.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the architectural style of using factories over classes for object creation, emphasizing composition over inheritance to improve maintainability and testability. This concerns the logical organization and structure of the system's components and their interactions, which aligns with the Design category. It is not primarily about technology selection, infrastructure, or organizational processes. Although it touches on implementation details, the scope is architectural rather than internal code structure, so Implementation is less appropriate. It is not a constraint or quality attribute explicitly, nor a crosscutting concern in the sense of aspects like logging or security.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0006-factories.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on changing the testing process and environment by migrating QUnit tests to run in a Node.js environment instead of a browser or phantom.js. This affects the workflow, test execution speed, and isolation, which are process and organizational concerns rather than purely technical or design decisions. It does not primarily select a technology platform but changes how tests are run and organized, impacting the development and CI process. Alternative categories like Technology or Design are less appropriate because the core decision is about test execution environment and process improvements, not about system design or technology selection per se.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0007-prefer-running-qunit-tests-in-node-js.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting UglifyJS as the tool to minify JavaScript bundles, replacing the previous minifier JSMin. This is a clear technology choice regarding the build tooling and bundling process. It does not primarily address design structure, infrastructure deployment, or organizational processes. Although minification affects multiple parts of the system (crosscutting), the main focus is on the technology selection for minification, so Technology is the most appropriate category. Crosscutting Concerns is considered but less fitting as the ADR is about tool choice rather than a concern implemented across components.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0008-enable-minification-of-bundle-with-uglifyjs.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR focuses on leveraging browser caching by setting appropriate HTTP Cache-Control headers to reduce server load and improve resource freshness. This decision concerns deployment environment behavior and runtime platform features (browser caching and HTTP headers), which aligns with Infrastructure. It is not primarily about system design, technology selection, or organizational processes. Although caching relates to performance (a quality attribute), the ADR does not explicitly state performance as a goal but rather focuses on caching mechanisms at the infrastructure level. Alternative categories considered were Quality Attribute (due to caching impacting performance) and Technology (since HTTP headers are a protocol standard), but Infrastructure is more appropriate as the decision targets deployment/runtime environment behavior.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0009-utilize-browser-caching.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on replacing the Mustache.js templating library with ES6 template literals, which involves changing the technology used for templating in the UI. Although it affects code structure, the core decision is about selecting and using a different technology (ES6 template literals and Babel transpiler) instead of an external library. This aligns best with the Technology category. It is not primarily about design structure, infrastructure, or organizational processes. Quality attributes like performance or size reduction are mentioned but are secondary effects, not the main goal.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "wikimedia",
+            "project": "mediawiki-extensions-Popups",
+            "adr_key": "0010-replace-mustache-js-with-template-literals.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR focuses on securing JSON output to protect sensitive data in transit and ensure data integrity and authenticity, explicitly addressing security as a quality attribute. While it involves technology choices (TLS, JWE, shared secrets), the primary goal is achieving security, a non-functional requirement, making Quality Attribute the most appropriate category. Crosscutting Concerns could be considered as an alternative since security mechanisms often affect multiple parts of the system, but the ADR explicitly states security as the main goal, so Quality Attribute is prioritized.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0002-secure-JSON-output.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR primarily concerns the design decision on how to represent and handle files within JSON output for form submissions, including the structure and approach to integrating files securely and efficiently. It discusses various design options and their trade-offs, focusing on the logical organization of data and integration patterns rather than selecting specific technologies or infrastructure. Although security and encryption are discussed, these are part of the design considerations rather than explicit quality attribute goals. Therefore, Design is the most appropriate category. Technology and Infrastructure are less suitable as the focus is not on selecting platforms or deployment environments. Quality Attribute is not primary since security is a consideration but not the explicit goal. Crosscutting Concerns are not the main focus as the decision is about data representation and integration design.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0003-files-in-JSON-output.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR focuses on standardizing authentication and authorization mechanisms across multiple microservices, impacting how services communicate and secure requests platform-wide. This is a classic crosscutting concern as it affects multiple services and their interactions. It is not primarily about selecting a technology or infrastructure, nor about internal design or implementation details. While security is a quality attribute, the ADR does not explicitly state security as a goal but rather enforces a consistent authorization mechanism, so Crosscutting Concerns is more appropriate. Design and Technology categories are less fitting because the decision is about enforcing a consistent security mechanism across services rather than designing system structure or selecting a technology stack.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0004-microservice-authentication-method.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on the selection of git and Github as the versioning and collaboration platform for storing JSON metadata of forms. This is a clear technology choice regarding tools and platforms. Although the decision affects collaboration and transparency, which could be organizational/process aspects, the core decision is about the technology platform to use. It is not primarily about design, infrastructure, or organizational processes. Therefore, Technology is the most appropriate category. Alternative categories considered include Organizational/Process due to collaboration aspects, and Constraint since the choice imposes a requirement on users to understand git and Github, but these are secondary effects.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Organizational/Process",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0005-integration-with-github.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on changing how emails are structured and sent per submission, specifically reducing the number of emails by attaching multiple files to a single email. This concerns the logical organization of the system's behavior regarding email notifications, which is a design decision about how components interact and handle data (email sending). It is not primarily about the technology choice (e.g., AWS SES is mentioned but not changed), infrastructure, or organizational processes. It is not a quality attribute goal, nor a crosscutting concern explicitly. Therefore, Design is the most appropriate category. Alternative categories considered include Technology (due to mention of AWS SES limits) and Crosscutting Concerns (email sending affects multiple parts), but these are less central to the decision's core mandate.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0006-reduce-number-of-emails-per-submission.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR focuses on replacing the storage mechanism for form metadata from GitHub (a version control platform) to a database hosted on the Cloud Platform with an API. This involves deployment environment and hosting concerns, specifically moving from a third-party version control system to a cloud-hosted database service. Although technology choices (Postgres, Ruby on Rails) are mentioned, the core decision is about the infrastructure for storing and accessing data, which aligns best with the Infrastructure category. Design is less appropriate because the ADR is not about system structure or decomposition; Technology is secondary here as the main focus is on deployment and hosting of storage. Organizational/Process and other categories do not fit the main focus of this ADR.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0007-replacing-the-storage.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the architectural design of the Runner application, including its architecture, technology choice rationale, and how it interacts with other components like the Metadata-Presenter gem. Although it mentions technology (Ruby/Rails) and some implementation details, the core decision is about the system's structure and decomposition (single tenant, independent forms, separation of concerns), which aligns with the Design category. Technology is a secondary aspect here, as the choice of Ruby is motivated by team experience and development speed, but the main focus is on the architectural design of the Runner service and its interaction with other components. Implementation details are minimal and not the primary focus. Therefore, Design is the most appropriate category, with Technology as an alternative due to the technology stack choice.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0008-the-runner.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on the decision to rebuild the Editor software using Ruby on Rails and custom JavaScript, which is a choice of technology stack and platform for the application. The core decision is about the technology used to implement the editor, rather than the design of system components, infrastructure deployment, organizational processes, or quality attributes. Although there are some design implications, the primary focus is on technology selection. Other categories like Design or Organizational/Process are less appropriate because the ADR does not primarily address system structure or team/process changes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0009-editor-online.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on modifying the deployment pipeline and process to enable multiple testable editor instances for different branches, improving team testing capabilities and pipeline flow. It involves workflow changes, branch naming conventions, deployment automation, and environment management, which are organizational and process concerns rather than design, technology, or infrastructure specifics. Although it involves deployment of editor code into pods, the core decision is about process and team workflow rather than infrastructure or technology selection.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "form-builder",
+            "adr_key": "0010-testing-the-editor-pipeline.md"
+        }
+    }
+]

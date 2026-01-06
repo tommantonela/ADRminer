@@ -1,0 +1,2986 @@
+[
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the architectural decision to implement a pattern connecting the application state (store) to UI components via connectors and containers. This involves creating specific architectural elements (connectors, containers, components) and their interactions, which are part of the system design. It is not about forbidding elements, setting general properties, or governing development processes, but about defining structural elements and their roles in the architecture, thus fitting the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-store-connector-container-component.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Ansible roles and playbooks to provision and configure computing environments, specifically installing Docker and Docker-Compose and managing PCMT instances. This is about creating and selecting specific architectural elements (the provisioning and configuration automation) that will exist in the system. It is not about forbidding elements, setting general properties, or governing the development process. Although it involves tooling, the tools (Ansible roles and playbooks) are part of the system's deployment architecture, not just development process tools, so it is an Existence decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-004.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR primarily governs the process of versioning and releasing software artifacts, including how versions are assigned, promoted, and managed in the CI/CD pipeline. It does not specify architectural elements to be created or banned, nor does it set enduring system properties. Instead, it dictates how the development and release process should be conducted, which aligns with the Executive category. Although versioning affects the system artifacts, the core decision is about the development and release process, not the system's structural or behavioral elements.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-007.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on setting rules for how configuration keys should be structured and how default values should be managed in the system configuration. It does not declare the existence or non-existence of elements, nor does it dictate development processes or organizational aspects. Instead, it establishes enduring design rules about configuration properties, fitting the Property category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-for-config-prefer-prefix-over-nesting-and-don-t-hide-defaults-in-code.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on improving the release process and artifact management workflow, which pertains to how the development and release process is managed rather than defining or forbidding architectural elements or system properties. It addresses process automation and versioning strategy, which are executive decisions affecting the development lifecycle and organizational practices. It does not create or ban system elements (Existence or Ban/Non-Existence), nor does it set enduring system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "005-cutting-release-branch.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on the design and implementation of a new version of a content tracking system based on a message bus, which is a software architectural element. It discusses architectural changes, dependencies on other services, and implications for system behavior, indicating it is about creating or modifying system elements. It is not about forbidding elements, setting general system properties, or governing development processes, so it fits best under Existence (ontocrisis).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-message-driven-content-tracker-next-gen.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on managing secrets as Kubernetes secret objects within the deployment, which involves creating and using specific architectural elements (Kubernetes secrets, RBAC policies, helm charts) as part of the system design. This is a decision about what elements will exist in the system to handle secrets securely. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational aspects (Executive). Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-managing-secrets-used-by-dbp.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on how to configure the application for different municipalities by choosing between client-side or server-side configuration approaches. It addresses deployment and operational concerns rather than creating or banning architectural elements or setting system properties. Therefore, it governs the development and deployment process, fitting the Executive category. It is not an Existence decision because it does not create or select architectural elements; not a Ban/Non-Existence decision because it does not forbid elements; and not a Property decision because it does not set enduring system qualities or constraints.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0003-application-configuration-setup.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR's core decision is about selecting the type of application platform to build and deploy as part of the system: a web app with offline capabilities (PWA) versus native applications. This is a decision about what architectural element (the application platform) will exist in the system. It is not about forbidding elements, setting system-wide properties, or dictating development processes. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2019-11-20_webapp.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific architectural element, namely the 'gorilla/mux' routing library, to be part of the system's design for handling HTTP routes. This is a clear example of an Existence decision because it declares that a software element (the router) will exist in the system. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), or about development process or organizational decisions (Executive). The decision focuses on what to build (the routing mechanism) rather than how to work or develop the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0014-use-mux-for-routing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines rules and constraints about audit logging: what data can be logged, what must be masked or encrypted, retention periods, and review standards. It sets enduring qualities and constraints on the system's logging behavior rather than creating or banning specific architectural elements or dictating development processes. Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0021-audit-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a structural decision about wrapping <input> and <textarea> elements in a div.wrapper and applying styles to this wrapper. This is about creating a specific architectural element in the UI structure to achieve consistent styling and behavior, which fits the Existence category. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are discarded.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-0004-why-wrap-input-textarea.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR sets a general, enduring rule about which programming languages are acceptable for new development within CCS. It does not create or select a specific architectural element of a system (Existence), nor does it forbid an element (Ban/Non-Existence). It also does not govern the development process or organizational aspects (Executive). Instead, it establishes a policy constraint on technology choices, which aligns with the Property category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-language-choices-for-new-development.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines specific data entities (Tasks, Submissions, Entries, Files) that will exist in the system's data structure and be stored and managed. This is a clear declaration of architectural elements that will be part of the system, matching the Existence category. It is not forbidding elements (Ban/Non-Existence), nor setting general properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0016-data-structure-tasks-submissions-entries-and-files.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on the process of generating and exporting financial data reports for integration with external finance systems (Coda and later Workday). It dictates how the data export is generated, stored, and transferred, which pertains to the development process and operational procedures rather than defining or forbidding architectural elements or system properties. Therefore, it aligns with the Executive category, which covers decisions driven by business environment and affecting development processes and organization. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-generate-a-data-export-for-finance.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR discusses decisions about API versioning strategy and whether to implement an extensions mechanism. It focuses on how the API evolves and is managed in the development process rather than specifying or forbidding architectural elements or their properties. Therefore, it governs the development and release process, fitting the Executive category. It is not about creating or banning elements (Existence or Ban/Non-Existence), nor about setting system qualities or constraints (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-api-extensions-mechanism.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use DotEnv to load environment variables, which is a specific architectural element integrated into the system to manage environment variables centrally. This is about creating/selecting a software element (DotEnv) that will exist in the system design and implementation. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits the Existence category with high confidence.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes automating integration with an external data source (DQT) for validating teacher identity and qualifications, replacing a previous service (GOVUK Verify). This decision governs the process and organizational responsibility for identity verification, affecting how the development and operational teams manage data and APIs. It does not specify architectural elements of the system itself, nor system properties or bans, but rather dictates a business-driven process and organizational approach, fitting the Executive category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-automate-dqt-integration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision focuses on creating and selecting architectural elements such as an API Gateway, REST Proxy, and Event Backbone to integrate data from external systems (Local Authorities and Independent Foster Agencies) into the Department's services. This is about defining elements that will exist in the system architecture to enable data integration and event sourcing. It is not about forbidding elements, setting general system properties, or dictating development processes. Therefore, it fits clearly into the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "007-Integration-Approaches.html.md.erb"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about choosing the type of identifier (non-integer IDs) to be used for trainee URLs, which directly affects the design of the system elements (identifiers as part of the system's data model and URL structure). This is a decision about creating/selecting a software element (the identifier type) that will exist in the system, thus fitting the Existence category. It is not about forbidding an element (Ban/Non-Existence), nor about setting a general quality or constraint (Property), nor about development process or organizational context (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-non-integer-trainee-ids.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific software tool (Skylight) to be part of the system for performance monitoring. This is a clear architectural element choice, which fits the Existence category. It is not about forbidding elements, setting general properties, or governing development processes, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-use-skylight-for-performance-monitoring.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring property of the system's deployment environments and delivery process by reducing and simplifying the environments used. It sets a rule about the structure and usage of environments (staging and production) and how developers and user researchers should operate, which is a cross-cutting concern affecting system deployment and quality assurance. It does not create or select a new architectural element (Existence), nor does it ban an element (Ban/Non-Existence), nor is it about the development process or organizational aspects (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0004_define_environments_after_gov_uk_paas_migration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR sets a general guideline or rule about prioritizing simplicity and readability over premature optimization, which is a quality or constraint on the system's implementation approach rather than declaring the existence or non-existence of a system element, or dictating process or organizational decisions. It does not create or ban a specific architectural element (Existence or Ban/Non-Existence), nor does it govern development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-confirm-performance-issues-before-optimizing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR states a rule about the system's behavior regarding update dates when inverse relationships are created. It sets a constraint that the update date of the sample target should not change during the relationship inversion process. This is a general, enduring quality or constraint rather than the creation or banning of an element, or a process decision. Therefore, it fits best as a Property decision. It is not an Existence decision because it does not create or select an architectural element; not Ban/Non-Existence because it does not forbid an element; and not Executive because it does not govern development process or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-inverse-relationships-sample-update.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR recommends using '@type' (or rdf:type) for typing resources instead of 'schema.org/additionalType'. This decision sets a general, enduring rule about how resource typing should be handled to ensure semantic correctness and ease of querying. It does not create or ban a specific architectural element, nor does it dictate development process or organizational aspects. Therefore, it fits best as a Property decision, defining a quality or constraint of the system's data modeling approach.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "74-schemaorg-additionalType-vs-RDF-typing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring constraint on the system: that boolean type keys must only have the string values '0' or '1', and specifies default behavior and validation rules. This is a design rule about the properties and constraints of the system's data representation, not about creating or forbidding an element (Existence or Ban), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "boolean.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on changing the behavior of functions that copy data into buffers by removing certain functions and recommending use of standard functions like strncpy() and memcpy(). This sets a general design rule or constraint about how data copying should be handled in the API, rather than declaring the existence or non-existence of an architectural element, or dictating a process or organizational decision. Therefore, it fits best as a Property decision, stating a design rule about system behavior and API usage. It is not an Existence decision because it does not create or select a software element; not Ban/Non-Existence because it does not forbid an element but removes functions; and not Executive because it does not govern development process or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "functions_with_buffers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses constraints and rules about how multiple file backends are handled, specifically disallowing writable multiple file backends due to atomicity and administrative concerns. It sets a general enduring constraint on the system's behavior rather than declaring the existence or non-existence of an architectural element, or dictating development process or organizational decisions. Therefore, it fits best as a Property decision. It is not an Existence decision because it does not create or select a specific architectural element; it is not Ban/Non-Existence because it does not outright forbid an element but rather restricts behavior; and it is not Executive because it does not govern development process or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "multiple_file_backends.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about storing only the unescaped key name in the system's data structure, which is a structural element of the software design. It directly affects the representation and storage of key names in memory, which is part of the system's architecture. This fits the Existence category as it declares what element (unescaped key name) will exist in the design. It is not about forbidding an element (Ban/Non-Existence), nor about setting a general quality or constraint (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "store_name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on naming and branding decisions for a project to avoid confusion and clarify scope. It does not specify architectural elements to be created or excluded, nor does it set system properties or constraints. Instead, it governs how the project is presented and understood within the business and organizational context, which aligns with Executive decisions. It is not about the system's structure or behavior (Existence), nor forbidding elements (Ban/Non-Existence), nor setting system qualities (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "project-name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating a new architectural element: wrapping the FlowMachine library with an HTTP API to serve as a single access point. This is a structural decision that defines a component (the HTTP API) in the system architecture. It is not about forbidding elements, setting system-wide properties, or governing development processes, but about introducing a new element that will exist in the system design.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-http-api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use 'create-react-app' to generate the project scaffold and then eject to gain full configuration control. This is a decision about creating and selecting specific architectural elements (project structure, build configuration) that will exist in the system. It is not about forbidding elements, setting general properties, or governing the development process itself, but about what elements the system will include and how it is structured. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-use-create-react-app-and-npm-eject-to-create-the-basis-of-the-project-structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes the decision to document architectural decisions (ADRs) as part of the versioning system and development process. It focuses on how the team manages and records decisions rather than specifying or forbidding architectural elements or their properties. This aligns with Executive decisions, which govern the development process and organizational practices rather than the system's design or qualities. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting system properties or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2020-08-10-architecture-decision-records.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the creation and structuring of a new data element, the Continuous Inpatient Spell (CIPS), derived from inpatient spells data. It specifies how to group and order spells, define identifiers, and create a new CIPS table with specific attributes. This is a decision about the existence and structure of architectural elements (data entities and their relationships) in the system design, thus fitting the Existence category. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational decisions, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "creating_continuous_inpatient_spells.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring quality of the system's logging behavior\u2014specifically, how logs are formatted and where they are sent (stdout/stderr). It does not create or select a new architectural element, nor does it ban any element. It also does not dictate development process or organizational decisions. Therefore, it fits best as a Property decision, setting a cross-cutting design rule about logging format and output.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-application-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about how applications will be configured during development and deployment, specifically using environment variables as a configuration mechanism. This pertains to the development and deployment process rather than defining or forbidding architectural elements or system properties. Therefore, it fits best as an Executive decision, which governs the development process and environment. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting enduring system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "004-configuration-by-environment-variable.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general mechanism (using ETags and If-Match headers) to handle eventual consistency and ensure clients can verify if their changes have been processed. This sets a cross-cutting quality or constraint on the system's behavior rather than creating or banning a specific element, or dictating development process. It is not about existence or ban of elements, nor about development methodology, but about a property (consistency handling) of the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0013-handle-eventual-consistency-with-etags.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the creation and assignment of temporary and permanent identifiers to newly created entities (road nodes, segments, junctions). This is about the existence and management of specific elements (identifiers) in the system design, which fits the Existence category. It is not forbidding elements (Ban/Non-Existence), nor setting a general property or constraint (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "004-temporary-and-permanent-identifiers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the decision to include preinstallable Docker images on a data volume as part of the system design. This is a decision about creating and including specific architectural elements (Docker images) in the system to be built, which fits the Existence category. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0011-preinstallable-images-on-data-volume.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to include a specific architectural element\u2014a regular expression-based mechanism for splitting multiple-sentence titles\u2014into the system design. This is a decision about creating/selecting a software element to be part of the system, fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0018-use-regular-expression-to-split-multiple-sentence-titles.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on whether the 'study' should remain a pure Data Transfer Object (DTO) or be replaced with direct object instances. This decision is about the structural design of a core element in the system's architecture, specifically the representation of the 'study' as a DTO versus complex instances. It directly concerns the existence and structure of architectural elements in the system, fitting the 'Existence' category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0021-keep-study-as-a-dto.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific programming language (C++) to interface with the ftduino hardware. This is a decision about creating/choosing a software element (the interface implementation) that will exist in the system. It is not about forbidding elements, setting general properties, or governing the development process. Therefore, it fits clearly into the Existence category.",
+        "primary_score": 0.95,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-use-cpp-to-interface-with-the-ftduino.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily focuses on redesigning the core data API and pipeline step interfaces, which are fundamental architectural elements of the system. It proposes creating a new 'Data' class and changing how pipeline steps handle input and output data, which directly affects the existence and structure of architectural elements in the system. Although it touches on usability and deployment scenarios, these are consequences of the architectural element changes rather than process or organizational decisions. Therefore, it fits best under the 'Existence (ontocrisis)' category. It is not a 'Property' decision since it does not set enduring qualities or constraints, nor a 'Ban/Non-Existence' decision as it does not forbid elements. It is not 'Executive' because it does not govern development processes or organizational aspects.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-Pipeline_API_Rewrite.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to build a resident data source within the application, which is a structural element of the system. It involves creating a new architectural element (the resident data source and its abstraction) to track residents. This fits the Existence category as it declares that an element will exist in the design. It is not banning anything, nor is it merely setting a property or quality, nor is it about development process or organizational concerns. Although it mentions future integration with an external API, the core decision is about creating an architectural element now.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-build-an-abstracted-resident-store.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting and creating specific architectural elements (SNS and SQS) as part of the system's event-driven architecture. It focuses on what components will exist in the system to enable message delivery and decoupling between microservices. This fits the Existence category, as it defines structural elements of the architecture. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "Event-Driven-Architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR decides to use ESLint to enforce code style consistency and catch errors, which sets a general, enduring quality constraint on the system's codebase. It does not create or select a software element that becomes part of the running system (Existence), nor does it forbid an element (Ban/Non-Existence), nor is it about the development process or organizational aspects (Executive). Therefore, it fits best as a Property decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-eslint.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about re-implementing JavaScript features from the govuk-frontend library internally within the new library, effectively creating new architectural elements (modules/components) that will exist in the system. This is a clear case of creating/selecting software elements for the system to be built, matching the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-reimplement-gov-uk-frontend-javascript-internally-to-this-library.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Postgres Search as the search implementation within the system, which means it is selecting a specific architectural element (Postgres Search) to fulfill a functional requirement (search capability). This is a clear Existence decision because it creates/chooses a software element that will exist in the system. It is not banning an element, setting a general property, or dictating a process or organizational aspect, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-use-postgres-search.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision focuses on selecting and using specific software elements (OAI-PMH/ORE tool and custom scripts) as part of the system's ingest process. This is about creating and integrating architectural elements to handle data ingestion, which aligns with the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties (Property), or governing development processes or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-8-dome-ingest.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use AWS Lambda as the compute model for the processing pipeline, which is a specific architectural element chosen to exist in the system design. This is a clear Existence decision because it selects a runtime component that will be part of the system's architecture. It is not about forbidding elements (Ban/Non-Existence), setting general properties or constraints (Property), nor about development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-lambda.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to deploy all services as Docker containers, which means it is selecting a specific architectural element (Docker containers) to exist in the system design. This is a clear Existence decision because it defines what elements will be part of the system's architecture. It is not about forbidding elements (Ban), setting general properties or constraints (Property), nor about development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-docker-containers-for-everything.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR's core decision is to select Kubernetes as the container orchestration platform, which is a specific architectural element to be included in the system design. This fits the Existence category as it declares that Kubernetes will exist as part of the system. It is not about forbidding elements (Ban/Non-Existence), setting general system properties (Property), or governing development processes or organizational aspects (Executive). Although there is mention of team learning, the primary focus is on the architectural element selection, not the process.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-kubernetes-for-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific software element\u2014the Prometheus Operator Helm Chart\u2014for deploying the Prometheus monitoring solution. This is a clear architectural decision about what component will exist in the system's deployment architecture. It is not about forbidding elements, setting system-wide properties, or governing development processes, so the other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0039-prometheus-operator-helm-chart.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR mandates that all services will have default configuration values set, which is a general, enduring quality or constraint of the system's configuration behavior. It does not create or select a new architectural element (so not Existence), nor does it forbid an element (not Ban/Non-Existence), nor is it about development process or organizational aspects (not Executive). Therefore, it fits best as a Property decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about refactoring the API to use a JSON document database as the persistence mechanism, which is a clear architectural element of the system to be built. This is a structural decision about what components (database technology) will exist in the system. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational aspects. Therefore, it fits the Existence category with high confidence.",
+        "primary_score": 0.95,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0003-replace-rdb-with-json.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines rules and constraints about what properties should be stored in the session cookie and how they should be managed. It does not create or select a new architectural element (Existence), nor does it ban an element (Ban/Non-Existence), nor is it about development process or organizational aspects (Executive). Instead, it sets enduring qualities and constraints on session cookie contents and behavior, which aligns with the Property category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-cookies.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Jest and Cypress as testing frameworks for the application. This is a decision to include specific software elements (testing tools) as part of the system to be built, which aligns with the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general properties or constraints (Property), nor about development process or organizational aspects (Executive). Although testing tools relate to development, here the decision is about which tools become part of the system's testing architecture, thus Existence is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-use-jest-and-cypress-for-tests.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use React Router for client-side routing, which is a software element integrated into the system to handle routing behavior. It also involves generating HTML files for each pixel art entry to support routing and link previews. This is about creating and selecting architectural elements (routing components and generated pages) that will exist in the system, thus fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-client-side-routing-using-history-api-and-redirects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on improving the structure and quality of error objects returned by the system, which is a general, enduring quality or constraint of the system's error handling behavior. It does not declare the existence or ban of elements, nor does it govern development processes or organizational aspects. Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0016-structure-of-error-object.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines naming conventions and rules for generated APIs, operations, properties, and query parameters. It sets enduring naming policies and constraints for the system's generated code, which are general qualities or design rules rather than decisions about specific elements to create or exclude. It does not declare the existence or ban of elements, nor does it govern development processes or organizational aspects. Therefore, it fits best as a Property (diacrisis) decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-openapi-generator-naming.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily decides to create and introduce new architectural elements: additional versions of form fields and form groups with specific attributes and templates. This is a clear decision about what elements will exist in the system design. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive). Therefore, it fits best in the Existence category with high confidence.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "form-field-variations.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines guidelines and rules for writing documentation for components, focusing on style, language, and formatting conventions. It sets enduring qualities and constraints on documentation style rather than deciding on the existence or non-existence of architectural elements, forbidding elements, or dictating development processes. Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "writing-docs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Redis and the Bull library as architectural elements for handling background tasks. This is a decision about creating and selecting specific software elements (Redis and Bull) to be part of the system's design and implementation, which fits the Existence category. It is not about forbidding elements, setting system-wide properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-redis-and-bull-for-background-tasks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on organizing the development process by separating integration and unit tests into different source directories and using JUnit Categories for categorization. This decision governs how the development team structures and manages testing, which is part of the development process rather than the system's runtime architecture or its elements. It does not create or ban architectural elements, nor does it set system properties or qualities. Therefore, it fits best as an Executive decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0011-put-integration-tests-in-seperate-folder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on defining a general, enduring design approach for handling non-CRUD operations in REST APIs, setting rules and constraints on how such operations should be modeled and exposed. It does not create or ban specific architectural elements, nor does it dictate development processes or organizational aspects. Instead, it establishes design properties and conventions for API behavior and structure, fitting the Property category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "2020_05_13_handling_non_crud_operations_in_api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about injecting variables (AB tests, config, global values) into presenters via their constructors to improve testability. This involves creating or modifying architectural elements (presenters) to include these dependencies, which is a structural design decision about elements that will exist in the system. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits best into the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-inject-ab-config-global-values-toPresenter.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about adopting a specific form builder component (DfE's govuk_design_system_formbuilder) to be used in the system for building forms compliant with the GOV.UK Design System. This is a decision to include a particular software element (a form builder) in the architecture, which fits the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting a general property or constraint, nor about development process or organizational matters (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0011-use-govuk-design-system-form-builder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use a specific software element (the data-migrate gem) to perform data changes on live environments, which is a structural decision about what elements will exist in the system. It is about creating/choosing an architectural element to handle data migrations separately from schema migrations. This fits the Existence category as it defines an element that will exist in the system. It is not banning anything, nor is it setting a general property or constraint, nor is it about development process or organizational matters, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0019-use-data-migrations-to-update-live-data.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about adopting a development process pattern ('Scripts to Rule Them All') to manage common tasks in the project. It governs how the team works and interacts with the codebase rather than defining or forbidding architectural elements or system properties. Therefore, it fits the Executive category, which relates to development process and organizational decisions. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0024-use-scripts-to-rule-them-all.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The decision is about removing HATEOAS links from all entities, which is a design rule or constraint affecting the properties of the system's data transfer objects (DTOs). It does not create or ban an architectural element, nor does it govern the development process. Therefore, it fits best as a Property decision, stating a general enduring quality or constraint of the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Ban/Non-Existence (anticrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0009-remove-hal-links.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring quality or constraint related to data integrity verification using SHA256 and Base64Url encoding for JSON data. It sets a rule about how data integrity is ensured across platforms, which is a cross-cutting concern rather than the creation or banning of a system element, or a process decision. Therefore, it fits best as a Property decision. It is not an Existence decision because it does not create or select a software element; not Ban/Non-Existence because it does not forbid an element; and not Executive because it does not govern development process or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0002-use-sha256-with-base64url-encoding.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting 'nix' as the dependency management tool for the Haskell project. This is a decision to include a specific software element (nix) as part of the system's build and dependency management infrastructure, which is part of the system to be built and run. It is not about forbidding an element, setting a general property or constraint, nor about development process or organizational aspects. Although dependency management tools can be seen as development tools, here 'nix' is chosen as part of the system's environment and runtime dependency management, thus it is part of the system architecture (Existence). Executive category is less appropriate because the decision is about what tool to use for managing dependencies in the system, not about how the team works or the development process itself.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-0003-nix-for-dependency-management.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR decides on using optimistic concurrency control as a strategy to handle concurrent data changes, which is a general enduring quality or constraint on how the system manages data consistency and concurrency. It does not create or ban a specific architectural element (so not Existence or Ban/Non-Existence), nor does it dictate development process or organizational aspects (so not Executive). Instead, it sets a property of the system's behavior regarding concurrency management.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0007-follow-optimistic-concurrency.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating a new client application integrated with the existing MMW system. It involves architectural choices about repository structure, deployment, and technology stack for the new client app, which is a software element to be built and integrated. This fits the Existence category as it declares the existence of a new architectural element (the new client app) in the system. It is not about forbidding elements, setting system-wide properties, or development processes, so Ban/Non-Existence, Property, and Executive categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-007-pa-dep-client-app.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The decision specifies a general quality or constraint on how assets are handled: performing integrity checks and excluding assets that fail, and removing the integrity attribute from nodes. It sets a rule about system behavior regarding asset validation rather than creating or banning an architectural element, or governing development process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-asset-integrity-check.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines general, enduring rules and templates for how scripts are run using various shell options across platforms. It sets constraints and default behaviors (e.g., fail-fast behavior, command templates) that govern the system's behavior rather than declaring the existence or banning of specific elements, or dictating development processes. It is not about creating or forbidding architectural elements (Existence or Ban), nor about development methodology (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0277-run-action-shell-options.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR decides to add default implementations to an interface's methods, which is a design rule affecting the interface's behavior and usage. It does not create or ban a system element, nor does it govern development process or organizational aspects. Therefore, it sets a property (design constraint) of the system's architecture.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0002-add-default-implementations-to-componentlifecycle.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about exposing application data and services through a REST API, which means creating and selecting a specific architectural element (the REST API) as part of the system to be built. This clearly fits the Existence category, as it defines an architectural element that will exist in the system. It is not about forbidding elements (Ban/Non-Existence), setting general system qualities or constraints (Property), or about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-expose-services-through-rest-api.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about annotating command classes with usage documentation that is actively read to provide help text. This creates a specific architectural element (annotated command classes) that becomes part of the system's design and runtime behavior. It is not about forbidding elements, setting general properties, or governing development processes. Therefore, it fits the Existence category as it defines an element that will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-help-comments.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides on selecting Microsoft Azure as the primary cloud provider and explicitly states that the system's services and software components will be designed based on Azure's PaaS building blocks (e.g., CosmosDB, Queue Storage, Functions). This is a decision about creating and choosing specific architectural elements (cloud services) that will exist in the system design. It is not about forbidding elements, setting general properties, or governing development processes, so it fits clearly into the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-we-chose-our-primary-cloud-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR decides not to show kickers for ties, effectively forbidding the presence of kickers in that specific scenario. This is a decision to exclude an element (kickers in ties) from the design, which aligns with the Ban/Non-Existence category. It is not about creating or selecting an element (Existence), nor about setting a general property or quality (Property), nor about development process or organizational context (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0013-show-no-kickers-for-ties.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on minimizing the amount of code that must be tested in the browser by shifting logic to the build step. This decision governs how the development process is structured to improve testability and build complexity, rather than specifying architectural elements or system qualities. It is about the development approach and process optimization, fitting the Executive category. It is not about creating or banning system elements (Existence or Ban), nor about setting enduring system properties (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-minimize-the-amount-of-code-that-must-be-tested-in-the-browser.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about building a data warehouse, which is a specific architectural element of the system to be built. This clearly fits the Existence category as it declares that a new element (the data warehouse) will exist in the design. It is not about forbidding elements, setting general properties, or governing the development process, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-006-track-metrics-via-time-dimension.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific architectural element for the system: the use of a 'js-enabled' CSS class on the body element to control content visibility before JavaScript initialization. This is a structural/behavioral decision about how the system's UI elements behave and interact, fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational concerns (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0005-avoiding-initialisation-flickers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating an IAM role and associated policy as a Terraform module to enable read-only access for auditing AWS accounts. This is a decision to create a specific architectural element (IAM role and policy) that will exist in the system design and implementation. It is not about forbidding elements, setting general properties, or governing development processes. Therefore, it fits the Existence category. Executive category was considered but discarded because the decision is about what elements exist in the system (IAM roles), not about how the team works or the development process.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-interrogation-method-iam-role.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR primarily defines enduring qualities and constraints about data retention, archival, deletion policies, and data schema changes to support analytics and GDPR compliance. It sets rules and constraints on how data is stored, archived, and deleted rather than creating or banning specific architectural elements or dictating development processes. Therefore, it fits best as a Property decision. It is not an Existence decision because it does not create or select architectural elements; not Ban/Non-Existence because it does not forbid elements; and not Executive because it does not govern development processes or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-003-initial-data-retention-strategy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about choosing the architectural element of using a Puppetmaster architecture versus a masterless Puppet approach. It declares the existence of a Puppetmaster in the system design, which is a structural element of the architecture. This fits the Existence category as it specifies an element that will exist in the system. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-puppet-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a data structure and configuration organization for Terraform projects, specifying how variable files are arranged and applied. This sets a general, enduring rule about the system's configuration management rather than declaring the existence or non-existence of architectural elements, or dictating development processes. It is not about creating or forbidding elements (Existence or Ban), nor about development methodology (Executive). Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0017-terraform-data-structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR decision is to remove the local nginx proxy for Elasticsearch connections, effectively declaring that this element will no longer exist in the design for AWS environments. This matches the Ban/Non-Existence category, which is about forbidding or removing an element from the system. It is not about creating or selecting an element (Existence), nor about setting a general property or quality (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0022-remove-the-elasticsearch-proxy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Dex as an identity provider component integrated into the system for user web authentication. This is a decision about including a specific architectural element (Dex IdP) in the system design to fulfill authentication requirements. It is not about forbidding elements, setting general properties, or governing development processes, but about selecting a concrete system component to exist in the architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-use-dex-idp-for-user-web-auth.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a specific architectural structure for Terraform projects, including directories for data, modules, and projects, which are architectural elements of the system to be built. It specifies how code and data are organized, how modules are created and reused, and how projects represent logical tiers. This is a clear decision about the existence and organization of architectural elements, not about forbidding elements, setting general properties, or governing development processes.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0004-structure-for-terraform-projects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting Kubernetes as the base container orchestrator and infrastructure abstraction layer, which is a fundamental architectural element of the system to be built. It defines the existence of a core system component that will be part of the running system. It is not about forbidding elements, setting general system properties, or dictating development processes, but about choosing a key architectural element for the system's design and implementation.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "ADR003-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about managing multiple Kubernetes clusters, one per environment per tenant, which directly involves creating and structuring architectural elements (clusters) in the system. This is a clear Existence decision as it defines the presence and organization of system elements. It is not about forbidding elements (Ban/Non-Existence), setting general system qualities or constraints (Property), or about development processes or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR004-tenant-isolation.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides on the architectural element of using fluentd to ship pod/application logs to AWS CloudWatch, thereby creating a unified logging storage solution. This is a decision about what elements will exist in the system's architecture (logging infrastructure). It is not about forbidding elements, setting general properties, or governing development processes, so it fits best under Existence (ontocrisis).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR022-logging.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating a single service operator that manages multiple resource kinds, which is a structural architectural element of the system. It directly concerns what software elements will exist in the system to provide functionality. It is not about forbidding elements, setting system-wide properties, or governing development processes, so it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR034-one-service-operator-different-resource-kinds.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Amazon ECS as the platform for the initial beta build-out of Prometheus. This is a decision about selecting a specific architectural element (the deployment platform) that will exist in the system design. It is about what to build and deploy, not about process or organizational aspects, so it fits the Existence category. It is not about forbidding an element, nor about setting a general property or constraint, nor about development process or organizational decisions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-use-ecs-for-initial-beta-buildout.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes a decision about ownership and responsibility for maintaining a service broker, including repository and pipeline management. It pertains to organizational and process aspects rather than defining or forbidding architectural elements or system properties. Therefore, it fits the Executive category, which covers decisions driven by business environment and affecting development process and organization. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR007-paas-taking-ownership.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily decides to use IAM roles and instance profiles as architectural elements for AWS credential management within EC2 instances and related tooling. This is a decision about creating and selecting specific elements (IAM roles, instance profiles, policies) that will exist in the system design to manage authentication securely. Although it touches on security policies and operational constraints, the core decision is about the existence and use of these AWS IAM constructs as part of the system architecture. It is not about forbidding elements (Ban), setting general system properties or constraints (Property), nor about development process or organizational aspects (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "ADR003-AWS-credentials.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the domain naming scheme for various environments and applications, specifying which domains will exist and be used in the system. This is about creating and choosing architectural elements (domain names and URLs) that will be part of the deployed system. It is not about forbidding elements, setting general properties, or governing development processes, but about the existence and structure of system elements (domains).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR004-domain-naming-scheme.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Ruby and Rails as the programming language and framework for new user-facing web applications. This is a decision about selecting specific architectural elements (language and framework) that will exist in the system to be built, fitting the Existence category. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "ADR022-web_app_language_and_framework_selection.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about how to handle HTTP traffic for applications on the PaaS platform, specifically redirecting HTTP to HTTPS to improve user experience and reduce confusion. This decision governs the operational process and infrastructure behavior rather than defining or forbidding architectural elements or their properties within the system itself. It does not create or ban a software element, nor does it set a system property or quality attribute. Instead, it dictates a process-related behavior affecting deployment and user interaction, which aligns with the Executive category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "ADR033-redirect-http-for-applications.html.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about forking and using a frontend component library for development purposes, which affects the development process and future-proofing strategy rather than directly creating or forbidding a system element. The forked frontend is not part of the running system itself but a development artifact to manage compatibility and updates. Therefore, it aligns with Executive decisions that govern how we work and the development context. It is not an Existence decision because the forked component is not a new architectural element integrated into the system design; it is a development process choice. It is not a Ban/Non-Existence decision since it does not forbid elements, nor a Property decision as it does not set enduring qualities or constraints of the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-005-forking-frontend-components-from-govuk-frontend.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on deciding the approach to supporting a build system (Jenkins and plugins) including how to manage versions and support options. It governs the development process and support strategy rather than specifying architectural elements or system qualities. The decision is about how the team will work with the build system, which aligns with Executive decisions. It does not create or forbid a system element (Existence or Ban), nor does it set a system property or quality (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-pin-versions-of-jenkins-and-plugins.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on changing the process of updating popularity data in an index, specifically removing the need for index locking and simplifying concurrency management by using sidekiq's concurrency. This decision governs how the update process is performed rather than introducing or banning a system element or setting a system property. It affects the development and operational process rather than the architecture of the running system itself, fitting the Executive category. It is not about creating or forbidding architectural elements (Existence or Ban), nor about setting enduring system qualities (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-003-popularity-updating-without-index-locks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use files as the storage mechanism for private keys, which means it selects a specific architectural element (files) to exist in the system design. This is a clear Existence decision because it defines what element will be part of the system. It is not banning an element, setting a property or quality, nor is it about the development process or organizational context.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-use-files-to-store-private-keys copy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring quality control by logging a secure hash of user attributes to ensure integrity and detect mismatches, which is a cross-cutting security property rather than creating or banning a system element or dictating process. It is not about creating a new architectural element (Existence), forbidding an element (Ban/Non-Existence), or governing development process or organization (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "20190327-hashing-attributes.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general rule about how the API will represent verification status inside the JSON object and how HTTP status codes are used for different SAML outcomes. It sets a design rule about the system's behavior and communication protocol rather than creating or banning an architectural element, or dictating development process. Therefore, it fits best as a Property decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-we-will-use-http-200-for-valid-saml.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes a release process for the verify service provider, focusing on how the artifact is built, approved, signed, and distributed securely to relying parties. This decision governs the development and release process rather than specifying architectural elements or system properties. Therefore, it fits best as an Executive decision. It is not about creating or banning system elements (Existence or Ban), nor about setting system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0024-release-process-for-verify-service-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the addition of specific annotation types as elements in the model to trace the origin of data nodes and properties. This is about creating new structural elements (annotation types) in the system's model to represent inferred, virtual, and synthesized data. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-shape-annotation-types.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a new architectural element, the BaseUnitSourceInformation node, which is added to the model to store source location information. This is a structural addition to the system's model to support validation and error reporting. It is not forbidding elements, setting general properties, or governing development processes, but explicitly creating a new element in the architecture, thus fitting the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-source-information-node-storing-source-locations.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly decides that QA and Core developers will maintain separate sets of selectors and rejects the idea of merging or mutualizing selectors. This is a decision to forbid or not have a unified or shared set of selectors, effectively banning the existence of a combined selector set. It is not about creating a new element (Existence), setting a property or quality, or about development process or organization (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0004-keep-qa-and-devs-html-selectors-separate.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a new architectural structure for the Settings Panel HUD composed of Panels, Sections, Widgets, and Controls. It specifies the creation and organization of these software elements and their interactions, which are structural elements of the system to be built. This fits the Existence category as it declares the existence of architectural elements in the design. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-20-explorer-settings-panel-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on how to specify and validate a particular version of a wearable entity in the system, involving the use of hashes and blockchain properties to identify and revert to specific versions. This is about selecting and managing specific elements (wearable versions) that will exist in the system, thus an Existence decision. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational concerns (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "ADR-32-wearable-committee-reverts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on refining and constraining the Catalyst API and protocol by deprecating endpoints, hiding internal endpoints, and optimizing data transfer and synchronization processes. It sets enduring rules and constraints on the API behavior and usage rather than introducing or banning specific architectural elements or dictating development processes. Therefore, it aligns best with the Property category, which covers general, enduring qualities or constraints of the system. It is not an Existence decision because it does not create or select new architectural elements; it is not Ban/Non-Existence because it does not outright forbid elements but rather deprecates or restricts usage; and it is not Executive because it does not govern development processes or organizational aspects.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "ADR-43-catalyst-api-refinment.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a new module, the Royalties Manager, which is a software element to be included in the system to support royalties functionality. It specifies the interface and behavior of this module, thus creating a new architectural element. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-46-royalties-manager-v1.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use the CQRS principle, which involves choosing a specific architectural pattern that separates read and write models. This is a decision about the existence and structure of architectural elements (models, aggregates, DTOs) in the system design, thus fitting the Existence category. It is not about forbidding elements (Ban), setting general properties or constraints (Property), or about development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-cqrs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the decision to use a RabbitMQ queue as a distributed workqueue for task execution, which is a structural element of the system's architecture. It specifies how tasks are managed and executed across nodes, thus creating a system element. It is not about forbidding elements, setting general system properties, or governing development processes, but about the existence and design of a core architectural element (the distributed workqueue).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-distributed-workqueue.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes creating and introducing new architectural elements: a RabbitMQEventHandler to publish task termination events, new TerminationEvent types, and broadcasting these events across nodes. These are concrete elements and behaviors that will exist in the system design and implementation, thus fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-distributed-task-termination-ackowledgement.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about implementing and supporting polyglot codebases by actually writing some mailets and components in Scala, a specific language. This involves creating new software elements (mailets and components) in the system, which fits the Existence category. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational decisions. Therefore, it is clearly an Existence decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0024-polyglot-strategy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on managing the configuration and lifecycle of mailbox listeners in a distributed system, specifically addressing event sourcing for consensus, auditability, and cluster-wide configuration management. It governs how the system operates and manages its processes rather than defining or forbidding architectural elements or their properties. Therefore, it is an Executive decision related to the development and operational process rather than the system's structural or behavioral elements.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0026-removing-configured-additional-mailboxListeners.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the implementation of a corrective task to recompute mailbox quotas by recalculating quota values from the source of truth data. This involves creating a new task element in the system that operates on quota data structures. The core subject is about creating a system element (the corrective task) that affects the design and implementation of the system's quota management. It is not about forbidding elements, setting general properties, or governing development processes, but about adding a functional element to the system. Therefore, it fits best under the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0028-Recompute-mailbox-quotas.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the creation and management of mailbox listeners as architectural elements within the distributed James server system. It specifies commands, events, and behaviors to add or remove listeners, which are components that react to mailbox events. This is clearly about the existence and configuration of architectural elements in the system, not about forbidding elements, setting general properties, or governing development processes. Although it involves configuration and administration, the core decision is about what elements exist and how they are managed in the running system, fitting the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0035-distributed-listeners-configuration.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on implementing 'applicative read repairs' as a mechanism within the system to handle data consistency issues in the mailbox and mailbox-counters entities. This is about creating a specific architectural element or mechanism in the system to improve data consistency and auto-healing, which is a structural/behavioral decision about the system's components and their interactions. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational decisions. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0042-applicative-read-repairs.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the implementation of a web push notification mechanism as part of the system's architecture, including storage, client, event bus integration, and JMAP methods. This clearly involves creating and selecting architectural elements that will exist in the system. It is not about forbidding elements, setting general properties, or governing development processes, so other categories are discarded.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0050-jmap-web-push.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on how the team organizes and maintains documentation (README) to facilitate onboarding and understanding, which governs the development process and team practices rather than specifying a software element or system property. It does not create or ban a system element, nor does it set a system quality or constraint. Therefore, it fits best as an Executive decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-have-the-master-documentation-in-the-readme.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR mandates that integrations expose all available data elements fetched in a single API request to the backend, effectively deciding on the existence of these data elements in the system design. It also discusses disabling certain entities by default, which relates to managing the presence of elements. This is about what elements exist and how they are exposed, not about forbidding elements, setting properties, or development processes. Therefore, it fits best in the Existence category. It is not about banning elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development processes or organizational decisions (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0003-monitor-condition-and-data-selectors.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly states that integrations using GPIO will no longer be accepted and that existing ones will be deprecated and removed. This is a clear declaration that certain elements (GPIO-based integrations) will not exist in the design or implementation as core integrations. It is not about creating or selecting elements (Existence), nor about setting general properties or constraints (Property), nor about development process or organizational decisions (Executive). Therefore, it fits best in the Ban/Non-Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-GPIO.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a new architectural element called 'Chimera', an abstract data model and persistence layer that modules will use to interact with data in a database-agnostic way. This is a clear decision to create and include a specific architectural element in the system design, fulfilling the criteria for an Existence decision. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational concerns. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-data-abstraction-model.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the original design principles for the Archivematica system, specifying architectural elements such as micro-services, file system as the focal point, pipelines, integration with external systems, and generation of Archival Information Packages (AIPs). These are decisions about what architectural elements and artifacts will exist in the system design, thus fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting general enduring qualities or constraints (Property), nor about development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-archivematica-original-design-principles.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting and creating specific architectural elements in the system to implement multitenancy using Postgres row-level security (RLS) policies and discriminator columns. It defines how data isolation and access control are architecturally realized within the database layer, which is a structural element of the system. This fits the Existence category as it declares the existence of specific elements (discriminators, RLS policies, hierarchical organization structure) in the design. It is not about forbidding elements (Ban/Non-Existence), nor about general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0006-use-row-level-security-in-postgres-to-implement-multitenancy.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use API Gateway API keys to limit access to a specific API endpoint. This is a decision about including a security element (API key) as part of the system design to control access to an API endpoint, which is a structural element of the system. It is not about forbidding an element (Ban/Non-Existence), nor about setting a general property or quality of the system (Property), nor about development process or organizational aspects (Executive). Therefore, it fits best as an Existence decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-api-key.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides on the selection of a backend web framework (Django with Django Rest Framework) to be used in the system. This is a decision about creating/choosing a specific architectural element (the backend framework) that will exist in the system design and implementation. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational aspects. Therefore, it fits clearly into the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-0002-backend-language-framework.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily concerns the structural organization of the software system into multiple repositories and packages (UI, API, Infrastructure) and how these are bundled and deployed. This is a decision about creating and structuring architectural elements (repositories, packages, deployment units) that will exist in the system. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational aspects. Although there is some mention of CI/CD tools and deployment processes, the core decision is about the existence and structuring of architectural elements, so it fits best under Existence (ontocrisis). Ban/Non-Existence is not applicable as no elements are forbidden; Property is not the focus since no enduring quality or constraint is set; Executive is less appropriate because the decision is about what is built rather than how the team works or the development process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "2019-05-09-modular-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides on implementing a specific feature for estimating voice over time using a words per minute calculator. This involves creating a new software element (the estimation feature) as part of the system's functionality. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational decisions. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "2019-09-28-time-estimation-for-links.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The core subject of the ADR is the decision to forbid duplicate node IDs in the system. It explicitly states that duplicate IDs will not be allowed and that an exception will be thrown if a duplicate registration is attempted. This is a clear declaration that a certain element (duplicate IDs) will not exist in the design or implementation, fitting the Ban/Non-Existence category. It is not about creating or selecting an element (Existence), nor about setting a general property or quality (Property), nor about development process or organizational context (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-003-handling-duplicate-node-ids.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses whether the component should enforce its own font or inherit from the environment, concluding that it should not enforce any CSS font. This sets a general, enduring quality or constraint about styling behavior rather than creating or banning a specific architectural element. It is not about the development process or tool selection, so Executive is discarded. It is not about existence or non-existence of an element but about a property (styling constraint).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "2018-10-02-component-fonts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about integrating a specific architectural element\u2014the Data BC Geocoder API\u2014into the system to provide GIS coordinates and address verification. This is a decision to create/include a new system element that affects the system's structure and behavior, fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "geocoder.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR documents that esbuild cannot be used currently due to runtime failures caused by dynamic requires of Node.js modules like 'http' in the browser environment. The decision is effectively to not use esbuild at this time, which is a declaration that a particular element (esbuild as a build tool for this context) will not exist in the design/implementation. It is not about creating or selecting an element (Existence), nor about setting a property or quality of the system (Property), nor about development process or organizational decisions (Executive). Therefore, it fits best as a Ban/Non-Existence decision. Although it might seem related to tooling (which can be Executive), the tool in question is intended to be part of the build system, and the decision is to not use it, which aligns with Ban/Non-Existence. Alternative categories considered were Executive (pericrisis) due to tooling context, and Existence (ontocrisis) if interpreted as a delayed existence decision, but these are less fitting.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)",
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0012-can-t-use-esbuild.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The decision to use TypeScript is about choosing a development tool and improving the development process (productivity, refactoring, documentation). It does not create or select a software element that becomes part of the running system, but rather affects how the system is developed. Therefore, it fits best as an Executive decision. It is not an Existence decision because TypeScript is a development language/tool, not a runtime architectural element. It is not a Property decision since it does not set a system quality or constraint, nor a Ban/Non-Existence decision since it does not forbid elements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-use-typescript.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting and reverting to a specific ODE solver (ode_bdf_tol) for the model's steady state condition calculations. This is a decision about which computational element (the solver) will exist and be used in the system implementation, thus it is an Existence decision. It is not about forbidding an element (Ban/Non-Existence), nor about setting a general property or constraint, nor about development process or organizational matters (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0018-backwards-differential-solver.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on selecting and standardizing development tools and practices for the Python development environment, including testing frameworks, code formatting, linting, git integration, and virtual environments. These decisions govern how the development team works rather than defining elements of the system to be built. Therefore, it aligns with the Executive category, which pertains to decisions driven by the development process and organizational context. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting system properties or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr_python-dev-env.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR declares the adoption of a Layered Architecture pattern, which defines specific structural elements (layers) of the system to be built. This is a clear decision about the existence and structure of architectural elements in the system, fitting the 'Existence (ontocrisis)' category. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational aspects, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-layered-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about selecting a package repository service (Github Packages) for deployment and distribution of packages. This decision pertains to the development environment and process rather than defining or forbidding architectural elements of the system itself, or setting system properties. It governs how the team manages package deployment infrastructure, which is an organizational and process-related decision, fitting the Executive category. It is not about creating or banning elements of the running system (Existence or Ban/Non-Existence), nor about system qualities or constraints (Property).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "007-package-repository.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting and using Hibernate's ddl-auto feature to manage the database schema, which is a structural element of the system. It directly concerns how the database schema (an architectural element) is created and updated in the system, thus fitting the Existence category. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-jpa-manages-schema.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use AWS RDS Aurora MySQL as the database persistence mechanism, which is a specific architectural element of the system to be built. This is a clear Existence decision because it establishes the presence of a particular database technology in the architecture. It is not about forbidding an element, setting a general property, or governing the development process, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-rds-aurora-mysql-for-database-persistence.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on deciding which module formats (CommonJS, ES Modules, UMD) to support in the compiled output of a component library. This is a decision about creating and selecting architectural elements (module formats) that will exist in the system to be built, directly impacting the structure and behavior of the software system. It is not about forbidding elements, setting general properties, or governing development processes, so it fits best under Existence (ontocrisis).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "6_package-module-support.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly decides that ABCI-apps will not expose their own RPC server, effectively forbidding the existence of an RPC server in the app design. This is a clear declaration of non-existence of a software element, matching the Ban/Non-Existence category. It is not about creating an element (Existence), setting a property or quality (Property), or about development process or organizational concerns (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-abci-app-rpc.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines constraints and rules about the maximum size of transactions inside a block, how to calculate upper bounds for block size, and the removal of certain configuration variables to simplify the model. It sets enduring qualities and constraints on the system's behavior regarding block size limits rather than declaring the existence or banning of elements, or dictating development processes. Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-020-block-size.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes a decision to change the structure of ABCI events from a list of tags to a list of events, each containing tags. This directly affects the design of the system's event reporting mechanism, which is a structural element of the system's architecture. It defines how events are represented and indexed within the system, thus creating a new or modified architectural element. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits best into the 'Existence (ontocrisis)' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-021-abci-events.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a risk reduction method that sets a general constraint or quality on the system's behavior to prevent double signing by checking recent consensus votes before voting begins. It does not create or select a new architectural element (Existence), nor does it ban an element (Ban/Non-Existence), nor is it about development process or organizational aspects (Executive). Instead, it establishes a property (a safety check) that the system must uphold.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-051-double-signing-risk-reduction.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily decides to transition the system to use Protobuf as the serialization format, which involves creating and selecting a specific architectural element (the Protobuf encoding and related proto files) as part of the system design. This is a clear Existence decision because it defines an element that will exist in the system's architecture and implementation. It is not about forbidding elements (Ban/Non-Existence), nor is it primarily about setting a general quality or constraint (Property), nor about development process or organizational aspects (Executive). Although tooling is mentioned, the tooling is part of the system's runtime support, not just development tools, so it does not qualify as Executive.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "adr-055-protobuf-design.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes architectural decisions related to the detection and handling of light client amnesia attacks within the consensus and light client verification system. It focuses on the existence and behavior of elements such as evidence reactors, light clients, and detection algorithms that are part of the system design. It does not ban elements, set general properties or constraints, nor dictate development processes or organizational aspects. Therefore, it fits best into the 'Existence (ontocrisis)' category as it declares the existence and behavior of architectural elements in the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-056-light-client-amnesia-attacks.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines rules and guarantees about the stability and backward compatibility of the Go public API for Tendermint. It sets enduring constraints and quality attributes on the API design and evolution, rather than deciding on specific architectural elements or forbidding elements. It also does not govern development process or organizational aspects, but focuses on API properties and constraints, which aligns with the Property category. It is not an Existence decision because it does not create or select specific architectural elements; it is not Ban/Non-Existence because it does not forbid elements; and it is not Executive because it does not dictate development process or organizational decisions.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-060-go-api-stability.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the design and architecture of the P2P networking stack, including the creation and definition of core architectural elements such as Transports, Channels, Router, PeerManager, and Reactors. These are structural elements that will exist in the system to be built. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational decisions. Therefore, it fits clearly into the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-062-p2p-architecture.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the adoption of a batch verification mechanism for cryptographic signatures within the Tendermint consensus and block syncing processes. This decision introduces a new interface and implementation that becomes part of the system's architecture to improve verification performance. It is about creating/selecting a specific architectural element (batch verification interface and process) that will exist in the system. It is not about forbidding elements, setting general properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-064-batch-verification.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the addition of new P2P messages and a new channel to extend the state sync reactor, which are architectural elements that become part of the system design. It focuses on creating and integrating new protocol elements and data structures to enable reverse sync functionality, which is a structural and behavioral architectural decision. It is not about forbidding elements, setting general system properties, or governing development processes, but about adding specific elements to the system architecture.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-068-reverse-sync.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR's core subject is about committing to specific data elements (shares and footers) in the rollup block header, which directly relates to the existence and structure of elements within the system's design. It defines how rollup transactions and their commitments are represented and included in the block header, which is a structural architectural decision. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational concerns. Therefore, it fits best into the 'Existence (ontocrisis)' category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-007-header-commit-to-shares.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR is about selecting a specific architectural element, the React library, to be used as the client software framework. This is a clear Existence decision because it declares that React will exist as part of the system to be built. It is not about forbidding elements, setting general properties, or governing the development process, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-choice-of-react.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a general, enduring quality and constraint regarding the use of human-readable names versus UUIDs as identifiers in the IAM API. It sets rules about identifier naming conventions, uniqueness, renaming policies, and handling of deletions, which are design rules or constraints rather than decisions about existence or banning of elements, or about development process. It does not create or select a specific architectural element (Existence), nor forbid an element (Ban/Non-Existence), nor govern development process or organization (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-2018-10-04.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR focuses on enforcing a CSS style guide and consistency through linting tools and rulesets, which sets enduring quality constraints on the system's CSS code. It does not create or select architectural elements (Existence), forbid elements (Ban/Non-Existence), nor dictate development process or organizational aspects (Executive). Therefore, it fits best as a Property decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-use-linter-for-css.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about implementing a minimal API that exposes Grimoire data in a file-based cache format for consumption by multiple languages. This involves creating a new architectural element (the cache API and its file format) that will exist as part of the system design. It is not about forbidding elements, setting general properties, or governing development processes, but about creating a concrete software element to be built and used. Therefore, it fits the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-implement-minimal-api-abstracting-grimoire.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR describes configuration workarounds (policies) to handle incompatibilities with STRICT mTLS in certain components. It does not create or select architectural elements of the system (not Existence), nor does it ban elements (not Ban/Non-Existence). It also does not dictate development process or organizational decisions (not Executive). Instead, it sets enduring configuration properties (workarounds) that affect system behavior and constraints, fitting the Property category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-implement-workarounds-for-capi-and-log-cache-to-unblock-global-strict-mtls.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR describes a refactor of the 'cf push' command implementation to improve code structure, maintainability, and testability. It focuses on the development process and code organization rather than introducing or banning architectural elements or setting system properties. The decision governs how the development team works on the push command, aligning with the Executive category. It is not about creating or forbidding elements of the running system, nor about system qualities or constraints.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-v7-push-refactor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating a new database table to store a new role (space supporter roles) and managing the existence of this new element alongside the old table. This is a structural decision about elements in the system's design (database tables representing roles). It is not about forbidding elements, setting system-wide properties, or governing development processes, but about introducing and managing architectural elements in the system. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0010-renaming-space-application-suporter-role-to-space-supporter.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about including the vendored dependencies (source code) directly in the repository for the Copilot component, which is a structural element of the system. This affects what elements exist in the system's build and packaging process. It is not about forbidding elements, setting general properties, or governing development processes, but about what elements are included in the system build. Therefore, it fits best in the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-check-in-copilot-dependencies-that-were-already-vendored.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR discusses the ordering and sorting of data points in frames and scales to avoid drawing errors in charts. It sets a rule about how data should be sorted and handled to maintain consistency and correctness in visualization. This is a general, enduring quality or constraint on the system's behavior rather than the creation or banning of elements, or a process decision. Therefore, it fits best as a Property decision. It is not about creating or selecting architectural elements (Existence), forbidding elements (Ban/Non-Existence), or about development process or organizational aspects (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0007-frame-vs-scale.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines a new way to store balances per account and per denomination, introducing a new key structure and modifying account and bank module interfaces. This is a decision about creating and structuring specific architectural elements (data storage keys, APIs) that will exist in the system design and implementation. It is not about forbidding elements, setting general properties, or governing development processes, but about what elements will exist in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-004-split-denomination-keys.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about replacing the current key storage backend with a new secret store implementation (Keyring). This involves selecting a specific architectural element (the secret store backend) that will exist in the system design and implementation. It is not about forbidding elements, setting general properties or constraints, nor about development processes or organizational aspects. Therefore, it fits the Existence category as it declares the existence of a new architectural element in the system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-006-secret-store-replacement.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the structure and encoding of transactions in the system, specifying protobuf message types and signing modes. It focuses on the design of core system elements (transactions, messages, signatures) that will exist in the running system. This is a clear architectural decision about what elements will exist in the system, matching the Existence category. It is not about forbidding elements (Ban), setting general properties or constraints (Property), or about development process or organizational concerns (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-020-protobuf-transaction-encoding.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the introduction of a new module 'x/feegrant' that adds a specific architectural element to the system: a mechanism for granting fee allowances between accounts. This is a structural decision about what elements will exist in the system to support fee management in blockchain transactions. It is not about forbidding elements, setting general system properties, or governing development processes, but about creating a new component that will be part of the running system.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-029-fee-grant-module.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR provides guidelines and rules about how to update Protobuf definitions, focusing on enduring qualities and constraints of the system's data schema and compatibility. It does not declare the existence or non-existence of elements, nor does it dictate development processes or organizational decisions. Therefore, it fits best as a Property decision, setting rules and constraints on system design artifacts.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-044-protobuf-updates-guidelines.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily defines architectural elements and mechanisms for handling IBC packet reception, routing, and state management within the system. It specifies new capabilities for PortKeeper, modifications to baseapp's transaction processing, and the introduction of an AnteDecorator for proof verification. These are all about creating and selecting architectural elements and behaviors that will exist in the system design and implementation. Although it touches on process aspects (e.g., AnteHandler insertion), the core focus is on the system's structural and behavioral elements related to IBC packet handling, which aligns with the Existence category. It is not about forbidding elements (Ban), setting general properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-ibc-packet-receiver.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decisively chooses hexagonal architecture as the primary architectural style for the system, which is a structural design decision about the elements and organization of the system to be built. It specifies creating concrete artifacts and adapting the architecture for CQRS/ES, all indicating the creation and selection of architectural elements. This fits the Existence category as it declares what architectural elements will exist. It is not about forbidding elements (Ban/Non-Existence), nor about setting general enduring qualities or constraints (Property), nor about development process or organizational context (Executive).",
+        "primary_score": 0.95,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "adr": "0004-hexagonal-architecture-for-applications.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting and using Azure Active Directory B2C as the authentication mechanism for the frontend application, which is a software element that will exist in the system design. It defines how users authenticate and interact with the system, thus it is an architectural element of the system. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive). Therefore, it fits best in the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0003-authenticate-frontstage-users-azure-b2c.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about selecting a specific architectural element for the system: choosing between AWS Sagemaker (a vendor-specific managed ML stack) and Kubernetes with Tensorflow (a general stack). This is a decision about which software infrastructure component will exist in the system design, thus it fits the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-for-machine-learning-select-a-vendor-specific-stack-of-a-general-stack.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly decides not to implement versioning for HTTP App Callbacks, effectively forbidding the existence of such versioning in the API design. This is a clear declaration that a particular element (versioning on app callback APIs) will not exist, fitting the Ban/Non-Existence category. It is not about creating or selecting an element (Existence), nor about setting a property or quality of the system (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "API-010-appcallback-versioning.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about choosing the architectural style for rendering the application\u2014specifically, using Client Side Rendering with Create React App. This is a decision about the existence of a particular architectural element (the rendering approach) in the system to be built, which fits the Existence category. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), or about development process or organizational aspects (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-use-client-side-rendering-create-react-app.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR proposes creating new architectural elements: 'credential_user' and 'real_user' concepts, and corresponding tables ('user_verifications' and 'user_accounts') to manage persistent user identity. This is about introducing new structural elements in the system design to handle user identity consistently, which fits the Existence category. It is not about forbidding elements (Ban), setting general properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0011-persistent-user-identity-proposal"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR is about selecting an authentication provider solution (Auth0 or Keycloak) to be part of the system delivering the IIIF Universal Viewer auditing platform. This is a decision about which architectural element (identity and access management solution) will exist in the system, thus it fits the Existence category. It is not about forbidding an element, setting a general property or constraint, nor about development process or organizational aspects, so Ban/Non-Existence, Property, and Executive categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0002-choice-of-auth-provider.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Property (diacrisis)",
+        "explanation": "The ADR defines a fixed folder structure and naming conventions as a general, enduring rule for organizing the project files. It does not create or select specific architectural elements of the system (Existence), nor does it forbid elements (Ban/Non-Existence), nor is it about the development process or organizational aspects (Executive). Instead, it sets a structural guideline or constraint, which aligns with the Property category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Existence (ontocrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "ADR Folder structure.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about creating a specific architectural element in the system: whether to place testing features in the main 'dogma' module or in a separate 'dogmatest' module. This is a structural decision about the organization of components in the system, which fits the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting a general quality or constraint (Property), nor about development process or organizational aspects (Executive). Although it affects development overhead, the core decision is about the existence and location of a software element in the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-location-of-testing-features.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on adopting a coding style guide (Google C++ Style Guide) to enforce consistent code formatting and style across the codebase. This decision governs the development process and coding standards rather than specifying or forbidding architectural elements or system properties. It does not create or ban any software elements, nor does it set system qualities directly. Therefore, it is an Executive decision affecting the development process and team practices.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-0006.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decision is about handling two different types of AWS clients within the service, which means creating or selecting specific architectural elements (AWS clients) as part of the system design. This fits the Existence category because it declares that these elements will exist in the system. It is not about forbidding elements (Ban/Non-Existence), setting general system properties or constraints (Property), or about development process or organizational context (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-use-different-aws-account-for-interacting-with-infrastructure-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use DotEnv as a tool to load environment variables into the system. This is a decision about including a specific software element (DotEnv) as part of the system's runtime environment to manage environment variables. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational aspects. Therefore, it fits best as an Existence decision, since it creates/selects a specific architectural element of the system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Normalize.css as part of the system to normalize browser default styles. This is a decision to include a specific artifact (Normalize.css) in the system design, which fits the Existence category. It is not forbidding an element, setting a general property, or dictating a process, so other categories are less appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0013-use-normalize-css-to-normalize-styles-across-browsers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR decision is about using a specific repository as the primary source for setup scripts and consolidating maintenance responsibilities. It governs the development process and repository management rather than defining or forbidding architectural elements or system properties. Therefore, it fits best as an Executive decision, which relates to organizational and process aspects. It is not about creating or banning system elements (Existence or Ban/Non-Existence), nor about setting system qualities or constraints (Property).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Existence (ontocrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-this-repo-as-source-of-setup-scripts.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to create a new package '@ecl/ec-editor' specifically for editor CSS rules, including a new preset 'ec-preset-editor'. This is a decision about introducing new architectural elements (a package and preset) into the system design. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational aspects. Therefore, it fits best into the Existence category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Property (diacrisis)",
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "003-editor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily concerns the selection and configuration of native library platform extensions (libnd4j) for the Nd4j library, which are architectural elements that will exist in the system. It defines how these native components are included and linked, directly impacting the system's structure and behavior. This fits the Existence category as it is about creating/selecting specific architectural elements. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007 - Nd4j classifiers.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR describes the creation and use of configuration objects as architectural elements within the system, specifically adding a Config section to namespaces and enabling Ops to use these configs. This is about defining and creating structural elements (Configs and Ops) that will exist in the system design. It is not about forbidding elements, setting general properties or constraints, nor about development process or organizational decisions. Therefore, it fits clearly into the Existence category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0007-configuration_objects.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR defines the introduction of an aliasing mechanism at the Namespace level to create references to existing ops, effectively creating new elements (aliases) in the system's API structure. This is a clear decision about creating/choosing architectural elements (aliases) that will exist in the system, matching the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-aliasing.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR primarily decides on the architectural elements to be included in the system: two different facade implementations for signal enrichment, which are components that become part of the running system. It defines how events are enriched with extra fields, impacting the system's event processing architecture. This is a clear creation/selection of architectural elements, fitting the Existence category. It is not about forbidding elements (Ban/Non-Existence), nor about setting general system properties or constraints (Property), nor about development process or organizational decisions (Executive).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "DADR-0004-signal-enrichment.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides on the use of double-encoded URLs as the format for URLs in the system, which is a decision about the structure and behavior of a system element (URLs). This is about selecting a specific architectural element or artifact (URL encoding scheme) that will exist in the system design. It is not about forbidding an element, setting a general property, or governing the development process, so it fits best under Existence (ontocrisis).",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-double-encoded-urls.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR decides to use Eclipse Orion as the editor component in the system, which is a specific software element to be included in the design. This is a clear Existence decision because it selects a concrete architectural element (the editor) that will exist in the system. It is not about forbidding elements, setting system properties, or governing development processes, so Ban/Non-Existence, Property, and Executive categories are not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0014-use-eclipse-orion-as-editor.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Existence (ontocrisis)",
+        "explanation": "The ADR focuses on how to represent versioning of TOSCA elements within the system design, specifically deciding on embedding the version in the element's name/id. This is a decision about the existence and structure of elements in the system (TOSCA elements with versioning), not about forbidding elements, setting general properties, or development processes. Therefore, it fits best as an Existence decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0019-version-in-the-name.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Ban/Non-Existence (anticrisis)",
+        "explanation": "The ADR explicitly decides NOT to pursue a full-fledged feature flag implementation, effectively banning the introduction of a new feature flag module or system. This is a clear declaration that a certain element (a feature flag system) will not exist in the design or implementation. It is not about setting a property or quality, nor about process or organizational decisions, but about forbidding a specific architectural element. Therefore, it fits best in the Ban/Non-Existence category. Executive is less appropriate because the decision is about the system's design elements, not the development process or organizational aspects. Property is not suitable as it does not set a general quality or constraint. Existence is ruled out because the decision is to not have the feature flag system.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Executive (pericrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-Feature-Flags.md"
+        }
+    },
+    {
+        "framework": "kruchten",
+        "primary_category": "Executive (pericrisis)",
+        "explanation": "The ADR focuses on defining a process for handling event transmission retries, persistence, alerting, and administrative monitoring. It governs how the system operates in the face of failures and how administrators interact with the system, rather than specifying architectural elements or qualities of the system itself. Therefore, it is an Executive decision related to development and operational processes.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Property (diacrisis)"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-persistence-and-retries-for-events.rst"
+        }
+    }
+]

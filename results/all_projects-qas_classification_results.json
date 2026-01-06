@@ -1,0 +1,1452 @@
+[
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR provides no information about quality attributes or non-functional requirements. It only outlines a decision structure without specifying any quality attribute focus such as performance, security, or maintainability.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR000-template.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on structuring the support model to balance responsibilities between Reliability Engineering and Service Teams, emphasizing shared responsibility for deployment primitives, monitoring, and operational support. The primary motivation is to ensure reliable operation and support of the system under varying conditions, which aligns with the Reliability quality attribute. Although aspects like flexibility and deployment patterns are mentioned, the core decision is about maintaining system reliability through shared operational responsibility. Other categories like Maintainability or Scalability are less relevant since the ADR does not primarily address ease of modification or handling increased load, and it is not about security, performance, or observability specifically.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR001-support-model.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR focuses on adopting containerized workloads to support deployment across different infrastructure environments (VMs, AWS ECS, PaaS), which implies improving the system's adaptability and environment neutrality. The decision to use containers primarily addresses the system's ability to be transferred and run in various environments, a key aspect of Portability. Although there are mentions of isolation and deployment changes, these are consequences rather than the primary motivation. There is no explicit focus on performance, security, or scalability as the main driver. Hence, Portability is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Scalability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR002-containers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR primarily focuses on choosing Kubernetes as the container orchestration platform to support horizontal scalability, high availability, load balancing, and the ability to increase or decrease application instances based on demand. These aspects directly relate to the system's capability to handle increased load by expanding resources, which is the essence of Scalability. While reliability aspects like self-healing and high availability are mentioned, they are secondary to the main goal of supporting scalable container workloads. Other categories like Performance or Maintainability are less relevant since the decision centers on scaling and managing workloads rather than optimizing speed or ease of modification.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR003-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on tenant isolation by managing multiple Kubernetes clusters per environment per tenant to ensure strong network and compute isolation, clear separation of billing, and deployment into target VPCs. The primary motivation is to protect information and resources by isolating tenants, which aligns with the Security attribute, specifically confidentiality and access control. Although there is mention of complexity in management, the core decision is about isolation for security purposes rather than performance, scalability, or maintainability.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR004-tenant-isolation.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR focuses on using a single load balancer and ingress controller to efficiently manage external access to services in a cluster, avoiding the overhead and cost of provisioning multiple load balancers. This decision is primarily motivated by handling increased load and resource management at scale, which aligns with Scalability. Although there are mentions of deployment time and portability concerns, the core motivation is to support growing loads efficiently rather than optimizing raw performance or portability alone.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR005-ingress.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on choosing an authentication method for Kubernetes clusters, which is primarily motivated by protecting access to the system and ensuring appropriate authentication mechanisms. The decision weighs security aspects such as token refresh, flexibility, and management overhead of different authentication strategies. Although there are operational consequences, the core concern is securing access, thus Security is the primary quality attribute. Other categories like Maintainability or Performance are not the main focus here, and the decision is not about functional features alone.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR006-authentication-method.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on choosing GitHub as the identity provider to authenticate users and control access to Kubernetes clusters. This decision is primarily motivated by access control, user authentication, and preventing unauthorized access, which are core aspects of Security. Although there are mentions of usability concerns (non-technical users), the primary driver is securing access to the system. Other categories like Maintainability or Compatibility are not the focus here, and Performance or Scalability are not relevant to this decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR007-identity-provider.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on improving the confidence and correctness of deployment changes, ensuring that changes do not break the deployment and that the desired state is maintained. This directly relates to the system's ability to perform its functions under stated conditions, which is a key aspect of Reliability. Although the ADR mentions efficiency and consistency, these are secondary to the primary goal of reliable deployment and support. It does not primarily address performance, security, or other attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR008-continuous-delivery-workflow.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on the decision to use a single CI/CD toolset shared by multiple tenants, emphasizing the need for strong Role-Based Access Control (RBAC) to prevent cross-tenant pollution and aligning authentication with an identity provider. The primary concern is protecting information and access control between tenants, which is a core aspect of Security. Although there are mentions of easier updates and centralized management, these are secondary and do not outweigh the primary motivation of access control and preventing unauthorized access between tenants. Other categories like Maintainability or Reliability are less relevant as the main driver is access control and tenant isolation.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR009-multitenant-ci-cd.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on the placement of CI and CD tools to keep the control cluster lean and as secure as possible, emphasizing protection and minimizing attack surface. Although it involves deployment decisions, the primary motivation is security rather than performance, maintainability, or other attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR010-placement-of-ci-cd-tools.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR focuses on choosing a container image format (OCI) for building and storing artefacts, which directly impacts the system's ability to be deployed across different environments and container runtimes. This decision is primarily motivated by platform/environment compatibility and adaptability, which aligns with Portability. Although there is mention of Kubernetes preference and container runtimes, the core concern is about environment neutrality and transferability of the system artefacts rather than interoperability with other systems (Compatibility) or deployment scalability.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Compatibility",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR011-build-artefacts.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on the choice of Docker image repository with emphasis on managing authentication and authorization, restricting access using IAM policies, and ensuring images do not contain sensitive data. These concerns primarily relate to protecting information and controlling access, which aligns with the Security quality attribute. Although operational and maintainability aspects are mentioned, the primary motivation is securing the container images and access to the repository.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR012-docker-image-repositories.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR focuses on the choice of CI/CD tools to support the development process, emphasizing team experience, acceleration of development, and future research. It does not address any quality attribute of the system being built such as performance, security, or maintainability. The decision is about the development environment and process rather than the system's non-functional requirements.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR013-ci-cd-tools.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on protecting sensitive information by encrypting Kubernetes Secrets with a per-cluster key pair, ensuring confidentiality and limiting the impact of key compromise. This is primarily motivated by confidentiality and access control concerns, which are core aspects of Security. Although there are some operational consequences mentioned, the main goal is securing secrets rather than improving performance, scalability, or maintainability.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR014-sealed-secrets.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on controlling and securing admin access to clusters via AWS IAM authentication, emphasizing access control, auditing, and enforcing policies such as MFA. These are core security concerns related to confidentiality, integrity, and accountability. Although usability and maintainability aspects are mentioned, they are secondary to the primary goal of securing cluster access.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Usability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR015-aws-iam-authentication.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on ensuring that code changes are verified by at least two authorized code owners before deployment, aiming to protect the integrity and authenticity of the code. This is primarily about access control, accountability, and preventing unauthorized or unverified code from reaching production, which aligns with the Security quality attribute. Although usability is mentioned as a consideration, it is secondary to the main goal of securing the code verification process. Other categories like Maintainability or Performance are not relevant here as the decision is not about ease of change or efficiency but about protecting the system from unauthorized changes.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR016-code-verification.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on moving from a self-managed Kubernetes installation to a vendor-provided managed service (AWS EKS), which primarily improves reliability by offloading control plane management, reducing operational overhead, and aligning with principles for managed cloud services. This implies improved availability and fault tolerance by relying on AWS's managed infrastructure. Although there are cost and management implications, the core motivation is reliability rather than performance, scalability, or maintainability. The decision does not primarily address performance optimization, scalability for increased load, or maintainability of code or tests, nor does it focus on security, observability, or portability explicitly.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR017-vendor-provided-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR focuses on enabling the system (GDS Supported platform stack) to run on local developer machines, independent of the cloud provider environment. This is primarily about environment adaptability and installability, which aligns with Portability. Although resource constraints and performance are mentioned as consequences, the core decision is about making the system portable to a different environment (local hardware). Other categories like Performance or Maintainability are less relevant since the ADR does not primarily address speed optimization or ease of change, and it is not about functional behavior alone.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR018-local-development.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is primarily motivated by the need to restrict data exfiltration, enforce strict authentication between microservices, and use mutual TLS, all of which are core security concerns related to confidentiality, integrity, and access control. While the ADR mentions other aspects like load balancing and observability, the primary driver is securing service-to-service communication. Alternative categories like Reliability or Observability are less suitable because the main goal is protecting information and ensuring secure access rather than fault tolerance or monitoring.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR019-service-mesh.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR focuses on using Prometheus and Alertmanager for metrics collection and alerting, which directly supports monitoring and diagnosing system states. This aligns with Observability, as it enables inference of internal system states from external outputs. Although the context mentions reliability, the primary goal is to provide visibility and monitoring, not directly to improve fault tolerance or availability, so Reliability is secondary. Other categories like Performance or Maintainability are not the focus here.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR020-metrics.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on timely notifications and alert routing to ensure teams can respond to issues and maintain system reliability. The primary motivation is to support fault detection and recovery, which are aspects of Reliability. Although observability is related, the decision centers on alerting for reliability rather than monitoring or debugging per se.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR021-alerting.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR focuses on the aggregation and centralization of logs from various sources into a single storage location (CloudWatch) to facilitate auditing and debugging. This is primarily about improving the system's observability by enabling better monitoring, tracing, and understanding of internal states through logs. Although there is mention of user preferences for Kibana and concerns about CloudWatch Insights meeting debugging needs, the core decision is about log management for observability. Other categories like Maintainability or Performance are not the primary focus here, and the ADR does not address security, scalability, or other quality attributes explicitly.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR022-logging.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on authenticating users to the cluster and mapping IAM roles to cluster roles to control access, which is primarily about protecting information and ensuring appropriate access control. This aligns directly with the Security quality attribute, emphasizing confidentiality, integrity, and access control. Other categories like Maintainability or Compatibility are not the focus here, as the decision is not about ease of change or interoperability but about secure authentication and authorization.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR023-cluster-authentication.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR focuses on designing a 'soft multi-tenancy' model to share infrastructure among multiple service teams within a programme, aiming to balance resource sharing and isolation. The primary motivation is to handle multiple teams and environments efficiently by sharing clusters, which relates to the system's capability to handle increased load and resource management, i.e., Scalability. Although cost and isolation are mentioned, the core decision is about managing growth and resource sharing rather than strict security or performance optimization. Other categories like Security (isolation) and Performance (efficiency) are secondary considerations but not the primary focus.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.01
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR024-soft-multitenancy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on choosing a single ingress system (Istio Ingress Gateway) over maintaining two different ingress systems. This decision reduces management complexity and aligns with standard Kubernetes types, which improves the ease of modification and management of the system. There is no explicit mention of performance, security, scalability, or other quality attributes as the primary motivation. The emphasis is on reducing operational overhead and simplifying the system, which aligns best with Maintainability.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR025-ingress.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on ensuring the provenance, authenticity, and vulnerability scanning of container images, which are key aspects of protecting information and preventing unauthorized or exploitable software in production. This aligns primarily with the Security quality attribute. While there are elements related to usability (ease of sharing images) and maintainability (managing self-hosted tools), the core motivation is securing the container images and production environment.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR028-container-tools.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on improving the manageability and configuration complexity of the CI/CD tooling by consolidating it into the programme cluster. The primary motivation is to reduce configuration complexity, improve visibility, and automate provisioning and access control, which are aspects of maintainability such as modularity, ease of change, and operational manageability. Although there are mentions of visibility and automation, these are related to simplifying management rather than runtime observability or performance. There is no primary focus on performance, security, scalability, or other quality attributes as defined. Therefore, Maintainability is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Observability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR029-continuous-delivery-tools.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR focuses on enabling users to provision SQS queues easily within Kubernetes using kubeyaml, reducing the complexity and number of tools users must learn. The primary motivation is improving the user experience and operational ease for developers and users interacting with the system, which aligns with Usability. Although there are mentions of alternative provisioning methods and tooling complexity, the core decision is about simplifying user interaction and provisioning, not about performance, security, or other quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR030-aws-service-operator.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR primarily focuses on how to provision Postgres instances for tenants in a scalable manner, emphasizing the ability to handle multiple tenants and namespaces without manual intervention. The decision to build a custom Postgres operator with a CRD that allows tenants to provision databases by creating resources in their namespaces directly addresses scalability concerns, enabling the system to handle growth in tenant demand efficiently. Although security aspects (access control via secrets) are mentioned, they are secondary to the main goal of scalable provisioning. Other categories like Performance or Maintainability are less relevant since the ADR does not focus on optimization or ease of change, and it is not primarily about security or reliability.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR031-postgres.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on controlling access permissions to the cluster resources to mitigate risks identified in threat modeling. The primary motivation is to restrict and manage access rights to prevent unauthorized or unsafe modifications, which aligns with the Security quality attribute (confidentiality, integrity, access control). Although there is mention of deployment issues and downtime, the core decision is about permission management rather than reliability or operational performance. Other categories like Reliability or Maintainability are less relevant because the decision is not primarily about fault tolerance or ease of change, but about access control policies.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR032-sre-permissions.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on enabling mutual TLS (mTLS) for secure communication, which is primarily motivated by protecting information and ensuring appropriate access control and confidentiality. The decision to use a Network Load Balancer (NLB) to forward unaltered TCP packets supports the security requirement of mTLS termination. Other categories like Performance or Reliability are not the main focus here, as the ADR does not emphasize response times, fault tolerance, or availability. Maintainability or Observability are also not the primary concerns since the ADR centers on security mechanisms.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR033-nlb-for-mtls.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR primarily focuses on the architectural decision to have a single service operator versus multiple operators, emphasizing factors like reducing duplication, preventing divergence, ease of adding new services, and managing release pipeline complexity. These concerns relate to modularity, code reuse, and ease of change, which are aspects of Maintainability. Although resource usage and pod limits are mentioned, the core motivation is about managing complexity and maintainability rather than optimizing performance or scalability. Security is mentioned as a consideration but not the primary driver. Therefore, Maintainability is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Scalability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR034-one-service-operator-different-resource-kinds.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR primarily focuses on choosing AWS RDS Aurora Postgres due to its benefits like scalable persistent storage, automatic failover with multi-AZs, and faster read loads, which are directly related to handling increased load and capacity. Although reliability aspects like failover are mentioned, the main motivation is the ability to scale and handle growth efficiently. Other categories like Reliability and Performance are relevant but secondary to the scalability focus. There is no emphasis on security, maintainability, or other attributes as the primary driver.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR035-aurora-postgres.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on preventing unauthorized access to the CloudHSM by controlling network access and credential management. The primary motivation is to protect confidentiality and access control to the CloudHSM, which are core aspects of Security. Although network policies and authentication mechanisms are involved, the main goal is to ensure only authorized applications can use the CloudHSM, thus securing the system's sensitive resources. Other categories like Reliability or Performance are not the focus here, and while network isolation might tangentially affect scalability or performance, the explicit goal is security.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR036-hsm-isolation-in-detail.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses primarily on improving security aspects such as mutual TLS, certificate management, ingress and egress controls, and tenant isolation in the context of Istio gateways. The main motivation is to enhance confidentiality, integrity, and access control by segregating gateways per namespace, allowing tenants to manage their own TLS secrets and routing securely. While there are mentions of DNS management and routing complexity, these are secondary to the security-driven goals. Other categories like Maintainability or Scalability are less relevant since the core driver is secure multi-tenancy and certificate handling.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR037-per-namespace-gateways.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on granting permissions to delete Istio networking resources to avoid escalation and enable self-correction via deployment pipelines. The key concern is ensuring the system can recover from potential downtime caused by resource deletion, which relates to fault tolerance and recoverability, core aspects of Reliability. Although there is a mention of permissions (which might hint at Security), the primary motivation is to maintain system availability and recovery without manual intervention. Other categories like Performance, Scalability, or Maintainability are not the main focus here.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR038-sre-permissions-istio.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on restricting network access to the CloudHSM to prevent unauthorized access, which is primarily a security concern related to access control and confidentiality. The decision enforces labels on pods and namespaces to control who can communicate with the HSM, directly addressing protection of sensitive resources. Although network policies can impact reliability or maintainability, the core motivation here is securing access to the HSM. Other categories like Performance, Scalability, or Maintainability are not the primary focus, and the ADR does not describe functional behavior alone, so Other/Only Functional Concern is not appropriate.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR039-cloudhsm-namespace-network-policy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on ensuring cluster stability and preventing outages during node replacement by managing node lifecycle events carefully. The primary motivation is to maintain the cluster's availability and fault tolerance during updates, which aligns with Reliability. Although there are mentions of scaling and performance aspects, the core concern is avoiding cluster instability and outages, which is a Reliability attribute. Other categories like Scalability or Performance are secondary or supportive but not the main focus.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Scalability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR040-cluster-stability-node-replacement.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on defining IAM policies to control access permissions to provisioned AWS services, aiming to restrict users from altering configurations managed by the service operator. This is primarily about protecting information and ensuring appropriate access control, which aligns with the Security quality attribute. Although there is mention of avoiding conflicts and managing permissions, the core concern is about access control and authorization, not about performance, scalability, or maintainability. Other categories like Maintainability or Reliability are less relevant since the decision is about access policies rather than system modification ease or fault tolerance.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR041-service-operated-policies.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR focuses on providing static ingress IPs to handle external users' safelisting requirements and managing ingress traffic through AWS Global Accelerator and Network Load Balancers. The primary motivation is to support growing or stable external load and maintain consistent ingress points despite dynamic infrastructure, which aligns with Scalability (handling increased or stable load by expanding or managing resources). Although there are security implications (static IPs for safelisting), the core decision is about managing ingress load and infrastructure scalability. It is not primarily about performance optimization, reliability, or security controls. Maintainability and Observability are not the focus, and the decision is not about functional features alone.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.01
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR042-static-ingress-ip-workaround.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR defines role-based access control (RBAC) rules for Kubernetes namespaces, specifying different permission levels (Operator and Auditor) to control access to resources. The primary motivation is to protect information and resources by ensuring appropriate access levels and preventing unauthorized modifications, which aligns with the Security quality attribute. Although the decision also impacts operational aspects and limits potential outages, the core concern is access control and protection of data and resources, not performance, scalability, or maintainability. Other categories like Reliability or Maintainability are less relevant because the focus is on access permissions rather than fault tolerance or ease of modification.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR043-k8s-resource-access.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is primarily motivated by restricting pod privileges to prevent unauthorized access to resources, which directly relates to protecting information and ensuring appropriate access control. The decision focuses on implementing pod security policies to enhance confidentiality and integrity of the system. Other categories like Reliability or Maintainability are not the main focus here, as the ADR does not address fault tolerance, ease of modification, or performance aspects.",
+        "primary_score": 0.95,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR044-security-improvements.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR primarily addresses security concerns by enforcing strict namespace isolation and access controls to prevent unauthorized actions across namespaces, such as restricting resource creation, image management, DNS hijacking, and CloudHSM access. Although it also impacts usability and reliability indirectly, the core motivation and decisions focus on protecting information, access control, and limiting the impact of security attacks, which aligns with the Security category.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR045-dev-namespaces.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on replacing Harbor with AWS ECR primarily due to Harbor's instability and incidents caused by it. The decision aims to improve system stability and reduce incidents, which aligns with the Reliability attribute (fault tolerance, availability, and recoverability). Although there are mentions of namespace isolation and security aspects (IAM credentials), the core motivation is to improve the system's stable operation by removing an unstable component. Other categories like Security or Scalability are less central here, and the decision is not about performance optimization or maintainability improvements.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR046-replace-harbor-ecr.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on replacing Kiam with IAM Roles for Service Accounts to restrict IAM role access at Pod and Namespace levels, and to block unauthorized access to the Instance Metadata Service. These decisions are primarily motivated by protecting information and ensuring appropriate access control, which aligns with the Security quality attribute. Although there are operational and reliability aspects mentioned, the core motivation is securing access to IAM roles and metadata, not performance, scalability, or maintainability. Other categories like Reliability or Maintainability are less relevant since the main goal is access control and confidentiality.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "alphagov",
+            "project": "gsp",
+            "adr_key": "ADR047-replace-kiam-with-iam-roles-for-service-accounts.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR primarily focuses on the reliability concerns of using Kafka as a primary data store, including lack of confidence in failure modes, data loss risks, and the need for a well-understood, dependable primary data store (Postgres). The decision to drop Kafka and rely solely on Postgres is motivated by improving fault tolerance, data integrity, and operational confidence. Although performance and operational complexity are mentioned, the core driver is reliability. Alternative categories like Performance and Maintainability were considered but discarded because the main concern is not throughput optimization or ease of change, but ensuring dependable data storage and recovery.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-001-remove-kafka.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR primarily focuses on the reliability concerns of the system, specifically addressing the single point of failure issue with the current indexer application and the potential benefits of AWS Lambda in mitigating that. Although other aspects like deployment complexity and cost are mentioned, the core motivation is to ensure continuous, fault-tolerant data replication without interruption, which is a reliability concern. Performance, scalability, and maintainability are discussed but are secondary to the reliability motivation. Security, usability, portability, compatibility, observability, and testability are not the primary focus here.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Scalability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.01
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-002-not-using-aws-lambda.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on not using xjson-server as the primary data store because the ordering of entries, which is critical for the system's correctness and trustworthiness, is not reliably controlled by xjson-server. The decision aims to maintain control over the ordering and proofs to ensure correctness and trust, which relates to reliability aspects such as correctness under stated conditions and fault tolerance in ordering. Other categories like Performance or Scalability are not the focus here, and while Security might be somewhat related due to cryptographic proofs, the primary concern is the reliable ordering and correctness of the data store, thus Reliability is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-003-not-using-xjson-server-as-database.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The decision to merge three separate apps into a single repository primarily aims to reduce duplicated code, simplify code management, and enable faster iteration. These goals relate to improving the ease and efficiency of modifying and maintaining the system, which aligns with the Maintainability quality attribute. Although security and reliability aspects are mentioned as considerations for future work, the core motivation and consequence focus on codebase structure and development efficiency rather than runtime qualities like performance, security, or scalability.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-004-merging-apps.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR primarily describes a functional decision about the format and rules for TSV data escaping, focusing on what the system does (handling TSV data) rather than how well it performs, scales, or other quality attributes. There is no mention or implication of performance, reliability, security, maintainability, or other non-functional qualities. The decision is about the functional constraint of TSV format handling.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-005-tsv-does-not-support-escaping.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR focuses on the Register Serialization Format (RSF) design to efficiently handle large registers with millions of entries without requiring parsing the entire file at once. This is primarily motivated by performance concerns such as efficient processing, streaming, and resource usage. Although aspects like security (avoiding XML for security reasons) and reliability (validation rules) are mentioned, the core decision is about efficient data representation and processing, which aligns best with Performance. Other categories like Maintainability or Scalability are less relevant since the decision is not about ease of change or handling increased load by scaling, but about efficient format and processing.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-006-register-serialization-format.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on changes to the read API that affect how data is structured and returned, aiming to maintain consistency and compatibility for consumers of the API. The primary motivation is to ensure that clients can continue to consume the API despite breaking changes, which is a key aspect of Compatibility (interoperability and API version compatibility). Although there are implications for usability and maintainability, the core decision is about how the system interfaces with other systems and clients, making Compatibility the best fit. It is not primarily about performance, security, scalability, or other quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-007-read-api-changes.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR focuses on implementing a deterministic ordering and pagination mechanism for the Items resource to efficiently retrieve subsets of data. The use of an index and keyset pagination (seek method) is primarily motivated by improving response time and efficient data retrieval, which are aspects of Performance. There is no indication that the decision is motivated by reliability, security, maintainability, or other quality attributes. The main goal is to optimize how the system performs the function of returning items in a paginated manner.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-008-items-resource.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on defining a canonical URL scheme and redirect rules to ensure consistent access to HTTP resources, which primarily addresses interoperability and consistent interaction between clients, caches, and search engines. This is about ensuring the system can exchange information correctly and behave consistently in a shared environment, which aligns with Compatibility. Although caching is mentioned, the main goal is URL consistency rather than performance optimization. It is not primarily about Performance, Maintainability, or Security. The decision does not focus on how fast the system responds, how easy it is to change, or how secure it is, but on consistent resource identification and access.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-009-trailing-slash.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on removing unused code (indexes feature) to reduce technical debt and simplify the codebase, which directly relates to improving maintainability. There is no mention or implication of performance, reliability, security, or other quality attributes. The decision is about ease of modification and reducing complexity rather than functional behavior or runtime qualities.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-010-remove-indexes.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR describes routing behavior and HTTP redirection rules for specific paths, focusing on what the system does in terms of request handling. There is no mention or implication of non-functional qualities such as performance, security, scalability, or maintainability. The decision is purely functional, specifying how requests to certain URLs should be handled and redirected.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-011-root-path-handling.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on standardizing the JSON representation of collection resources in the API to ensure consistent processing by clients. This is primarily about ensuring interoperability and consistent data exchange formats, which aligns with Compatibility. There is no mention or implication of performance, security, scalability, or other quality attributes. The decision is about how the system's API data structures are represented and consumed by other systems or clients, which is a compatibility concern.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "openregister",
+            "project": "openregister-java",
+            "adr_key": "adr-012-prefer-arrays-for-collections.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR describes the process and format for recording architectural decisions, focusing on documentation and communication practices rather than any quality attribute of the system being built. It does not address performance, reliability, security, maintainability, scalability, or any other system quality attribute. Therefore, it is classified as Other/Only Functional Concern.",
+        "primary_score": 0.95,
+        "alternative_categories": [
+            "Maintainability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.01
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0001-record-architecture-decisions.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on choosing a hosting platform that improves manageability and operational consistency of the system, addressing issues like manual changes, inconsistent states, and complexity. The decision emphasizes ease of managing infrastructure as code, learning Kubernetes, and leveraging shared platform services, which are aspects of maintainability (ease of modification and management). Although there are mentions of performance-related issues (e.g., expensive to run, deploy times), the primary motivation is to improve the system's manageability and operational maintainability rather than direct performance optimization or scalability. Security, reliability, and other attributes are not the main focus here.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Reliability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.03,
+            0.02
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0002-use-cloud-platform-for-hosting.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR focuses on using progressive enhancement to ensure that all users, including those with accessibility needs, can use the service successfully. This directly relates to usability, emphasizing accessibility and user experience. Although robustness against network problems is mentioned, the primary motivation is improving accessibility and user satisfaction. Other categories like Reliability or Compatibility are less relevant since the core goal is user accessibility and effectiveness.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Reliability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0003-use-progressive-enhancement.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on separating concerns by splitting the system into two applications: an API and a frontend. This separation is primarily motivated by ease of modification, clearer responsibilities, and enabling multiple teams to contribute independently. These are aspects of modularity and ease of change, which fall under Maintainability. Although scalability and operational complexity are mentioned, they are not the primary drivers. The decision is not about performance optimization, security, or other quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Scalability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0004-separate-api-and-user-facing-applications.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on the decision to have the Allocation API own its allocation data in its own database rather than writing back to NOMIS or other systems. This primarily addresses system interoperability and data ownership boundaries, ensuring clear responsibility and avoiding data duplication or conflicts across systems. The key motivation is about how the system exchanges and manages data with other systems, which aligns with Compatibility. It is not primarily about performance, security, or scalability, nor about maintainability or other attributes. Although there are implications for reliability and maintainability, the core decision is about data ownership and system integration boundaries, which is Compatibility.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0005-allocation-api-owns-allocation-data.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on choosing the Custody API to access NOMIS data, emphasizing alignment with the agreed API approach within HMPPS and reducing dependencies between teams. The primary concern is interoperability and consistent integration with existing systems via a common API, which aligns with Compatibility. Although there are mentions of efficiency and development speed, these are secondary to the goal of using a unified API for data access. Other categories like Performance or Maintainability are less central since the decision is about API choice and integration rather than optimization or code structure.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0006-use-the-custody-api-to-access-nomis-data.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR primarily focuses on choosing Ruby for new applications to leverage existing team skills, reduce learning overhead, and maintain knowledge within the organization. This decision is motivated by ease of modification, team proficiency, and maintainability of the codebase rather than performance, security, or other quality attributes. Although operational considerations and reuse are mentioned, the core rationale is about maintainability through language choice and ecosystem familiarity.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0007-use-ruby-for-new-applications-for-manage-offenders-in-custody.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on choosing Rails because the team is familiar with it and it reduces the number of decisions about libraries, which improves ease of development and maintainability. The mention of reducing unneeded behavior to avoid vulnerabilities or bugs also relates to maintainability by reducing complexity and potential errors. There is no explicit focus on performance, security, scalability, or other quality attributes as the primary motivation.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0008-use-rails.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR primarily discusses the choice of tooling for continuous integration and deployment processes, focusing on what tools to use rather than specifying quality attributes of the system being built. It addresses functional aspects of the development pipeline and deployment strategy without explicit mention or implication of system qualities like performance, security, or maintainability of the system itself. Although security considerations about secrets exposure are mentioned, they are in the context of the build process, not the system's security attribute. Therefore, the ADR is best classified as Other/Only Functional Concern.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0009-use-circleci-for-ci-and-deployment.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on clarifying and simplifying the responsibilities and boundaries between the allocation API and the allocation manager to improve the understandability and modularity of the system. This restructuring aims to make the system easier to maintain and evolve by reducing complexity and avoiding unclear layering and responsibility splits. It does not primarily address performance, security, scalability, or other quality attributes but rather the organization and modifiability of the system components.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Security",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0010-allocation-api-has-less-responsibility.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is primarily motivated by the need to protect the allocation API with authentication, ensuring appropriate access control and preventing unauthorized access. It focuses on using the NOMIS OAuth2 server for authentication, verifying token signatures, and respecting token expiration, all of which are core security concerns related to confidentiality, integrity, and access control. Although there are mentions of roles and scopes for permissions, these are part of the security model rather than maintainability or other attributes. Other categories like Performance, Scalability, or Maintainability are not the primary focus here, as the decision centers on securing the API.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0011-use-nomis-oauth-server2-for-allocation-api-authentication.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on managing the number of pre-production environments to reduce code maintenance cost and complexity, which is primarily a Maintainability concern. It discusses the tradeoff between having multiple environments (which increases maintenance effort) versus starting with a single environment to simplify configuration and development. There is no primary focus on performance, reliability, security, or other quality attributes related to the system's runtime behavior. The decision is about how to organize environments to ease ongoing maintenance and development.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Scalability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0012-start-out-with-one-environment-which-uses-t3-nomis.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is primarily motivated by the need to authenticate users securely using NOMIS SSO, ensuring appropriate access control and protecting user credentials by not handling passwords directly. The focus is on protecting information and controlling access rather than performance, scalability, or other attributes. Although there are implications for usability and maintainability, the core decision centers on secure authentication mechanisms.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Usability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0013-use-nomis-sso-for-user-authentication.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on securing access to the Delius API via the NOMIS Data Hub using mutual TLS authentication and securing data access, which is primarily motivated by ensuring appropriate access control and protecting data confidentiality and integrity. Although it also touches on availability and timeliness of data, the core decision is about securing API access. Other categories like Performance or Scalability are not the main focus, and Maintainability or Compatibility are secondary concerns here.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0014-access-the-delius-api-via-ndh.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on preventing exposure of short-lived access tokens in test artifacts, which is primarily a confidentiality and access control concern. The decision to add the VCR cassettes folder to gitignore is motivated by protecting sensitive information from unauthorized access. Although there are implications for test speed and reliability, the core motivation is securing sensitive data in the system's test environment. Other categories like Testability or Maintainability are less relevant since the main driver is protecting sensitive data, not improving testability or code structure.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Testability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0015-manage-short-lived-access-tokens-in-tests.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on choosing the Elite2 API over the Custody API to access NOMIS data, motivated by issues with data locality, N+1 API requests, and data availability. The decision centers on interoperability and integration with external systems (NOMIS APIs), which aligns with Compatibility. It is about selecting an API that better fits the system's data access needs and working with the API provider to extend functionality, emphasizing system interoperability rather than performance, security, or other attributes. Other categories like Performance or Scalability are not the primary focus, as the ADR does not mention response times or load handling explicitly. Maintainability is not the main driver since the decision is about which external API to use, not internal code structure. Hence, Compatibility is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0016-use-elite2-api.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on managing database migrations using blue-green deployments to reduce downtime and risk of data loss, which directly relates to the system's fault tolerance and recoverability, key aspects of Reliability. Although there is an implied improvement in availability, the primary motivation is ensuring the system continues to perform correctly during migrations without data loss or downtime. Performance, Maintainability, and other categories are less relevant since the decision is not about speed, ease of change, or testing, but about safe operation under change.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0017-database-migrations.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on testing TLS mutual authentication for accessing the Delius API, which is primarily motivated by ensuring secure access control and preventing unauthorized access. The main concern is the security of the authentication setup, including deploying a staging environment to test this securely before production. Other categories like Testability or Maintainability are secondary or implied but not the primary focus.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Testability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.02
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0018-testing-tls-mutual-auth-for-delius-api-access.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on managing runtime secrets securely using git-crypt to protect sensitive configuration data. The primary motivation is to ensure confidentiality and controlled access to secrets, preventing unauthorized exposure and reducing the risk of production outages due to mismanagement of secrets. Although there are mentions of automation and process improvements, the core concern is protecting secret data, which aligns with the Security quality attribute. Other categories like Maintainability or Reliability are secondary or implied but not the main focus.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Maintainability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0019-manage-runtime-secrets-with-git-crypt.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR primarily focuses on reducing performance costs related to data movement and processing by unifying the API and presentation layers to avoid redundant data retrieval and enrichment. While it also mentions reducing cognitive load and complexity (which could relate to Maintainability), the explicit motivation and expected consequence is improved performance in data processing. The decision is not primarily about modularity or ease of change (Maintainability), nor about security, scalability, or other attributes. Therefore, Performance is the best fit.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "organization": "ministryofjustice",
+            "project": "offender-management-architecture-decisions",
+            "adr_key": "0020-unify-api-and-presentation-layer.md"
+        }
+    }
+]
