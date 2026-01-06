@@ -1,0 +1,3154 @@
+[
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR proposes introducing a Container/Connector pattern to strictly separate state management from UI components, ensuring components receive data and callbacks via props only. This explicitly targets readability, modularity, reusability, and ease of modification and testing, reducing view code complexity and improving long-term maintainability. While it also supports scalability by reducing coupling as the system grows, the primary driver is maintainability through clearer separation of concerns and testability implications.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.16,
+            0.12
+        ],
+        "metadata": {
+            "adr": "adr-003-store-connector-container-component.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR specifies how the system will be provisioned and managed (using Ansible roles, Playbooks, and Terraform integration) and how deployment, upgrades, and destruction are handled. This is about the deployment/configuration approach and its maintainability (modularity, reusability, ease of change) rather than runtime performance, security, or other runtime quality attributes. It aims to make the deployment process easier to modify and automate.",
+        "primary_score": 0.72,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-004.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR describes versioning and release management processes (semantic versioning, build numbers, CI/CD build promotion, asset labeling) and how releases are organized and promoted. It focuses on development process and release methodology rather than a system-level quality attribute (e.g., performance, security, reliability, etc.).",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-007.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR concentrates on how configuration is organized and maintained (prefixing keys to avoid nesting, centralizing defaults in config.exs, and leveraging fetch_env! for clearer errors). This improves readability, consistency, and ease of modification of configuration across the system, i.e., maintainability. Reliability is a secondary consideration due to the intent to fail fast on misconfigurations, but the primary driver is maintainability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0003-for-config-prefer-prefix-over-nesting-and-don-t-hide-defaults-in-code.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on simplifying and making the release process easier to modify and maintain by standardizing on a single artifact feed and using predictable tagging (LATEST_TAG / LATEST_GIT_TAG) to release from release branches, reducing operational complexity and the need for manual intervention.",
+        "primary_score": 0.78,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "005-cutting-release-branch.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR is driven by throughput improvements through the new Transform Service (get more throughput). It also discusses latency implications and limited transformation capabilities as consequences, which are performance-related considerations. Although scalability is a related concern (handling higher load), the explicit primary motivation is performance (throughput and latency).",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0009-message-driven-content-tracker-next-gen.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on protecting sensitive data (secrets) used by the Digital Business Platform in Kubernetes. It prescribes using Kubernetes Secrets, RBAC, auditing, encryption at rest, and secret-management tooling (sealed-secrets, vault integration) to ensure confidentiality, integrity, and controlled access to secret data throughout the deployment.",
+        "primary_score": 0.84,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0010-managing-secrets-used-by-dbp.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR centers on choosing a configuration delivery method (server-side / container with injected settings into index.html) to avoid render-blocking client-side configuration fetches. The primary concern is to improve initial render performance and runtime responsiveness for white-label deployments. While maintainability and portability considerations are discussed, the governing motivation is performance (faster startup, lower latency).",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0003-application-configuration-setup.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on ensuring the application remains usable when connectivity is unreliable (offline capability, data integrity, and recoverability). The chosen approach (PWA with offline support) aims to improve fault tolerance and operation under intermittent networks across devices, rather than optimizing speed/throughput or other attributes. While portability/cross-platform reach is a benefit, the primary driver is reliability in offline conditions. Note there are caveats (inconsistent offline behavior across browsers, especially iOS) that affect reliability.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "2019-11-20_webapp.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR is driven by long-term maintainability and alignment with established Go patterns and Gorilla tooling, enabling easier modification, testing, and extension of routing logic. It focuses on how the system should be developed and evolved rather than runtime performance or security specifics.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0014-use-mux-for-routing.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on audit logging controls, including what data is logged, where logs live, access to logs, data retention, integrity (unaltered records), masking/encryption of sensitive data, and compliance requirements. These are primarily security-related concerns (confidentiality, integrity, access control) and governance for audit trails. Observability is a secondary benefit for monitoring, but security/compliance is the main driver.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Observability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-audit-logging.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR primarily concerns how the UI code is organized (moving all styles to a wrapper div and handling events on the wrapper) to simplify styling, event handling, and auto-height logic for multiline inputs. This improves modularity, readability, and ease of future changes. Cross-browser consistency is a motivating context, but the main payoff is maintainability of the UI codebase.",
+        "primary_score": 0.72,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-0004-why-wrap-input-textarea.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR standardizes the set of programming languages for CCS services to reduce ongoing maintenance costs, simplify recruitment and training, and streamline procurement and support. This is primarily about how easily the system (and its ecosystem) can be maintained and evolved over time, rather than about runtime performance or security.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Portability",
+            "Compatibility",
+            "Scalability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0004-language-choices-for-new-development.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR defines the data model (Tasks, Submissions, Entries, Files) and the API/database configuration for the Data Submission Service. It does not express a primary non-functional quality attribute (e.g., performance, security, reliability, maintainability, scalability, etc.). Therefore, it is categorized as a functional concern rather than a quality attribute.",
+        "primary_score": 0.88,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0016-data-structure-tasks-submissions-entries-and-files.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on providing a data export in a standard format (CSV) for external finance systems (Coda and Workday) and integrating with an S3-based workflow. It emphasizes interoperability and compatibility with other systems over internal performance, security, or other quality attributes.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0021-generate-a-data-export-for-finance.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on API extension mechanisms and preserving compatibility with existing vendor integrations. It decides against implementing extensions now to avoid breaking changes, opting to release new fields via minor version updates instead, which aligns with maintaining compatibility and stable interoperability across clients.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0008-api-extensions-mechanism.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR proposes using DotEnv to centralize loading of environment variables, replacing deprecated or scattered mechanisms, and enabling easier testing by stubbing variables. This decision primarily affects how easily the system can be modified and tested (maintainability) rather than runtime performance, security, or other runtime quality attributes.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Testability",
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0006-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on securing the DQT data and ensuring controlled access via a protected API for identity verification and QTS checks. It also addresses data handling during the transition (temporary API, dataset management) and a manual fallback for failures, but the core driver is protecting information and access control.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-automate-dqt-integration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR focuses on enabling integration from multiple data producers via an API Gateway/REST Proxy and an internal Event Backbone, with Event Sourcing as a potential approach. This architecture aims to decouple producers/consumers and support growing data sources and services, enabling horizontal scaling and future expansion of department services.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Reliability",
+            "Observability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05,
+            0.1
+        ],
+        "metadata": {
+            "adr": "007-Integration-Approaches.html.md.erb"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on removing predictability of trainee IDs in URLs to protect against leaking information and unauthorized access, opting for a token-based unique identifier (has_secure_token) to reduce reliance on sequential/DB IDs. This prioritizes protecting confidentiality and access control with minimal implementation effort, rather than purely changing how IDs are generated. Other considerations mentioned (UUIDs, compatibility with other systems) are secondary to the security goal.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Compatibility",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-non-integer-trainee-ids.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR centers on selecting a tool to monitor and trace the system's performance, i.e., observability. It weighs Skylight versus Sentry for performance monitoring (tracing, dashboards, request-level insights) and makes a decision to continue with Skylight, driven by how well the system's internal states can be inferred from outputs and metrics.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-use-skylight-for-performance-monitoring.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on simplifying and standardizing the deployment environments (reducing the number of environments, moving to staging and production, and leveraging local/dev environments) to reduce maintenance overhead and streamline delivery. The primary motivation is ease of maintenance, reduce complexity, and faster setup/teardown of environments rather than optimizing performance, security, or other runtime attributes.",
+        "primary_score": 0.78,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004_define_environments_after_gov_uk_paas_migration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR states to prioritize the simplest, most readable implementation over optimizing for performance. It defers optimization to when real performance issues are identified, which supports easier maintenance, clearer code, and faster future changes.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0010-confirm-performance-issues-before-optimizing.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR specifies a behavioral rule for data changes (inverse relationships should not update the sample's update date). It does not discuss how well the system performs, security, reliability, or other quality attributes, but rather what the system does in this scenario.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-inverse-relationships-sample-update.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR advocates using @type (or rdf:type) for typing resources outside the core schema.org vocabulary to enable consistent RDF typing and easier cross-dataset querying. This improves interoperability with other systems/publishers and avoids the semantics ambiguity of schema.org/additionalType, which favors information exchange and compatibility across environments.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Portability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.13
+        ],
+        "metadata": {
+            "adr": "74-schemaorg-additionalType-vs-RDF-typing.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR standardizes how boolean values are represented in the KeySet (only the strings \"0\" and \"1\" for type = boolean, with a default of 0 when unspecified) and clarifies how storage plugins may render or emit booleans. This primarily governs how components exchange and interpret boolean data, ensuring interoperability and API compatibility across KeySet, type checkers, and plugins. The focus is on data representation and cross-component compatibility rather than performance, security, or user-facing experience.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "boolean.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR proposes removing a family of buffer-copying accessor functions to reduce API surface area and boilerplate, making the API easier to evolve and maintain. This primarily affects how the codebase is modified and extended (modularity, readability, guideline compliance), rather than runtime performance, security, or other non-functional concerns. Usability may be impacted, but the governing motive is maintainability.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "functions_with_buffers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on restricting support for multiple writeable file backends to preserve data integrity and predictable behavior. Allowing multiple backends would break atomicity (a journal would be needed) and complicate recovery, and it would not work with mmap due to cache semantics. The primary motivation is reliability (fault tolerance, recoverability, and correctness) rather than performance or feature breadth.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "multiple_file_backends.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR is driven by reducing memory usage by not storing the escaped key name, thereby lowering resource consumption and improving efficiency of key comparisons/searching that rely on the unescaped name. This is a performance/resource-usage optimization rather than a change primarily aimed at correctness or design quality. API changes accompany the optimization but the core motivation is memory efficiency.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "store_name.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR concerns naming and branding decisions and project scope boundaries (naming the project, what the tools should be called, and what features are included). It does not address system quality attributes like performance, security, reliability, etc. It pertains to development governance and project methodology rather than how the system behaves.",
+        "primary_score": 0.88,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "project-name.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR's primary motivation is to centralize access control and protect data by exposing a language-neutral HTTP API as the single access point to FlowKit. It emphasizes granular access control, secure storage by removing direct database access, comprehensive logging, and controlled scheduling. These indicate a security-centric governance requirement driving the architectural decision, even though other benefits touch observability, performance, and maintainability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Observability",
+            "Performance",
+            "Scalability",
+            "Maintainability",
+            "Usability",
+            "Compatibility",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.14,
+            0.05,
+            0.04,
+            0.03,
+            0.02,
+            0.03,
+            0.01
+        ],
+        "metadata": {
+            "adr": "0003-http-api.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on adopting a project scaffold (create-react-app) and using eject to expose full configuration, aiming for rapid setup with best practices and easier future changes. This directly targets maintainability/modifiability of the codebase and its evolution over time.",
+        "primary_score": 0.76,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-use-create-react-app-and-npm-eject-to-create-the-basis-of-the-project-structure.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "This ADR describes the process for creating, versioning, approving, and using ADRs (governance and documentation practices) rather than specifying a system quality attribute (e.g., performance, security, scalability). It concerns development process and maintainability of decision history.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "2020-08-10-architecture-decision-records.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR specifies the functional logic for identifying continuous inpatient spells (CIPS), grouping spells by ENCRYPTED_HESID, ordering by ADMIDATE_FILLED, determining CIPS boundaries using domain rules, and creating a new APCC table populated from the first and last spells. There is no explicit mention of non-functional quality attributes (performance, security, reliability, scalability, maintainability, usability, etc.) or tradeoffs. Therefore it represents a purely functional concern about data processing logic and data model construction.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "creating_continuous_inpatient_spells.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR specifies how logging is emitted (stdout/stderr, with human-readable logs in development and JSON in deployed environments) to enable monitoring, troubleshooting, and integration with log aggregation. This directly affects runtime observability rather than other attributes like performance, security, or maintainability.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-application-logging.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR centers on configuring applications via environment variables to adapt to different deployment environments (dev, staging, prod, cloud environments). This decouples config from code and supports running across diverse environments, indicating portability as the primary quality consideration.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "004-configuration-by-environment-variable.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR addresses correctness and availability of data across asynchronous projections by modeling eventual consistency with ETags and precondition checks. It focuses on ensuring that updates are processed and that clients can detect stale data, which is a reliability concern (fault tolerance/recoverability under asynchronous updates).",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0013-handle-eventual-consistency-with-etags.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR centers on operator interactions and cognitive load: temporary identifiers are shown in the UI during uploads to align with the operator's mental model, reducing cognitive burden. Permanent identifiers are introduced later. The mapping responsibility shifting to the developer is a secondary maintainability consideration, but the primary motivation is usability for operators.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "004-temporary-and-permanent-identifiers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR centers on delivering preinstalled Docker images by packaging them as tarballs on a data volume, decoupled from the underlying storage backend and environment. This promotes environment neutrality and makes the images portable across different deployments, which is the primary quality objective. Other attributes (e.g., Maintainability via standard scripts, or Compatibility) are present but secondary to portability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Compatibility",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0011-preinstallable-images-on-data-volume.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR prioritizes simplicity and lowering external dependencies by choosing a regular expression approach implemented with Java's standard library, which reduces project size and maintenance overhead (no model data or third-party libraries). The main tradeoff noted is potential accuracy issues, but the primary driver is maintainability.",
+        "primary_score": 0.8,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0018-use-regular-expression-to-split-multiple-sentence-titles.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR decides to keep the study as a pure DTO and use transformers to map to concrete domain/entry objects instead of embedding complex custom (de)serialization logic. This choice emphasizes modularity, readability, and ease of future changes (modifying how data is transformed/serialized) over runtime performance or specialized runtime security. It thus primarily targets maintainability. Alternative considerations touch on testing (Testability) and potential performance implications, but the governing concern remains maintainability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Testability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-keep-study-as-a-dto.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR selects C++ to interface with the ftduino to leverage type safety and existing C++ Arduino/ftduino libraries, which enhances readability, modularity, and long-term maintainability of the codebase. While there is some overhead associated with C++ constructs, the primary driver is maintainability rather than performance, security, or other attributes.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Performance",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0005-use-cpp-to-interface-with-the-ftduino.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR\u2019s core mandate is a major API/data model rewrite to simplify and generalize pipeline definitions (removing DataVec, reducing API verbosity, enabling dynamic schemas, and easing multi-language/inter-process use). The primary benefits highlighted are easier development and maintenance of new pipeline steps, improved readability, and modularity, which point to Maintainability as the governing quality. Performance and interoperability benefits are acknowledged but treated as secondary outcomes of the redesign.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Performance",
+            "Usability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0003-Pipeline_API_Rewrite.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on designing an abstracted resident data source with a gateway pattern to decouple from the current and future data sources, enabling easier future changes and modular maintenance. It accepts some added boilerplate (two gateways) to ensure a single point of change when a new data source becomes available.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Compatibility",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.14,
+            0.14
+        ],
+        "metadata": {
+            "adr": "0004-build-an-abstracted-resident-store.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on ensuring reliable message delivery and fault tolerance by using SNS + SQS to decouple producers and consumers and to provide durable, asynchronous processing. It notes potential message loss with plain SNS and highlights guaranteed delivery when using queues, addressing availability and recoverability under failure conditions.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "Event-Driven-Architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on enforcing consistent code style and quality using ESLint (with Prettier precedence) and integrating lint checks into the test suite. This primarily targets readability, guideline compliance, and ease of future changes, rather than runtime performance, security, or reliability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0005-use-eslint.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR proposes reimplementing GOV.UK Frontend JavaScript in idiomatic React within this library to improve integration, readability, modularity, and testability, and to reduce brittleness caused by browser-environment assumptions. It also notes maintenance implications (keeping in sync with external changes, requiring human reviews) which are aspects of maintainability.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Compatibility",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-reimplement-gov-uk-frontend-javascript-internally-to-this-library.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR chooses to implement search using built-in Postgres Search to minimize external dependencies and infra changes, enabling rapid delivery and easier long-term maintenance. It trades off richer search capabilities (loss of flexibility) versus maintainability and simplicity.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Performance",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0007-use-postgres-search.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The decision centers on reusing an existing OAI-PMH/ORE tool to ingest data and ensure compatibility with external interfaces (Dome/OAI protocols and the DOS API). This emphasizes interoperability and API-level compatibility with other systems.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Testability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-8-dome-ingest.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The decision to use AWS Lambda as the compute model is driven by the need to automatically scale with incoming data and avoid provisioning/upkeeping fixed VMs for a periodic, event-driven pipeline. This emphasizes handling varying loads efficiently, which is the core of Scalability.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Performance",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-lambda.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The decision to containerize all services aims to ensure that software runs consistently across different environments, improving portability and deployability. Docker containers provide environment parity and easier deployment across hosts, clusters, or cloud platforms. Other attributes like scalability or maintainability may be affected but are not the primary driver.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.08,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-docker-containers-for-everything.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The decision to adopt Kubernetes is driven by the need to manage a large and growing number of containers across multiple servers and environments, i.e., to support scalable deployment and operation. The learning curve for the team is a consequence but not the primary driver.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0007-kubernetes-for-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on choosing deployment tooling (Prometheus Operator Helm Chart) and updating deployment automation (custom values.yml and Ansible role). This centers on how easily the system can be modified, deployed, and maintained, rather than runtime performance, security, or other quality attributes.",
+        "primary_score": 0.72,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0039-prometheus-operator-helm-chart.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR is primarily about improving developer experience and ease of use by ensuring services have sensible default configuration values so they run out-of-the-box in local development, reducing the friction of setup and configuration.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Portability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR centers on replacing a relational database with a JSON document store to achieve faster data access (single read for queries, single write for mutations) and simpler data operations, which directly targets improving time/throughput and resource usage. While it also mentions maintainability, testability, and portability as secondary benefits, the explicit decision and primary benefits are framed around performance improvements.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability",
+            "Testability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.09,
+            0.07,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0003-replace-rdb-with-json.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on how session data and CSRF protection are managed via cookies (which properties are stored, how CSRF tokens are generated per request, and the implications for authentication/session integrity and access control). While it mentions reliability (session continuity after server-side timeout) and maintainability (simplifying code by moving schema data into cookies), the core driver is security concerns around protecting session state and preventing CSRF.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-cookies.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Testability",
+        "explanation": "The ADR selects Jest for unit tests and Cypress for end-to-end tests, explicitly aiming to verify system behavior through automated tests. This is a testing/verification concern, primarily improving the system's testability by enabling automated tests and clear verification criteria. It does not primarily address performance, security, or other quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-use-jest-and-cypress-for-tests.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR is driven by improving the user experience of linking to a specific image and ensuring meaningful link previews (Open Graph meta tags) for shares on Slack/Twitter. It focuses on how users interact with URLs, previews, and the ease of navigation in a static hosting environment (GitHub Pages) rather than on performance, security, or internal system properties.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-client-side-routing-using-history-api-and-redirects.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR centers on enriching the error object to surface structured root-cause information (originalError, rootError) to consumers, enabling easier monitoring, debugging, andIssue diagnosis. This directly improves the system's observability by making failures traceable and diagnosable without needing to parse unstructured stack traces. It is not primarily driven by performance, security, or scalability considerations, but by how well issues can be observed and diagnosed.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Maintainability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0016-structure-of-error-object.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on naming strategies for generated APIs (API names, operation names) and, importantly, preserves the original property and query parameter names to maintain compatibility with existing API contracts and client expectations. It also enables customization via extensions, but the primary concern is interoperability and a stable, predictable API surface.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Usability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0019-openapi-generator-naming.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on extending the form data model with versioning for individual fields and form groups, introducing a groupid and templates, and updating the HTML helper. These changes primarily aim at modularity, reusability, and ease of future changes to the form system, rather than optimizing runtime performance, security, or user experience. This aligns with Maintainability (modularity, readability, and testability) as the primary concern.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Usability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.06
+        ],
+        "metadata": {
+            "adr": "form-field-variations.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR describes guidelines for writing component documentation and overall documentation process, not system quality attributes like performance, security, or reliability.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "writing-docs.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR introduces a Redis-backed Bull queue to offload long-running tasks from the HTTP request cycle, enabling multiple workers/consumers and potential distribution across processes. This pattern primarily targets the system's ability to handle growing load by scaling out background processing, with performance gains (faster user responses) being a beneficial byproduct and additional maintainability considerations (configuring Redis, managing workers).",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.25,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-use-redis-and-bull-for-background-tasks.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on the organization of the test suite (separating integration and unit tests into distinct source directories and categorizing them with JUnit Categories) to improve the maintainability, readability, and manageability of the codebase. It discusses trade-offs and potential manual configuration during setup, which primarily affect ease of modification and developer workflow rather than runtime performance, security, or external interoperability. There is a secondary, implied impact on testability, but the primary driver is maintainability (modularity/readability of the test structure).",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0011-put-integration-tests-in-seperate-folder.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR focuses on a feature scope decision (whether to support node type definitions in TOSCA templates) and the rationale is based on resource limitations rather than system quality attributes. No explicit or implied quality attributes (e.g., performance, security, scalability, etc.) are discussed.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0016-not-supporting-type-definitions.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR centers on how to expose and discover non-CRUD operations in a REST API, emphasizing ease of understanding for clients, predictable behavior, and useful navigation (HATEOAS). The emphasis is on API ergonomics and user experience rather than performance, security, or internal system properties.",
+        "primary_score": 0.82,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "2020_05_13_handling_non_crud_operations_in_api.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Testability",
+        "explanation": "The ADR aims to improve the testability of presenters by injecting AB/config/global values through constructors, enabling comprehensive unit tests of business logic.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0005-inject-ab-config-global-values-toPresenter.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on adopting a standardized form builder to simplify form creation, improve consistency, and ease future maintenance (transitioning existing forms, aligning with a design system, and leveraging shared i18n keys). Accessibility improvements are a beneficial side effect, but the governing goal is maintainability of the codebase and developer workflow.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0011-use-govuk-design-system-form-builder.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on automating and standardizing data changes on live environments to reduce manual error, enable rollback, and ensure state consistency during deployments, i.e., a reliability concern. It also touches maintainability by documenting data migrations in code, but the governing goal is dependable live-data operations.",
+        "primary_score": 0.83,
+        "alternative_categories": [
+            "Maintainability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0019-use-data-migrations-to-update-live-data.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on adopting a Scripts To Rule Them All pattern to streamline common tasks, improve onboarding, and make the repository self-documenting via scripts. This primarily targets developer efficiency and ease of modifying/extending the system, i.e., maintainability, rather than runtime performance or security.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0024-use-scripts-to-rule-them-all.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on simplifying the API DTOs by removing HATEOAS links, which reduces complexity and maintenance burden. While readability of the API documentation is noted as a driver, the primary impact is easier evolution and maintenance of the API surface (i.e., better maintainability).",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Usability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.25,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0009-remove-hal-links.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is primarily driven by data integrity verification and protection against tampering across components. It uses a SHA256 digest of a Base64Url-encoded json payload, enabling platform-independent integrity checks without heavy session state, which is a security-oriented concern.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Portability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0002-use-sha256-with-base64url-encoding.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR selects nix for dependency management to enable reproducible, portable development and build environments across machines/environments (e.g., NixOS, nix-shell). This primarily targets portability and environment transferability. Compatibility with nixpkgs channels and editor/tool integrations are important secondary considerations, but the core goal is to achieve portable, reproducible dependencies.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Compatibility",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-0003-nix-for-dependency-management.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR advocates using optimistic concurrency primarily to achieve higher throughput and better performance, especially in high-concurrency scenarios and to align with Azure Table Storage's concurrency model. Maintainability is acknowledged as a secondary driver (minimizing code complexity) but not the primary motivation.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0007-follow-optimistic-concurrency.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on how to organize the codebase and deployment for the new client app\u2014keeping a single repository and opting for paired deployments to ensure consistent, manageable changes and shared frontend assets (styles), simplifying development, testing, and release processes. It discusses future infrastructure considerations (node version upgrade, Docker isolation) rather than runtime performance, security, or user-facing usability. Thus, maintainability is the primary driver; other considerations (Portability, Compatibility) are secondary.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.11,
+            0.11
+        ],
+        "metadata": {
+            "adr": "adr-007-pa-dep-client-app.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on enforcing integrity checks for assets loaded in HTML documents, excluding assets that fail the check, which directly relates to protecting data integrity and preventing execution of tampered resources. Removing the integrity attribute from nodes is also a security hygiene to avoid exposing security-sensitive metadata for embedded resources.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0004-asset-integrity-check.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR centers on making script execution in actions portable across different environments (Windows and non-Windows hosts, containers) by introducing a configurable shell option with default templates for several well-known shells. This primarily concerns running the system in multiple environments/platforms and maintaining consistent behavior across them, i.e., portability.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0277-run-action-shell-options.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on changing the API design by adding default implementations to the ComponentLifecycle interface to enable functional-style extensions and reduce boilerplate. This improves modifiability, readability, and overall ease of evolving the codebase, with a low risk of breaking existing behavior. It is fundamentally about making future changes and maintenance easier rather than optimizing runtime performance, security, or other system qualities.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0002-add-default-implementations-to-componentlifecycle.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR focuses on exposing data and services via a REST API to enable consumption by multiple clients and to support growth. The REST constraints described (client-server separation, layered architecture, statelessness, cacheable responses, uniform interface, hypermedia) are aimed at improving scalability by enabling independent evolution of components, easier horizontal scaling, and better load management.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Compatibility",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-expose-services-through-rest-api.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on embedding usage/help documentation directly in code (annotation of command classes) to keep documentation in sync with the implementation and avoid separate help files. This primarily targets ease of maintenance, readability, and modifiability of the system rather than runtime performance, security, or other quality attributes. Although it notes downsides like lack of automated checks, the governing goal is maintainability of documentation within the codebase.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-help-comments.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on selecting a cloud provider to ensure high availability (target 99.99% or greater), fault tolerance, and recoverability, including geo-distributed, managed services with elastic scaling and latency guarantees, while also meeting EU data residency requirements.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Scalability",
+            "Performance",
+            "Security",
+            "Portability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.05,
+            0.03,
+            0.01,
+            0.01
+        ],
+        "metadata": {
+            "adr": "0005-we-chose-our-primary-cloud-provider.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR decides on a presentation/detail rule (whether to show kickers for ties) rather than a system quality attribute like performance, security, or scalability. It concerns what the system outputs (functional behavior) rather than how well or under what conditions it operates.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0013-show-no-kickers-for-ties.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Testability",
+        "explanation": "The ADR focuses on reducing the amount of browser-side code to be tested, by moving as much logic as possible to the build step. This is motivated by making testing easier (and more reliable) for the system, i.e., improving testability of the client code.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-minimize-the-amount-of-code-that-must-be-tested-in-the-browser.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR centers on creating a centralized data warehouse to store current and historical data from multiple sources to support analytical reporting and performance indicators. The design aims to accommodate growing data volumes and additional data sources, and explicitly plans to evaluate alternative warehouse solutions in the future, indicating a focus on scalability of data/analytic infrastructure rather than only transactional performance or security.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Performance",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-006-track-metrics-via-time-dimension.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR focuses on improving user experience by avoiding a distracting initial flash and ensuring content remains visible when JavaScript is not available or initialization fails. It discusses the user-perceived impact of the page load sequence and accessibility implications, rather than optimizing system internals or performance metrics.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-avoiding-initialisation-flickers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The decision is driven by access control and protection of data in client AWS accounts. It chooses to provision an IAM role with a least-privilege, read-only policy to minimize risk and ensure we can audit configurations via API calls, prioritizing confidentiality, integrity, and controlled access over performance or other attributes. Although there is a longer-term vision to move to a central config service, the immediate mandate is security-focused provisioning.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.01
+        ],
+        "metadata": {
+            "adr": "0008-interrogation-method-iam-role.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is motivated by data privacy and governance requirements: minimizing and controlling retention of personal data in compliance with GDPR, archiving non-PII history, and deleting data after short retention windows. These security/privacy goals dominate the decision (data minimization, archiving strategy, and PII handling) over purely functional or performance considerations.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-initial-data-retention-strategy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR chooses to use a Puppetmaster to stay aligned with the current architecture, enabling straightforward deployment and easier evolution of the deployment process (lift-and-shift). The primary motivation is maintainability/modifiability of the system, with reliability concerns (risk of a single point of failure vs masterless) acknowledged but secondary.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0006-puppet-architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR introduces a centralized data layout for Terraform configurations to reduce duplication and promote reuse across projects and environments. This primarily targets easier maintenance, readability, and modifiability by implementing a single source of truth for variables and secrets, improving modularity and simplifying updates when adding environments or stacks.",
+        "primary_score": 0.77,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.23
+        ],
+        "metadata": {
+            "adr": "0017-terraform-data-structure.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "Removing the local nginx-based Elasticsearch proxy and the puppet configuration simplifies the networking and data flow, reduces the number of components to maintain, and aligns deployment with AWS ELB. This primarily targets ease of maintenance and clarity of the system architecture rather than pushing for raw performance, scalability, or security improvements.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability",
+            "Reliability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.08,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0022-remove-the-elasticsearch-proxy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on implementing authentication/authorization via Dex as a central IdP to provide secure, consistent SSO for all user-facing web UIs, with Github as the IdP. The primary driver is protecting access (confidentiality, integrity, and proper access control) across the monitoring/CI/CD stack. Consequences mention high availability and penetration testing, which relate to reliability and security posture, but the governing goal is security of user authentication and access control.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0010-use-dex-idp-for-user-web-auth.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on structuring Terraform code for reuse and easier evolution: separating code from data, creating reusable Terraform modules, and organizing stacks into separate projects. These choices are driven by the goal of easier maintenance, modularity, readability, and reduced refactoring effort. Security considerations (decrypting secrets and protecting sensitive data) are present but are secondary to the maintainability objective.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Security",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-structure-for-terraform-projects.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "ADR003 centers on providing container orchestration capabilities to support high availability, load balancing, and especially horizontal scalability (the ability to increase/decrease instances to meet demand). The decision to base on Kubernetes is driven by the need to scale workloads across nodes and manage increased load efficiently. While reliability (HA, self-healing) and observability (logging) are also present in the context, the governing goal is scalable management of container workloads at scale.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Reliability",
+            "Observability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.08,
+            0.04
+        ],
+        "metadata": {
+            "adr": "ADR003-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR\u2019s core goal is to achieve strong isolation between service teams by deploying one Kubernetes cluster per environment per tenant, providing strict network/compute isolation, separation of billing, and the ability to deploy into target VPCs. These aspects primarily address security (isolation, access boundaries, and data protection) of the system. The noted consequences (increased management complexity) are secondary operational considerations rather than the primary driver.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.14,
+            0.14
+        ],
+        "metadata": {
+            "adr": "ADR004-tenant-isolation.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR centers on centralized logging for auditing and debugging, i.e., obtaining observability into system behavior by routing Pod/Application logs to CloudWatch via Fluentd, rather than optimizing other quality attributes.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "ADR022-logging.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR's core decision is to adopt a single service operator for multiple services to reduce duplication, simplify release pipelines, and improve consistency. These are maintainability concerns (modularity, reusability, ease of evolution). It notes potential scalability/resource implications as tradeoffs, but the primary motivation is to make the system easier to modify and extend over time.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "ADR034-one-service-operator-different-resource-kinds.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on choosing an infrastructure deployment platform (Amazon ECS) to standardize how deployments and configurations are managed, aiming for consistency and easier modification across teams. The note about potential clashes with Prometheus' storage model is a secondary consideration addressing reliability, but the core driver is maintainability through standardized tooling and processes.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Portability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.2
+        ],
+        "metadata": {
+            "adr": "0003-use-ecs-for-initial-beta-buildout.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "ADR006 concerns organizational ownership, operational responsibility, and deployment logistics (moving code to its own repository, pipeline alignment, and where the pipeline runs). It does not state or imply a system-level quality attribute like performance, security, reliability, scalability, usability, portability, compatibility, observability, or testability; it describes a development/operational process decision and governance around the broker.",
+        "primary_score": 0.88,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR007-paas-taking-ownership.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on preventing leakage and misuse of AWS credentials by migrating from static access keys to IAM roles and instance profiles, enforcing access controls (IP-based restrictions) and credential rotation; these are security-related decisions about protecting data, access, and authentication.",
+        "primary_score": 0.86,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability",
+            "Compatibility",
+            "Observability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.03,
+            0.03,
+            0.02,
+            0.02
+        ],
+        "metadata": {
+            "adr": "ADR003-AWS-credentials.html.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR defines domain naming to enforce environment separation and prevent traffic misdirection or impersonation of platform endpoints. By distinguishing production vs non-production domains and controlling the domains used for live services, it addresses authentication/authorization boundaries, integrity of endpoints, and trust relationships between components and apps.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Usability",
+            "Maintainability",
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.055,
+            0.055,
+            0.055,
+            0.055
+        ],
+        "metadata": {
+            "adr": "ADR004-domain-naming-scheme.html.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "ADR022 primarily motivates choosing Ruby on Rails due to secure defaults and alignment with GOV.UK frontend toolkits, reducing risk of common vulnerabilities (e.g., XSS) seen with Sinatra, and ensuring safer web app development. While maintainability and familiarity are beneficial, the decisive factor is security in defaults and protection against insecure configurations.",
+        "primary_score": 0.76,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.24
+        ],
+        "metadata": {
+            "adr": "ADR022-web_app_language_and_framework_selection.html.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR enforces secure communications by redirecting HTTP to HTTPS and maintaining HSTS preload, thereby preventing unencrypted traffic and protecting data in transit. It also addresses user confusion around HTTP URLs, which complements security with usability improvements.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "ADR033-redirect-http-for-applications.html.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The decision is primarily driven by maintainability concerns: forking GOV.UK Frontend isolates the radio-button component work, reduces CSS conflicts with existing GOV.UK projects, and creates an upgrade path to upstream GOV.UK Frontend in the future. This improves modifiability, readability, and long-term upkeep by enabling future updates without large rewrites.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Compatibility",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.13
+        ],
+        "metadata": {
+            "adr": "adr-005-forking-frontend-components-from-govuk-frontend.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on pinning Jenkins and plugin versions to improve reproducibility, establish a clear upgrade path, and reduce the maintenance burden associated with frequent, uncontrolled updates. It focuses on how easily the system can be changed and kept up-to-date (release cadence, upgrade process, and a limited, defined plugin set) rather than on runtime performance, security properties, or end-user usability.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Security",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-pin-versions-of-jenkins-and-plugins.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on ensuring correctness and recoverability of popularity updates during index reindexing in the presence of concurrent edits, by avoiding a long index lock and using external_gte versioning to maintain data integrity. It discusses potential data loss risks and how versioning semantics mitigate them, prioritizing correctness and fault tolerance under concurrent access. While it also notes maintainability benefits from a simpler approach and potential performance benefits from reducing locking, the primary concern is reliability of updates and system consistency.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Performance",
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-003-popularity-updating-without-index-locks.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on choosing a storage mechanism for private keys to protect confidentiality and integrity. It explicitly avoids environment variables due to exposure to other processes and selects a file-based approach as a simpler, potentially more secure option. The primary concern is securing key material and access control, not performance or other qualities.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0003-use-files-to-store-private-keys copy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on protecting the integrity of identity information by applying a secure one-way SHA-256 hash of user attributes in both the Verify Hub and the Translator service, triggering alerts on mismatches. This reduces the risk of tampered identity data due to SAML/XML exploits and enforces data integrity and authenticity, which are core security concerns. While logging/monitoring is involved (observability), the primary objective is to enforce security controls over identity data rather than primarily monitoring system behavior.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "20190327-hashing-attributes.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR changes how clients interact with the API by embedding the verification outcome in the JSON body and returning HTTP 200 for valid SAML outcomes, instead of using HTTP error codes. This primarily affects the API contract and interoperability with external consumers (e.g., passport-verify), making Compatibility the guiding quality attribute.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0021-we-will-use-http-200-for-valid-saml.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on securing the distribution of verify service provider artifacts by signing releases, obtaining approvals, and requiring verification of signatures before deployment to RPs. This directly addresses authenticity, integrity, and controlled access in the release process to prevent running compromised software.",
+        "primary_score": 0.88,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0024-release-process-for-verify-service-provider.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR introduces annotation types (inferred, virtual, synthesized) to trace the origin of every object or field in the AMF model. This enhances the ability to infer internal states from external outputs (source mappings), enabling monitoring/debugging of data provenance and transformations.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0010-shape-annotation-types.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR adds a new Source Information node to capture the source locations of parsed nodes, enabling error tracing and debugging by exposing internal state via error reports. This directly improves observability (debugging, tracing, diagnostics) of the system. The change is optional (not enabled by default) due to size impact (approx. 4% jsonld overhead when turned on).",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0009-source-information-node-storing-source-locations.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on how UI selectors are organized and maintained across teams, prioritizing modular ownership, easier future changes, and consistent conventions over a single fused selector set. It discusses tradeoffs in tooling, naming consistency, and test maintenance, which are maintainability concerns rather than runtime performance, security, or scalability.",
+        "primary_score": 0.73,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-keep-qa-and-devs-html-selectors-separate.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR introduces a modular architecture (Panel, Sections, Widgets, Controls) to standardize settings implementation, improve modularity, testability, and ease of future changes (e.g., adding new settings, reordering, and testing features). Benefits explicitly mention easier testing, easier changes, readability, and a scalable, maintainable codebase.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "ADR-20-explorer-settings-panel-architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on ensuring secure and authenticated deployments by restricting deploy capability to committee members and by validating wearables via a contentHash derived from metadata and content. This guards against tampering and unauthorized deployments, making Security the primary quality attribute.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR-32-wearable-committee-reverts.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR centers on reducing data transfer by narrowing response bodies, hiding non-essential endpoints to simplify the public API, and speeding up bootstrapping and synchronization, as well as more efficient use of the database. These changes target response time, throughput, and resource usage, which are core performance concerns. Security considerations are present (SECURE endpoints), but the primary motivation is performance and efficiency.",
+        "primary_score": 0.77,
+        "alternative_categories": [
+            "Scalability",
+            "Security"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.08
+        ],
+        "metadata": {
+            "adr": "ADR-43-catalyst-api-refinment.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on securely determining the royalties receiver by querying the NFT collection on-chain, with explicit safety constraints: the getRoyaltiesReceiver function must not revert (only run out of gas) and should ideally use a staticCall to prevent any state changes. It also defines fallback behavior for non-compliant collections, impacting asset safety and access control. This emphasis on preventing unintended state changes and safeguarding royalty routing is a security-focused concern, making Security the primary category.",
+        "primary_score": 0.82,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR-46-royalties-manager-v1.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR adopts CQRS to separate read and write models, enabling independent optimization for reads and writes and better handling of increasing load, which aligns with scalability goals (throughput, horizontal growth) rather than just micro-optimizations.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0003-cqrs.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR aims to enable distributed task execution across a cluster by introducing a RabbitMQ-based work queue and exclusive listener, signaling a move toward handling higher loads and distributed processing. However, the current approach consumes tasks serially (prefetch=1) and is labeled as not production-safe, indicating that the primary motivation is to scale the system in the future rather than just optimize single-node performance or reliability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Reliability",
+            "Performance",
+            "Maintainability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1,
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "0003-distributed-workqueue.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR centers on broadcasting termination events (Completed, Failed, Cancelled) across all cluster nodes via RabbitMQ so that any node and blocking clients can observe and react to task termination. This enhances runtime visibility, monitoring, and diagnosability of the distributed system.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Scalability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0005-distributed-task-termination-ackowledgement.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The decision centers on enabling polyglot language support (Scala) to improve interoperability with other JVM languages and ecosystems, rather than optimizing runtime performance or internal quality. The goal is to ensure the system can interoperate with libraries and components written in Scala and other JVM languages, making James a polyglot development framework.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance",
+            "Scalability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.08,
+            0.07,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0024-polyglot-strategy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The decision centers on auditability and monitoring: introducing event sourcing to track required mailbox listener groups, adding host/date information to change logs, and health checks to diagnose issues. This emphasizes observing system behavior and supporting debugging and auditing across the cluster, rather than primarily improving performance, security, or scalability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Reliability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0026-removing-configured-additional-mailboxListeners.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on implementing a corrective task to recompute mailbox quotas to recover correct quota values after potential inconsistencies caused by Cassandra failures. This is a recovery/recovery-from-failure mechanism to maintain data integrity and system correctness under fault conditions. It is not primarily about performance, security, or usability, but about ensuring reliable operation and recoverability after failures. The solution notes a concurrency caveat (not concurrency-safe), but the goal remains reliability through eventual correctness.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0028-Recompute-mailbox-quotas.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR\u2019s core goal is to centralize mailbox listener configuration and manage it in a consistent, fault-tolerant way across a distributed cluster. It introduces an event-sourced model to track listener configuration, handles startup degradation when unknown listeners are present, and adds health checks and topology-change propagation to ensure the system remains correct and recoverable in the face of failures or changes. While maintainability and observability are present as secondary benefits, the primary driver is reliability (fault tolerance and recoverability).",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Maintainability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.16,
+            0.12
+        ],
+        "metadata": {
+            "adr": "0035-distributed-listeners-configuration.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR focuses on implementing applicative read repairs to simplify the read path and achieve performance enhancements (faster mailbox reads and reduced manual repair overhead). It also notes auto-healing of inconsistencies (reliability), but the core mandate is about performance optimization of the read path.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.3
+        ],
+        "metadata": {
+            "adr": "0042-applicative-read-repairs.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR centers on implementing JMAP web push with attention to protecting notification data and ensuring secure delivery. It discusses encryption requirements (RFC 8291) for web push, acknowledges security/privacy risks from routing through third-party push gateways, and marks encryption as a SHOULD be implemented. These concerns place the primary emphasis on confidentiality, integrity, and access control of pushed notifications.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0050-jmap-web-push.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR focuses on making the README the primary entry point for the project to enable new developers to understand, set up, and begin contributing quickly. This prioritizes developer experience, readability, and ease of use (Usability) for the intended users. It also implies ongoing documentation upkeep (a Maintainability angle), but the governing goal is to improve how easily new users can use and understand the system.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0003-have-the-master-documentation-in-the-readme.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR is driven by user experience and frontend clarity: it aims to simplify the UI for selecting data by exposing all available data to the backend when possible, so users don\u2019t need to read API docs or configure multiple selectors. While it notes performance considerations (fetching data in a single API request) to avoid extra UI requests, the primary mandate is usability of the interface and reducing user cognitive load.",
+        "primary_score": 0.83,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.17
+        ],
+        "metadata": {
+            "adr": "0003-monitor-condition-and-data-selectors.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR is driven by reducing core maintenance burden and improving stability. GPIO-based integrations are low-usage, frequently unmaintained, and fragile across containers and platforms. By removing them from core and allowing only custom integrations (or using ESPHome), the system becomes easier to maintain and evolve over time.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0019-GPIO.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on providing a common data abstraction (Chimera) and a universal set of persistence operations to enable modules to interoperate across multiple backends (SQL, NoSQL, Datomic, etc.) via adapters. The governing concern is API/interoperability compatibility across different storage implementations and modules, rather than optimizing a single backend or intra-system performance.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Portability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-data-abstraction-model.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR emphasizes interoperability and integration with diverse external systems, using standards (PREMIS, METS, Dublin Core) and a micro-services approach to enable exchanging data and workflows across components. The primary goal is system interoperability and compatibility with other tools and storage backends.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-archivematica-original-design-principles.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on isolating tenant data and preventing cross-tenant data leakage by using discriminators and Postgres Row-Level Security (RLS) policies. This directly addresses access control, confidentiality, and data integrity across tenants, which are core security concerns for a multitenant system.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0006-use-row-level-security-in-postgres-to-implement-multitenancy.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "API keys are used to restrict access to an endpoint that can modify main/custom route tables, enforcing authentication/authorization and preventing unauthorized or unintended modifications. This aligns with protecting confidentiality and integrity of the system's data and operations.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-api-key.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The decision is driven by development efficiency and ease of future changes: using Django with DRF leverages the team's familiarity, reduces boilerplate, and provides mature, well-supported solutions for common backend concerns, enabling easier modification, testing, and evolution of the system rather than optimizing for performance or security in this initial stage.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Scalability",
+            "Testability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-0002-backend-language-framework.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on reorganizing the codebase from a monorepo to modular repositories (UI, API, infrastructure) and packaging strategies to improve readability, contribution, versioning, testing, and overall evolvability of the project. This is a classic maintainability concern (modularity, clear separation of concerns, and easier maintenance over time) rather than a runtime performance, security, or scalability optimization. Packaging and CI choices support long-term maintainability of the codebase and its deployment workflow.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Scalability",
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.06,
+            0.04
+        ],
+        "metadata": {
+            "adr": "2019-05-09-modular-architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR prioritizes ease of implementation and future extensibility over accuracy or external dependencies. It selects the simplest calculation method (words per minute) to keep the feature easy to modify and extend, rather than optimizing for precision or integrating complex tooling. No primary concerns around performance, security, reliability, or other quality attributes are articulated in the decision.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Performance",
+            "Reliability",
+            "Security",
+            "Scalability",
+            "Usability",
+            "Portability",
+            "Compatibility",
+            "Observability",
+            "Testability",
+            "Other/Only Functional Concern"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.03,
+            0.02,
+            0.04,
+            0.04,
+            0.0,
+            0.0,
+            0.03,
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "2019-09-28-time-estimation-for-links.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The decision enforces a uniqueness constraint on node IDs to guarantee correct retrieval and prevent ambiguous API usage (e.g., getNode by ID) and avoid complex internal and service-layer state. This directly improves correctness, predictability, and fault tolerance of the system, which are core reliability concerns.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.12
+        ],
+        "metadata": {
+            "adr": "ADR-003-handling-duplicate-node-ids.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR decides not to enforce a specific font for the component and instead relies on default system font stacks and fallbacks. This keeps the component environment-neutral and easier to move across different platforms and applications, which aligns with Portability.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "2018-10-02-component-fonts.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR aims primarily to improve the user experience by auto-suggesting geocoder matches and automatically populating GIS coordinates from the Data BC Geocoder, reducing manual data entry and errors. While it also touches interoperability with an external service (Compatibility) and improves data validation/accuracy (Reliability), the central motivation is ease of use for the end user.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Compatibility",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.15
+        ],
+        "metadata": {
+            "adr": "geocoder.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR discusses evaluating and delaying adoption of the esbuild tool due to build/runtime issues in the browser, routing decisions around tooling and build process rather than a system quality attribute (e.g., performance, security, scalability). It focuses on developer tooling and process rather than how well the system performs or protects itself.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0012-can-t-use-esbuild.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on adopting TypeScript to improve maintainability through stronger type safety, easier refactoring, self-documenting function signatures, and better developer productivity. These aspects primarily target modifiability/readability and overall maintenance of the codebase rather than runtime performance or security.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0003-use-typescript.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The decision is driven by solver stability and correctness. The adjoint ODE solver is unstable and can fail silently on larger systems, which undermines reliability. Reverting to the established ode_bdf_tol solver provides more predictable and fault-tolerant behavior, at the expense of some performance.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Performance",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0018-backwards-differential-solver.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on adopting tooling and processes (pytest for tests, black for formatting, flake8 for linting, pre-commit hooks, and virtual environments) to improve code quality, consistency, and ease of future changes. While test-driven development is mentioned, the dominant motivation is maintainability and developer experience through standardized tooling and workflows. Testability is addressed via pytest, but it is a means to achieve maintainability rather than the primary objective.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "adr_python-dev-env.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR proposes Layered Architecture to improve modularity, readability, and decoupling across Presentation, Application, Domain, and Infrastructure. It also notes increased architectural complexity and longer ramp-up time, but frames these changes as making the software easier to develop with high cohesion and low coupling, which are core maintainability concerns.",
+        "primary_score": 0.75,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-layered-architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "ADR 7 centers on choosing a package repository (Github Packages) for artifact distribution and its fit with the team's workflow (ease of setup, familiarity with GitHub tools). This is a functional architectural decision about how the system packages/hosts artifacts, not a primary non-functional quality (e.g., performance, security, scalability). The note about potential future on-prem hosting is a consequence but does not make a non-functional attribute the primary driver.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.13
+        ],
+        "metadata": {
+            "adr": "007-package-repository.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "ADR discusses how database schema is evolved and managed (using Hibernate's ddl-auto, with potential use of Liquibase/Flyway) to ease schema changes and testing across environments. It emphasizes the long-term maintainability of the data model and deployment process, while acknowledging risks (e.g., data loss) and the potential need for migrations/tools.",
+        "primary_score": 0.68,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.32
+        ],
+        "metadata": {
+            "adr": "0010-jpa-manages-schema.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR's core driver is ensuring availability and recoverability of the persistence layer by using AWS RDS Aurora MySQL with a primary+replica setup in production for HA, along with backups. While performance and cost are touched upon, the primary concern is reliability through fault tolerance and recoverability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Performance",
+            "Scalability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-rds-aurora-mysql-for-database-persistence.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR focuses on interoperability with multiple module systems (CommonJS, ES Modules, UMD) to ensure the library can be imported in diverse environments (Node.js and browsers). It discusses compatibility across ecosystems and deliberately excludes AMD due to perceived lower demand, indicating the primary concern is cross-environment compatibility rather than performance or internal quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "6_package-module-support.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR establishes a standardized, centralized approach to z-index management to reduce visual layering chaos (the \u201czindex war\u201d). It defines fixed z-index tiers and when to use fine-grained values, aiming to improve consistency, code readability, and ease of future changes across the UI stack. While there is a usability aspect (e.g., ensuring the focus ring remains visible), the core mandate is maintainability of the front-end architecture and its layering rules.",
+        "primary_score": 0.68,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.32
+        ],
+        "metadata": {
+            "adr": "zindex-values.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on API compatibility and interoperability by enforcing a unified interface across ABCI apps so that light clients can interact with all apps and handle proofs via a standard RPC paradigm. The decision to not expose an RPC server enforces this compatibility, reducing ecosystem heterogeneity in RPC implementations (even though it impacts how queries are performed).",
+        "primary_score": 0.78,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-003-abci-app-rpc.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "This ADR primarily targets bounding the size of a block to control resource usage (memory, CPU) and ensure timely processing during consensus (unmarshalling, propagation). It replaces MaxTxs with a single MaxBytes bound and computes ReapMaxBytes with overhead considerations to maintain throughput and predictable performance. There is some maintenance cost related to keeping constants in sync, but the main motivation is performance/resource efficiency.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "adr-020-block-size.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Observability",
+        "explanation": "The ADR changes the ABCI events data model to support multiple events per ABCI message, enabling more powerful querying, tracking, and visibility into events across the system. This directly improves the system's observability (monitoring/diagnostics). The implementation also notes increased complexity in query syntax, which touches maintainability, but the primary driver is observability.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability",
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-021-abci-events.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR targets reducing a fault condition (double signing) by adding a risk-reduction mechanism that inspects recent blocks before voting begins. Its goal is to improve system resilience, fault tolerance, and recoverability in validator operations, rather than optimize performance, enhance security properties, or improve user-facing usability.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-051-double-signing-risk-reduction.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR explicitly motivates the transition to Protobuf primarily for performance gains (faster encoding/decoding, smaller payloads) and robust tooling/ecosystem support. It also describes a plan to preserve current handwritten types and generate protobuf types, enabling a more modular and maintainable codebase in the future. While modularity/maintenance benefits are noted, the core driver is improving performance.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-055-protobuf-design.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "ADR 056 centers on preventing and detecting light-client amnesia attacks, handling evidence, and avoiding incorrect validation by malicious actors. The core decision is about introducing a detector (security control) and deferring a full accountability protocol, which is a security-focused mitigation ensuring confidentiality/integrity of consensus data and access to trusted behavior.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Observability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-056-light-client-amnesia-attacks.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on defining which Go packages are public and establishes backwards-compatibility guarantees and versioning rules for public APIs. The primary motivation is API compatibility across releases and controlled evolution of the public surface, not runtime performance or security.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-060-go-api-stability.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR explicitly frames the primary objective as improved message scheduling, prioritization, backpressure, and performance/throughput. It argues for a message-oriented architecture to achieve better performance and resource efficiency, with scalability and maintainability as secondary considerations.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability",
+            "Testability",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.08,
+            0.04,
+            0.03
+        ],
+        "metadata": {
+            "adr": "adr-062-p2p-architecture.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR is driven by improving verification speed/throughput by batching cryptographic verifications. It discusses the performance benefit (faster verification times) and how failures force a fallback to single verification, but the primary concern is performance optimization for block validation and syncing.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Scalability",
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.03
+        ],
+        "metadata": {
+            "adr": "adr-064-batch-verification.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR is motivated by improving throughput and efficiency of the mempool by enabling application-defined prioritization, faster reaping of transactions by priority, and eviction to maintain fixed capacity. These changes target time/throughput efficiency and resource use under load, i.e., performance. While scalability (handling growing loads) and maintainability (data structure changes, future extensibility) are touched, the primary driver is performance of the system under operational load.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Scalability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "adr-067-mempool-refactor.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on preventing consensus halts by enabling reverse sync that fetches and stores the required light blocks (backfill) to validate evidence, ensuring node participation and correctness under partial history. This directly improves fault tolerance and recoverability. Related changes (P2P light client provider, store integration) support reliable operation, while security and maintainability are acknowledged as secondary considerations.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-068-reverse-sync.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on ensuring data integrity and availability by requiring rollup block headers to commit to subtree roots within the data root, preventing malleability and guaranteeing that data behind the committed root is authentic and verifiable. This cryptographic commitment design is driven by security concerns around tampering and ensuring correct inclusion/availability proofs, rather than purely performance or usability concerns.",
+        "primary_score": 0.84,
+        "alternative_categories": [
+            "Reliability"
+        ],
+        "alternative_confidence_scores": [
+            0.16
+        ],
+        "metadata": {
+            "adr": "adr-007-header-commit-to-shares.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR selects React to enable easier long-term development and evolution of the browser-based client. Rationale centers on standardization, a broad ecosystem of libraries, strong documentation, and community contributions, all of which improve modularity, reusability, and testability\u2014key aspects of maintainability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Compatibility",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-choice-of-react.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR centers on making IAM identifiers human-readable in the public API (names), providing a display_name for UI use, and shaping rename and tombstone behaviors to improve user experience and understandability. While it touches data integrity (e.g., uniqueness and tombstones), the governing motive is usability and clarity for API consumers and end-users rather than performance or security.",
+        "primary_score": 0.77,
+        "alternative_categories": [
+            "Reliability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.13
+        ],
+        "metadata": {
+            "adr": "adr-2018-10-04.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on introducing a CSS linter (stylelint) and a naming convention (BEM) to enforce a consistent CSS style guide, improving readability, consistency, and ease of maintenance of the CSS codebase across the team. It targets how well the system can be modified and evolved rather than runtime performance, security, or other non-functional concerns.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0008-use-linter-for-css.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on exposing a minimal cache API so Grimoire data can be consumed easily from multiple programming languages, i.e., enabling interoperability and API compatibility across language boundaries. It introduces a cross-language data exchange format (Transit) and a simple file-based cache as the integration surface, rather than optimizing internal performance, reliability, or maintainability aspects.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0005-implement-minimal-api-abstracting-grimoire.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on enforcing STRICT mTLS across the mesh and resolving incompatibilities via configuration workarounds (Policies) that permit plaintext communication for CAPI and Log-cache. This is a security-driven decision because it accepts a lower encryption level to unblock deployment, with long-term intent to fix the component implementations. The workaround trade-off is justified as a temporary measure to maintain security posture while moving toward full compatibility.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.11,
+            0.11
+        ],
+        "metadata": {
+            "adr": "0008-implement-workarounds-for-capi-and-log-cache-to-unblock-global-strict-mtls.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on refactoring the cf push command into modular, testable components (inspired by hexagonal architecture) to reduce complexity, make it easier to understand, and simplify adding new features. It explicitly states goals around making changes easier and enabling unit tests for components, signaling a primary aim of improving maintainability (modularity, readability, and testability) of the system rather than optimizing runtime performance or security.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0004-v7-push-refactor.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The decision centers on maintaining compatibility with existing APIs/endpoints and safer upgrade paths. It avoids migrating data by introducing a new table and a staged deprecation (time bomb) plan, to prevent breaking changes for users. While it touches maintainability in the sense of future changes, the primary driver is compatibility across versions and minimizing disruption to users.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.3
+        ],
+        "metadata": {
+            "adr": "0010-renaming-space-application-suporter-role-to-space-supporter.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on ensuring build reliability and reproducibility by vendoring dependencies (checking in the vendor directory) so that building Copilot does not depend on the presence or state of external tools on the local machine. This reduces build failures due to environment differences and makes packaging deterministic, which is a reliability concern.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0004-check-in-copilot-dependencies-that-were-already-vendored.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR centers on ensuring correct and deterministic rendering of charts when there are ordering differences between the frame and the scale and handling missing data. The primary goal is to maintain correct system behavior under edge conditions (robustness and recoverability of visualization output), i.e., reliability of the charting functionality.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.35
+        ],
+        "metadata": {
+            "adr": "0007-frame-vs-scale.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR motivates reorganizing balance storage to enable O(1) reads/writes for a specific account and denomination, prioritizing read/write latency and throughput over previous per-account balance access. It also addresses potential DoS concerns related to loading many denominations. Tradeoffs include slightly less efficient scans when reading all balances, but the primary driver is performance (latency/throughput).",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "adr-004-split-denomination-keys.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR is driven by protecting sensitive secret material and metadata by replacing the current on-disk storage with a cross-backend secret store via Keyring. This targets confidentiality and integrity, reducing exposure to rogue software and enforcing proper access control through OS-native secret stores and a uniform abstraction.",
+        "primary_score": 0.86,
+        "alternative_categories": [
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-006-secret-store-replacement.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on defining a cross-chain, protobuf-based transaction encoding format that uses google.protobuf.Any for interface types to maximize interoperability across different apps and chains. It explicitly emphasizes compatibility (backward/forward) and cross-language client support, along with mechanisms to preserve compatibility as the protocol evolves (unknown field filtering, upstreaming improvements, and standardized SignDoc/TxRaw representations). Although it notes performance gains and security considerations (malleability), the core mandate is to enable interoperable, upgrade-friendly transaction formats across ecosystems.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance",
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.08,
+            0.0
+        ],
+        "metadata": {
+            "adr": "adr-020-protobuf-transaction-encoding.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR focuses on improving user experience by allowing accounts to spend fees from a common pool via delegated allowances, reducing the burden of maintaining fee balances and enabling broader adoption. This centers on how easy and pleasant the system is to use, rather than on performance, security enforcement, or reliability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-029-fee-grant-module.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR centers on updating protobuf definitions in a way that preserves backward compatibility for tooling, wallets, and third-party integrations. It specifies rules to avoid breaking changes (e.g., banning field renames, handling deprecation, and controlled version bumps) and discusses how changes impact clients, indicating the governing concern is compatibility across versions and ecosystems.",
+        "primary_score": 0.84,
+        "alternative_categories": [
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.16
+        ],
+        "metadata": {
+            "adr": "adr-044-protobuf-updates-guidelines.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR primarily motivates correctness and robustness of cross-chain packet processing, ensuring atomicity and state consistency across modules. It introduces central proof verification (ProofVerificationDecorator), separates IBC-related state changes from application state, and uses CodeTxBreak to preserve IBC state even if application state changes fail. These aspects focus on fault tolerance, recoverability, and preventing inconsistent states (double-spending, incomplete transactions), i.e., Reliability. Security is a related concern due to Merkle-proof verification, but the primary driver is reliability of the protocol\u2019s execution and state integrity.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Security",
+            "Maintainability",
+            "Observability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.04,
+            0.02,
+            0.0
+        ],
+        "metadata": {
+            "adr": "adr-015-ibc-packet-receiver.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Testability",
+        "explanation": "The ADR explicitly centers on using hexagonal architecture to enable testing of architectural constraints and behavior, enforce structure, and improve testability of the system. It also highlights maintainability, flexibility, and adaptability as benefits, but the primary motivation is testability through architecture and verifiable constraints.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-hexagonal-architecture-for-applications.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on authenticating frontend users and enforcing access to Dynamics 365 and file storage via Azure AD B2C. The core decision is about selecting and configuring an authentication/authorization mechanism (token-based SSO, user flows, and policy customization), which is a security concern (confidentiality, integrity, access control). UI customization and branding considerations are acknowledged, but the governing objective is securing identity and access.",
+        "primary_score": 0.74,
+        "alternative_categories": [
+            "Usability",
+            "Compatibility",
+            "Observability"
+        ],
+        "alternative_confidence_scores": [
+            0.14,
+            0.08,
+            0.04
+        ],
+        "metadata": {
+            "adr": "0003-authenticate-frontstage-users-azure-b2c.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR prioritizes speed to deliver results and reduces setup effort by choosing a managed service (AWS SageMaker) over a more vendor-neutral stack. The main motivation is rapid development and demonstration of business value rather than runtime efficiency, long-term portability, or infra maintenance burden.",
+        "primary_score": 0.68,
+        "alternative_categories": [
+            "Portability",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.12
+        ],
+        "metadata": {
+            "adr": "0003-for-machine-learning-select-a-vendor-specific-stack-of-a-general-stack.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR aims to preserve backward compatibility by avoiding a breaking change to the HTTP app callback API versioning. It argues that introducing a versioning scheme would require changes in user applications and that the runtime cannot reliably determine an app's callback version ahead of time; thus the decision prioritizes compatibility/interoperability and stability of existing integrations.",
+        "primary_score": 0.8,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "API-010-appcallback-versioning.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR\u2019s primary driver is performance (and SEO) considerations: opting for Client Side Rendering with Create React App, and using pre-rendering to mitigate SEO and performance concerns without the complexity of SSR frameworks like Next.js. Maintainability benefits of a standard starter tool are acknowledged but secondary to performance/SEO goals.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Maintainability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-use-client-side-rendering-create-react-app.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR's core objective is to ensure consistent persistence and correct association of a user across multiple credentials by introducing credential_user and real_user concepts and corresponding tables. This focuses on dependable behavior of the system's identity handling (consistency, recoverable state, fault tolerance) rather than performance, security policy, or development process.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Security",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.13
+        ],
+        "metadata": {
+            "adr": "0011-persistent-user-identity-proposal"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR's primary driver is ease of deployment and ongoing maintenance costs. Selecting Auth0 as a managed service reduces operational burden (no deployment, patching, or hosting maintenance required) and minimizes ongoing costs, which directly addresses how easily the system can be deployed, configured, and operated over time. Other considerations touch on security and scalability, but they are secondary to maintainability.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Security",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0002-choice-of-auth-provider.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on establishing a fixed folder structure, disciplined file locations, and naming conventions to improve modularity, readability, and ease of modification. It also mentions maintainability-related practices (docs, repo hygiene). There is no emphasis on performance, security, scalability, or other non-functional attributes as the primary driver.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Portability",
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR Folder structure.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on modularizing testing features into a separate dogmatest module to improve long-term maintainability: it emphasizes isolation of changes, independent versioning, and clearer release management, which are maintainability concerns. Compatibility considerations (documentation of which dogmatest versions work with which dogma versions) are discussed as a secondary concern to support the maintainability goal.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0008-location-of-testing-features.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on standardizing code style to improve readability, consistency, and ease of maintenance (e.g., patches, code reviews, onboarding, tooling integration). These are classic maintainability concerns, focusing on how easily the system can be changed and understood. No emphasis on performance, reliability, security, or other non-functional aspects are described as primary drivers.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR-0006.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR aims to prevent inefficient database queries (N+1 problem) by enforcing an automatic CI check that must pass before deployment, thereby improving application response times and overall runtime performance.",
+        "primary_score": 0.84,
+        "alternative_categories": [
+            "Testability"
+        ],
+        "alternative_confidence_scores": [
+            0.16
+        ],
+        "metadata": {
+            "adr": "0002-use-bullet-to-catch-nplus1-queries.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR discusses introducing and handling two different AWS clients within the service to manage two types of variables, instead of changing how infrastructure variables are provisioned. The Consequences explicitly cite added internal complexity and potential difficulty for developers/users, which aligns with Maintainability (modularity, readability, ease of modification). The primary concern is how easy it is to modify and understand the system as a result of this architectural choice, not performance, security, or other non-functional goals.",
+        "primary_score": 0.82,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0008-use-different-aws-account-for-interacting-with-infrastructure-variables.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR is driven by robustness and fault handling: centralizing environment variable loading to fail fast when required vars are missing, preventing nil from propagating through the stack. This focus on predictable behavior under stated conditions aligns with Reliability. It also touches maintainability (central configuration) and testability (e.g., stubbing env vars in tests) as secondary implications.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability",
+            "Testability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.15,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0005-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Portability",
+        "explanation": "The ADR aims to achieve consistent rendering across different browser environments by normalizing default CSS with Normalize.css. This focuses on the system's ability to operate correctly across varying environments (browsers), i.e., portability across platforms. It is not primarily about performance, security, or other quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Compatibility",
+            "Maintainability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0013-use-normalize-css-to-normalize-styles-across-browsers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on reorganizing where setup/scripts live to create a single source of truth and reduce duplication across repositories. This improves modifiability, reduces maintenance effort, and clarifies responsibilities, with no explicit requirements for performance, security, scalability, or usability driving the decision.",
+        "primary_score": 0.82,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-use-this-repo-as-source-of-setup-scripts.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR focuses on modularizing editor-related CSS into a separate package and a dedicated preset to improve maintainability, modularity, and reuse, by decoupling editor styles from component CSS. The main goal is clearer boundaries and easier maintenance of the codebase. The trade-off noted is potential CSS duplication (affecting bundle size), which could touch performance, but is not the primary driver.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "003-editor.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Performance",
+        "explanation": "The ADR is driven by the need to enable accelerated, configurable native backends for libnd4j (e.g., avx, dnnl) via javacpp platform extensions, improving runtime performance/throughput. It also weighs user-facing complexity, but the primary motivation is performance optimization achievable through optional, configurable extensions.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Maintainability",
+            "Usability"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0007 - Nd4j classifiers.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR introduces a reusable Config builder/mixin to group and share input/argument definitions across related ops, reducing configuration surface area, improving modularity, readability, and ease of evolution. It focuses on how the system can be modified and extended (maintainability) rather than runtime performance, security, or other non-functional requirements. It also enables easier reuse across related ops and languages lacking named parameters, which supports long-term maintainability of the API.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Usability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0007-configuration_objects.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Usability",
+        "explanation": "The ADR introduces an aliasing mechanism to make the API surface easier to discover and use across namespaces. The primary motivation is to improve usability for API consumers by allowing ops to be found more easily, with alias documentation clarifying the alias. Trade-offs include API surface crowding which can impact maintainability and potential implications for compatibility.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Maintainability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.13
+        ],
+        "metadata": {
+            "adr": "0009-aliasing.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Scalability",
+        "explanation": "The ADR centers on improving throughput and scalability for signal enrichment by offering two strategies: a round-trip approach guaranteeing up-to-date data, and a cache-based approach reducing remoting and payloads. The primary concern is scalability under load, balanced against data freshness; the cache sizing (default 20,000 entries) and smart-update cache indicate a focus on scaling behavior rather than purely functional correctness.",
+        "primary_score": 0.74,
+        "alternative_categories": [
+            "Performance"
+        ],
+        "alternative_confidence_scores": [
+            0.26
+        ],
+        "metadata": {
+            "adr": "DADR-0004-signal-enrichment.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Security",
+        "explanation": "The ADR focuses on how URLs are encoded to balance security concerns (encoded slashes are avoided by default for security reasons) and to minimize host configuration changes. The chosen solution (double-encoded URLs) is driven by security considerations (avoiding security issues with single-encoded URLs) and by deployment practicality (not forcing environment reconfigurations). While usability/readability of URLs is a consideration, the primary driver is security and safe operational hosting across environments.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Usability",
+            "Portability",
+            "Compatibility"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-double-encoded-urls.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Other/Only Functional Concern",
+        "explanation": "The ADR documents a decision about which in-browser editor to use (Eclipse Orion) to provide syntax highlighting, i.e., a functional choice of tool. There is no discussion of how well the system should perform, secure properties, reliability, scalability, or other quality attributes. Hence it is categorized as Other/Only Functional Concern.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0014-use-eclipse-orion-as-editor.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Compatibility",
+        "explanation": "The ADR's core goal is to ensure that versioning of TOSCA elements is compliant with the TOSCA specification and detectable within the XML file. This directly affects interoperability and compatibility with other tools/consumers of TOSCA definitions. While other options exist (namespace versioning, external storage) their tradeoffs pertain more to maintainability or portability rather than the primary aim of standard conformance and interoperability.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Maintainability",
+            "Observability",
+            "Portability"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.04,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0019-version-in-the-name.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Maintainability",
+        "explanation": "The ADR centers on simplifying feature management to reduce complexity and release risk. It rejects a full feature-flag module and endorses using configuration toggles, which supports easier future changes and overall maintainability of the system.",
+        "primary_score": 0.65,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-Feature-Flags.md"
+        }
+    },
+    {
+        "framework": "quality_attributes",
+        "primary_category": "Reliability",
+        "explanation": "The ADR focuses on ensuring reliable delivery of events despite downstream unavailability by introducing per-recipient retry logic, persisting failed business-critical events for later re-send, scheduled retries, and admin alerts. This centers on fault tolerance, recoverability, and ensuring the system continues to meet delivery commitments under adverse conditions.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Observability",
+            "Maintainability",
+            "Scalability"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.08,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0009-persistence-and-retries-for-events.rst"
+        }
+    }
+]

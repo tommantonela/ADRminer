@@ -1,0 +1,3065 @@
+[
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposes an architectural pattern to connect the UI components to the application state via a container/connector structure, establishing a clear separation of concerns between view logic and state management. It defines data flow (State -> Connector -> Container -> Component) and discusses wrappers, containers, and connectors as the primary mechanism for wiring components to a Redux-like store. This centers on system structure and component responsibilities, i.e., a Design decision. Technologies (Redux, Polymer) are mentioned but serve as supporting tooling rather than the governing architectural change.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology",
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "adr-003-store-connector-container-component.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR centers on provisioning compute resources and configuring the environment (via Terraform) using Ansible roles to install Docker/Docker-Compose and manage instance configuration. This is primarily about deployment environment provisioning and orchestration, not about internal design patterns or technology choice at the component level.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "adr-004.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR specifies how versioning and release mechanics are governed (semantic versioning, build numbers, promotion steps, and pruning of old builds) which is a governance/process decision affecting how teams work and how releases are managed, not a design, technology, or infrastructure choice.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-007.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR prescribes how configuration data should be organized (prefixing instead of nesting and exposing defaults in code), which defines the data organization and interfaces for configuration across the system. It's a design decision about structure and how components interact with config, rather than selecting a technology, infrastructure, or process.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0003-for-config-prefer-prefix-over-nesting-and-don-t-hide-defaults-in-code.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on release management workflow and governance (how artifacts are published, RC creation, and semantic versioning strategy) rather than system structure, component design, or technology choices. This makes Organizational/Process the primary category. It also enforces a non-negotiable constraint (single trunk-originating feed) which could be viewed as Constraint.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "005-cutting-release-branch.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on the high-level architecture and data flow for a new message-driven content tracker, including integration with a new Search Services architecture and the implications of a major release. It concerns system structure, components, and how they interact (not a specific technology choice, infrastructure deployment, or organizational process).",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0009-message-driven-content-tracker-next-gen.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR defines a systemic approach to managing secrets across the Kubernetes deployment (transforming config into Kubernetes Secrets, RBAC provisioning, and related security considerations). This security mechanism spans multiple components and deployment aspects, rather than targeting a single component or a specific technology stack alone, making it a crosscutting concern.",
+        "primary_score": 0.83,
+        "alternative_categories": [
+            "Technology",
+            "Infrastructure",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.05,
+            0.04
+        ],
+        "metadata": {
+            "adr": "0010-managing-secrets-used-by-dbp.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "Primary category is Infrastructure because the ADR is about how configuration is supplied to the application in deployment/runtime environments (server-side/container injection of config versus client-side retrieval), including the choice of using environment variables or static JSON and injecting at run-time. This governs deployment/runtime setup and configuration plumbing across branded deployments. Discarded categories: Design (no changes to decomposition or interfaces), Technology (related but the core decision is deployment/config infrastructure rather than a specific tech selection), Crosscutting Concerns (config is cross-cutting but the main focus is the deployment/infrastructure approach).",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-application-configuration-setup.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting the platform/technology for delivering a web application with offline capability (comparing a Progressive Web App approach vs native apps) and the implications of that choice. It is primarily a technology/platform decision (what to build the app with and how it will run offline), rather than a pure design pattern, architectural componentization, or organizational process decision. The offline requirement is a quality concern that motivates the decision but does not itself constitute the governing category.",
+        "primary_score": 0.7,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.1
+        ],
+        "metadata": {
+            "adr": "2019-11-20_webapp.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decides which HTTP routing library/framework to use in a Go application (gorilla/mux) and evaluates alternatives (gin, net/http, custom router). This is a technology-level decision about selecting a library/framework rather than architectural design, infrastructure, or organizational process. It does not define a design pattern or data model, but chooses a tool to implement routing.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.04,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0014-use-mux-for-routing.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR centers on auditability and security-related non-functional requirements: what events to log, how to access, data retention, and forwarding for auditing. While it also discusses implementation options (Splunk/CloudWatch), the governing mandate is to establish auditable logging as a quality attribute, i.e., the system's ability to be audited securely and compliantly.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0021-audit-logging.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the structural pattern of UI components by wrapping inputs and textareas in a wrapper div and applying styles to the wrapper. This concerns component organization, interfaces, and how styling and behavior are composed, i.e., the design of the UI component architecture rather than a specific technology or deployment detail.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "adr-0004-why-wrap-input-textarea.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR decides to adopt Layered Architecture to structure the system into four layers (Presentation, Application, Domain, Infrastructure), defining decomposition, module boundaries, and allowed interactions. This is a design-level pattern decision that shapes system organization. It can also have crosscutting implications (e.g., enforcement of the layer boundaries across components) but the primary focus is architectural structure.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-language-choices-for-new-development.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines the core data model and API structure for how data related to submissions, tasks, entries, and files should be stored and organized, i.e., an architectural design of data organization and interfaces.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0016-data-structure-tasks-submissions-entries-and-files.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "This ADR focuses on implementing a recurring data export workflow: generating a CSV, scheduling nightly exports, storing the results in S3, and placing the code in the API application rather than a separate component. It is primarily an implementation/detail about how the export feature is built and operated, rather than a high-level system design, platform/technology choice, or organizational process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0021-generate-a-data-export-for-finance.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on whether to introduce an API extensions mechanism and how to expose API changes (extensions vs. minor versioning). This concerns the API surface design, its evolution strategy, and how vendors interact with changes, rather than selecting technologies or enforcing infrastructure. The core decision is a design choice about API surface and extension strategy.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-api-extensions-mechanism.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "Decision to use DotEnv to load environment variables is a technology-level choice (library/tool selection) for managing configuration. It centralizes environment variable handling, enables fail-fast behavior, and supports testing (e.g., stubbing), replacing the deprecated Figaro. The ADR focuses on selecting a specific technology to manage environment variables rather than on system structure, deployment, or organizational processes.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "0006-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "Decision to replace GOV.UK Verify with the Database for Qualified Teachers (DQT) integration for teacher identity verification and QTS checks, including API-based data exchange. This is a technology/solution choice about external service selection and integration rather than internal design, organizational structure, or deployment details.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0012-automate-dqt-integration.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the high-level integration approach and architectural organization: establishing an API gateway, REST proxy, and an internal event backbone to enable data flow between systems, within an event-driven pattern. It defines system boundaries and orchestration of data movement rather than specifying a concrete technology stack or low-level implementation details.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.04
+        ],
+        "metadata": {
+            "adr": "007-Integration-Approaches.html.md.erb"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on the data modelling/identity strategy for trainee URLs (non-integer identifiers) and how they are exposed, which is a design decision about system structure and data representation. The consideration of a specific technology (Rails has_secure_token) is an implementation detail and a potential alternative, but the governing choice is how IDs are modeled and used across the system.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Technology",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-non-integer-trainee-ids.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting a performance monitoring tool (Skylight vs Sentry) to instrument the application, which is a technology decision about tools/platforms rather than architecture structure, deployment, or organizational processes.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0008-use-skylight-for-performance-monitoring.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "This ADR focuses on deployment environments and hosting/runtime platforms (reduction of environments, use of GOV.UK PaaS) rather than on software design, technology choice, or team processes.",
+        "primary_score": 0.86,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004_define_environments_after_gov_uk_paas_migration.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR establishes a policy governing how performance considerations are handled across the system (optimize only after issues are identified, favor simplicity/readability). This guidance affects multiple parts of the architecture rather than a single component, making it a crosscutting architectural principle rather than a specific design, technology, or infrastructure choice.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0010-confirm-performance-issues-before-optimizing.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR decides on the semantics of a domain data model: when a relationship between samples is inverted, the update date of the affected sample should not be changed. This governs data modeling, domain behavior, and how metadata is maintained, which are core design considerations rather than technology, infrastructure, process, or implementation details.",
+        "primary_score": 0.88,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-inverse-relationships-sample-update.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on how resources should be typed in schema.org/JSON-LD\u2014prefer using @type or rdf:type for classes outside the core vocabulary instead of additionalType. This is a data modeling and architectural design choice about data semantics and interoperability, rather than a specific technology selection or deployment concern.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "74-schemaorg-additionalType-vs-RDF-typing.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR defines a concrete implementation detail: booleans are stored as strings '0' or '1' in the KeySet, with specific API expectations. This affects internal data representation and code paths (storage plugins, type checking) rather than system-level design, deployment, or platform choices, and is thus an Implementation decision. The constraints section is acknowledged but subordinate to the internal representation decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Constraint",
+            "Other"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "boolean.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR changes the API surface of the library by removing several key getter functions (keyGetName, keyGetUnescapedName, keyGetBaseName, keyGetString, keyGetBinary) and adding guidance about lifetime and replacement patterns. This is fundamentally a design decision about component interfaces and how the system is organized (API design and data access boundaries), rather than a technology choice, infrastructure decision, or a non-functional quality attribute. It may imply internal refactoring (an implementation concern) but the governing mandate is to redefine the API shape and usage semantics.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "functions_with_buffers.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Constraint",
+        "explanation": "The ADR establishes a non-negotiable limitation: multiple writeable file backends per namespace are not supported. This constraint governs how the storage backend can be composed and directly impacts architectural guarantees (e.g., atomicity, consistency across backends) and admin simplicity. Other aspects discuss possible workarounds (fallback files, multiple sources) but the core decision is the imposed constraint on architecture.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "multiple_file_backends.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR is driven by reducing memory usage (store the unescaped key name to avoid storing both escaped and unescaped names), which targets a non-functional requirement (memory efficiency). While it involves API changes and touches internal data representation, the primary mandate is a quality attribute improvement (memory footprint), with implementation/design implications as secondary considerations.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Implementation",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "store_name.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR mainly decides the project name and branding (choosing 'Page Kit' over 'Anvil') and defines the conceptual boundaries and scope of the project, which are design considerations related to identity, naming, and how the system is perceived, rather than selecting technologies, deployment, or organizational processes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "project-name.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR establishes wrapping the FlowMachine library with a single HTTP API as the access point, outlining a shift in system structure, components/interfaces, and how clients interact with the data layer. This is a core architectural decision about decomposition, boundaries, and the interface exposed to consumers (design of the system). Other concerns such as crosscutting aspects (logging, access control) and technology choices are secondary to this primary architectural reorganization.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.06
+        ],
+        "metadata": {
+            "adr": "0003-http-api.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR is about selecting the web app language and framework (Ruby on Rails) to use for user-facing applications, i.e., a technology stack decision rather than a design pattern or organizational process. It references toolchain compatibility and team familiarity, which are technology concerns. Design considerations are secondary (architecture implications) but not the primary mandate.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.08
+        ],
+        "metadata": {
+            "adr": "0004-use-create-react-app-and-npm-eject-to-create-the-basis-of-the-project-structure.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on governance and operational practices for architecture decisions (versioning ADRs in the codebase, approvals, deprecation, and usage templates). It does not propose or evaluate a system design, technology choice, infrastructure, or other architectural constructs, but rather how decisions are documented and managed\u2014an Organizational/Process concern.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "2020-08-10-architecture-decision-records.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines the structure and organization of data related to inpatient spells, introducing a new CIPS concept and tables, plus rules for how spells relate to CIPS (e.g., ENCRYPTED_HESID consistency, row ordering). This centers on data modeling and system structure (schema, relationships, and data lifecycle), i.e., a design decision.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "creating_continuous_inpatient_spells.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR defines a system-wide logging approach (log to stdout/stderr, human-readable vs JSON in different environments) and discusses consequences that affect multiple components and runtime behavior, i.e., observability across the system. It is not primarily about decomposing the system (Design), selecting a technology (Technology), or organizational processes (Organizational/Process). The choice to standardize logging is a crosscutting concern that spans the architecture.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-application-logging.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR centers on configuring applications across different deployment/runtime environments using environment variables, i.e., a deployment/runtime configuration mechanism that affects how the system runs in different environments. It is primarily a deployment/infrastructure concern rather than a technology choice or organizational process.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "004-configuration-by-environment-variable.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines a cross-component pattern for maintaining data consistency (eventual consistency) across API responses and projections by using HTTP ETags and If-Match semantics. This is a design decision about how components interact and agree on state, rather than a concrete technology choice, infrastructure setup, or organizational process. It may cross-cut multiple parts (API, projections, UI), but the core mandate is architectural design of component interactions and state reconciliation.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0013-handle-eventual-consistency-with-etags.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines how temporary identifiers are generated and later mapped to permanent identifiers, including how this mapping is stored and surfaced to operators. This centers on the data model, entity identity lifecycle, and system boundaries across components, i.e., a design/architectural concern about the structure and behavior of identifiers rather than a technology, infrastructure, or process decision. It can have cross-cutting implications since identifiers are used by multiple subsystems, but the governing decision is fundamentally about design.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "004-temporary-and-permanent-identifiers.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR focuses on deployment/infrastructure concerns: provisioning and shipping preinstalled Docker images on the device\u2019s data volume to support offline operation. It is about how the system is deployed and run in a specific environment rather than software design patterns, organizational processes, or choosing a technology stack. Docker packaging is a secondary touchpoint (technology), but the core decision is about deployment infrastructure.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0011-preinstallable-images-on-data-volume.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on choosing a technology/technique for parsing text: opting for a regular expression implemented with Java's Pattern/Matcher to split multi-sentence titles, avoiding external NLP libraries. This is a technology/tool choice rather than a design, infrastructure, or organizational decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0018-use-regular-expression-to-split-multiple-sentence-titles.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "Reasoning: The ADR primarily decides the data representation and boundaries around the 'Study' object (DTO vs. object graph with fetchers). It selects a DTO-centric approach with transformers, which is a design decision about system structure, interfaces, and data modeling, not an implementation detail or a technology choice. The alternative category considered is Implementation, since the decision also affects how the DTO is serialized/deserialized and how the code is organized within components, but the governing decision remains at the design level.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0021-keep-study-as-a-dto.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR decides which programming language to use for the ftduino interface (C++), which primarily governs internal code structure, interfaces, and maintenance of the integration. While it has technology implications (language choice), the core effect is on how the code is implemented and organized, not on deployment, platforms, or team processes.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-use-cpp-to-interface-with-the-ftduino.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposes a major architectural redesign of the Pipeline API and data model: removing the existing DataVec abstraction, introducing a new Data abstraction (map-like, single-example data with flexible schemas), reworking REST/IPC exposure to a single data-centric endpoint, and introducing a scalable, cross-cutting serialization strategy (JSON/binary via FlatBuffers/Protobuf). This changes system structure, interfaces between components, and data flow across the architecture, rather than selecting a specific technology or altering deployment. The decision is therefore primarily about system design and component interactions, with technology choices (serialization format) used as a means to achieve that design.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.12
+        ],
+        "metadata": {
+            "adr": "0003-Pipeline_API_Rewrite.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on building an abstracted resident data source and introducing separate gateways to access residents, which defines the system's data access boundaries and how components will interact. It addresses architectural structure, data modeling considerations, and the long-term extensibility for multiple data sources, rather than selecting a specific technology, deployment, or organizational process.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-build-an-abstracted-resident-store.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR's core decision is selecting AWS messaging services (SNS with SQS) to implement an event-driven architecture, i.e., a platform/technology choice for how services communicate. It is not primarily about system structure/patterns (Design), deployment/runtime (Infrastructure), organizational processes, or a non-functional quality attribute. The consequences discuss infrastructure considerations, but the governing decision is the technology/platform selection.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "Event-Driven-Architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "This ADR primarily defines a process/governance decision to adopt ESLint for code style enforcement and to integrate it into the test suite. It concerns team practices, responsibilities, and workflows rather than a system design, technology choice, or infrastructure.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-use-eslint.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on architectural approach and structuring: reimplementing govuk-frontend JavaScript features within the library to align with idiomatic React, defining component boundaries, and overall architectural design choices rather than selecting a specific technology or runtime.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0012-reimplement-gov-uk-frontend-javascript-internally-to-this-library.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting a search technology/backend (PostgreSQL built-in search) over an external service (e.g., Elasticsearch), which is a technology/tool decision guiding the stack and implementation approach.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0007-use-postgres-search.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting and integrating ingestion tooling (use of the existing OAI-PMH/ORE tool) and scripting to prepare output for the DOS API. This is a technology/tool choice for the ingestion pipeline rather than a change to system structure, deployment, or team processes.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "adr-8-dome-ingest.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting a technology platform/service (AWS Lambda) as the compute model for the processing pipeline, i.e., a technology/platform choice rather than a design pattern, infrastructure configuration, or process/organizational decision. While it has architectural implications (serverless pattern), the governing decision is technology selection. Alternatives such as Design or Infrastructure were considered less primary in this context.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-use-aws-lambda.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on adopting Docker containers as the universal deployment unit for all services, which is a technology/standards decision about containerization. While it mentions build pipelines and a registry (infrastructure-like concerns), the core mandate is technology selection (containerization) rather than a system design pattern, organizational process, or a constraint.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Infrastructure",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0005-docker-containers-for-everything.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR focuses on selecting Kubernetes as the container orchestration platform and discusses deployment across multiple servers/environments. This is primarily an infrastructure/deployment environment decision (runtime platform and orchestration) rather than a component design or library choice.",
+        "primary_score": 0.84,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.16
+        ],
+        "metadata": {
+            "adr": "0007-kubernetes-for-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR is about selecting a deployment/operational tooling (Prometheus Operator Helm Chart) for monitoring on Kubernetes and how to deploy it, which is a deployment/infrastructure concern rather than a design, technology, or organizational decision.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0039-prometheus-operator-helm-chart.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR prescribes that services are built with default configuration values, which is an implementation-level mechanism affecting how code handles configuration and run-time behavior across services. It does not select a technology, define a deployment architecture, or restructure system components. It can have cross-cutting effects (e.g., configuration handling across services), hence Crosscutting Concerns is listed as an alternative.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08
+        ],
+        "metadata": {
+            "adr": "0003.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR\u2019s core decision is to refactor the API to use a JSON document database as the persistence mechanism (e.g., DynamoDB) instead of a relational Postgres RDB. This is a technology choice about persistence backend. While it has downstream design/infrastructure implications, the governing decision is the selection of technology for data storage.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Design",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "0003-replace-rdb-with-json.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR governs the architectural design of session management via cookies: what data is stored in the session cookie (e.g., eq_session_id, user_ik, csrf_token) and related cookies (schema_name, schema_url, language), as well as how CSRF considerations and sign-in state are handled. It defines a cross-component data organization for session handling, i.e., a design decision affecting multiple parts of the system rather than a single technology or process choice. The decision is about the structure and boundaries of session data across the application.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0010-cookies.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR chooses testing technologies (Jest for unit tests and Cypress for end-to-end tests). This is a technology/tool selection decision rather than a design structure, infrastructure, process, or quality attribute decision.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0010-use-jest-and-cypress-for-tests.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on the architectural approach to client-side routing for a single-page app hosted on static GitHub Pages. It discusses how routing should be structured (using a history API and a routing library) and how to support deep linking via generated per-entry HTML files. While it specifies React Router as the routing technology, the governing concern is the front-end routing design and how it accommodates the hosting constraints, i.e., a Design decision with a technology consideration.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.35
+        ],
+        "metadata": {
+            "adr": "0004-client-side-routing-using-history-api-and-redirects.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR is focused on improving the quality of error reporting/diagnostics by structuring errors to include the original error and the root cause. This enhances debuggability and resilience across modules, i.e., a system-wide quality attribute. Alternative categories considered include Crosscutting Concerns (pervasive impact on error handling mechanisms) and Implementation (coding pattern changes for error objects), but the primary driver is improving a non-functional quality attribute rather than a specific technology, infrastructure, or organizational process.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.06
+        ],
+        "metadata": {
+            "adr": "0016-structure-of-error-object.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on naming conventions for APIs, operations, and properties, and introduces a customizable naming extension. It governs the public API surface, its structure and interface presentation, which is a design decision about system organization and interfaces rather than a technology or infrastructure choice.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0019-openapi-generator-naming.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR focuses on concrete code/data-model changes to form field variations (adding a version attribute, groupid-based grouping, and updates to the HTML helper) and how form data is stored/rendered. These are implementation-level decisions about data structures and code behavior, not high-level platform, organizational, or architectural design choices.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "form-field-variations.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR defines guidelines for how docs should be written for components (titles, intros, tone, style), which is a process/organizational concern affecting how the team documents the system rather than a design, technology, infrastructure, or quality attribute decision.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "writing-docs.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR's core decision is selecting the Bull library for background tasks and using Redis as the broker. This is a technology/library/framework choice that determines how asynchronous work is orchestrated across the system. Infrastructure considerations (Redis hosting, local deployment expectations, and potential separate processes) are noted as consequences but do not drive the primary categorization.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0005-use-redis-and-bull-for-background-tasks.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR governs how the project is organized and how testing is structured (separating Integration and Unit tests into distinct directories and using JUnit Categories for categorization). This is a governance/process decision about repository layout, test discovery, and team/workflow rather than a change to system design, technology, or deployment. Acknowledges that testing organization can have cross-cutting effects, hence Crosscutting Concerns is a reasonable alternative.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0011-put-integration-tests-in-seperate-folder.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Constraint",
+        "explanation": "The ADR establishes a non-negotiable limitation: do not support node type definitions in the TOSCA service template, due to limited resources and priority. This constraint shapes the feature surface and implementation scope rather than selecting a technology or architectural pattern.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.08
+        ],
+        "metadata": {
+            "adr": "0016-not-supporting-type-definitions.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR focuses on how to model non-CRUD operations in the API (exposing actions, choosing REST archetypes, and patterns like enriching a resource versus command-pattern endpoints). It concerns API design, interfaces, and resource modeling rather than technology, deployment, or organizational processes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "2020_05_13_handling_non_crud_operations_in_api.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR aims to improve testability of UI presenters by injecting AB tests, configuration, and global values through constructors. This targets a non-functional requirement (testability) and governs how components are wired to support better testing, even though it may imply design-level and cross-component considerations.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.04,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0005-inject-ab-config-global-values-toPresenter.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decides to adopt a specific library (govuk_design_system_formbuilder) to construct GOV.UK Design System\u2013compliant forms in a Rails application. This is a technology/tool/library selection that impacts the implementation of the UI forms, with a note about coexisting with Simple Form during transition.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0011-use-govuk-design-system-form-builder.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR's core decision is to select and use a specific technology/tool (the data-migrate gem) to perform data migrations separate from schema migrations, which is a technology/tool choice. The deployment-process mention (including a rake task) is a consequence and touches infrastructure/process aspects but is not the primary mandate.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0019-use-data-migrations-to-update-live-data.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR #22 use-scripts-to-rule-them-all establishes a pattern to standardize and document common tasks via scripts. This decision governs team workflows, developer practices, and process-level guidance rather than system design, technology selection, or infrastructure. It primarily affects how work is organized and executed across the project (organizational/process).",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0024-use-scripts-to-rule-them-all.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on adopting the OpenAPI specification as the API design/contract standard to enable frontend client generation, i.e., a technology/standard decision. While the outcome affects API surface (removing HATEOAS links) and thus touches design, the governing decision is the technology choice (OpenAPI).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0009-remove-hal-links.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR centers on ensuring the integrity and authenticity of transferred JSON data by hashing (SHA-256) Base64Url-encoded payloads. This is a non-functional requirement targeting security/integrity, rather than a specific technology choice or structural design.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0002-use-sha256-with-base64url-encoding.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting a tooling technology for dependency management in the development environment (choosing Nix over Stack). It evaluates technology options and commits to a technology/standards choice rather than system design, infrastructure, or process changes.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-0003-nix-for-dependency-management.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR centers on choosing an optimistic concurrency approach to improve performance and maintainability, explicitly driven by Performance and Maintainability as decision drivers. This indicates a non-functional quality attribute decision at the architectural level, with broader cross-component impact. Alternatives considered (Design, Technology, Implementation, Crosscutting Concerns) reflect related angles but do not outweigh the primary quality attribute focus.",
+        "primary_score": 0.6,
+        "alternative_categories": [
+            "Design",
+            "Technology",
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1,
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0007-follow-optimistic-concurrency.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR primarily governs organizational aspects: whether to place the new client app in the same repository and perform paired deployments, versus using separate repositories and independent deployments. It discusses team/workflow implications, repository strategy, and deployment processes. Technology choices (front-end stack) and hosting considerations are mentioned as constraints or supporting factors but do not drive the primary decision.",
+        "primary_score": 0.58,
+        "alternative_categories": [
+            "Technology",
+            "Infrastructure",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-007-pa-dep-client-app.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR centers on implementing an asset integrity verification mechanism (using the integrity attribute behavior from HTML5) to ensure that assets are valid and to exclude assets that fail the check. This is a security-related non-functional requirement (a quality attribute: integrity/security) rather than a platform/library choice or architectural pattern. The decision also affects multiple parts of the processing pipeline (document parsing, sanitization, and output), which can imply a crosscutting impact, but the governing goal is a security/quality attribute.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0004-asset-integrity-check.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR centers on a runtime execution detail: a shell option that determines how run-actions are executed across jobs (e.g., bash, cmd, pwsh, python) and the default templates. This is primarily a deployment/run-time environment concern that affects how the system operates across components, rather than a design of structure, technology choice, or team/process policy. It is cross-cutting in impact, but the governing decision is about the execution environment (infrastructure).",
+        "primary_score": 0.68,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.32
+        ],
+        "metadata": {
+            "adr": "0277-run-action-shell-options.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR specifies applying a Layered Architecture to structure the system into four layers (Presentation, Application, Domain, Infrastructure), focusing on system decomposition, responsibilities, and interfaces. This is a design/architectural pattern decision about how the system should be organized, not a technology, infrastructure, or process choice.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0002-add-default-implementations-to-componentlifecycle.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines how the system should be exposed to clients by adopting a REST architectural style, focusing on the organization of APIs, resources, statelessness, and the overall interface design. This governs the structure and interaction patterns of the system (design/architecture) rather than selecting a specific technology or deployment detail. Alternative interpretations could see REST as a Technology choice or touch on Crosscutting concerns (e.g., caching, security constraints), but the governing intent is architectural pattern and interface design.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-expose-services-through-rest-api.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Other",
+        "explanation": "The ADR discusses where to place and maintain help documentation/usage annotations within the codebase, focusing on maintainability and internal code organization rather than a specific architectural design pattern, technology choice, infrastructure, or process constraint. It doesn't map cleanly to the predefined categories, so 'Other' is the most appropriate primary classification.",
+        "primary_score": 0.4,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-help-comments.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting the cloud platform/provider (Microsoft Azure) and leveraging Azure PaaS services as the technological foundation for the system. It is primarily a technology/platform decision rather than design, organizational, or infrastructure deployment details, though it notes constraints (EU data residency) and potential deployment implications as secondary considerations.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Constraint",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0005-we-chose-our-primary-cloud-provider.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Other",
+        "explanation": "The ADR decides a presentation rule (whether to show kickers for ties) rather than a system design, technology choice, or infrastructure decision. It is a policy/UX/content decision about representation, with no explicit crosscutting, quality attribute, or architectural pattern change. Therefore classified as Other.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0013-show-no-kickers-for-ties.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on architectural structure: it decides to minimize client/browser logic by moving work to the build step, effectively choosing how components and responsibilities are decomposed and where the system's behaviour is implemented. This is a design/structural decision about the system's organization and interfaces.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0005-minimize-the-amount-of-code-that-must-be-tested-in-the-browser.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on creating a centralized data architecture (a data warehouse) to integrate transactional data for analytics, including time-dimension modeling and the accompanying data flow. This defines system structure and data organization rather than selecting a single library or platform, though a PostgreSQL implementation is mentioned as the initial technology. The core governance is architectural (data modeling and ETL/analytic strategy) rather than a pure technology choice.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "adr-006-track-metrics-via-time-dimension.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR aims to improve user experience by avoiding a visual flicker during page initialisation when JavaScript runs. This is a non-functional property (UX/visual stability) rather than a pure technology choice or architectural restructuring. The approach (adding a js-enabled/js-failed flow) supports this quality attribute, with design/implementation implications as secondary considerations.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0005-avoiding-initialisation-flickers.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR is about provisioning and managing AWS IAM roles and policies in partner/client AWS accounts to enable secure, least-privilege access for automation tooling. This concerns deployment-time infrastructure decisions and access to IaaS resources, rather than software design patterns, technology selection, or organizational processes.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-interrogation-method-iam-role.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Constraint",
+        "explanation": "The ADR focuses on enforcing data retention constraints (GDPR compliance, disk space limits) by defining a lifecycle: archiving data to an auxiliary store and deleting data after a fixed period. While the ADR discusses design/implementation details (tables, archiving, UUIDs), the governing decision is a non-negotiable constraint shaping data storage and retention across the system.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Design",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-003-initial-data-retention-strategy.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the high-level architectural approach to configuration management (Puppet architecture: puppetmaster vs masterless) and how nodes are provisioned and managed. This is a system design/topology decision that impacts multiple components of the deployment/automation stack, rather than a simple tool/library selection.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0006-puppet-architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR prescribes a standardized Terraform data directory structure to organize project artifacts and environments, which is a concern about team/workflow, repository organization and processes rather than a direct design of components or a technology choice.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0017-terraform-data-structure.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR centers on deployment/topology and networking: removing a local Nginx proxy for Elasticsearch and relying on AWS ELB as the load balancer. This changes runtime hosting/deployment wiring rather than selecting a library/framework or internal design patterns.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0022-remove-the-elasticsearch-proxy.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "This ADR centers on selecting a technology/provider for authentication (Dex IdP) to be used across web UIs, i.e., a platform/technology decision that governs how authentication is implemented and integrated rather than a deployment, organizational, or data-model decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0010-use-dex-idp-for-user-web-auth.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR defines how to structure infrastructure-as-code artifacts for Terraform: separating code from data, creating reusable Terraform modules, organizing resources into stacks/projects, and implementing secret encryption (with sops). Its core aim is to govern the deployment/infrastructure code organization and provisioning across environments, rather than selecting a technology or prescribing a UI/business process. While it touches organizational considerations (open-sourcing data) and some process constraints, the governing decision is about IaC structure and deployment architecture.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Design",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0004-structure-for-terraform-projects.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting and standardizing the container orchestration platform (Kubernetes) and an IaaS abstraction layer, i.e., a technology/platform decision rather than a design of components, deployment processes, or organizational structures.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Infrastructure",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "ADR003-container-orchestration.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR focuses on deployment topology for isolation: managing multiple Kubernetes clusters, one per environment per tenant (across AWS accounts and VPCs). This is a deployment/hosting infrastructure decision that affects how the system is deployed and segmented, not a design pattern, technology choice, or team process. It remains primarily an Infrastructure concern, with potential organizational implications as a secondary effect.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.12
+        ],
+        "metadata": {
+            "adr": "ADR004-tenant-isolation.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "This ADR defines a system-wide logging strategy and tooling to collect, centralize, and query logs across multiple components, i.e., a cross-cutting concern affecting many parts of the architecture. It also discusses technology options (Fluentd, CloudWatch, Splunk) but the governing decision is the logging architecture that spans the system. Tests indicate that while technology choices are mentioned, the primary concern is how logging is implemented across the system.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "ADR022-logging.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on architectural structuring decisions: whether to implement a single service operator to manage multiple resource kinds versus multiple operators. This determines system boundaries, component responsibilities, and interfaces, i.e., a design/architectural decision rather than a specific technology choice.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "ADR034-one-service-operator-different-resource-kinds.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "The ADR decides the deployment environment/orchestration for the Prometheus beta (use of Amazon ECS), which is a deployment platform decision affecting runtime hosting and orchestration rather than internal design or specific technology choices. It establishes how the system will be deployed and managed in production-like environments.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.25
+        ],
+        "metadata": {
+            "adr": "0003-use-ecs-for-initial-beta-buildout.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "ADR006 describes transferring ownership and maintenance responsibilities of the GOV.UK PaaS broker from the RE Autom8 team to the GOV.UK PaaS team, including repository extraction and pipeline relocation. This is a governance/organizational decision about roles, ownership, and processes, not about system design, technology selection, infrastructure, or quality attributes.",
+        "primary_score": 0.85,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR007-paas-taking-ownership.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "ADR003 centers on how to authenticate to AWS using IAM roles and instance profiles instead of static access keys, including an IAM policy constraint. This is a technology/platform decision about cloud provider tooling and credential management, rather than a pure design decomposition, organizational process, or infrastructure deployment choice.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "ADR003-AWS-credentials.html.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "ADR004\u2013Domain naming scheme defines how external domain names are allocated across environments (development, CI, staging, production) and how they map to deployment/runtime networking. It sets infrastructure-level addressing and DNS conventions rather than internal software structure or technology choices. Alternatives considered include Design (domain naming effects on system structure), Organizational/Process (governance of naming across teams), and Constraint (enforced environment naming rules).",
+        "primary_score": 0.62,
+        "alternative_categories": [
+            "Design",
+            "Organizational/Process",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "ADR004-domain-naming-scheme.html.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "ADR022 focuses on selecting a single programming language and web framework (Ruby and Rails) for all user-facing applications. This is a technology decision, covering platforms/tools rather than system structure or deployment specifics. Rationale includes alignment with GOV.UK templates, team familiarity, secure defaults, and ecosystem support.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "ADR022-web_app_language_and_framework_selection.html.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Infrastructure",
+        "explanation": "ADR033 focuses on platform-level network security and traffic routing: redirecting all HTTP requests to HTTPS and preserving HSTS across applications. This is a deployment/operational infrastructure decision affecting routing and security posture of the hosting environment rather than a design of components or a choice of technology.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "ADR033-redirect-http-for-applications.html.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decides between UI component libraries (GOV.UK Frontend vs GOV.UK Elements) to use for new GOV.UK projects, which is a technology/framework/tool selection decision with cross-project implications.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "adr-005-forking-frontend-components-from-govuk-frontend.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selection and pinning of the Jenkins CI/build tooling (Jenkins versions and plugins) and a release strategy for those tools. This is a technology/tooling decision about which platforms and standards to use for the build environment, rather than a design decomposition, deployment infrastructure, or team/process governance.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Infrastructure",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0004-pin-versions-of-jenkins-and-plugins.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting a technology/technique (external versioning vs. index locking) to manage data consistency and minimize downtime during reindexing, i.e., a technology decision about how to implement the solution rather than a purely structural or organizational change.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Constraint",
+            "Quality Attribute",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-003-popularity-updating-without-index-locks.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR focuses on how to store private keys (using files instead of environment variables) and the approach to handle secrets at runtime. This is a low-level implementation detail affecting code organization and maintainability rather than system design, platform choice, or deployment topology. Therefore the primary category is Implementation. Other categories (e.g., Crosscutting Concerns for security practices or Infrastructure for hosting/secret storage) are not the governing focus of this ADR.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0003-use-files-to-store-private-keys copy.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "Primary category chosen: Quality Attribute (Security). The ADR explicitly targets a security/non-functional goal: logging a secure SHA-256 hash of user attributes and validating mismatches to ensure identity information integrity from the IDP to the VSP, across components (Verify Hub and Translator). This is a security control that affects multiple parts of the system (cross-cutting), rather than a design, technology, or infrastructure choice. The alternative considered is Crosscutting Concerns as it represents a security mechanism that spans multiple components.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "20190327-hashing-attributes.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR defines the contract of the API surface: the chosen HTTP status semantics for a particular failure mode, and the structure of the response payload (including an enum of outcomes). It directly shapes interfaces, boundaries, and how components interact, i.e., architectural design decisions rather than technology or infrastructure choices.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0021-we-will-use-http-200-for-valid-saml.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR defines a release workflow and governance for distributing the verify service provider artifact, including release notes management, versioning, signing, artifact publication, and approval steps. It focuses on process, roles, and procedures rather than architecture patterns, technology choices, or infrastructure decisions.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology",
+            "Quality Attribute",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0024-release-process-for-verify-service-provider.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposes adding three annotation types to the AMF model to make every object or field traceable to its origin, effectively extending the data model and its semantics. This is a modeling/data-structure decision that impacts how the system represents provenance across all objects, i.e., a design-level concern. It also has cross-cutting implications, but the primary driver is the data/model design.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0010-shape-annotation-types.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR designs a new data-model node (BaseUnitSourceInformation) to store source locations for errors and a rendering option to emit this in jsonld. This is a structural design decision about how source-location metadata is modeled and surfaced across validation and output pipelines, rather than a technology, deployment, or organizational decision. It can have cross-cutting effects on multiple components (validation, rendering) but the core mandate is data-model/design.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0009-source-information-node-storing-source-locations.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR is about governance and ownership of HTML selectors between QA and development teams, defining who maintains and updates selectors and how work is organized. It does not propose a new design pattern, technology choice, or infrastructure change, but rather a team/process arrangement.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-keep-qa-and-devs-html-selectors-separate.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR defines a new architectural organization for the Settings Panel (Panel, Sections, Widgets, Controls) and their responsibilities, focusing on the structural decomposition and interfaces of the settings UI. It is a design-level decision about architecture and module boundaries rather than a technology choice, deployment, or internal code patterns.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "ADR-20-explorer-settings-panel-architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR governs the design of a version-verification mechanism for wearables: option 2 hashes metadata+content to produce a contentHash stored on the blockchain, enabling verification that deployed data matches a specific version. This is a pattern for data modeling and system interfaces (versioning/verification) that spans multiple components (collection, content repository, blockchain), rather than a specific technology choice, infrastructure tweak, or organizational process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "ADR-32-wearable-committee-reverts.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on refining the Catalyst API and protocol surface, including reducing data transfer by narrowing response bodies, hiding or deprecating endpoints, and reorganizing bootstrapping/synchronization semantics. These are architectural design decisions about how components interact and how the API/protocol are structured, not about selecting a technology stack or deployment details.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "ADR-43-catalyst-api-refinment.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposes introducing a new architectural module (Royalties Manager) with a defined interface (IRoyaltiesManager) and decision logic for determining the royalties receiver. It establishes module boundaries, responsibilities, and interaction patterns (how marketplaces and collections query the receiver), which are architectural concerns affecting multiple components. While it touches Solidity interfaces and implementation details, the core is an architectural design decision about how royalties are modeled and integrated across the system.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.11,
+            0.11
+        ],
+        "metadata": {
+            "adr": "ADR-46-royalties-manager-v1.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR selects the CQRS architectural pattern, deciding to separate write and read models (writes via aggregates, reads via DTOs created from repository queries). This is a decision about the system's structure, decomposition, and data modeling, i.e., a Design choice rather than a technology, infrastructure, or organizational decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0003-cqrs.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting a specific messaging technology (RabbitMQ) and a queueing approach for a distributed work queue, i.e., platform/tool selection. While it has design implications (sequential execution) and potential infrastructure considerations, the core governing decision is the technology choice and its usage.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Design",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0003-distributed-workqueue.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting RabbitMQ as the messaging mechanism to broadcast Task termination events across distributed nodes and to route those events via an EventSourcing system. This is a technology/tool decision (messaging infrastructure) that impacts the architecture, integration approach, and deployment considerations, rather than a purely domain-level design, organizational process, or quality attribute focus.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-distributed-task-termination-ackowledgement.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting and enabling polyglot JVM languages (Scala) for mailets and server components, i.e., a technology/language choice. It notes downstream design and implementation implications, but the governing decision is technology (language selection/usage).",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Design",
+            "Implementation",
+            "Crosscutting Concerns",
+            "Other"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.04,
+            0.03,
+            0.01
+        ],
+        "metadata": {
+            "adr": "0024-polyglot-strategy.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR primarily governs governance, ownership, and operational processes for mailbox listeners across a distributed system, proposing event-sourced tracking of required listener groups to achieve auditability and consistent bindings. While it implies architectural patterns (event-sourcing) and could affect multiple components, the core mandate is organizational/process governance rather than a specific design or technology choice.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0026-removing-configured-additional-mailboxListeners.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "Primary category: Design. The ADR proposes introducing a new architectural capability\u2014a generic corrective task exposed via webadmin to recompute mailbox quotas across all users. This affects system decomposition and interfaces (CurrentQuotaCalculator usage, interaction with eventBus, and quota-related data models), i.e., a change to how the system is structured to achieve a maintenance/consistency goal. While it touches cross-cutting aspects (global quota consistency) and relates to data correctness (a quality attribute), the core decision is about architectural organization and the orchestration of quota management across components, which makes Design the best primary category. Alternative categories considered: Crosscutting Concerns (0.15) because it spans components across the quota subsystem, and Quality Attribute (0.05) due to the emphasis on correctness; both are secondary to the architectural rework presented.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0028-Recompute-mailbox-quotas.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on centralizing the definition and management of mailbox listeners across a distributed James deployment by introducing an event-sourced configuration system (ListenerAdded, ListenerRemoved) and a centralized WebAdmin path to manage bindings. This is a structural architectural decision about how components are organized, coordinated, and governed, rather than selecting a technology, deploying infrastructure, or changing organizational processes. It impacts multiple parts of the system (listener registry, event bus, topology propagation) and defines a design for how configuration is represented and evolved. Alternative considerations touch on crosscutting concerns (e.g., how topology and RabbitMQ bindings are coordinated), hence the alternative category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0035-distributed-listeners-configuration.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on a systemic approach to maintain denormalization consistency across entities (mailbox and mailbox counters) via applicative read repairs, i.e., a data-consistency design decision spanning multiple components. It establishes a distributed consistency model and a remediation mechanism rather than choosing a specific technology, deployment, or organizational process. While it touches crosscutting aspects by affecting multiple entities, the core governance is a design decision about how the system should achieve consistency. Discarded categories include Technology (no new tech choice), Infrastructure (not about hosting/deployment), Organizational/Process (no team/process mandate), Constraint (not a non-negotiable rule), and Quality Attribute (not stating a GOAL like performance/security, though related to consistency).",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0042-applicative-read-repairs.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR primarily selects and implements a web-push standard (RFC-8620 section 7.2) and related infrastructure (Push Gateway, PushClient, event bus integration, encryption). This is a technology/standards decision rather than a design of components, deployment, or organizational process.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0050-jmap-web-push.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR prescribes governance around project documentation and onboarding (making the README the master entry point). This is a process/organizational decision about how teams work, rather than a pure design, technology, or infrastructure choice.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0003-have-the-master-documentation-in-the-readme.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "Governing architectural decision defines a Layered data access pattern (Fetch/Manage/View) and how integrations expose data to the backend, guiding system decomposition and interfaces. It's fundamentally a Design decision; it impacts multiple components, with crosscutting considerations.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-monitor-condition-and-data-selectors.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on which hardware/interface technologies are supported by the core platform (GPIO integrations) and the policy to deprecate them in favor of custom integrations. This is a technology/platform selection and policy decision rather than a purely design, organizational, or infrastructure decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0019-GPIO.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines a lightweight data abstraction model (Chimera) comprised of an Entity/Attribute data model and a minimal, database-agnostic persistence API, plus adapters for multiple backends. This establishes the architectural approach to data modeling and persistence across modules, i.e., a design/architectural decision about how the system is structured and how data is manipulated and stored. It is not a specific technology choice, infrastructure, or organizational process, though it has cross-cutting implications for all modules that interact with data persistence.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "adr-015-data-abstraction-model.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR establishes high-level architectural principles for Archivematica, focusing on system organization, data packaging, and workflows (OAIS-aligned design, file-based AIP as the canonical focus, Unix pipeline for data movement, and a micro-services style with configurable preservation actions). It addresses how components interact and how the architecture should be structured rather than selecting concrete technologies, deployment environments, or code-level implementations. This is a design-level decision about architecture and decomposition, not a technology choice or implementation detail.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0010-archivematica-original-design-principles.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting a technology feature (PostgreSQL Row-Level Security) and related database capabilities to enforce multitenancy. It evaluates alternative data-model approaches (multiple databases/schemas or a discriminator column) but the decisive action is a technology-level choice (using RLS and PostgreSQL features) to implement tenancy across the data store.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0006-use-row-level-security-in-postgres-to-implement-multitenancy.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR focuses on restricting access to an API endpoint by requiring an API key at API Gateway, explicitly targeting a security goal (authorized access). While the chosen mechanism (API keys) is a concrete technology/standard, the governing decision is about meeting a security/non-functional requirement. Security decisions often crosscut multiple components, but the primary concern here is a quality attribute (security).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0004-api-key.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "ADR0002 selects Django with Django REST Framework as the backend framework, which is a technology stack decision (language/framework) rather than an architectural pattern, infrastructure choice, or organizational process. The core mandate is to choose a backend framework; rationale cites team familiarity with Python/Django/DRF and the ecosystem for authentication, ORM, REST APIs, and easy integration of asynchronous tasks. Alternatives were not considered in this ADR (no other frameworks evaluated).",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "adr-0002-backend-language-framework.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on modular architecture and breaking down the repository into distinct packages (UI, API, infrastructure) and how to organize them (monorepo vs multiple packages). It discusses options for structuring modules, defines the problem of separation for open-source clarity, and settles on a design outcome that changes system decomposition and boundaries. There are no explicit technology, deployment, or platform selections, and while it touches on organizational aspects and potential cross-team implications, the governing concern is architectural design and module boundaries. Alternative considerations could include Crosscutting Concerns (impact on multiple parts) and Organizational/Process (team/repo organization), but Design is the primary driver.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "2019-05-09-modular-architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on choosing a method to estimate voice-over duration from text, i.e., a design-level decision about how to compute time estimates (e.g., words-per-minute) and how this feature should be integrated, rather than selecting a specific technology or deployment concern. It considers alternative approaches (technology options like STT, or computation-based time estimation) but the core mandate is a design decision about structure and workflow.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "2019-09-28-time-estimation-for-links.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Constraint",
+        "explanation": "The ADR centers on enforcing a non-duplicity constraint for node identifiers: IDs must be unique and attempting to register a duplicate triggers an exception. This is a non-negotiable rule that constrains the data model/identity semantics, effectively limiting architectural options. The decision has design and implementation implications, but the governing focus is the imposed constraint on IDs.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "ADR-003-handling-duplicate-node-ids.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on typography/font selection for a UI component (whether to ship its own font or inherit system fonts and which font-family stacks to use). This is a technology/tool/presentation decision rather than a structural design or organizational decision.",
+        "primary_score": 0.65,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.35
+        ],
+        "metadata": {
+            "adr": "2018-10-02-component-fonts.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The core decision is to integrate with an external geocoding service (Data BC Geocoder API) to obtain GIS coordinates and perform address verification. This is a technology/technology-provider choice (external API) rather than a design pattern, infrastructure, or organizational decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "geocoder.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR concentrates on the project\u2019s build toolchain and module bundling strategy (whether to adopt esbuild) and the constraints that prevent its use. This decision shapes the architecture and structure of the build process across the system, not just a runtime technology or deployment detail.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.12
+        ],
+        "metadata": {
+            "adr": "0012-can-t-use-esbuild.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR describes a concrete code/UI choice: wrapping inputs/textarea in a div.wrapper and applying styles on the wrapper, including related event handling and height calculations. This is a change to internal component structure and DOM rendering, not a technology choice, deployment concern, or high-level design pattern.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "0003-use-typescript.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting a numerical solver (reverting from the adjoint solver to ode_bdf_tol) to address stability issues. This is a technology/tool choice (a library/algorithm) rather than a design, infrastructure, or organizational decision.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0018-backwards-differential-solver.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR governs the selection of technologies/tools for the Python development environment (testing framework, code formatting, linting, pre-commit tooling, and virtual environments). It focuses on what technologies to standardize on rather than deployment infrastructure, system design patterns, or organizational processes. It may have cross-cutting and process implications, but the governing decision is technology/tool choices.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Organizational/Process"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.08
+        ],
+        "metadata": {
+            "adr": "adr_python-dev-env.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposesLayered Architecture as the overarching architectural style, detailing a structural decomposition into four layers (Presentation, Application, Domain, Infrastructure) and the rules about how they interact. This centers on system organization, components, and interfaces rather than on a specific technology, deployment, or process, making it a Design decision.",
+        "primary_score": 0.92,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08
+        ],
+        "metadata": {
+            "adr": "0004-layered-architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "ADR 7 decides to use Github Packages as the package repository hosting/registry for managing/distributing dependencies, which is a technology/platform choice.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "007-package-repository.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR primarily decides on the persistence technology (Hibernate/JPA) and its schema-management approach (ddl-auto) for databases, i.e., a technology choice about how the system handles schema evolution. This is a technology decision rather than a deployment/infrastructure choice or a design of components. Alternative plausible categories could be Infrastructure (deployment/runtime aspects of the DB/schema handling) or Constraint (non-negotiable policy about where/how to update schemas) or Crosscutting Concerns (affecting persistence across multiple modules).",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Constraint",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.04,
+            0.04
+        ],
+        "metadata": {
+            "adr": "0010-jpa-manages-schema.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR's core decision is the selection of a database persistence technology/platform (AWS RDS Aurora MySQL) and its deployment approach. It focuses on which DB engine and hosting/persistence mechanism to use, rather than system structure, organizational processes, or explicit quality targets. Deployment details (CloudFormation, HA with a primary/replica) are consequences of that technology choice, not the governing category.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.12
+        ],
+        "metadata": {
+            "adr": "0005-use-aws-rds-aurora-mysql-for-database-persistence.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on choosing packaging/module formats (CommonJS, ES Modules, and UMD) to support different application types. This is a technology-level decision about distribution formats and platform compatibility, rather than a pure design of components, organizational processes, or infrastructure.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "6_package-module-support.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR decides on the system's external architectural interface (whether ABCI-apps should expose an RPC server), which shapes component boundaries and interactions. It is a design/architectural decision about structure and responsibilities rather than a technology choice, deployment, or non-functional requirement.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "adr-003-abci-app-rpc.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "ADR 020 focuses on how to limit block size by changing the mempool reaping strategy and related calculations (removing MaxTxs, introducing MaxBytes, and precise block-size budgeting such as ExactLastCommitBytes and MaxEvidenceBytes). This directly shapes system structure, interfaces, and data flow for block formation, i.e., an architectural design decision. It also implies a constraint (block size limit) but the core mandate is design of the mempool/block-assembly process.",
+        "primary_score": 0.83,
+        "alternative_categories": [
+            "Constraint",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-020-block-size.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADRs shown focus on the overall architectural structure and patterns of the system (e.g., data structures and components in mempool, prioritization, eviction, and gossip; batch verification design; protocol buffer encoding and event handling). These relate to system organization, interfaces, and decomposition rather than choosing a specific technology, infrastructure, or organizational process. The decisions aim to shape how components are composed and interact, not to mandate a particular platform or tool. Some entries (e.g., \u201cAudit Logging\u201d) touch crosscutting concerns, but the primary governing changes center on design-level structuring and behavior.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "adr-021-abci-events.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR focuses on reducing the risk of double-signing by validators, which is a security-related non-functional requirement. It introduces runtime checks and a configuration knob (double_sign_check_height) to enforce this risk reduction within the consensus process, affecting system security rather than a specific design or technology choice.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Design",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-051-double-signing-risk-reduction.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR is about selecting a data encoding technology (transition from Amino to Protocol Buffers) and establishing the proto-based workflow across Tendermint. It centers on choosing and adopting a technology/standard with cross-language/tooling implications, rather than on a component design, deployment, or organizational process change.",
+        "primary_score": 0.84,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.08
+        ],
+        "metadata": {
+            "adr": "adr-055-protobuf-design.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on architectural design decisions for handling light-client amnesia attacks, including detector logic, evidence structures, and integration with state sync/reverse sync flows. It defines the high-level organization and interactions of components (evidence reactor, light client, reactor patterns) and how they address a security concern at the system design level, rather than selecting a technology, infrastructure, or team process.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-056-light-client-amnesia-attacks.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR 060 focuses on defining the public API surface (which Go packages are public) and the backwards-compatibility/stability policy for the public API. This is an architectural decision about system interfaces and how components should interact/stability across versions, i.e., a design-level decision about the architecture and its interfaces rather than selecting a technology, infrastructure, or process. It may additionally influence quality attributes (compatibility) and cross-cutting concerns (API usage across modules), hence the alternate considerations.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-060-go-api-stability.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR defines a high-level redesign of the P2P architecture (Router, Channel, PeerManager, Transport) with a message-oriented architecture and Reactor pattern. It focuses on system structure, component responsibilities, interfaces and data flows, i.e., architectural design and decomposition. It does not primarily decide a technology stack, deployment/infrastructure choices, or organizational processes. Alternative candidates like Technology (transport/protocol specifics), Organizational/Process, Crosscutting Concerns (QoS scheduling, peer lifecycle) are acknowledged but are secondary or non-governing aspects.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology",
+            "Organizational/Process",
+            "Crosscutting Concerns",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.05,
+            0.05,
+            0.05,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-062-p2p-architecture.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Implementation",
+        "explanation": "The ADR focuses on a code-level optimization for validator signature verification by introducing a BatchVerifier interface and batch processing, which affects internal implementation details rather than high-level system structure or deployment. It does not propose changing the architectural components, but rather how verification is performed within the codebase.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Design"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-064-batch-verification.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR primarily proposes an architectural design for enabling reverse state-sync: introduces new P2P messages (LightBlockRequest/LightBlockResponse) and a channel, defines a Dispatcher and BlockQueue as core components, and outlines how this design threads through the state-sync reactor. It concerns system structure, interfaces, and data flows rather than choosing a technology, deployment, or process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-068-reverse-sync.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR governs the architectural design of how data roots are committed to in block headers and how rollup-related commitments (including footer placements) are structured. It focuses on data layout, data integrity guarantees, and the interfaces between data roots and headers, i.e., the system's architectural organization, rather than choosing technologies, deployment details, or development processes.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-007-header-commit-to-shares.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decides which frontend technology library to use for the client UI (React). This is a technology/tool selection that determines the tech stack and related tooling, rather than a structural or organizational change.",
+        "primary_score": 0.92,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0003-choice-of-react.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on API naming conventions and the public identity of IAM entities (using human-readable names instead of UUIDs, disallowing renames, and introducing a display_name). This is a design decision about the system\u2019s interfaces and data model (how resources are identified and referenced across the API), rather than choosing a technology stack, infrastructure, or a team/process method. While it mentions alignment with external design guidance (Google APIs) that could touch technology considerations, the core mandate is about design of the API surface and data representation.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-2018-10-04.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR's core mandate is to standardize CSS quality by adopting a linter (stylelint) with a BEM ruleset and to integrate linting into the build/test workflow. This defines team processes and workflow for CSS quality across the frontend, rather than introducing a new architectural pattern or a purely technical stack change.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0008-use-linter-for-css.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR's core decision is to provide a minimal, language-agnostic cache API on top of Grimoire, defining a file-based data representation and an access interface to simplify consumption by multiple languages. This focuses on API design, data organization, and system decomposition rather than selecting a specific technology stack or runtime environment.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Technology",
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0005-implement-minimal-api-abstracting-grimoire.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR centers on enabling STRICT mTLS across the mesh by applying configuration workarounds (Policies) to unblock components (CAPI and Log-Cache). This security mechanism impacts multiple components and layers, i.e., a cross-cutting concern, rather than a single, isolated architectural design change. It touches deployment/mesh infrastructure and security goals as consequences. Alternatives considered: Infrastructure (deployment/mesh context) and Quality Attribute (Security).",
+        "primary_score": 0.62,
+        "alternative_categories": [
+            "Infrastructure",
+            "Quality Attribute"
+        ],
+        "alternative_confidence_scores": [
+            0.2,
+            0.18
+        ],
+        "metadata": {
+            "adr": "0008-implement-workarounds-for-capi-and-log-cache-to-unblock-global-strict-mtls.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR describes a significant reorganization of the CLI push workflow, introducing PreparePushPlanSequence and ChangeApplicationSequence, and adopting a hexagonal-style approach to structuring the flow between conceptualize/actualize. This is about system structure, decomposition, and coordination of components (design decisions) rather than selecting technologies, deployment environments, or team processes. Alternative consideration could be Implementation, since the changes affect internal code organization within components, but the governing decision is about architecture and module boundaries.",
+        "primary_score": 0.89,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.11
+        ],
+        "metadata": {
+            "adr": "0004-v7-push-refactor.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on introducing a new database table to store new space supporter roles and on the data-model/persistence changes (schema evolution, and a migration approach). This centers on how data is stored and accessed (technology/data layer) rather than on organizational or purely architectural design decisions.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Design",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0010-renaming-space-application-suporter-role-to-space-supporter.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR centers on a process-level decision for dependency management: vendoring (checking in the vendor directory) to ensure deterministic builds and reduce reliance on external sources during packaging. It primarily affects team workflows and repository practices (updating/vendor changes, build consistency) rather than system structure, technology selection, or deployment infrastructure. Alternatives considered point to implementations within the codebase or potential future technology changes, but the governing decision is organizational/process in nature.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Implementation",
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "0004-check-in-copilot-dependencies-that-were-already-vendored.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR discusses how to handle the logical relationships between the chart 'frame' and the axis 'scale', including ordering, value unique-ification, and sorting semantics for rendering. This concerns the architectural organization of the charting component and data model (interfaces, iteration order, and behavior across chart types), rather than selecting technology, deploying infrastructure, or defining organizational processes. It could also influence multiple components, making it cross-cutting in nature, but the governing issue is the design of the visualization/data handling itself.",
+        "primary_score": 0.72,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.28
+        ],
+        "metadata": {
+            "adr": "0007-frame-vs-scale.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR primarily changes data modeling and storage strategy (per-account and per-denomination balances with unique keys), which defines system structure and module boundaries. It affects how components interact and how data is organized rather than selecting a technology, infrastructure, or a process.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Implementation",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.09,
+            0.09
+        ],
+        "metadata": {
+            "adr": "adr-004-split-denomination-keys.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "ADR 006 primarily selects a concrete secret-store technology (Keyring) and defines a common abstraction layer to support multiple backends. This centers on platform/library/tool selection (technology) to address security of key material across environments, rather than on team processes or purely architectural structure.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "adr-006-secret-store-replacement.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on architectural design decisions for how transactions are serialized and represented (transitioning to Protocol Buffers, introducing a /proto directory, and mapping handwritten types to protobuf). It defines the structure and interfaces of core data types (Tx, TxBody, TxRaw, SignDoc) and how they are used across the system, which is a design/architectural decision rather than a pure technology pick or deployment concern.",
+        "primary_score": 0.9,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-020-protobuf-transaction-encoding.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR proposes introducing a new architectural module (x/feegrant) to govern fee allowances across the system, including interfaces (FeeAllowanceI) and messages (MsgGrantAllowance, MsgRevokeAllowance) and its integration into transaction processing (granter field). The core concern is the system\u2019s structure, responsibilities, and module boundaries, i.e., a design decision, rather than choosing a technology, infrastructure, or implementation detail.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "adr-029-fee-grant-module.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "This ADR provides governance guidelines for updating Protobuf definitions across modules, covering processes, compatibility constraints (e.g., field rename restrictions, deprecation), and versioning practices. It is oriented toward how teams should work and evolve protobuf definitions rather than prescribing a specific design pattern, technology choice, or infrastructure/implementation detail.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Design",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.08
+        ],
+        "metadata": {
+            "adr": "adr-044-protobuf-updates-guidelines.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the architectural design of the IBC packet receiver path, including routing, verification, and integration with baseapp components (e.g., ProofVerificationDecorator, ChannelKeeper, PortKeeper) and how packets are verified and dispatched. It defines high-level structures, component responsibilities, and their interactions, rather than selecting technologies, infrastructure, or organization. It may touch cross-cutting concerns, but the core mandate is a design/architecture decision.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.12,
+            0.1
+        ],
+        "metadata": {
+            "adr": "adr-015-ibc-packet-receiver.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR proposes adopting hexagonal (ports-and-adapters) architecture as the primary architectural pattern for designing applications, focusing on high-level system organization, boundaries between domain and infrastructure, structure of artifacts, and testing constraints. This is a defining design/architectural decision about how the system should be organized, not a specific technology, deployment, or organizational process decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Technology",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0004-hexagonal-architecture-for-applications.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR mandates selecting and integrating an authentication platform (Azure Active Directory B2C) and its user flows for frontend authentication, which is a technology/platform choice (identity provider, tokens, policies) rather than a design of internal structure or organizational process.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0003-authenticate-frontstage-users-azure-b2c.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on selecting a vendor-specific ML stack (AWS SageMaker) versus a Kubernetes-based TensorFlow setup, i.e., a technology/platform decision rather than a design pattern, process, or infrastructure deployment. The core governing choice is the technology/stack to use for the ML pipeline.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.22
+        ],
+        "metadata": {
+            "adr": "0003-for-machine-learning-select-a-vendor-specific-stack-of-a-general-stack.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR centers on whether to implement API versioning at the HTTP API surface. It decides not to version the HTTP API and to consider versioning information inside the payload instead. This directly shapes the API design, surface, and how clients interact with the system, rather than prescribing a specific technology, infrastructure setup, or organizational process.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "API-010-appcallback-versioning.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decides to adopt a Client-Side Rendering approach using Create React App as the project\u2019s rendering strategy and starter tooling, i.e., a technology/tooling/platform choice rather than a design pattern, organizational process, or infrastructure decision.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0004-use-client-side-rendering-create-react-app.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on the structural design of how users are represented across credentials (credential_user) and the resulting 'real_user' (through user_verifications and user_accounts), and how mappings are maintained. It defines data model and relationships to achieve consistent identity persistence across credential providers. This is a system architecture/organizational design decision about the data model and its boundaries, not a specific technology choice or deployment detail. Secondary considerations touch on how this would be implemented (e.g., new tables and data access), which could be seen as implementation-level changes.",
+        "primary_score": 0.82,
+        "alternative_categories": [
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.18
+        ],
+        "metadata": {
+            "adr": "0011-persistent-user-identity-proposal"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "This ADR selects an authentication provider (Auth0 vs Keycloak) and weighs deployment/operational implications and feature sets. It is a technology/platform decision (identity provider) rather than a pure design, infrastructure, or organizational/process choice, though it has security implications.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Quality Attribute",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "0002-choice-of-auth-provider.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR prescribes a fixed repository folder structure and naming conventions, which govern team workflows, responsibilities, and how files are organized and maintained. While it can influence design to some extent, the core decision is about organizational process and governance of the project structure.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Constraint",
+            "Other"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.04,
+            0.03
+        ],
+        "metadata": {
+            "adr": "ADR Folder structure.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on how the software is decomposed into modules (dogma vs dogmatest), i.e., where testing features live and how they are packaged. This is a structural/architectural decision about boundaries and interfaces between components, not a technology choice or a process change. It also has implications for how modules interact and versioning. If any ambiguity arises, the crosscutting impact on multiple parts reinforces Design as the primary category.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0008-location-of-testing-features.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR prescribes a team/process rule: all code merged must be formatted according to Google C++ Style. This is a governance/operational decision about how the team works and enforces coding standards, rather than a direct choice of design, technology, or infrastructure.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.1
+        ],
+        "metadata": {
+            "adr": "ADR-0006.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR centers on selecting how the service will interact with AWS infrastructure by using two different AWS Clients. This is a technology/implementation choice about libraries/tools rather than a system-wide design, infrastructure deployment, or organizational process decision.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Design",
+            "Infrastructure"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07
+        ],
+        "metadata": {
+            "adr": "0008-use-different-aws-account-for-interacting-with-infrastructure-variables.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR's core decision is selecting DotEnv to load environment variables, a technology/tooling choice (library) rather than a structural design, infrastructure, or organizational decision. The consequences discuss deployment/testing implications of that tooling.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0005-use-dotenv-for-managing-environment-variables.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR decisions focus on selecting a technology/library (Normalize.css) to normalize browser default styles, which is a tool/technology choice rather than a design, infrastructure, or organizational decision.",
+        "primary_score": 0.9,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0013-use-normalize-css-to-normalize-styles-across-browsers.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR defines a governance change: designate this repository as the primary source for setup/scripts and remove those files from the WPC repo to consolidate maintenance, responsibilities, and workflows across teams.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Infrastructure",
+            "Design",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.07,
+            0.05,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0005-use-this-repo-as-source-of-setup-scripts.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "The ADR focuses on packaging and structuring CSS assets for editors (creating a dedicated @ecl/ec-editor package and an editor preset) and discusses approaches (duplication vs reuse via presets or mixins). This is a technology/engineering decision about how the code/assets are organized, distributed, and reused, rather than a direct UI design, deployment infrastructure, or organizational process decision.",
+        "primary_score": 0.78,
+        "alternative_categories": [
+            "Design",
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.07,
+            0.07
+        ],
+        "metadata": {
+            "adr": "003-editor.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR prescribes a packaging/design pattern for how Nd4j classifiers are exposed to users via a platform extension scheme (compiled type - linked libraries - version). This is primarily about how artifacts are structured, named, and exposed to enable flexible configuration, i.e., a design/packaging decision rather than selecting a specific technology or runtime. It could influence technology choices, but the core mandate is the artifact/architecture pattern for packaging and exposure.",
+        "primary_score": 0.8,
+        "alternative_categories": [
+            "Technology"
+        ],
+        "alternative_confidence_scores": [
+            0.2
+        ],
+        "metadata": {
+            "adr": "0007 - Nd4j classifiers.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Organizational/Process",
+        "explanation": "The ADR focuses on governance of how configuration is organized across the codebase (naming strategy for config keys, using prefixes instead of nesting, and where defaults live). This is a team/process/organizational policy decision rather than a design, technology, infrastructure, or quality attribute decision.",
+        "primary_score": 0.82,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0007-configuration_objects.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines a design-level mechanism to alias API operations across namespaces (Alias at Namespace level), affecting the organization, surface, and documentation of the API. It prescribes API surface structure and behavior (alias resolution, documentation notes, and constraints) rather than selecting a technology, deploying infrastructure, or setting a non-functional quality attribute. While the change may have cross-cutting implications across modules and touches implementation details, the governing decision is architectural: how the API is organized and accessed.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.1,
+            0.05
+        ],
+        "metadata": {
+            "adr": "0009-aliasing.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "This ADR defines an architectural approach for a signal enrichment feature by introducing two facade implementations (ByRoundTripSignalEnrichmentFacade and DittoCachingSignalEnrichmentFacade) to enrich events with extraFields. The core decision concerns how the enrichment capability is integrated across the system, its trade-offs, and the impact on component boundaries and interaction patterns, i.e., system architecture design rather than a single technology, deployment or process change.",
+        "primary_score": 0.88,
+        "alternative_categories": [
+            "Crosscutting Concerns",
+            "Implementation"
+        ],
+        "alternative_confidence_scores": [
+            0.08,
+            0.04
+        ],
+        "metadata": {
+            "adr": "DADR-0004-signal-enrichment.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR defines how resources are addressed via URLs, including encoding strategy (double-encoded URLs) and domain naming for different environments. This is a design-level decision about system structure and addressing, not a specific technology choice or deployment detail. Alternatives considered include Technology (encoding standards) and Crosscutting Concerns (affecting all services), but the core mandate is about the URL addressing design across the system.",
+        "primary_score": 0.68,
+        "alternative_categories": [
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.18,
+            0.14
+        ],
+        "metadata": {
+            "adr": "0003-double-encoded-urls.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Technology",
+        "explanation": "This ADR is a tool/technology decision: it selects an editor/IDE (Eclipse Orion) for the browser-based editor and compares several IDE options. It does not define system structure (Design), deployment/infrastructure (Infrastructure), team/process (Organizational/Process), or non-functional qualities as the primary goal, though it may affect tooling integration. Therefore the primary category is Technology.",
+        "primary_score": 1.0,
+        "alternative_categories": [],
+        "alternative_confidence_scores": [],
+        "metadata": {
+            "adr": "0014-use-eclipse-orion-as-editor.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Design",
+        "explanation": "The ADR focuses on how TOSCA elements should be named/versioned to satisfy the external specification and ensure version visibility within the XML. This directly affects the data model and the structural organization of identifiers, i.e., naming and versioning decisions at the design level. It is not about selecting a technology, deployment, or process, and it can be constrained by external standards (TOSCA). The constraint aspect is acknowledged as an alternative consideration.",
+        "primary_score": 0.85,
+        "alternative_categories": [
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.15
+        ],
+        "metadata": {
+            "adr": "0019-version-in-the-name.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Crosscutting Concerns",
+        "explanation": "The ADR centers on a mechanism (feature flags) that affects multiple parts of the system: enabling/disabling features across modules. It discusses whether to implement a dedicated feature-flag facility and ultimately suggests using configuration toggles rather than a full-feature flag library, which is a systemic concern spanning several components. Alternative interpretations include Design (as an architectural pattern for feature management) and Technology (tools/libraries to implement flags); a Constraint view could apply due to release pressures. The primary focus, however, is the crosscutting control of feature behavior across the system.",
+        "primary_score": 0.75,
+        "alternative_categories": [
+            "Design",
+            "Technology",
+            "Constraint"
+        ],
+        "alternative_confidence_scores": [
+            0.15,
+            0.07,
+            0.03
+        ],
+        "metadata": {
+            "adr": "0004-Feature-Flags.md"
+        }
+    },
+    {
+        "framework": "zimmermann",
+        "primary_category": "Quality Attribute",
+        "explanation": "The ADR centers on reliability concerns for event delivery: persistence of events and a retry strategy across recipients, including storage of business-critical events and scheduled retries. While it mentions Celery tasks and implementation details, the governing aim is a non-functional requirement (reliability/availability) affecting multiple components. Alternative lenses could consider Design (event flow), Technology (Celery/queue tech), or Crosscutting Concerns (global retry/persistence mechanisms).",
+        "primary_score": 0.74,
+        "alternative_categories": [
+            "Design",
+            "Technology",
+            "Crosscutting Concerns"
+        ],
+        "alternative_confidence_scores": [
+            0.14,
+            0.1,
+            0.02
+        ],
+        "metadata": {
+            "adr": "0009-persistence-and-retries-for-events.rst"
+        }
+    }
+]
