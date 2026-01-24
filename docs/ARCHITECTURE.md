@@ -374,9 +374,7 @@ INPUT: Ground Truth Labels + LLM Predictions
 [Metrics Computation]
   - Classification report (sklearn)
   - Confusion matrix
-  - Cohen's Kappa (inter-rater agreement)
   - Matthews correlation
-  - Per-class Kappa
     ↓
 [Difference Analysis]
   Find misclassified examples
@@ -412,46 +410,6 @@ OUTPUT: Evaluation Report
 
 See `requirements.txt` for complete list.
 
----
-
-## Design Patterns
-
-### 1. **State Management Pattern** (ADRTopicModel, ADRClassifier)
-
-Classes maintain state between calls:
-```python
-model = ADRTopicModel()
-model.prepare_corpus(docs)  # Sets self.corpus, self.embeddings
-model.build()               # Uses existing corpus
-model.persist()             # Saves all state
-```
-
-### 2. **Factory Pattern** (Classification Frameworks)
-
-Framework selection creates appropriate output schema:
-```python
-if framework == KRUCHTEN:
-    → KruchtenClassificationResult pydantic model
-elif framework == QUALITY_ATTRIBUTES:
-    → QualityAttributeClassificationResult
-```
-
-### 3. **Pipeline Pattern** (Topic Modeling)
-
-Sequential stages, each transforming data:
-```
-ADRs → Parser → Corpus → Embeddings → UMAP → Topics
-```
-
-### 4. **Strategy Pattern** (Few-shot Selection)
-
-Pluggable example selection strategies:
-```python
-base_selector = get_base_selector(
-    examples=ground_truth,
-    base='max-marginal-relevance'  # Or 'semantic-similarity'
-)
-```
 
 ---
 
@@ -541,34 +499,10 @@ classifier = ADRClassifier(llm)
 
 ---
 
-## Performance Considerations
-
-### Memory Usage
-- **Embeddings**: 4,300 ADRs × 384-dim × 4 bytes = ~6.6 GB
-- **UMAP**: 5-dim reduction reduces to ~0.08 GB
-- **BERTopic model**: ~500 MB
-
-**Recommendation**: 16 GB RAM for full dataset
-
-### Computation Time
-| Stage | Time | Machine |
-|-------|------|---------|
-| Parsing (4,300 ADRs) | 5-10 min | CPU |
-| Embedding | 30-60 min | GPU recommended |
-| UMAP | 2-5 min | CPU |
-| BERTopic | 10-30 min | CPU |
-| LLM Classification | ~1-2 hours | API (rate-limited) |
-| Evaluation | 1-2 min | CPU |
-
 ### Optimization Tips
 - Use `parallel=True` for batch LLM calls
 - Pre-compute embeddings, save, reload for iterations
 - Filter corpus before modeling (min length, max length)
-- Use GPU-accelerated sentence transformers (CUDA)
-
----
-
-## Testing & Validation
 
 ### Unit Testing
 - Parse ADRs: Verify title, content extraction
@@ -576,16 +510,12 @@ classifier = ADRClassifier(llm)
 - Classification: Verify JSON output structure
 - Metrics: Compare against known baselines
 
-### Integration Testing
-- End-to-end pipeline: Parse → Embed → Classify → Evaluate
-- Ground truth validation: Kappa ≥ 0.65
-
 ### Quality Checks
 - Corpus: No empty texts, minimum length
 - Embeddings: No NaN values
 - Topics: Coherence > 0.6, diversity > 0.5
-- Classifications: All scores sum to 1.0, Kappa > 0.6
+- Classifications: All scores sum to 1.0
 
 ---
 
-**See [USAGE.md](USAGE.md) for API reference and examples.**
+**See [Usage](USAGE.md) for API reference and examples.**
