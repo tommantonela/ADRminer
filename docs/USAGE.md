@@ -90,10 +90,10 @@ results = classifier.classify_batch(
 **Classification Frameworks:**
 
 #### Kruchten (4 categories)
-- **Existence (ontocrisis)**: Adding new capabilities
-- **Ban/Non-Existence (anticrisis)**: Removing/avoiding options
-- **Property (diacrisis)**: Modifying quality properties
-- **Executive (pericrisis)**: Managing organizational aspects
+- Existence (ontocrisis): Adding new capabilities
+- Ban/Non-Existence (anticrisis)**: Removing/avoiding options
+- Property (diacrisis): Modifying quality properties
+- Executive (pericrisis): Managing organizational aspects
 
 #### Quality Attributes (10 categories)
 - Performance, Reliability, Security, Maintainability, Scalability
@@ -148,7 +148,6 @@ eval_results = classifier.predict_and_evaluate_on_ground_truth(
 )
 
 # Access metrics
-print(f"Cohen's Kappa: {eval_results['kappa']}")
 print(f"Matthews Correlation: {eval_results['matthews']}")
 print(f"Accuracy: {eval_results['similarities']:.2f}%")
 
@@ -158,16 +157,6 @@ differences = eval_results['differences']  # (index, true_label, pred_label, adr
 # Confusion matrix
 cm = eval_results['confusion_matrix']
 ```
-
-**Metrics Provided:**
-
-| Metric | Interpretation |
-|--------|----------------|
-| **Accuracy** | % of correct predictions |
-| **Cohen's Kappa** | Agreement beyond chance (0=random, 1=perfect) |
-| **Matthews Correlation** | Balanced metric for multi-class classification |
-| **Precision/Recall/F1** | Per-class performance |
-| **Confusion Matrix** | Detailed error breakdown |
 
 ---
 
@@ -308,8 +297,6 @@ eval_dict = classifier.evaluate_on_ground_truth(
 #   'report': sklearn classification_report,
 #   'confusion_matrix': pd.DataFrame,
 #   'matthews': float,
-#   'kappa': float,
-#   'kappa_scores': dict (per-class),
 #   'similarities': float (% match),
 #   'differences': list (mismatch tuples),
 #   'labels': list (all unique labels)
@@ -348,19 +335,17 @@ Key parameters to adjust in notebooks:
 ### Topic Modeling
 - **Corpus size**: Minimum 50 ADRs for stable topic modeling
 - **Embeddings**: `all-MiniLM-L6-v2` is fast; `all-mpnet-base-v2` is more accurate
-- **Topics**: Auto-detection usually finds 30-50 topics; adjust manually if needed
-- **OpenAI**: Requires API key and ~$0.10 per topic label (one-time cost)
+- **Topics**: Auto-detection usually finds 30-60 topics; adjust manually if needed
+- **OpenAI**: Requires API key for computing text embeddings (one-time cost)
 
 ### Classification
 - **LLM choice**: `gpt-4o-mini` is cost-effective; `gpt-4o` is more accurate
 - **Temperature**: Use 0.0 for consistent results; increase only if variation is desired
 - **Few-shot**: 5-7 examples usually optimal; more examples can confuse the model
-- **Batch size**: 10-50 ADRs per batch to avoid rate limiting
 
 ### Ground Truth Evaluation
-- **Sample size**: Annotate at least 50-100 ADRs for reliable metrics
-- **Inter-rater**: Use multiple annotators and compute Kappa agreement
-- **Stratification**: Ensure ground truth covers all decision categories evenly
+- **Sample size**: Annotate at least 100 ADRs for reliable metrics
+- **Stratification**: Ensure ground truth covers all decision categories evenly, if possible
 
 ---
 
@@ -403,7 +388,6 @@ classifications = classifier.classify_batch(
 gt_df = pd.read_csv("ground_truth.csv")
 eval_results = classifier.evaluate_on_ground_truth(gt_df, classifications)
 
-print(f"Cohen's Kappa: {eval_results['kappa']:.3f}")
 print(f"Matthews: {eval_results['matthews']:.3f}")
 
 # Save results
@@ -414,4 +398,4 @@ with open("evaluation_results.json", "w") as f:
 
 ---
 
-**See [INPUT_FORMAT.md](INPUT_FORMAT.md) for data structure requirements.**
+**See [Input Format](INPUT_FORMAT.md) for data structure requirements.**
