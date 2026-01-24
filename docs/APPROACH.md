@@ -1,4 +1,4 @@
-# Research Approach & Methodology
+# Approach & Methodology
 
 Overview of the analysis methodology for ADR content classification and topic discovery.
 
@@ -276,4 +276,4 @@ All code, notebooks, and analysis scripts are available in the ADRMiner reposito
 ---
 
 
-**This research provides architects and teams with insights into how architectural decisions are documented and classified in practice.**
+This research provides architects and teams with insights into how architectural decisions are documented and classified in practice.
