@@ -20,7 +20,7 @@ Repositories_"
 
 ## Quick Start
 
-Clone and set up in 2 minutes:
+Clone and set up:
 
 ```bash
 git clone https://github.com/tommantonela/ADRminer.git
@@ -37,17 +37,16 @@ pip install --upgrade pip && pip install -r requirements.txt
 
 ADRMiner analyzes software architecture decisions captured in markdown ADR documents. It:
 
-1. **Parses** ADR documents to extract structure (titles, content, decision rationale)
-2. **Discovers topics** using BERTopic + semantic embeddings  
-3. **Classifies ADRs** using LLM-based approaches across 3 frameworks:
+1. **Parses** ADR documents to extract structure/sections (e.g., titles, content, decision rationale)
+2. **Discovers topics** using BERTopic + text embeddings  
+3. **Classifies ADRs** using an LLM-based approach across 3 existing taxonomies/frameworks of design decisions:
    - **Kruchten** (4 categories: Existence, Ban, Property, Executive)
    - **Quality Attributes** (10 categories: Performance, Reliability, Security, Maintainability, Scalability, Usability, Portability, Compatibility, Observability, Testability)
    - **Zimmermann** (9 categories: Design, Technology, Infrastructure, Organizational/Process, Constraint, Quality Attribute, Crosscutting Concerns, Implementation, Other)
-4. **Evaluates** classifications with statistical metrics (Cohen's Kappa, Matthews Correlation)
-5. **Visualizes** topics and classification distributions
+4. **Visualizes** topics and classification distributions
 
 **Use cases:**
-- Research: Understand architectural patterns in open-source projects
+- Research: Understand architectural patterns and decisions in open-source projects
 - Analysis: Study decision concerns and quality attributes in your codebase
 - Validation: Evaluate ADR classification methodologies
 
@@ -64,10 +63,10 @@ ADRMiner analyzes software architecture decisions captured in markdown ADR docum
 - **ADR Parsing**: Extracts structure from markdown ADRs with hierarchy support
 - **Topic Modeling**: BERTopic with UMAP embeddings + KeyBERT/OpenAI representation
 - **LLM Classification**: Multi-framework classification with zero-shot/few-shot learning
-- **Statistical Evaluation**: Confusion matrices, inter-rater agreement (Kappa), correlation metrics
+- **Evaluation**: Confusion matrices, precision, recall, correlation (comparing against a small baselines tagged by experts)
 - **Visualization**: Interactive charts, heatmaps, topic distributions
-- **Batch Processing**: Parallel execution for large datasets
-- **Reproducible Notebooks**: Complete workflow from data ingestion to analysis
+- **Batch Processing**: Parallel execution for classifying large datasets
+- **Reproducible Notebooks**: Workflow from data ingestion to analysis
 
 ## Installation
 
@@ -119,21 +118,18 @@ Run notebooks in this order:
 
 ### 1. Topic Modeling (`adrs_bertopic.ipynb`)
 - Input: Raw ADR texts
-- Process: Train BERTopic model, generate embeddings
+- Process: Train your own BERTopic model or use pre-trained model, generate embeddings
 - Output: Topic dataframe + corpus (in `saved_topicmodel/`)
-- Runtime: ~5 minutes for typical corpus
 
 ### 2. Classification (`adr_llm_classification.ipynb`)  
-- Input: ADRs (raw or topic-enhanced)
-- Process: Classify using LLM across 3 frameworks
+- Input: ADRs (raw text)
+- Process: Classify using LLM across the 3 supported frameworks
 - Output: JSON files with predictions + confidence scores
-- Runtime: ~30-60 sec per ADR depending on LLM API
 
 ### 3. Analysis (`classification_analysis.ipynb`)
 - Input: Classification results + optional ground truth
 - Process: Compute metrics, generate confusion matrices, visualizations
 - Output: Classification reports, statistical analysis
-- Runtime: < 1 minute
 
 **See [USAGE.md](docs/USAGE.md) for detailed examples and Python API.**
 
@@ -147,7 +143,7 @@ Run notebooks in this order:
 **Key Findings:**
 - ADRs capture diverse architectural concerns
 - Quality attributes vary in coverage across projects
-- LLM classification aligns with human assessment (~0.7 Kappa)
+- LLM classification aligns with human assessment (to some extent)
 - MADR template compliance varies across repositories
 
 [See APPROACH.md](docs/APPROACH.md) for complete methodology and results.
@@ -178,7 +174,7 @@ ADRminer/
 ├── docs/                               # Documentation
 │   ├── USAGE.md
 │   ├── INPUT_FORMAT.md
-│   ├── PAPER.md
+│   ├── APPROACH.md
 │   └── ARCHITECTURE.md
 ├── requirements.txt
 ├── README.md
