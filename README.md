@@ -1,8 +1,10 @@
 # ADRMiner
 
-A text mining and classification toolkit for analyzing Architecture Decision Records (ADRs) from open-source repositories.
+A text mining and classification toolkit for analyzing Architecture Decision Records (ADRs) from open-source repositories. 
 
-**Methodology**: [Research Approach & Methodology](docs/APPROACH.md)
+This is the reproducibility kit for the paper "_A Text Mining and Classification Approach for Analyzing
+Architecture Decision Records: Evidence from Open-Source
+Repositories_"
 
 ## Table of Contents
 
