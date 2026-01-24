@@ -53,7 +53,7 @@ ADRMiner analyzes software architecture decisions captured in markdown ADR docum
 
 **Top 20 ADR Topics:**
 
-![ADR Topics Chart](https://raw.githubusercontent.com/tommantonela/ADRminer/main/adr-topics.png)
+![ADR Topics Chart](https://github.com/tommantonela/ADRminer/blob/main/adr-topics.png)
 
 [**Interactive visualization** (click for live version)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tommantonela/ADRminer/refs/heads/main/top20_adr_topics.html?token=GHSAT0AAAAAAC5L6NIAM5LCGNKGXTMITQS42LUHAMQ)
 
