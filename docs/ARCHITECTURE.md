@@ -1,4 +1,4 @@
-# System Architecture
+# Architecture
 
 Overview of ADRMiner's modular design and component relationships.
 
