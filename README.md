@@ -1,6 +1,6 @@
 # ADRMiner
 
-This is the reproducibility kit for the paper “_What do Architecture Decisions talk about? A Data Mining Study based on Open-source Repositories_”.
+This is the reproducibility kit for the paper “_A Text Mining and Classification Approach for Analyzing Architecture Decision Records: Evidence from Open-Source Repositories_”.
 It provides the code, data, and notebooks necessary to replicate the experiments and analyses from the paper.
 
 The main topics covered by the analyzed ADRs are displayed in the chart below.
