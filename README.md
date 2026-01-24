@@ -146,7 +146,7 @@ Run notebooks in this order:
 - LLM classification aligns with human assessment (to some extent)
 - MADR template compliance varies across repositories
 
-[See APPROACH.md](docs/APPROACH.md) for complete methodology and results.
+[See APPROACH.md](docs/APPROACH.md) for more details about methodology and results.
 
 ## Documentation
 
