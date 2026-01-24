@@ -7,7 +7,13 @@ The main topics covered by the analyzed ADRs are displayed in the chart below.
 
 ![image](https://github.com/tommantonela/ADRminer/blob/main/adr-topics.png)
 
-Alternatively, you can get an interactive view of the chart using [top20_adr_topics.html](https://htmlpreview.github.io/?https://github.com/tommantonela/ADRminer/blob/main/top20_adr_topics.html).
+
+<div>
+  <h1>Example</h1>
+</div>
+
+
+Alternatively, you can get an interactive view of the chart using [top20_adr_topics.html](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tommantonela/ADRminer/refs/heads/main/top20_adr_topics.html?token=GHSAT0AAAAAAC5L6NIAM5LCGNKGXTMITQS42LUHAMQ).
 
 ---
 
