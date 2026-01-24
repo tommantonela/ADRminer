@@ -6,6 +6,10 @@ This is the reproducibility kit for the paper "_A Text Mining and Classification
 Architecture Decision Records: Evidence from Open-Source
 Repositories_"
 
+<p align="center">
+  <img src="adrminer-logo.png" alt="ADRMiner Logo" width="40%">
+</p>
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
