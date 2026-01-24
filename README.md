@@ -156,7 +156,6 @@ Run notebooks in this order:
 |----------|---------|
 | [**USAGE.md**](docs/USAGE.md) | Detailed workflow, API docs, configuration |
 | [**INPUT_FORMAT.md**](docs/INPUT_FORMAT.md) | ADR markdown structure, dataset organization |
-| [**PAPER.md**](docs/PAPER.md) | Research methodology, findings, citations |
 | [**ARCHITECTURE.md**](docs/ARCHITECTURE.md) | System design, module dependencies |
 
 ## Repository Structure
