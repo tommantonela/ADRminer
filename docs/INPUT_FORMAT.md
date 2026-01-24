@@ -89,30 +89,12 @@ ADRMiner can parse:
 | **Metadata** | `Key: value` pairs (YAML-style) |
 | **Line breaks** | Horizontal rules `---` |
 
-### Metadata/Properties
-
-ADRMiner extracts key-value pairs formatted as:
-
-```markdown
-**Status:** Accepted
-**Date:** 2024-01-15
-**Author:** Jane Doe
-**References:** ADR-001, ADR-002
-```
-
-These are automatically extracted and available via:
-```python
-doc.get_properties()  # Returns dict: {'status': 'Accepted', ...}
-doc.get_properties('status')  # Returns str: 'Accepted'
-```
 
 ---
 
 ## Dataset Organization
 
-Organize your ADR files in a hierarchical structure:
-
-### Standard Layout
+It is recommended to organize your ADR files in a hierarchical structure:
 
 ```
 data/
@@ -220,19 +202,6 @@ for org in os.listdir("data/"):
                 adrs_dict[org][project][adr_file] = adr(path=adr_path)
 ```
 
-### From Zip File
-
-```python
-from adr import adr
-
-# Load from zip (e.g., downloaded dataset)
-adrs_dict = adr.read_zipfile(
-    dir_path='./',
-    zip_name='adr_dataset.zip',
-    inner_path='adr_data/'
-)
-```
-
 ### From String Content
 
 ```python
@@ -336,10 +305,3 @@ print(f"Properties: {doc.get_properties()}")
 
 ---
 
-## Tips
-
-- **Consistency**: Use consistent formatting across all ADRs
-- **Completeness**: Include Context, Decision, and Consequences sections
-- **Length**: Aim for 300+ characters per section for reliable analysis
-- **Metadata**: Include Status, Date, and Author when possible
-- **Examples**: Check sample ADRs in your repo before bulk analysis
