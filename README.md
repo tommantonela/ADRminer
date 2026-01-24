@@ -135,7 +135,7 @@ Run notebooks in this order:
 - Process: Compute metrics, generate confusion matrices, visualizations
 - Output: Classification reports, statistical analysis
 
-**See [USAGE.md](docs/USAGE.md) for detailed examples and Python API.**
+**See [USAGE](docs/USAGE.md) for detailed examples and Python API.**
 
 ## Results
 
@@ -156,9 +156,9 @@ Run notebooks in this order:
 
 | Document | Purpose |
 |----------|---------|
-| [**USAGE.md**](docs/USAGE.md) | Detailed workflow, API docs, configuration |
-| [**INPUT_FORMAT.md**](docs/INPUT_FORMAT.md) | ADR markdown structure, dataset organization |
-| [**ARCHITECTURE.md**](docs/ARCHITECTURE.md) | System design, module dependencies |
+| [**USAGE**](docs/USAGE.md) | Detailed workflow, API docs, configuration |
+| [**INPUT FORMAT**](docs/INPUT_FORMAT.md) | ADR markdown structure, dataset organization |
+| [**ARCHITECTURE**](docs/ARCHITECTURE.md) | System design, module dependencies |
 
 ## Repository Structure
 
