@@ -9,24 +9,21 @@ Overview of the analysis methodology for ADR content classification and topic di
 This work conducts an empirical analysis of Architecture Decision Record (ADR) contents using data mining techniques to:
 
 1. **Identify main design concerns** captured in ADRs via topic modeling
-2. **Assess alignment** with established decision type classifications
-3. **Check adherence** to the MADR (Markdown Architecture Decision Records) template structure
-4. **Develop automated pipeline** combining topic modeling + LLM-based classification
+2. **Assess alignment** with established taxonomies/frameworks of design decision types
+3. **Check adherence** to the [MADR](https://adr.github.io/madr/) (Markdown Architecture Decision Records) template structure
+4. **Develop automated pipeline** that combines topic modeling + LLM-based classification
 5. **Evaluate performance** of LLM classification approaches
 
 ---
 
 ## Research Questions
 
-**RQ1**: What are the main architectural topics and concerns captured in ADRs?
+**RQ1**: What types of concerns (as topics) are captured in ADRs?
 
-**RQ2**: How well do ADRs align with established decision type classifications (Kruchten, Quality Attributes, Zimmermann)?
+**RQ2**: How well does the captured content align with the taxonomies from the literature (Kruchten, Quality Attributes, Zimmermann)?
 
-**RQ3**: To what extent do ADRs follow the MADR template structure and include required sections?
+**RQ3**: Are there mismatches or inconsistent practices in the usage of the ADR structure (i.e., MADR sections)?
 
-**RQ4**: How effective are LLM-based approaches for automatic ADR classification?
-
----
 
 ## Data Collection
 
@@ -35,7 +32,7 @@ This work conducts an empirical analysis of Architecture Decision Record (ADR) c
 - **Filtering**: Projects with ≥5 ADRs, documents ≥500 characters
 - **Format**: Primarily markdown (MADR-compliant and similar)
 
-Key metrics:
+Key indicators:
 - Average ADRs per project: 8-10
 - Average ADR length: 800-1,200 characters
 - Date range: 2015-2025 (projects with ADR adoption)
@@ -57,7 +54,7 @@ Raw ADR Documents
 [2] Topic Modeling (BERTopic)
     - Sentence embeddings (all-MiniLM-L6-v2)
     - UMAP dimensionality reduction
-    - Auto-detect topics (typically 30-50)
+    - Auto-detect topics (typically 30-70)
     - Dual representation: KeyBERT + LLM-based labels
     ↓
 [3] LLM Classification
@@ -68,9 +65,7 @@ Raw ADR Documents
       * Zimmermann (9 categories)
     ↓
 [4] Evaluation
-    - Cohen's Kappa (inter-rater agreement)
     - Confusion matrices
-    - Matthews correlation coefficient
     - Per-class metrics (precision, recall, F1)
     ↓
 Results & Insights
@@ -137,7 +132,6 @@ Based on Zimmermann et al.'s classification of architectural decisions:
 
 - **Base Model**: GPT-4o-mini (cost-effective + good accuracy)
 - **Temperature**: 0.0 (deterministic outputs)
-- **Max tokens**: 500 (for structured responses)
 
 ### Prompting Strategies
 
@@ -174,10 +168,6 @@ LLM produces structured JSON:
 }
 ```
 
-**Constraints**:
-- Confidence scores sum to 1.0 (probability distribution)
-- Primary score is highest confidence
-- Alternatives ranked by confidence (descending)
 
 ---
 
@@ -185,26 +175,16 @@ LLM produces structured JSON:
 
 ### Ground Truth Collection
 
-- Manual annotation of ADR samples
+- Manual annotation of ~200 ADR samples
 - Stratified sampling covering all decision categories
 - Multiple annotators for inter-rater reliability assessment
 
-### Metrics
-
-| Metric | Purpose | Interpretation |
-|--------|---------|-----------------|
-| **Accuracy** | % correct predictions | Overall correctness |
-| **Cohen's Kappa** | Agreement beyond chance | 0=random, 1=perfect; ≥0.65=acceptable |
-| **Matthews Correlation** | Balanced metric for imbalanced data | -1 to +1; ≥0.6=good |
-| **Precision/Recall/F1** | Per-class performance | Individual category quality |
-| **Confusion Matrix** | Error pattern analysis | Reveals systematic confusion |
 
 ### Analysis Approach
 
 1. **Alignment Assessment**: Compare LLM predictions to ground truth labels
 2. **Category-wise Analysis**: Evaluate performance per framework category
 3. **Error Pattern Analysis**: Identify which category pairs are confused
-4. **Threshold Study**: Analyze confidence score distributions
 
 ---
 
@@ -212,7 +192,7 @@ LLM produces structured JSON:
 
 ### Topic Discovery Results
 
-- **Topics discovered**: 30-50 depending on corpus and configuration
+- **Topics discovered**: ~70 depending on corpus and configuration
 - **Topic coherence**: 0.65-0.75 (good internal consistency)
 - **Topic diversity**: 0.60-0.70 (adequate distinctiveness)
 
@@ -226,17 +206,9 @@ LLM produces structured JSON:
 ### Classification Performance
 
 **Overall Metrics** (across all frameworks):
-- **Cohen's Kappa**: 0.68-0.72 (good agreement with human classification)
 - **Accuracy**: 72-80% depending on framework
 - **Matthews Correlation**: 0.65-0.70
 
-**Per-Framework Results**:
-
-| Framework | Kappa | Accuracy | Notes |
-|-----------|-------|----------|-------|
-| **Quality Attributes** | 0.72 | 78% | Overlap between Performance/Scalability |
-| **Zimmermann** | 0.68 | 76% | Design vs. Technology distinction challenging |
-| **Kruchten** | 0.71 | 77% | Property vs. Quality Attribute confusion |
 
 ### Quality Attribute Coverage
 
@@ -256,13 +228,6 @@ LLM produces structured JSON:
 - ~40%: Compare/discuss alternatives
 - **Variability**: High differences across projects
 
-### LLM Classification Observations
-
-- **Strong agreement** (κ≥0.72) on clear-cut categories
-- **Disagreement** on borderline cases (e.g., Performance vs. Scalability)
-- **LLM consistency**: Often more uniform than humans
-- **Human nuance**: Humans capture subtleties LLM misses
-- **Ensemble approach**: Combining LLM + human significantly improves reliability
 
 ---
 
@@ -307,58 +272,8 @@ All code, notebooks, and analysis scripts are available in the ADRMiner reposito
 - **Reproducibility Kit**: Includes all code, notebooks, and analysis workflows
 - **Requirements**: See [requirements.txt](../requirements.txt)
 
-**To reproduce the analysis**:
-1. Clone repository: `git clone <repo-url>`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Follow notebook workflow in order:
-   - `adrs_bertopic.ipynb` (topic modeling)
-   - `adr_llm_classification.ipynb` (LLM classification)
-   - `classification_analysis.ipynb` (evaluation & analysis)
 
 ---
 
-## References
-
-Foundational work and cited methodologies:
-
-**Architecture Decision Records**:
-- Tyree, M., & Akerman, A. (2005). "Architecture Decision Records". In 2nd International Workshop on Relating Software Requirements and Architectures.
-- Ambler, S. W. "Architecture Decision Records". Agile Modeling.
-
-**Decision Classification**:
-- Kruchten, P. (1995). "The 4+1 View Model of Architecture". IEEE Software, 12(6), 42-50.
-- Zimmermann, O., et al. (2010). "Architecture Decision Records for Enterprise Integration Patterns". In 10th Working IEEE/IFIP Conference on Software Architecture.
-
-**Quality Attributes**:
-- ISO/IEC 25010:2023. "Systems and software quality models".
-
-**Machine Learning Techniques**:
-- Devlin, J., Chang, M. W., et al. (2019). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding". NAACL 2019.
-- McInnes, L., Healy, J., & Melville, J. (2018). "UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction". arXiv:1802.03426.
-- Grootendorst, M. (2022). "BERTopic: Neural Topic Modeling with a Class-based TF-IDF Procedure". arXiv:2203.05556.
-
-**Language Models**:
-- OpenAI (2023). "GPT-4 Technical Report". arXiv:2303.08774.
-
----
-
-## Related Work
-
-This approach builds on established practices in:
-- **Software Architecture Documentation**: ADR adoption and best practices
-- **Topic Modeling**: Unsupervised discovery of themes in document collections
-- **LLM-based Classification**: Using large language models for text categorization
-- **Empirical Software Engineering**: Studying real-world software practices
-
----
-
-## Contact & Questions
-
-For technical questions about the methodology or implementation:
-- Open an issue in the repository
-- Review the [ARCHITECTURE.md](ARCHITECTURE.md) for system design details
-- See [USAGE.md](USAGE.md) for API and configuration documentation
-
----
 
 **This research provides architects and teams with insights into how architectural decisions are documented and classified in practice.**
