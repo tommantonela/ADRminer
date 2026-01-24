@@ -103,7 +103,7 @@ ADRMiner analyzes software architecture decisions captured in markdown ADR docum
    ```bash
    # Create .env in repository root
    echo "OPENAI_API_KEY=sk-your-key-here" > .env
-   echo "OPENAI_MODEL_NAME=gpt-4o-mini" >> .env
+   echo "OPENAI_MODEL_NAME=gpt-4o-mini" > .env
    ```
 
 5. **Add your ADR dataset**
