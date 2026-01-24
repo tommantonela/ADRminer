@@ -135,7 +135,7 @@ Run notebooks in this order:
 - Process: Compute metrics, generate confusion matrices, visualizations
 - Output: Classification reports, statistical analysis
 
-**See [USAGE](docs/USAGE.md) for detailed examples and Python API.**
+**See [Usage](docs/USAGE.md) for detailed examples and Python API.**
 
 ## Results
 
@@ -150,15 +150,15 @@ Run notebooks in this order:
 - LLM classification aligns with human assessment (to some extent)
 - MADR template compliance varies across repositories
 
-[See APPROACH.md](docs/APPROACH.md) for more details about methodology and results.
+[See Approach](docs/APPROACH.md) for more details about methodology and results.
 
 ## Documentation
 
 | Document | Purpose |
 |----------|---------|
-| [**USAGE**](docs/USAGE.md) | Detailed workflow, API docs, configuration |
-| [**INPUT FORMAT**](docs/INPUT_FORMAT.md) | ADR markdown structure, dataset organization |
-| [**ARCHITECTURE**](docs/ARCHITECTURE.md) | System design, module dependencies |
+| [**Usage**](docs/USAGE.md) | Detailed workflow, API docs, configuration |
+| [**Input Format**](docs/INPUT_FORMAT.md) | ADR markdown structure, dataset organization |
+| [**Architecture**](docs/ARCHITECTURE.md) | System design, module dependencies |
 
 ## Repository Structure
 
