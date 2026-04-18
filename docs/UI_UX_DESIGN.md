@@ -619,5 +619,436 @@ The Streamlit UI features a **sidebar-based navigation** with a clean, modern in
 
 ---
 
+## 11. CLI/TUI Interface Design
+
+The CLI/TUI interface provides full feature parity with the Streamlit web UI, using modern terminal libraries for an intuitive experience.
+
+### 11.1 Design Philosophy
+
+- **Consistent with CLI**: Traditional command-line options for power users
+- **Modern TUI**: Rich, interactive terminal UI using Textual
+- **Natural Language**: Same agent-driven interface as Streamlit
+- **Keyboard-First**: Optimized for keyboard navigation
+- **Progressive**: Simple commands for quick tasks, TUI for complex workflows
+
+### 11.2 TUI Home Screen
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  🏗️ ADRminer - Analyze Your Architectural Decisions                    │
+│                                                                      │
+│  Welcome! ADRminer helps you analyze, improve, and understand your       │
+│  Architectural Decision Records (ADRs).                                 │
+│                                                                      │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                │
+│  │  📊 Topics  │  │  🎯 Classify │  │  ✅ Check    │                │
+│  │  Discover   │  │  Categorize  │  │  Quality     │                │
+│  │  what       │  │  decisions   │  │  and         │                │
+│  │  matters    │  │  by type     │  │  compliance  │                │
+│  └─────────────┘  └─────────────┘  └─────────────┘                │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 📁 Quick Start: Analyze Your First ADRs                      │   │
+│  │                                                              │   │
+│  │  [1] Upload folder of ADRs                                   │   │
+│  │  [2] Paste ADR text                                          │   │
+│  │  [3] Use natural language: "Analyze all ADRs in ./adrs"        │   │
+│  │                                                              │   │
+│  │  Select services: [ ] Topics [ ] Classification [ ] Checking   │   │
+│  │  Generate insights: [✓]                                       │   │
+│  │                                                              │   │
+│  │  [Analyze →]  [Help]  [Quit]                                │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 📚 Recent Analyses                                            │   │
+│  │                                                              │   │
+│  │  • my-project (25 ADRs) - 2 hours ago                       │   │
+│  │  • frontend-team (12 ADRs) - 1 day ago                       │   │
+│  │  • backend-service (18 ADRs) - 3 days ago                     │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  [N] Natural Language  [C] Command Line  [T] Terminal UI  [Q] Quit  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.3 TUI Analyze Screen
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  📊 Analyze ADRs                                                │
+│                                                                      │
+│  Step 1: Select Input                                             │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  ○ Single ADR (text)                                             │   │
+│    [Paste text here...]                                            │   │
+│    or [Upload ADR file...]                                       │   │
+│                                                              │   │
+│  ● Folder of ADRs (selected)                                      │   │
+│    Path: /path/to/adrs                                          │   │
+│    Found: 25 ADR files                                           │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  Step 2: Choose Services                                         │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  [✓] Topic Mining                                             │   │
+│    Model: Pre-trained v1.0 [▼]                                  │   │
+│    Topics: Auto [▼]                                             │   │
+│                                                              │   │
+│  [✓] Classification                                            │   │
+│    Framework: Kruchten [▼] (Quality Attributes, Zimmermann)        │   │
+│    Examples: Built-in [▼] (None, Custom, Built-in)             │   │
+│                                                              │   │
+│  [✓] ADR Checking                                             │   │
+│    Template: MADR [▼]                                          │   │
+│                                                              │   │
+│  [✓] Generate Insights                                        │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  Step 3: Output Options                                           │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  [✓] JSON sidecar files                                       │   │
+│  [✓] Markdown report                                          │   │
+│  [✓] Create dashboard                                          │   │
+│    Output: Same as input [▼]                                    │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│                                  [Start Analysis →]   [Back] [Quit]   │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.4 TUI Progress Screen
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ⏳ Processing ADRs...                                            │
+│                                                                      │
+│  Overall Progress: ████████████░░░░░░░░░░ 60%                      │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ ✅ Topic Mining (25/25) - 45 seconds                        │   │
+│  │                                                              │   │
+│  │ ⏳ Classification (15/25) - 2:15 elapsed                     │   │
+│  │    ███████████████░░░░░░░░░░░░░░ 60%                     │   │
+│  │                                                              │   │
+│  │ ⏸ ADR Checking (0/25) - Waiting...                           │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  Current: Classifying adr-015.md                                     │
+│                                                                      │
+│  📊 Statistics:                                                    │
+│  • ADRs processed: 15/25                                         │
+│  • Average time: 5.2 seconds/ADR                                   │
+│  • Estimated remaining: 52 seconds                                   │
+│                                                                      │
+│  [P] Pause  [C] Cancel  [Q] Quit (results will be saved)             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.5 TUI Results Summary
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  ✅ Analysis Complete!                                             │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 📊 Overview                                                  │   │
+│  │                                                              │   │
+│  │  📁 Project: my-project-adrs                                 │   │
+│  │  📊 Total ADRs: 25                                          │   │
+│  │  ⏱ Analyzed at: 2026-04-17 12:34:56                        │   │
+│  │  ⚡ Duration: 3m 42s                                        │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 🎯 Classification (Kruchten)                                 │   │
+│  │                                                              │   │
+│  │  Existence (ontocrisis)    ████████████ 60% (15 ADRs)       │   │
+│  │  Property (diacrisis)      ██████░░░░░ 24% (6 ADRs)         │   │
+│  │  Executive (pericrisis)     ████░░░░░░ 12% (3 ADRs)        │   │
+│  │  Ban (anticrisis)          ██░░░░░░░░ 4% (1 ADR)          │   │
+│  │                                                              │   │
+│  │  Average confidence: 0.89                                       │   │
+│  │  High confidence (>0.8): 22/25 ADRs                            │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 🔥 Topic Distribution                                        │   │
+│  │                                                              │   │
+│  │  Database Migration         ████████░░░ 20% (5 ADRs)          │   │
+│  │  API Design               ███████░░░░ 16% (4 ADRs)          │   │
+│  │  Authentication            ██████░░░░░ 12% (3 ADRs)          │   │
+│  │  Frontend Framework        ████░░░░░░░ 8% (2 ADRs)          │   │
+│  │  Other topics             ████████░░░ 44% (11 ADRs)         │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ ✅ Quality & Compliance                                      │   │
+│  │                                                              │   │
+│  │  Template Adherence: 0.72/1.0 ⚠️ Needs improvement           │   │
+│  │                                                              │   │
+│  │  Top Issues:                                                  │   │
+│  │  🔴 40% missing "Alternatives" section                       │   │
+│  │  🟡 30% incomplete "Consequences" section                     │   │
+│  │  🟡 20% weak "Context" descriptions                          │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  [D] Dashboard  [A] All ADRs  [E] Export  [Q] Quit                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.6 TUI ADR Detail View
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  📄 ADR-001: Database Migration Strategy                            │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 📊 Topic Analysis                                             │   │
+│  │                                                              │   │
+│  │  Primary: Database Migration (0.85 prob)                        │   │
+│  │  Keywords: [database, migration, schema, postgresql]             │   │
+│  │                                                              │   │
+│  │  Database Migration      ████████████ 85%                        │   │
+│  │  API Design              ███░░░░░░░░ 15%                        │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 🎯 Classification (Kruchten)                                  │   │
+│  │                                                              │   │
+│  │  Primary: Existence (ontocrisis)                               │   │
+│  │  Confidence: 0.92 🔴 High                                    │   │
+│  │                                                              │   │
+│  │  Alternatives:                                                 │   │
+│  │  • Property (diacrisis) - 0.05                               │   │
+│  │  • Executive (pericrisis) - 0.03                             │   │
+│  │                                                              │   │
+│  │  Explanation: This ADR describes a structural change to...        │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ ✅ Template Compliance                                        │   │
+│  │                                                              │   │
+│  │  Overall Score: 0.85/1.0 ✅ Good                             │   │
+│  │                                                              │   │
+│  │  ✅ Context (presence: Yes, quality: Good)                       │   │
+│  │  ✅ Decision (presence: Yes, quality: Good)                      │   │
+│  │  ✅ Consequences (presence: Yes, quality: Good)                   │   │
+│  │  🔴 Alternatives (presence: No) - MISSING                         │   │
+│  │  ✅ Status (presence: Yes, quality: Good)                        │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 💡 Recommendations                                           │   │
+│  │                                                              │   │
+│  │  🔴 Add "Alternatives" section for completeness                  │   │
+│  │  🟡 Consider documenting migration rollback strategy                 │   │
+│  │  🟢 Similar ADRs: adr-003, adr-007, adr-012                 │   │
+│  │         (0.82, 0.78, 0.75 similarity)                       │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  [V] View ADR  [C] Compare  [D] Download  [N] Next  [Q] Quit       │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.7 TUI Dashboard
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  📊 Dashboard - my-project-adrs                                   │
+│                                                                      │
+│  ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐           │
+│  │ 📊25│ 0.72│  8  │ 15  │ 0.89│ 45s │ 3.4m│ 25  │ 12h │           │
+│  │ ADRs │Score│Topics│Exist│Conf│Last │Time │High │Ago │           │
+│  └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘           │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 📈 Topic Distribution Over Time                            │   │
+│  │                                                              │   │
+│  │  Jan  Feb  Mar  Apr  May  Jun                                │   │
+│  │  Database:     2    5    8   12   15   15 (↗️)                │   │
+│  │  API Design:   1    2    3    4    4    4 (→)                 │   │
+│  │  Auth:        0    1    2    3    3    3 (→)                 │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌──────────────────────────────┬───────────────────────────┐           │
+│  │ 🎯 Classification Balance    │ ✅ Quality Trend         │           │
+│  │                             │                          │           │
+│  │  Existence     15 ████████ │ 0.65 ──► 0.72         │           │
+│  │  Property       6  █████    │                          │           │
+│  │  Executive     3  ███      │ Improving ↑             │           │
+│  │  Ban           1  ██       │                          │           │
+│  └──────────────────────────────┴───────────────────────────┘           │
+│                                                                      │
+│  ┌────────────────────────────────────────────────────────────────────┐   │
+│  │ 💡 Insights by Priority                                     │   │
+│  │                                                              │   │
+│  │  🔴 High Priority (3)                                       │   │
+│  │     • 40% missing alternatives section                         │   │
+│  │     • Low confidence on adr-007 (0.68)                       │   │
+│  │     • Inconsistent Status section usage                        │   │
+│  │     [View All]                                              │   │
+│  │                                                              │   │
+│  │  🟡 Medium Priority (5)                                     │   │
+│  │     • Recent ADRs show better context descriptions               │   │
+│  │     • Consider Zimmermann for organizational decisions           │   │
+│  │     • 3 ADRs need review (low quality)                       │   │
+│  │     [View All]                                              │   │
+│  │                                                              │   │
+│  │  🟢 Low Priority (2)                                        │   │
+│  │     • Topic diversity could be improved                        │   │
+│  │     • No ADRs tagged as "Ban/Non-Existence"                  │   │
+│  │     [View All]                                              │   │
+│  └────────────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  [E] Export  [R] Re-run  [S] Settings  [Q] Quit                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 11.8 CLI Command Examples
+
+#### Traditional CLI Commands
+
+```bash
+# Analyze with specific services
+adrminer analyze ./adrs --topics --classify --framework kruchten --check
+
+# Single ADR analysis
+adrminer analyze adr-001.md --topics --classify --framework qas
+
+# Natural language interface
+adrminer "Classify all ADRs using Zimmermann framework"
+
+# View results
+adrminer results --latest
+adrminer results adr-001.md
+
+# Export reports
+adrminer export --format json --output ./reports
+adrminer export --format markdown --output ./reports/summary.md
+
+# Model management
+adrminer model list
+adrminer model info topic-model-v1.0
+adrminer train topics ./custom-adrs --output ./models/custom
+```
+
+#### Natural Language CLI
+
+```bash
+# Natural language queries
+adrminer "Analyze all ADRs in ./docs/adrs with topic mining and classification"
+adrminer "Which ADRs are missing the alternatives section?"
+adrminer "Show me the topic distribution for my ADRs"
+adrminer "Check the quality of adr-015.md"
+
+# Follow-up questions (context-aware)
+adrminer "What's the average confidence for classification?"
+adrminer "Which ADRs are similar to adr-001.md?"
+adrminer "Generate a report of all low-quality ADRs"
+```
+
+### 11.9 Implementation Libraries
+
+```python
+# TUI Implementation (Textual)
+from textual.app import App
+from textual.widgets import Header, Footer, Static, ProgressBar
+from textual.containers import Horizontal, Vertical
+from rich.table import Table
+from rich.console import Console
+
+class ADRminerTUI(App):
+    """Modern terminal UI for ADRminer."""
+    
+    def __init__(self):
+        super().__init__()
+        self.console = Console()
+    
+    def compose(self):
+        yield Header()
+        yield HomeScreen()
+        yield Footer()
+    
+    def on_home_analyze(self):
+        """Navigate to analyze screen."""
+        self.push_screen(AnalyzeScreen())
+    
+    def on_home_natural_language(self, query):
+        """Process natural language query."""
+        result = self.agent.process(query, context=self.context)
+        self.push_screen(ResultsScreen(result))
+
+# CLI Implementation (Click)
+import click
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.table import Table
+from rich.console import Console
+
+console = Console()
+
+@click.group()
+def cli():
+    """ADRminer - Analyze your architectural decisions."""
+    pass
+
+@cli.command()
+@click.argument('path', type=click.Path(exists=True))
+@click.option('--topics', is_flag=True, help='Run topic mining')
+@click.option('--classify', is_flag=True, help='Run classification')
+@click.option('--framework', type=click.Choice(['kruchten', 'qas', 'zimmermann']))
+@click.option('--check', is_flag=True, help='Run quality checks')
+def analyze(path, topics, classify, framework, check):
+    """Analyze ADRs from a file or directory."""
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console
+    ) as progress:
+        task = progress.add_task("Analyzing ADRs...", total=100)
+        
+        # Run analysis using unified agent
+        agent = ADRminerAgent()
+        result = agent.process(
+            f"Analyze {path} with topics={topics}, "
+            f"classification={classify} using {framework}, "
+            f"checks={check}",
+            context={"adr_path": path}
+        )
+        
+        progress.update(task, completed=100)
+    
+    # Display results in rich table
+    table = Table(title="Analysis Results")
+    table.add_column("Metric")
+    table.add_column("Value")
+    table.add_row("Total ADRs", str(result['adr_count']))
+    table.add_row("Quality Score", str(result['quality_score']))
+    console.print(table)
+
+# Natural language CLI
+@cli.command()
+@click.argument('query')
+def chat(query):
+    """Chat with ADRminer using natural language."""
+    agent = ADRminerAgent()
+    result = agent.process(query, context={})
+    console.print(result['response'])
+```
+
+### 11.10 CLI/TUI Benefits
+
+1. **Full Feature Parity**: All Streamlit features available in terminal
+2. **Performance**: No browser overhead, direct terminal output
+3. **Scriptable**: Easy to integrate into CI/CD pipelines
+4. **Natural Language**: Same agent interface as web UI
+5. **Keyboard-First**: Fast navigation for power users
+6. **Offline Capable**: Can work entirely offline with local models
+7. **Debugging**: Easier to debug with direct terminal output
+8. **Remote Access**: Works over SSH without browser
+
+---
+
 **Document History:**
 - v1.0 - Initial UI/UX design document (2026-04-17)
+- v1.1 - Added CLI/TUI interface design (2026-04-18)

@@ -303,39 +303,58 @@ Empower software teams to extract insights from their ADRs, ensure quality and c
 
 ## 4. Architecture Design
 
-### 4.1 High-Level Architecture
+  ### 4.1 High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         User Interfaces                          │
-├─────────────────────┬───────────────────┬──────────────────────┤
-│      CLI (Click)    │  Streamlit UI     │   FastAPI (Future)   │
-└──────────┬──────────┴─────────┬─────────┴──────────┬───────────┘
-           │                    │                      │
-           ▼                    ▼                      ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      Service Layer                               │
-├──────────────┬──────────────┬──────────────┬──────────────────┤
-│ Topic Service │ Class. Service│ Check Service│ Insights Service  │
-└───────┬──────┴───────┬──────┴───────┬──────┴──────┬───────────┘
-        │              │              │              │
-        ▼              ▼              ▼              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      Model Layer                                 │
-├──────────────┬──────────────┬──────────────┬──────────────────┤
-│ BERTopic      │ LLM Wrapper   │ MADR Checker  │ Analyzer Engine  │
-│ (Sentence-    │ (LangChain)   │ (Pydantic)    │                 │
-│ Transformers)  │              │              │                 │
-└───────┬──────┴───────┬──────┴───────┬──────┴──────┬───────────┘
-        │              │              │              │
-        ▼              ▼              ▼              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                   Data & Storage Layer                           │
-├──────────────┬──────────────┬──────────────┬──────────────────┤
-│ Model Files   │ Examples DB   │ ADR Files    │ Metadata Files   │
-│ ( packaged )  │ ( JSON )     │ ( Markdown )  │ ( JSON sidecar )│
-└─────────────────────────────────────────────────────────────────┘
-```
+  ```
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                         User Interfaces                          │
+  ├─────────────────────┬───────────────────┬──────────────────────┤
+  │   CLI (Click/TUI)   │  Streamlit UI     │   FastAPI (Future)   │
+  │                     │                   │                      │
+  │  • adrminer cmd     │  • Web browser    │  • REST API         │
+  │  • Textual TUI      │  • Interactive    │  • Programmatic     │
+  └──────────┬──────────┴─────────┬─────────┴──────────┬───────────┘
+             │                    │                      │
+             └────────────────────┼──────────────────────┘
+                                  ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                 Unified LangChain Agent                          │
+  │                                                                 │
+  │  • Natural language understanding                                │
+  │  • Tool selection and orchestration                             │
+  │  • Context-aware responses                                       │
+  │  • Consistent behavior across interfaces                        │
+  └──────┬──────────────────────────────────────────────────┬───────┘
+         │                                                  │
+         └──────────────────┬───────────────────────────────┘
+                            │
+         ┌──────────────────┼───────────────────────────────┐
+         │                  │                               │
+         ▼                  ▼                               ▼
+  ┌─────────────┐    ┌─────────────┐               ┌─────────────┐
+  │ Topic Tool  │    │ Class Tool  │               │ Check Tool  │
+  │ (BERTopic)  │    │ (LLM Class) │               │ (MADR)      │
+  └──────┬──────┘    └──────┬──────┘               └──────┬──────┘
+         │                  │                               │
+         └──────────────────┼───────────────────────────────┘
+                            │
+                            ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                   Insights Engine                                │
+  │                                                                 │
+  │  • Cross-service analysis                                       │
+  │  • Pattern detection                                            │
+  │  • Recommendations                                              │
+  └──────┬──────────────────────────────────────────────────┬───────┘
+         │                                                  │
+         ▼                                                  ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │                   Data & Storage Layer                           │
+  ├──────────────┬──────────────┬──────────────┬──────────────────┤
+  │ Model Files   │ Examples DB   │ ADR Files    │ Metadata Files   │
+  │ ( packaged )  │ ( JSON )     │ ( Markdown )  │ ( JSON sidecar )│
+  └─────────────────────────────────────────────────────────────────┘
+  ```
 
 ### 4.2 Detailed Component Architecture
 
@@ -430,12 +449,141 @@ Parser (extract text)
   JSON Sidecar    Reports    Visualizations
 ```
 
+#### 4.2.4 Agent Architecture
+
+The unified LangChain agent provides natural language interaction and intelligent tool selection across all interfaces (CLI, TUI, Streamlit).
+
+```python
+# Agent definition
+from langchain.agents import Tool, AgentExecutor, create_react_agent
+from langchain.prompts import PromptTemplate
+
+class ADRminerAgent:
+    """
+    Unified agent that orchestrates all ADRminer services
+    through natural language commands.
+    """
+    
+    def __init__(self, topic_service, classification_service, 
+                 check_service, insights_service):
+        self.tools = [
+            Tool(
+                name="TopicMining",
+                func=self._mine_topics,
+                description="Extract topics from ADRs using BERTopic"
+            ),
+            Tool(
+                name="Classification",
+                func=self._classify_adrs,
+                description="Classify ADRs using Kruchten, QAS, or Zimmermann frameworks"
+            ),
+            Tool(
+                name="ADRChecking",
+                func=self._check_adrs,
+                description="Check ADRs for MADR template adherence and quality"
+            ),
+            Tool(
+                name="InsightsGeneration",
+                func=self._generate_insights,
+                description="Generate actionable insights from analysis results"
+            )
+        ]
+        
+        self.agent = create_react_agent(
+            llm=self._get_llm(),
+            tools=self.tools,
+            prompt=self._get_prompt_template()
+        )
+        
+        self.executor = AgentExecutor(
+            agent=self.agent,
+            tools=self.tools,
+            verbose=True,
+            handle_parsing_errors=True
+        )
+    
+    def process(self, user_query: str, context: dict) -> dict:
+        """
+        Process natural language query and return results.
+        
+        Args:
+            user_query: Natural language request (e.g., "Classify all ADRs")
+            context: Additional context (ADR files, options, etc.)
+        
+        Returns:
+            dict: Analysis results
+        """
+        result = self.executor.invoke({
+            "input": user_query,
+            **context
+        })
+        return result
+    
+    def _mine_topics(self, adrs, **kwargs):
+        """Tool function for topic mining."""
+        return self.topic_service.predict_batch(adrs, **kwargs)
+    
+    def _classify_adrs(self, adrs, framework, **kwargs):
+        """Tool function for classification."""
+        return self.classification_service.classify_batch(
+            adrs, framework=framework, **kwargs
+        )
+    
+    def _check_adrs(self, adrs, **kwargs):
+        """Tool function for ADR checking."""
+        return self.check_service.check_batch(adrs, **kwargs)
+    
+    def _generate_insights(self, all_results, **kwargs):
+        """Tool function for insights generation."""
+        return self.insights_service.generate(all_results, **kwargs)
+```
+
+**Example Usage:**
+
+```python
+# Initialize agent
+agent = ADRminerAgent(
+    topic_service=TopicService(),
+    classification_service=ClassificationService(),
+    check_service=CheckService(),
+    insights_service=InsightsService()
+)
+
+# Natural language queries (work in CLI, TUI, and Streamlit)
+results = agent.process(
+    "Analyze all ADRs in /path/to/adrs with topic mining, "
+    "classification using Kruchten framework, and quality checks. "
+    "Generate insights and save metadata as JSON sidecars.",
+    context={"adr_path": "/path/to/adrs"}
+)
+
+# Specific queries
+results = agent.process(
+    "Classify adr-001.md using Quality Attributes framework",
+    context={"adr_files": ["adr-001.md"]}
+)
+
+results = agent.process(
+    "Check which ADRs are missing the alternatives section",
+    context={"adr_path": "/path/to/adrs"}
+)
+```
+
+**Benefits of Agent Architecture:**
+
+1. **Natural Language Interface**: Users can interact in plain English
+2. **Flexible Orchestration**: Agent decides which services to use and in what order
+3. **Context Awareness**: Agent maintains context across interactions
+4. **Unified Logic**: Same agent works across CLI, TUI, and Streamlit
+5. **Extensible**: Easy to add new tools without changing core logic
+
 ### 4.4 Directory Structure
 
 ```
 adrminer/
 ├── adrminer/
 │   ├── __init__.py
+│   ├── agent.py                     # Unified LangChain agent
 │   ├── config.py                    # Configuration management
 │   ├── models/                      # Model management
 │   │   ├── __init__.py
@@ -461,6 +609,7 @@ adrminer/
 ├── cli/
 │   ├── __init__.py
 │   ├── main.py                      # CLI entry point
+│   ├── tui_app.py                   # Textual TUI application
 │   └── commands/                    # CLI commands
 │       ├── __init__.py
 │       ├── classify.py
