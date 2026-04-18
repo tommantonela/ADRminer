@@ -577,85 +577,183 @@ results = agent.process(
 4. **Unified Logic**: Same agent works across CLI, TUI, and Streamlit
 5. **Extensible**: Easy to add new tools without changing core logic
 
-### 4.4 Directory Structure
+  ### 4.4 Directory Structure (src/ Layout for pip Distribution)
 
-```
-adrminer/
-├── adrminer/
-│   ├── __init__.py
-│   ├── agent.py                     # Unified LangChain agent
-│   ├── config.py                    # Configuration management
-│   ├── models/                      # Model management
-│   │   ├── __init__.py
-│   │   ├── topic_model.py          # BERTopic wrapper
-│   │   ├── classification_model.py  # LLM wrapper
-│   │   └── checker_model.py        # MADR checker
-│   ├── services/                    # Business logic layer
-│   │   ├── __init__.py
-│   │   ├── topic_service.py
-│   │   ├── classification_service.py
-│   │   ├── check_service.py
-│   │   └── insights_service.py     # Generates actionable insights
-│   ├── exporters/                   # Output formats
-│   │   ├── __init__.py
-│   │   ├── json_exporter.py         # Sidecar JSON files
-│   │   └── report_generator.py      # Human-readable reports
-│   ├── examples/                     # Few-shot examples database
-│   │   ├── __init__.py
-│   │   ├── kruchten_examples.json
-│   │   ├── qas_examples.json
-│   │   └── zimmermann_examples.json
-│   └── utils.py
-├── cli/
-│   ├── __init__.py
-│   ├── main.py                      # CLI entry point
-│   ├── tui_app.py                   # Textual TUI application
-│   └── commands/                    # CLI commands
-│       ├── __init__.py
-│       ├── classify.py
-│       ├── topics.py
-│       ├── check.py
-│       ├── analyze.py
-│       └── train.py                 # Re-training commands
-├── ui/
-│   ├── __init__.py
-│   ├── streamlit_app.py             # Streamlit interface
-│   └── components/                  # UI components
-│       ├── __init__.py
-│       ├── upload.py
-│       ├── results.py
-│       └── insights.py
-├── api/                              # Optional FastAPI layer
-│   ├── __init__.py
-│   ├── main.py
-│   └── routes/
-│       ├── __init__.py
-│       ├── classification.py
-│       ├── topics.py
-│       └── check.py
-├── models/                           # Pre-trained model storage
-│   ├── topic_model/
-│   │   ├── config.json
-│   │   ├── topics.json
-│   │   └── topics_dataframe.pickle
-│   └── examples/
-│       ├── kruchten_examples.json
-│       ├── qas_examples.json
-│       └── zimmermann_examples.json
-├── tests/
-│   ├── __init__.py
-│   ├── test_services/
-│   ├── test_models/
-│   └── test_cli/
-├── docs/
-│   ├── SERVICE_ROADMAP.md            # This document
-│   ├── API.md
-│   └── USER_GUIDE.md
-├── setup.py
-├── pyproject.toml
-├── requirements.txt
-└── README.md
-```
+  ```
+  ADRminer/
+  ├── src/                              # Package source code
+  │   └── adrminer/                  # Main package
+  │       ├── __init__.py
+  │       ├── cli/
+  │       │   ├── __init__.py
+  │       │   ├── main.py              # CLI entry point (typer)
+  │       │   ├── topics.py
+  │       │   ├── classify.py
+  │       │   ├── check.py
+  │       │   ├── analyze.py
+  │       │   └── utils.py
+  │       ├── config/
+  │       │   ├── __init__.py
+  │       │   ├── settings.py          # Pydantic settings
+  │       │   ├── default_config.yaml  # Default YAML config
+  │       │   └── init.py             # Init command logic
+  │       ├── models/
+  │       │   ├── __init__.py
+  │       │   ├── topic_model.py      # Wrapper for ADRTopicModel
+  │       │   ├── classification_model.py
+  │       │   └── checker_model.py
+  │       ├── services/
+  │       │   ├── __init__.py
+  │       │   ├── topic_service.py
+  │       │   ├── classification_service.py
+  │       │   ├── check_service.py
+  │       │   └── insights_service.py
+  │       ├── exporters/
+  │       │   ├── __init__.py
+  │       │   ├── json_exporter.py     # Sidecar JSON files
+  │       │   └── report_generator.py
+  │       └── utils.py
+  ├── adrminer_pkg/                     # Packaged data
+  │   ├── models/
+  │   │   └── topic_model/          # Default BERTopic model
+  │   │       ├── config.json
+  │   │       ├── topics.json
+  │   │       └── topics_dataframe.pickle
+  │   └── examples/                   # Built-in few-shot examples
+  │       ├── kruchten_examples.json
+  │       ├── qas_examples.json
+  │       └── zimmermann_examples.json
+  ├── tests/
+  │   ├── __init__.py
+  │   ├── conftest.py
+  │   ├── test_config/
+  │   ├── test_services/
+  │   ├── test_cli/
+  │   └── test_models/
+  ├── docs/
+  │   ├── SERVICE_ROADMAP.md            # This document
+  │   ├── UI_UX_DESIGN.md
+  │   └── CLI_GUIDE.md              # CLI usage guide
+  ├── notebooks/                         # Keep for backward compatibility
+  │   ├── adr.py
+  │   ├── adr_topic_mining.py
+  │   ├── adr_classification.py
+  │   └── adr_checking.py
+  ├── .env.example
+  ├── .gitignore
+  ├── pyproject.toml                     # Modern packaging with src layout
+  ├── setup.py                          # Optional: for backwards compat
+  ├── requirements.txt
+  ├── requirements-dev.txt              # Development dependencies
+  ├── README.md
+  ├── LICENSE
+  └── MANIFEST.in                       # Package data files
+  ```
+
+  **Key Changes from src/ Layout:**
+
+  - **Package Distribution**: Uses `src/` layout for proper pip installation
+  - **Separated Data**: `adrminer_pkg/` contains models and examples
+  - **Configuration**: YAML + .env with `adrminer init` command
+  - **CLI Framework**: typer + rich + textual (future TUI)
+  - **Testing**: Isolated test structure with pytest
+  - **Documentation**: Includes CLI guide for users
+  ------- SEARCH
+  | Component | Technology | Rationale |
+  |-----------|-------------|-----------|
+  | **Language** | Python 3.10+ | Existing codebase, ML ecosystem |
+  | **CLI Framework** | Click | Clean API, excellent documentation, composable |
+  | **Web UI** | Streamlit | Pure Python, rapid prototyping, built-in widgets |
+  | **Web Framework** | FastAPI (future) | Async, auto-docs, type hints, Pydantic integration |
+  | **LLM Integration** | LangChain | Multi-provider support, chains, structured output |
+  | **Topic Modeling** | BERTopic | Industry standard, flexible, good performance |
+  | **Embeddings** | Sentence-Transformers | State-of-the-art, multiple models available |
+  | **Data Models** | Pydantic | Validation, serialization, JSON schema |
+  | **CLI Progress** | tqdm, rich | Progress bars, colored output, tables |
+  | **Visualization** | Plotly, matplotlib | Interactive charts, publication quality |
+  | Component | Technology | Rationale |
+  |-----------|-------------|-----------|
+  | **Language** | Python 3.8+ | Existing codebase, ML ecosystem |
+  | **CLI Framework** | typer | Modern, rich type hints, auto-help, composable |
+  | **Rich Output** | rich | Tables, progress bars, colored output, syntax highlighting |
+  | **TUI Framework** | textual (future) | Interactive terminal UI for complex workflows |
+  | **Web UI** | Streamlit | Pure Python, rapid prototyping, built-in widgets |
+  | **Web Framework** | FastAPI (future) | Async, auto-docs, type hints, Pydantic integration |
+  | **LLM Integration** | LangChain | Multi-provider support, `init_chat_model()` factory |
+  | **Topic Modeling** | BERTopic | Industry standard, flexible, good performance |
+  | **Embeddings** | Sentence-Transformers | State-of-the-art, multiple models available |
+  | **Data Models** | Pydantic | Validation, serialization, JSON schema |
+  | **Configuration** | pydantic-settings | YAML + .env, type-safe, validation |
+  | **CLI Progress** | tqdm, rich | Progress bars, colored output, tables |
+  | **Visualization** | Plotly, matplotlib | Interactive charts, publication quality |
+  ------- SEARCH
+  ### 5.2 LLM Providers (via LangChain)
+
+  - **Primary**: OpenAI (GPT-4o-mini, GPT-4o)
+  - **Alternative**: Anthropic (Claude 3 Haiku/Sonnet)
+  - **Local**: Ollama (Llama 3, Mistral)
+  - **Future**: Google Gemini, Azure OpenAI
+  ### 5.2 LLM Providers (via LangChain's init_chat_model())
+
+  Uses `langchain.chat_models.base.init_chat_model()` for flexible LLM provider support:
+
+  - **Primary**: OpenAI (GPT-4o-mini, GPT-4o)
+  - **Alternative**: Anthropic (Claude 3 Haiku/Sonnet)
+  - **Local**: Ollama (Llama 3, Mistral)
+  - **Cloud**: Azure OpenAI, Google Gemini
+  - **Configuration**: Provider and model specified in YAML config
+
+  **Example Configuration:**
+  ```yaml
+  llm:
+    provider: openai  # openai, anthropic, ollama, azure, google
+    model: gpt-4o-mini
+    temperature: 0.0
+    max_tokens: 2000
+  ```
+  ------- SEARCH
+  ### 5.3 Storage & Packaging
+
+  - **Model Storage**: Package with `pip` (safetensors format)
+  - **Examples Database**: JSON files in package
+  - **Configuration**: TOML + environment variables
+  - **Metadata**: JSON sidecar files
+  - **Package Manager**: pip + setuptools
+  ### 5.3 Storage & Packaging
+
+  - **Model Storage**: Packaged with pip in `adrminer_pkg/models/` (safetensors format)
+  - **Examples Database**: JSON files in `adrminer_pkg/examples/`
+  - **Configuration**: YAML (`.adrminer.yaml`) + environment variables (`.env`)
+  - **Metadata**: JSON sidecar files alongside ADRs
+  - **Package Manager**: pip + setuptools with `src/` layout
+  - **Installation**: `pip install -e .` (development) or `pip install adrminer` (production)
+  ------- SEARCH
+  ### 5.4 Development Tools
+
+  - **Testing**: pytest, pytest-cov
+  - **Linting**: ruff (fast), mypy (type checking)
+  - **Documentation**: Sphinx, MkDocs
+  - **CI/CD**: GitHub Actions
+  - **Code Quality**: pre-commit hooks (black, isort)
+  ### 5.4 Development Tools
+
+  - **Testing**: pytest, pytest-cov, pytest-asyncio
+  - **Linting**: ruff (fast), mypy (type checking)
+  - **Formatting**: black (code), isort (imports)
+  - **Pre-commit**: pre-commit hooks for code quality
+  - **Documentation**: Sphinx, MkDocs
+  - **CI/CD**: GitHub Actions
+  - **Packaging**: pyproject.toml (modern), MANIFEST.in (data files)
+
+  **Development Installation:**
+  ```bash
+  pip install -e ".[dev,tui]"
+  ```
+
+  **Testing:**
+  ```bash
+  pytest tests/ --cov=src/adrminer --cov-report=term-missing
+  ```
 
 ---
 

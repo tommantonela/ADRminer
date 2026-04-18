@@ -623,13 +623,440 @@ The Streamlit UI features a **sidebar-based navigation** with a clean, modern in
 
 The CLI/TUI interface provides full feature parity with the Streamlit web UI, using modern terminal libraries for an intuitive experience.
 
-### 11.1 Design Philosophy
+  ### 11.1 Design Philosophy
 
-- **Consistent with CLI**: Traditional command-line options for power users
-- **Modern TUI**: Rich, interactive terminal UI using Textual
-- **Natural Language**: Same agent-driven interface as Streamlit
-- **Keyboard-First**: Optimized for keyboard navigation
-- **Progressive**: Simple commands for quick tasks, TUI for complex workflows
+  - **Consistent CLI**: Modern typer-based CLI with rich type hints and auto-help
+  - **Rich Output**: Colored tables, progress bars, and formatted output using rich library
+  - **Modern TUI**: Rich, interactive terminal UI using Textual (future enhancement)
+  - **Natural Language**: Same agent-driven interface as Streamlit (future)
+  - **Keyboard-First**: Optimized for keyboard navigation
+  - **Progressive**: Simple commands for quick tasks, TUI for complex workflows
+  - **Configuration-Driven**: .env + YAML config with `adrminer init` command
+  ------- SEARCH
+  ### 11.2 TUI Home Screen
+  ### 11.2 CLI Entry Point
+
+The CLI uses typer for modern, type-safe command-line interface with automatic help generation.
+
+**Main Command Structure:**
+```bash
+adrminer [OPTIONS] COMMAND [ARGS]...
+
+# Available commands:
+  init         Initialize ADRminer configuration
+  topics        Topic mining with BERTopic
+  classify      Classify ADRs using LLM
+  check         Check ADR quality and template adherence
+  analyze       Run combined analysis
+  model         Model management
+  export        Export results and reports
+  --help        Show help message
+```
+
+**Global Options:**
+- `--config, -c`: Path to configuration file (default: ~/.adrminer.yaml)
+- `--verbose, -v`: Verbose output
+- `--version`: Show version information
+
+**Exit Codes:**
+- `0`: Success
+- `1`: General error
+- `2`: Configuration error
+- `3`: Input file not found
+- `4`: Model load error
+- `5`: API error
+
+### 11.3 Initialization Command
+
+The `adrminer init` command sets up configuration for first-time users.
+
+```bash
+# Basic initialization (non-interactive)
+adrminer init
+
+# Interactive mode with prompts
+adrminer init --interactive
+
+# Specify custom config location
+adrminer init --config /path/to/config.yaml
+
+# Verbose mode
+adrminer init --verbose
+```
+
+**What it does:**
+1. Checks for `.env` file, creates from `.env.example` if missing
+2. Creates `.adrminer.yaml` from packaged default config
+3. Validates configuration structure
+4. Checks for default topic model availability
+5. Sets up required directory structure
+6. Validates LLM API keys if provided
+
+**Example Output:**
+```
+✅ ADRminer Configuration Initialization
+
+Checking environment...
+  ✓ .env file found at /home/user/.adrminer/.env
+  ✓ OPENAI_API_KEY configured
+
+Creating configuration...
+  ✓ Configuration file created at /home/user/.adrminer.yaml
+  ✓ Default topic model: ~/.adrminer/models/topic_model
+
+Validating configuration...
+  ✓ YAML structure valid
+  ✓ Topic model accessible
+  ✓ Examples loaded
+
+Configuration initialized successfully! Run 'adrminer --help' to get started.
+```
+
+### 11.4 Configuration Management
+
+**Configuration Files:**
+
+1. **`.env`** (environment variables - sensitive data only):
+```bash
+# LLM Provider Keys
+OPENAI_API_KEY=sk-xxx
+ANTHROPIC_API_KEY=sk-ant-xxx
+```
+
+2. **`.adrminer.yaml`** (user configuration):
+```yaml
+# LLM Configuration
+llm:
+  provider: openai  # openai, anthropic, ollama, azure, google
+  model: gpt-4o-mini
+  temperature: 0.0
+  max_tokens: 2000
+
+# Topic Model Configuration
+topic_model:
+  path: ~/.adrminer/models/topic_model
+  embedding_model: all-MiniLM-L6-v2
+  n_topics: auto
+
+# Classification Configuration
+classification:
+  framework: kruchten  # kruchten, quality_attributes, zimmermann
+  examples: ~/.adrminer/examples/kruchten_examples.json
+  use_examples: true
+
+# Check Service Configuration
+check:
+  template: madr
+  model: gpt-4o-mini
+
+# Output Configuration
+output:
+  format: json-sidecar  # json-sidecar, consolidated-json, markdown
+  parallel: true
+  verbose: false
+```
+
+**Environment Variable Overrides:**
+```bash
+# Override LLM provider from config
+export LLM_PROVIDER=anthropic
+export LLM_MODEL=claude-3-sonnet
+
+# Override topic model path
+export TOPIC_MODEL_PATH=/custom/path/to/model
+
+# Use different examples
+export CLASSIFICATION_EXAMPLES=/custom/examples.json
+```
+
+### 11.5 Topics Command
+
+```bash
+# Predict topics for single ADR
+adrminer topics predict adr-001.md
+
+# Predict topics for directory
+adrminer topics predict ./adrs/ --parallel
+
+# Train new topic model
+adrminer topics train ./training_data/ --output ./models/custom --n-topics 15
+
+# Model management
+adrminer topics list
+adrminer topics info topic-model-v1.0
+```
+
+**Topics Subcommands:**
+- `predict`: Predict topics for ADR(s)
+- `train`: Train new topic model
+- `list`: List available topic models
+- `info`: Show model details
+
+**Predict Options:**
+- `--model, -m`: Path to topic model (default from config)
+- `--output, -o`: Output JSON file path
+- `--parallel, -p`: Enable parallel processing for batches
+- `--threshold, -t`: Topic probability threshold (default: 0.0)
+- `--multiple`: Allow multiple topics per ADR
+- `--verbose, -v`: Verbose output
+
+**Train Options:**
+- `--n-topics, -n`: Number of topics (default: auto)
+- `--embedding, -e`: Embedding model (default: all-MiniLM-L6-v2)
+- `--openai`: Use OpenAI for topic labels
+- `--output, -o`: Output model directory
+
+### 11.6 Classify Command
+
+```bash
+# Classify single ADR
+adrminer classify predict adr-001.md --framework kruchten
+
+# Classify directory with default framework from config
+adrminer classify predict ./adrs/ --parallel
+
+# Zero-shot (no examples)
+adrminer classify predict adr-001.md --framework qas --no-examples
+
+# Custom examples
+adrminer classify predict ./adrs/ --examples /path/to/custom.json
+
+# Framework options
+adrminer classify --framework kruchten      # 4 categories
+adrminer classify --framework quality_attributes  # 10 categories
+adrminer classify --framework zimmermann     # 9 categories
+```
+
+**Classify Subcommands:**
+- `predict`: Classify ADR(s) using specified framework
+- `list`: List supported frameworks
+- `examples`: Show available example sets
+
+**Predict Options:**
+- `--framework, -f`: Classification framework (kruchten, quality_attributes, zimmermann)
+- `--examples, -e`: Path to custom examples JSON file
+- `--no-examples`: Zero-shot classification (no examples)
+- `--parallel, -p`: Enable parallel processing for batches
+- `--output, -o`: Output JSON file path
+- `--verbose, -v`: Verbose output
+
+### 11.7 Check Command
+
+```bash
+# Check single ADR
+adrminer check predict adr-001.md
+
+# Check directory
+adrminer check predict ./adrs/ --parallel
+
+# Section-wise analysis
+adrminer check predict adr-001.md --sections
+
+# Template options
+adrminer check predict adr-001.md --template madr
+```
+
+**Check Subcommands:**
+- `predict`: Check ADR quality and template adherence
+- `templates`: List supported templates
+
+**Predict Options:**
+- `--template, -t`: Template to check against (default: madr)
+- `--sections`: Run section-wise analysis
+- `--parallel, -p`: Enable parallel processing for batches
+- `--output, -o`: Output JSON file path
+- `--verbose, -v`: Verbose output
+
+### 11.8 Analyze Command (Combined)
+
+```bash
+# Run all services
+adrminer analyze ./adrs/ --topics --classify kruchten --check
+
+# Use default configuration
+adrminer analyze ./adrs/
+
+# Export results
+adrminer analyze ./adrs/ --output ./results/
+
+# Generate insights
+adrminer analyze ./adrs/ --insights
+
+# Consolidated JSON output
+adrminer analyze ./adrs/ --format consolidated-json --output ./results/summary.json
+```
+
+**Analyze Options:**
+- `--topics`: Enable topic mining
+- `--classify, -f`: Enable classification with framework
+- `--check`: Enable quality checking
+- `--insights`: Generate cross-service insights
+- `--format, -f`: Output format (json-sidecar, consolidated-json, markdown)
+- `--output, -o`: Output directory or file
+- `--parallel, -p`: Enable parallel processing
+- `--verbose, -v`: Verbose output
+
+### 11.9 Export Command
+
+```bash
+# Export to JSON sidecars
+adrminer export --format json-sidecar --input ./results/ --output ./adrs/
+
+# Consolidated JSON export
+adrminer export --format consolidated-json --input ./results/ --output ./summary.json
+
+# Markdown report
+adrminer export --format markdown --input ./results/ --output ./report.md
+
+# Export specific analysis
+adrminer export --type topics --format json-sidecar --input ./results/
+```
+
+**Export Options:**
+- `--format, -f`: Output format (json-sidecar, consolidated-json, markdown)
+- `--type, -t`: Analysis type to export (topics, classification, check, all)
+- `--input, -i`: Input results directory
+- `--output, -o`: Output directory or file
+- `--include-insights`: Include generated insights
+
+### 11.10 Model Command
+
+```bash
+# List available models
+adrminer model list
+
+# Show model details
+adrminer model info topic-model-v1.0
+
+# Validate model
+adrminer model validate --model ./models/custom
+```
+
+**Model Subcommands:**
+- `list`: List all available models
+- `info`: Show detailed model information
+- `validate`: Validate model file integrity
+- `download`: Download model from repository (future)
+
+### 11.11 Rich Output Examples
+
+**Table Display:**
+```python
+from rich.table import Table
+from rich.console import Console
+
+console = Console()
+
+table = Table(title="Classification Results")
+table.add_column("ADR", style="cyan")
+table.add_column("Category", style="green")
+table.add_column("Confidence", style="yellow")
+table.add_column("Status", style="bold")
+
+table.add_row("adr-001.md", "Existence", "0.92", "✅")
+table.add_row("adr-002.md", "Property", "0.78", "⚠️")
+
+console.print(table)
+```
+
+**Progress Bar:**
+```python
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
+
+with Progress(
+    SpinnerColumn(),
+    TextColumn("[progress.description]{task.description}"),
+    BarColumn(),
+    TextColumn("[progress.percentage]{task.percentage:>3.0}%"),
+    console=console
+) as progress:
+    task = progress.add_task("Processing ADRs...", total=100)
+    for i in range(100):
+        # Process ADR
+        progress.update(task, advance=1)
+```
+
+**Progress with Multiple Services:**
+```python
+with Progress(
+    SpinnerColumn(),
+    TextColumn("[progress.description]{task.description}"),
+    BarColumn(),
+    console=console
+) as progress:
+    topics_task = progress.add_task("Topics: ", total=25)
+    classify_task = progress.add_task("Classification: ", total=25)
+    check_task = progress.add_task("Checking: ", total=25)
+    
+    # Process with parallel execution
+    for i in range(25):
+        progress.update(topics_task, advance=1)
+        progress.update(classify_task, advance=1)
+        progress.update(check_task, advance=1)
+```
+
+### 11.12 Error Handling
+
+**Clear Error Messages:**
+```python
+from rich.console import Console
+from rich.markdown import Markdown
+
+console = Console()
+
+def handle_error(error: Exception, context: str = None):
+    """Handle and display errors with rich formatting"""
+    error_msg = f"""
+# ❌ Error
+
+{error}
+
+**Context:** {context if context else "Unknown"}
+
+**Suggestions:**
+- Run `adrminer init` to set up configuration
+- Check API keys in `.env` file
+- Verify model files exist at configured paths
+- Use `--verbose` flag for more details
+- Check documentation: `adrminer --help`
+
+For more help, visit: https://github.com/tommantonela/ADRminer
+    """
+    console.print(Markdown(error_msg))
+```
+
+**Exit Codes:**
+```python
+import typer
+import sys
+
+# Configuration error
+raise typer.Exit(
+    message="Configuration file not found. Run 'adrminer init' first.",
+    code=2
+)
+
+# File not found
+raise typer.Exit(
+    message=f"File not found: {input_path}",
+    code=3
+)
+
+# Model load error
+raise typer.Exit(
+    message=f"Failed to load model: {model_path}",
+    code=4
+)
+
+# API error
+raise typer.Exit(
+    message=f"LLM API error: {error_message}",
+    code=5
+)
+```
+
+### 11.13 TUI Home Screen (Future Enhancement)
+
 
 ### 11.2 TUI Home Screen
 
