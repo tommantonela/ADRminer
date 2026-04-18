@@ -51,6 +51,17 @@ class TopicResult(BaseModel):
 
 class ADRTopicModel:
 
+    DEFAULT_PROMPT = """"
+    You are an assistant for a software developer that needs to analyze documents containing architectural design decisions.
+    In this context, I have a software-related topic that affects the following documents:
+    [DOCUMENTS]
+
+    The topic is described by the following keywords: '[KEYWORDS]'.
+
+    Based on the above information, can you assign a descriptive label of at most 7 words to the topic?
+    Answer:
+    """
+
     def __init__(self):
         self.dict_adrs = {}
         self.adr_texts = []
@@ -67,7 +78,7 @@ class ADRTopicModel:
         
         self.corpus, self.all_adr_keys = utils.prune_corpus(self.dict_adrs)
     
-    def configure_representation(self, use_openai=False):
+    def configure_representation(self, use_openai=False, prompt=None):
 
         representation_model1 = KeyBERTInspired()
 
@@ -78,16 +89,8 @@ class ADRTopicModel:
             tokenizer= tiktoken.get_encoding("o200k_base") 
             # tokenizer= tiktoken.encoding_for_model(os.environ["OPENAI_MODEL_NAME"])
 
-            prompt = """
-            You are an assistant for a software developer that needs to analyze documents containing architectural design decisions.
-            In this context, I have a software-related topic that affects the following documents:
-            [DOCUMENTS]
-
-            The topic is described by the following keywords: '[KEYWORDS]'.
-
-            Based on the above information, can you assign a descriptive label of at most 7 words to the topic?
-            Answer:
-            """
+            if prompt is None:
+                prompt = ADRTopicModel.DEFAULT_PROMPT
 
             # Create your representation model
             self.client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
@@ -121,10 +124,10 @@ class ADRTopicModel:
 
         self.umap_model = UMAP(n_neighbors=15, n_components=5, min_dist=0.0, metric=metric, random_state=42)
 
-    def build(self, n_topics=None, use_openai=True) -> pd.DataFrame:
+    def build(self, n_topics=None, use_openai=True, prompt=None) -> pd.DataFrame:
 
         logger.info("Creating new topic model...")
-        self.configure_representation(use_openai=use_openai)
+        self.configure_representation(use_openai=use_openai, prompt=prompt)
         self.configure_embeddings()
         
         self.topic_model = BERTopic(embedding_model=self.embedding_model, 
