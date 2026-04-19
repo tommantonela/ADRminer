@@ -381,7 +381,7 @@ def _extract_title(content: str) -> str:
 
 def _format_metadata(metadata: dict) -> str:
     """
-    Format metadata for display.
+    Format metadata for display (reduced version with most important info).
     
     Args:
         metadata: Metadata dictionary
@@ -391,25 +391,49 @@ def _format_metadata(metadata: dict) -> str:
     """
     lines = []
     
-    # Helper to format values
-    def format_value(key: str, value, indent: int = 0) -> str:
-        prefix = "  " * indent
-        if isinstance(value, dict):
-            result = [f"{prefix}[cyan]{key}[/cyan]:"]
-            for k, v in value.items():
-                result.append(format_value(k, v, indent + 1))
-            return "\n".join(result)
-        elif isinstance(value, list):
-            result = [f"{prefix}[cyan]{key}[/cyan]:"]
-            for item in value:
-                result.append(f"{prefix}  • [white]{item}[/white]")
-            return "\n".join(result)
-        else:
-            return f"{prefix}[cyan]{key}[/cyan]: [white]{value}[/white]"
+    # Show analysis timestamp
+    if "analyzed_at" in metadata:
+        lines.append(f"[cyan]Analyzed[/cyan]: [white]{metadata['analyzed_at'][:19]}Z[/white]")
+        lines.append("")
     
-    # Format top-level keys
-    for key, value in metadata.items():
-        lines.append(format_value(key, value))
+    # Show topics (reduced view)
+    if "topics" in metadata:
+        topics = metadata["topics"]
+        lines.append(f"[cyan]Topic[/cyan]: [white]{topics.get('topic_label', 'N/A')}[/white]")
+        lines.append(f"  [cyan]Probability[/cyan]: [white]{topics.get('probability', 0):.2%}[/white]")
+        lines.append("")
+    
+    # Show classifications (reduced view)
+    if "classifications" in metadata:
+        classifications = metadata["classifications"]
+        lines.append("[cyan]Classifications[/cyan]:")
+        for framework, cls in classifications.items():
+            primary = cls.get("primary_category", cls.get("category", "N/A"))
+            confidence = cls.get("confidence", 0)
+            lines.append(f"  • [white]{framework}[/white]: [white]{primary}[/white] ([white]{confidence:.0%}[/white])")
+        lines.append("")
+    
+    # Show check results (reduced view)
+    if "check" in metadata:
+        check = metadata["check"]
+        adherence = check.get("template_adherence", {})
+        if isinstance(adherence, dict):
+            score = adherence.get("adherence_score", "N/A")
+            mode = check.get("mode", "N/A")
+            lines.append(f"[cyan]Quality Check[/cyan] ([white]{mode}[/white]):")
+            lines.append(f"  [cyan]Adherence Score[/cyan]: [white]{score if score != 'N/A' else 'N/A'}[/white]")
+            
+            # Show section summary
+            assessments = check.get("section_assessments", [])
+            if assessments:
+                present = sum(1 for a in assessments if a.get("presence") == "Yes")
+                quality = sum(1 for a in assessments if a.get("content_quality") == "Yes")
+                lines.append(f"  [cyan]Sections Present[/cyan]: [white]{present}/{len(assessments)}[/white]")
+                lines.append(f"  [cyan]Sections Quality[/cyan]: [white]{quality}/{len(assessments)}[/white]")
+    
+    # If no key metadata found, show message
+    if not any(key in metadata for key in ["analyzed_at", "topics", "classifications", "check"]):
+        lines.append("[yellow]No analysis data available[/yellow]")
     
     return "\n".join(lines)
 
