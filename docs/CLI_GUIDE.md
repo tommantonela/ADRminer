@@ -514,6 +514,50 @@ adrminer classify predict ./adrs/ --framework kruchten --parallel --output ./res
 adrminer check predict ./adrs/ --parallel --output ./results/checks.json
 ```
 
+### 5.3 Multiple Classification Frameworks
+
+ADRminer supports classifying ADRs using multiple frameworks simultaneously. Each classification result is stored separately under a nested structure in the metadata file.
+
+```bash
+# Classify using Kruchten framework
+adrminer classify predict adr-001.md --framework kruchten
+
+# Classify using Zimmermann framework (adds to existing classifications)
+adrminer classify predict adr-001.md --framework zimmermann
+
+# Classify using Quality Attributes framework (adds to existing classifications)
+adrminer classify predict adr-001.md --framework quality_attributes
+```
+
+**Key Points:**
+- All framework classifications are preserved in a single `.metadata.json` file
+- Each new classification adds to the existing ones without overwriting
+- Use `adrminer util inspect adr-001.md` to view all classifications
+- The `classifications` key contains a dictionary with framework names as keys
+
+**Example Output:**
+```json
+{
+  "classifications": {
+    "kruchten": {
+      "primary_category": "Existence (ontocrisis)",
+      "confidence": 0.95,
+      ...
+    },
+    "zimmermann": {
+      "primary_category": "Architecture",
+      "confidence": 0.92,
+      ...
+    },
+    "quality_attributes": {
+      "primary_category": "Maintainability",
+      "confidence": 0.90,
+      ...
+    }
+  }
+}
+```
+
 ### 5.3 Combined Analysis
 
 ```bash
@@ -605,12 +649,24 @@ adrs/
       "keywords": ["database", "migration", "schema"]
     }
   ],
-  "classification": {
+  "classifications": {
     "kruchten": {
-      "primary_category": "Existence",
+      "primary_category": "Existence (ontocrisis)",
       "confidence": 0.92,
       "alternatives": ["Property"],
       "explanation": "This ADR describes a structural change..."
+    },
+    "zimmermann": {
+      "primary_category": "Architecture",
+      "confidence": 0.95,
+      "alternatives": ["Technology"],
+      "explanation": "This ADR focuses on architectural style..."
+    },
+    "quality_attributes": {
+      "primary_category": "Maintainability",
+      "confidence": 0.90,
+      "alternatives": ["Scalability"],
+      "explanation": "This ADR addresses system maintainability..."
     }
   },
   "check": {

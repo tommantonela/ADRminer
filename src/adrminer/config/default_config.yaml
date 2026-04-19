@@ -1,0 +1,40 @@
+# ADRminer Default Configuration
+# This file provides default settings for ADRminer
+# Copy to ~/.adrminer.yaml and customize as needed
+
+# LLM Configuration
+llm:
+  provider: openai  # openai, anthropic, ollama, azure, google
+  model: gpt-4.1-mini
+  temperature: 0.0
+  max_tokens: 2000
+
+# Topic Model Configuration
+topic_model:
+  path: ./notebooks/saved_topicmodel
+  embedding_model: all-MiniLM-L6-v2
+  n_topics: null
+  use_llm_representation: false  # Use LLM to generate human-readable topic names
+  reduce_topics: false  # Reduce number of topics after training
+  language: english  # Language for stop words in vectorizer
+  # UMAP parameters for dimensionality reduction
+  umap_n_neighbors: 15
+  umap_n_components: 5
+  umap_min_dist: 0.0
+  umap_metric: cosine
+
+# Classification Configuration
+classification:
+  framework: kruchten  # kruchten, quality_attributes, zimmermann
+  examples: ~/.adrminer/examples/kruchten_examples.json
+  use_examples: true
+
+# Check Service Configuration
+check:
+  template: madr
+
+# Output Configuration
+output:
+  format: json-sidecar  # json-sidecar, consolidated-json, markdown
+  parallel: true
+  verbose: false

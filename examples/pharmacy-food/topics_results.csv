@@ -1,0 +1,7 @@
+ADR_File,Topic_ID,Topic_Name,Probability,Keywords
+ADR001-microservice-style.md,67,Microservices Architecture and Development,0.688,"microservices, microservice, monolithic, services, architecture"
+ADR006-aws-as-cloud-provider.md,3,Kubernetes Cloud Infrastructure Management,0.648,"kubernetes, kubectl, pods, pod, ingress"
+ADR004-wrapper-pattern.md,-1,-1_aws_deployment_cloud_services,0.502,
+ADR003-bff-pattern.md,67,Microservices Architecture and Development,0.606,"microservices, microservice, monolithic, services, architecture"
+ADR002-payment-gateway.md,42,Cloud API Gateway Integration,0.490,"apis, azure, apigee, api, gateway"
+ADR005-cqrs-pattern.md,0,API-Driven Data Publishing Architecture,0.585,"publishing, database, metadata, api, db"

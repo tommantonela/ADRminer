@@ -1,0 +1,147 @@
+═══════════════════════════════════════════════════════════════════════════════
+                  PYTHON DEPENDENCY AUDIT - CORRECTED SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+
+PROJECT: ADRMiner
+DATE: January 23, 2026
+CORRECTION: Notebook imports verified
+
+───────────────────────────────────────────────────────────────────────────────
+CORRECTION MADE
+───────────────────────────────────────────────────────────────────────────────
+
+✅ Verified notebook imports at cell level
+   • classification_analysis.ipynb DOES use: `from sankeyflow import Sankey`
+   • adrs_catboost_classification.ipynb uses: `from catboost import CatBoostClassifier`
+
+RESULT: Updated analysis to correctly classify sankeyflow as REQUIRED
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔴 CRITICAL ISSUES FOUND: 4 Missing Dependencies
+
+   1. langchain-core
+      - Used by: custom_selector.py, adr_classification.py, adr_checking.py
+      - Impact: LLM classification will FAIL
+      - Action: ADD to requirements.txt
+
+   2. langchain-openai
+      - Used by: adr_classification.py, adr_checking.py
+      - Impact: LLM features will FAIL
+      - Action: ADD to requirements.txt
+
+   3. langchain-huggingface
+      - Used by: custom_selector.py
+      - Impact: Dynamic few-shot learning will FAIL
+      - Action: ADD to requirements.txt
+
+   4. statsmodels
+      - Used by: utils.py (mosaicplot visualization)
+      - Impact: Some visualizations will FAIL
+      - Action: ADD to requirements.txt
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🟡 OPTIONAL/LEGACY: 5 Possibly Unused Packages (CORRECTED)
+
+   Legacy Alternatives to BERTopic (not used):
+   • fastopic (1.0.0) - Alternative topic model
+   • topmost (1.0.1) - Alternative topic model
+   • model2vec (0.4.1) - Legacy embedding alternative
+
+   Unused Visualization:
+   • matplotlib-venn (1.1.2) - Not found in active code
+
+   Recommendation: Remove to reduce install size
+
+✅ KEPT AS REQUIRED (was previously marked optional):
+   • sankeyflow (0.4.1) - USED in classification_analysis.ipynb
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ REQUIRED & PRESENT: 19 Packages (UPDATED from 18)
+
+Core Data Science (7):
+   ✓ beautifulsoup4, numpy, pandas, scipy, scikit-learn, markdown
+   ✓ statsmodels (FOUND IN utils.py)
+
+NLP & Embeddings (4):
+   ✓ bertopic, sentence-transformers, wordcloud
+
+LLM & Language (5):
+   ✓ openai, tiktoken, pydantic
+   ✗ langchain-core (MISSING)
+   ✗ langchain-openai (MISSING)
+
+Visualization (3):
+   ✓ matplotlib, seaborn, sankeyflow (classification_analysis.ipynb)
+
+Jupyter Environment (3):
+   ✓ ipython, nest_asyncio, tqdm
+
+Configuration (2):
+   ✓ python-dotenv, pythonjsonlogger
+
+Dimensionality Reduction (1):
+   ✓ umap-learn
+
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMMENDED requirements.txt CHANGES (UPDATED)
+───────────────────────────────────────────────────────────────────────────────
+
+ADDITIONS (Required):
+
+  + langchain-core>=0.1.0,<0.2.0
+  + langchain-openai>=0.1.0,<0.2.0
+  + langchain-huggingface>=0.0.1
+  + statsmodels>=0.14.0
+
+VERSION IMPROVEMENTS:
+
+  ~ pythonjsonlogger (currently unversioned) → >=2.0.0
+  ~ umap (currently "umap") → umap-learn>=0.5.0
+
+REMOVALS (Legacy Alternatives):
+
+  - fastopic==1.0.0
+  - topmost==1.0.1
+  - model2vec==0.4.1
+  - matplotlib-venn==1.1.2
+
+KEEP:
+
+  ✓ sankeyflow==0.4.1 (REQUIRED for classification_analysis.ipynb)
+  ✓ catboost (unversioned, optional for alternative experiments)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+FINAL STATUS
+───────────────────────────────────────────────────────────────────────────────
+
+| Category | Count | Status |
+|----------|-------|--------|
+| **Required & Present** | 19 | ✅ OK |
+| **Required & Missing** | 4 | 🔴 ACTION NEEDED |
+| **Optional/Legacy** | 5 | 🟡 Remove |
+| **Optional & Used** | 1 | ✅ KEEP (sankeyflow) |
+| **Total** | 25 | - |
+
+═══════════════════════════════════════════════════════════════════════════════
+
+KEY LESSON LEARNED
+───────────────────────────────────────────────────────────────────────────────
+
+✅ ALWAYS check notebook imports directly (JSON cell source)
+   Regular grep/import analysis misses notebook-specific imports
+   Notebooks are JSON files with cell source arrays
+
+Files analyzed:
+   • 7 Python modules (.py files)
+   • 8 Jupyter notebooks (.ipynb files)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+DETAILED REPORT: See DEPENDENCY_ANALYSIS.md (now corrected)
+
+═══════════════════════════════════════════════════════════════════════════════
