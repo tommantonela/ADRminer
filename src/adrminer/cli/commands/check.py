@@ -16,29 +16,29 @@ from adrminer.exporters import JSONExporter
 console = Console()
 
 
-def _load_adr_files(adr_path: Path) -> list[tuple[Path, str]]:
+def _load_adr_files(path: Path) -> list[tuple[Path, str]]:
     """
     Load ADR files from a path.
     
     Args:
-        adr_path: Path to ADR file or directory
+        path: Path to ADR file or directory
     
     Returns:
         List of (path, content) tuples
     """
     files = []
     
-    if adr_path.is_file():
+    if path.is_file():
         # Single ADR file
         try:
-            with open(adr_path, 'r', encoding='utf-8') as f:
+            with open(path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            files.append((adr_path, content))
+            files.append((path, content))
         except Exception as e:
-            console.print(f"[red]Error reading {adr_path}: {e}[/red]")
-    elif adr_path.is_dir():
+            console.print(f"[red]Error reading {path}: {e}[/red]")
+    elif path.is_dir():
         # Directory: load all .md files
-        for md_file in sorted(adr_path.glob("*.md")):
+        for md_file in sorted(path.glob("*.md")):
             try:
                 with open(md_file, 'r', encoding='utf-8') as f:
                     content = f.read()
@@ -577,7 +577,7 @@ def _export_to_csv(results: list[dict], adr_files: list[Path], mode: str, csv_pa
 
 
 def check(
-    adr_path: Path = typer.Argument(
+    path: Path = typer.Argument(
         ...,
         help="Path to ADR file or directory",
         exists=True,
@@ -593,6 +593,21 @@ def check(
         "--parallel",
         "-p",
         help="Enable parallel processing",
+    ),
+    use_parser: bool = typer.Option(
+        False,
+        "--use-parser",
+        help="Use ADR parser for section extraction",
+    ),
+    strict: bool = typer.Option(
+        False,
+        "--strict",
+        help="Enable strict parsing (fail on errors)",
+    ),
+    no_language_detect: bool = typer.Option(
+        False,
+        "--no-language-detect",
+        help="Disable language detection in parser",
     ),
     csv: Optional[Path] = typer.Option(
         None,
@@ -613,7 +628,7 @@ def check(
     """
     # Load ADR files
     console.print(f"[blue]Loading ADR files...[/blue]")
-    adr_files = _load_adr_files(adr_path)
+    adr_files = _load_adr_files(path)
     
     if not adr_files:
         console.print("[red]No ADR files found[/red]")
@@ -623,7 +638,25 @@ def check(
     
     # Initialize checking service
     console.print(f"[blue]Initializing checking service...[/blue]")
-    service = CheckingService(mode=mode)
+    
+    # Build parser config if parser is enabled
+    parser_config = None
+    if use_parser:
+        parser_config = {}
+        if strict:
+            parser_config["strict"] = True
+        if no_language_detect:
+            parser_config["detect_language"] = False
+        
+        console.print("[cyan]  Parser: enabled[/cyan]")
+        if strict:
+            console.print("[cyan]  Parser mode: strict[/cyan]")
+        else:
+            console.print("[cyan]  Parser mode: lenient (fallback on error)[/cyan]")
+        if not no_language_detect:
+            console.print("[cyan]  Language detection: enabled[/cyan]")
+    
+    service = CheckingService(mode=mode, use_parser=use_parser, parser_config=parser_config)
     
     # Extract texts and metadata
     texts = [content for _, content in adr_files]

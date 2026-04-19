@@ -84,6 +84,23 @@ class TopicModelConfig(BaseModel):
     )
 
 
+class ParserConfig(BaseModel):
+    """ADR parser configuration."""
+    
+    strict: bool = Field(
+        default=False,
+        description="Enable strict parsing (fail on errors)"
+    )
+    detect_language: bool = Field(
+        default=True,
+        description="Detect ADR language using langdetect"
+    )
+    fallback_on_error: bool = Field(
+        default=True,
+        description="Fallback to original text on parsing failure"
+    )
+
+
 class ClassificationConfig(BaseModel):
     """Classification configuration."""
     
@@ -99,6 +116,14 @@ class ClassificationConfig(BaseModel):
         default=True,
         description="Whether to use examples (few-shot)"
     )
+    use_parser: bool = Field(
+        default=False,
+        description="Whether to use ADR parser for section extraction"
+    )
+    parser: ParserConfig = Field(
+        default_factory=ParserConfig,
+        description="Parser configuration"
+    )
 
 
 class CheckConfig(BaseModel):
@@ -111,6 +136,14 @@ class CheckConfig(BaseModel):
     model: str = Field(
         default="gpt-4.1-mini",
         description="LLM model for checking"
+    )
+    use_parser: bool = Field(
+        default=False,
+        description="Whether to use ADR parser for section extraction"
+    )
+    parser: ParserConfig = Field(
+        default_factory=ParserConfig,
+        description="Parser configuration"
     )
 
 
@@ -152,6 +185,9 @@ class Settings(BaseSettings):
     
     # Check Configuration
     check: CheckConfig = Field(default_factory=CheckConfig)
+    
+    # Parser Configuration (shared)
+    parser: ParserConfig = Field(default_factory=ParserConfig)
     
     # Output Configuration
     output: OutputConfig = Field(default_factory=OutputConfig)

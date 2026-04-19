@@ -51,6 +51,21 @@ def predict(
         "--no-examples",
         help="Disable few-shot learning (zero-shot)",
     ),
+    use_parser: bool = typer.Option(
+        False,
+        "--use-parser",
+        help="Use ADR parser for section extraction",
+    ),
+    strict: bool = typer.Option(
+        False,
+        "--strict",
+        help="Enable strict parsing (fail on errors)",
+    ),
+    no_language_detect: bool = typer.Option(
+        False,
+        "--no-language-detect",
+        help="Disable language detection in parser",
+    ),
     output: Optional[str] = typer.Option(
         None,
         "--output",
@@ -81,12 +96,31 @@ def predict(
         framework = framework or settings.classification.framework
         examples_path = examples or settings.classification.examples
         use_examples = not no_examples if no_examples else settings.classification.use_examples
+        use_parser_flag = use_parser or settings.classification.use_parser
+        
+        # Build parser config
+        parser_config = {}
+        if strict:
+            parser_config["strict"] = True
+        if no_language_detect:
+            parser_config["detect_language"] = False
         
         console.print("[blue]Loading classification service...[/blue]")
+        if use_parser_flag:
+            console.print("[cyan]  Parser: enabled[/cyan]")
+            if strict:
+                console.print("[cyan]  Parser mode: strict[/cyan]")
+            else:
+                console.print("[cyan]  Parser mode: lenient (fallback on error)[/cyan]")
+            if not no_language_detect:
+                console.print("[cyan]  Language detection: enabled[/cyan]")
+        
         service = ClassificationService(
             framework=framework,
             examples_path=examples_path,
             use_examples=use_examples,
+            use_parser=use_parser_flag,
+            parser_config=parser_config if parser_config else None,
         )
         console.print(f"[green]✓ Service loaded (framework: {service.framework})[/green]")
     except Exception as e:

@@ -21,10 +21,20 @@ classification:
   framework: kruchten  # kruchten, quality_attributes, zimmermann
   examples: ./few-shots/kruchten_examples.json
   use_examples: true
+  use_parser: true  # Enable ADR parser for section extraction
+  parser:
+    strict: false  # Lenient mode: fallback to full-text on errors
+    detect_language: true  # Detect ADR language using langdetect
+    fallback_on_error: true  # Fallback to original text on parsing failure
 
 # Check Service Configuration
 check:
   template: madr
+  use_parser: true  # Enable ADR parser for section extraction
+  parser:
+    strict: false  # Lenient mode: fallback to full-text on errors
+    detect_language: true  # Detect ADR language using langdetect
+    fallback_on_error: true  # Fallback to original text on parsing failure
 
 # Output Configuration
 output:

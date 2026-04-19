@@ -18,17 +18,21 @@ from umap import UMAP
 
 from adrminer.config import Settings
 from adrminer.models import get_llm
+from adrminer.services.base import BaseService
+from adrminer.services.adr_parser_service import ADRParserService
 
 console = Console()
 
 
-class TopicService:
+class TopicService(BaseService):
     """Service for topic mining using BERTopic."""
     
     
     def __init__(
         self,
         model_path: Optional[str] = None,
+        use_parser: bool = True,
+        parser_config: Optional[Dict] = None,
         settings: Optional[Settings] = None,
     ):
         """
@@ -36,17 +40,24 @@ class TopicService:
         
         Args:
             model_path: Path to saved BERTopic model
+            use_parser: Whether to use ADR parser for language detection (enabled by default)
+            parser_config: Optional configuration for parser (strict, detect_language)
             settings: Settings instance
         """
-        if settings is None:
-            from adrminer.config import get_settings
-            settings = get_settings()
+        # Initialize base class
+        super().__init__(settings)
         
-        self.settings = settings
-        self.model_path = Path(model_path) if model_path else Path(settings.topic_model.path)
+        self.model_path = Path(model_path) if model_path else Path(self.settings.topic_model.path)
         self.model: Optional[BERTopic] = None
-        self.use_llm_representation = settings.topic_model.use_llm_representation
+        self.use_llm_representation = self.settings.topic_model.use_llm_representation
         self._load_model()
+        
+        # Initialize parser if enabled (default for language detection)
+        if use_parser:
+            parser_config = parser_config or {"detect_language": True}
+            self.parser = ADRParserService(**parser_config)
+        else:
+            self.parser = None
         
         # Initialize LLM if needed for topic naming
         if self.use_llm_representation:
@@ -84,23 +95,41 @@ class TopicService:
     
     def _load_model(self):
         """Load BERTopic model from disk."""
-        if self.model_path.exists():
-            try:
-                # Load embedding model to avoid BERTopic warning
-                embedding_model_name = self.settings.topic_model.embedding_model
-                embedding_model = SentenceTransformer(embedding_model_name)
-                
-                # Load BERTopic model with embedding model
-                self.model = BERTopic.load(self.model_path, embedding_model=embedding_model)
-            except Exception as e:
-                raise RuntimeError(
-                    f"Failed to load topic model from {self.model_path}: {e}"
-                )
-        else:
+        if not self.model_path.exists():
             raise FileNotFoundError(
                 f"Topic model not found at {self.model_path}. "
                 "Please train a model first using 'adrminer train topics'."
             )
+        
+        try:
+            # Use SentenceTransformerBackend from BERTopic (matching notebook approach)
+            from bertopic.backend._sentencetransformers import SentenceTransformerBackend
+            embedding_model_name = self.settings.topic_model.embedding_model
+            embedding_model = SentenceTransformerBackend(embedding_model_name)
+            
+            self.model = BERTopic.load(self.model_path, embedding_model=embedding_model)
+            
+            # Verify model was loaded correctly
+            if self.model is None:
+                raise RuntimeError("Model loaded but is None")
+                
+        except Exception as e:
+            # Fallback: try loading without embedding model
+            self.logger.warning(f"Failed to load with embedding model: {e}. Trying without...")
+            try:
+                self.model = BERTopic.load(self.model_path)
+                
+                # Verify model was loaded correctly
+                if self.model is None:
+                    raise RuntimeError("Model loaded but is None")
+                    
+            except Exception as e2:
+                raise RuntimeError(
+                    f"Failed to load topic model from {self.model_path}. "
+                    f"Original error: {e}. Fallback error: {e2}"
+                )
+        
+        self.logger.info(f"Successfully loaded topic model from {self.model_path}")
     
     def predict(
         self,
@@ -108,7 +137,7 @@ class TopicService:
         metadata: Optional[Dict] = None,
     ) -> Dict:
         """
-        Predict topics for a single ADR.
+        Predict topics for a single ADR with language detection and warning.
         
         Args:
             text: ADR text content
@@ -119,6 +148,34 @@ class TopicService:
         """
         if self.model is None:
             raise RuntimeError("Model not loaded")
+        
+        # Use parser for language detection if enabled
+        if self.parser:
+            try:
+                parsed = self.parser.parse_adr(text)
+                
+                # Extract title and add to metadata
+                if metadata is None:
+                    metadata = {}
+                metadata["title"] = parsed.title
+                
+                # Add language detection to metadata
+                if parsed.language:
+                    metadata["language"] = parsed.language
+                    
+                    # Warn if non-English (but don't skip)
+                    if parsed.language != 'en':
+                        self.logger.warning(
+                            f"Non-English ADR detected (language='{parsed.language}'). "
+                            f"Topic modeling may be less accurate. "
+                            f"Consider training a topic model on ADRs in this language."
+                        )
+                
+            except Exception as e:
+                # Parser failed, but still process ADR
+                if metadata is None:
+                    metadata = {}
+                self.logger.warning(f"Parser failed for language detection: {e}. Proceeding with topic modeling.")
         
         # Predict topic (suppress progress bar)
         with self._suppress_output():
@@ -152,7 +209,7 @@ class TopicService:
         parallel: bool = True,
     ) -> List[Dict]:
         """
-        Predict topics for multiple ADRs.
+        Predict topics for multiple ADRs with language detection and warning.
         
         Args:
             texts: List of ADR text contents
@@ -164,6 +221,42 @@ class TopicService:
         """
         if self.model is None:
             raise RuntimeError("Model not loaded")
+        
+        # Use parser for language detection if enabled
+        if self.parser:
+            non_english_count = 0
+            for i, text in enumerate(texts):
+                try:
+                    parsed = self.parser.parse_adr(text)
+                    
+                    # Update metadata
+                    if metadata_list is None or i >= len(metadata_list):
+                        metadata_list = [{}] * len(texts)
+                    
+                    # Extract title
+                    metadata_list[i]["title"] = parsed.title
+                    
+                    # Add language detection
+                    if parsed.language:
+                        metadata_list[i]["language"] = parsed.language
+                        
+                        # Count non-English ADRs
+                        if parsed.language != 'en':
+                            non_english_count += 1
+                
+                except Exception as e:
+                    # Parser failed for this ADR, but still process it
+                    if metadata_list is None or i >= len(metadata_list):
+                        metadata_list = [{}] * len(texts)
+                    self.logger.warning(f"Parser failed for ADR {i} language detection: {e}")
+            
+            # Warn if any non-English ADRs detected
+            if non_english_count > 0:
+                self.logger.warning(
+                    f"Detected {non_english_count} non-English ADR(s) in batch. "
+                    f"Topic modeling may be less accurate for these ADRs. "
+                    f"Consider training a topic model on ADRs in these languages."
+                )
         
         # Predict topics for all texts (suppress progress bar)
         with self._suppress_output():
@@ -288,24 +381,25 @@ class TopicService:
         
         Returns:
             Generated topic name or None if generation fails
+        
+        Raises:
+            FileNotFoundError: If prompt file doesn't exist and LLM naming is enabled
         """
         if not words:
             return None
         
+        # Load prompt from external file
+        topic_naming_prompt = self.load_prompt("topic_naming")
+        
+        # Handle case where prompt file wasn't found
+        if topic_naming_prompt is None:
+            raise FileNotFoundError(
+                f"Prompt file not found: topic_naming.md in {self.prompts_dir}"
+            )
+        
         # Create prompt for topic naming
         keywords = ", ".join([word for word, _ in words])
-        prompt = f"""You are an expert at analyzing architectural decision records. Based on the following keywords from a topic model, generate a concise, human-readable topic name (3-6 words) that describes the common theme.
-
-Keywords: {keywords}
-
-Guidelines:
-- Keep it concise (3-6 words)
-- Use clear, descriptive language
-- Focus on architectural or technical theme
-- Use title case
-- Examples: "Database Migration Strategy", "API Design Patterns", "Authentication Methods"
-
-Provide ONLY the topic name, nothing else."""
+        prompt = topic_naming_prompt.format(keywords=keywords)
         
         try:
             response = self.llm.invoke(prompt)

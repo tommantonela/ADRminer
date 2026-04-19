@@ -1,11 +1,22 @@
 """Classification service using LLM models."""
 
+import concurrent.futures
 import json
 from pathlib import Path
 from typing import Dict, List, Optional, Literal
 
+from langchain_core.prompts import ChatPromptTemplate
+
 from adrminer.config import Settings
 from adrminer.models import get_llm
+from adrminer.models.classification_schemas import (
+    ClassificationFramework,
+    KruchtenClassificationResult,
+    QualityAttributeClassificationResult,
+    ZimmermannClassificationResult,
+)
+from adrminer.services.base import BaseService
+from adrminer.services.adr_parser_service import ADRParserService
 
 
 # Framework definitions
@@ -30,54 +41,62 @@ FRAMEWORKS = {
         "name": "Quality Attributes",
         "categories": [
             "Performance",
-            "Security",
-            "Availability",
-            "Scalability",
-            "Maintainability",
-            "Usability",
-            "Interoperability",
-            "Modifiability",
-            "Testability",
             "Reliability",
+            "Security",
+            "Maintainability",
+            "Scalability",
+            "Usability",
+            "Portability",
+            "Compatibility",
+            "Observability",
+            "Testability",
+            "Other/Only Functional Concern",
         ],
-        "description": "Classifies ADRs by the quality attribute (non-functional requirement) they address",
+        "description": "Classifies ADRs by quality attribute (non-functional requirement) they address",
         "category_descriptions": {
             "Performance": "Decisions related to system speed, response time, throughput, latency, and overall performance characteristics.",
-            "Security": "Decisions related to authentication, authorization, encryption, data protection, vulnerability management, and security controls.",
-            "Availability": "Decisions related to system uptime, fault tolerance, redundancy, disaster recovery, and high availability.",
-            "Scalability": "Decisions related to the system's ability to handle growing loads, horizontal/vertical scaling, and resource management.",
-            "Maintainability": "Decisions related to code quality, documentation, technical debt management, and ease of system maintenance.",
-            "Usability": "Decisions related to user experience, user interface design, accessibility, and ease of use.",
-            "Interoperability": "Decisions related to system integration, API design, data exchange, and compatibility with other systems.",
-            "Modifiability": "Decisions related to the ease of making changes to the system, extensibility, and flexibility.",
-            "Testability": "Decisions related to testing strategies, test automation, test coverage, and quality assurance practices.",
             "Reliability": "Decisions related to system stability, error handling, fault tolerance, and consistent behavior under load.",
+            "Security": "Decisions related to authentication, authorization, encryption, data protection, vulnerability management, and security controls.",
+            "Maintainability": "Decisions related to code quality, documentation, technical debt management, and ease of system maintenance.",
+            "Scalability": "Decisions related to system's ability to handle growing loads, horizontal/vertical scaling, and resource management.",
+            "Usability": "Decisions related to user experience, user interface design, accessibility, and ease of use.",
+            "Portability": "Decisions related to system's ability to run on different platforms, environments, or with minimal adaptation.",
+            "Compatibility": "Decisions related to ensuring system works with other systems, APIs, standards, or maintains backward compatibility.",
+            "Observability": "Decisions related to monitoring, logging, tracing, metrics, and system visibility.",
+            "Testability": "Decisions related to testing strategies, test automation, test coverage, and quality assurance practices.",
+            "Other/Only Functional Concern": "Decisions that only address functional requirements without explicitly targeting any specific non-functional quality attribute.",
         },
     },
     "zimmermann": {
         "name": "Zimmermann",
         "categories": [
+            "Design",
             "Technology",
-            "Organization",
-            "Information",
-            "Architecture",
-            "Process",
-            "Tools",
+            "Infrastructure",
+            "Organizational/Process",
+            "Constraint",
+            "Quality Attribute",
+            "Crosscutting Concerns",
+            "Implementation",
+            "Other",
         ],
-        "description": "Classifies ADRs by architectural aspect using the ATAM (Architecture Tradeoff Analysis Method) framework",
+        "description": "Classifies ADRs by architectural aspect using ATAM (Architecture Tradeoff Analysis Method) framework",
         "category_descriptions": {
-            "Technology": "Decisions about specific technologies, frameworks, languages, libraries, and technical stacks used in the system.",
-            "Organization": "Decisions about team structure, organizational processes, governance, roles, and responsibilities.",
-            "Information": "Decisions about data models, information flow, data storage, data exchange formats, and information architecture.",
-            "Architecture": "Decisions about system architecture, patterns, structural design, components, and architectural principles.",
-            "Process": "Decisions about development processes, methodologies, workflows, deployment pipelines, and operational processes.",
-            "Tools": "Decisions about development tools, build systems, CI/CD tools, monitoring, and infrastructure tooling.",
+            "Design": "Decisions about system design, patterns, architectural principles, and structural organization.",
+            "Technology": "Decisions about specific technologies, frameworks, languages, libraries, and technical stacks used in system.",
+            "Infrastructure": "Decisions about infrastructure components, cloud providers, deployment environments, and infrastructure as code.",
+            "Organizational/Process": "Decisions about team structure, organizational processes, governance, roles, responsibilities, and development methodologies.",
+            "Constraint": "Decisions about constraints, limitations, or restrictions that impact architectural choices.",
+            "Quality Attribute": "Decisions that address specific non-functional requirements or quality attributes (e.g., performance, security, scalability).",
+            "Crosscutting Concerns": "Decisions about aspects that affect multiple parts of the system (e.g., logging, security, error handling).",
+            "Implementation": "Decisions about implementation details, coding standards, libraries, and how architectural decisions are realized in code.",
+            "Other": "Decisions that don't fit into other specific categories or address unique concerns.",
         },
     },
 }
 
 
-class ClassificationService:
+class ClassificationService(BaseService):
     """Service for classifying ADRs using LLM models."""
     
     def __init__(
@@ -85,6 +104,8 @@ class ClassificationService:
         framework: Literal["kruchten", "quality_attributes", "zimmermann"] = "kruchten",
         examples_path: Optional[str] = None,
         use_examples: bool = True,
+        use_parser: bool = False,
+        parser_config: Optional[Dict] = None,
         settings: Optional[Settings] = None,
     ):
         """
@@ -94,16 +115,24 @@ class ClassificationService:
             framework: Classification framework to use
             examples_path: Path to examples JSON file
             use_examples: Whether to use examples (few-shot)
+            use_parser: Whether to use ADR parser for section extraction
+            parser_config: Optional configuration for parser (strict, detect_language)
             settings: Settings instance
         """
-        if settings is None:
-            from adrminer.config import get_settings
-            settings = get_settings()
+        # Initialize base class
+        super().__init__(settings)
         
-        self.settings = settings
         self.framework = framework or settings.classification.framework
         self.examples_path = Path(examples_path) if examples_path else Path(settings.classification.examples)
         self.use_examples = use_examples if use_examples is not None else settings.classification.use_examples
+        self.use_parser = use_parser if use_parser is not None else settings.classification.use_parser
+        
+        # Initialize parser if enabled
+        if self.use_parser:
+            parser_config = parser_config or {}
+            self.parser = ADRParserService(**parser_config)
+        else:
+            self.parser = None
         
         # Validate framework
         if self.framework not in FRAMEWORKS:
@@ -117,6 +146,10 @@ class ClassificationService:
         
         # Get LLM
         self.llm = get_llm(settings=settings)
+        
+        # Configure chain with structured output
+        self.chain = None
+        self._configure_chain()
     
     def _load_examples(self) -> Optional[List[Dict]]:
         """Load classification examples from JSON file."""
@@ -139,67 +172,38 @@ class ClassificationService:
             print(f"Warning: Failed to load examples from {self.examples_path}: {e}")
             return None
     
-    def _build_prompt(
-        self,
-        text: str,
-        framework: str,
-        examples: Optional[List[Dict]] = None,
-    ) -> str:
-        """
-        Build classification prompt.
+    def _configure_chain(self):
+        """Configure LangChain chain with structured output."""
+        # Map framework to appropriate Pydantic model
+        if self.framework == "kruchten":
+            schema = KruchtenClassificationResult
+        elif self.framework == "quality_attributes":
+            schema = QualityAttributeClassificationResult
+        elif self.framework == "zimmermann":
+            schema = ZimmermannClassificationResult
+        else:
+            raise ValueError(f"Unsupported framework: {self.framework}")
         
-        Args:
-            text: ADR text to classify
-            framework: Classification framework
-            examples: Optional few-shot examples
+        # Load base prompt
+        prompt_str = self.load_prompt(self._get_prompt_name())
         
-        Returns:
-            Formatted prompt string
-        """
-        framework_info = FRAMEWORKS[framework]
-        categories = framework_info["categories"]
+        # Create ChatPromptTemplate
+        prompt_template = ChatPromptTemplate.from_messages([
+            ("system", prompt_str),
+            ("human", "{adr}"),
+        ])
         
-        # Start with system instructions
-        prompt = f"""You are an expert architectural decision analyst. Your task is to classify the given Architectural Decision Record (ADR) into one of the following categories for the {framework_info['name']} framework.
-
-Categories:
-"""
-        
-        # Add categories
-        for i, category in enumerate(categories, 1):
-            prompt += f"{i}. {category}\n"
-        
-        prompt += """
-Instructions:
-1. Read the ADR carefully
-2. Identify the most appropriate category based on the decision's primary focus
-3. Provide your classification in JSON format with the following structure:
-   {
-     "category": "<category name>",
-     "confidence": <0.0 to 1.0>,
-     "explanation": "<brief explanation of why this category was chosen>",
-     "alternatives": ["<alternative category 1>", "<alternative category 2>"]
-   }
-
-"""
-        
-        # Add examples if provided (few-shot)
-        if examples:
-            prompt += "Here are some examples to guide your classification:\n\n"
-            
-            for i, example in enumerate(examples[:3], 1):  # Use up to 3 examples
-                if "text" in example and "category" in example:
-                    prompt += f"Example {i}:\n"
-                    prompt += f"ADR: {example['text'][:500]}...\n"
-                    prompt += f"Category: {example['category']}\n\n"
-            
-            prompt += "---\n\n"
-        
-        # Add the ADR to classify
-        prompt += f"Now classify the following ADR:\n\n{text}\n\n"
-        prompt += "Provide your classification in JSON format:"
-        
-        return prompt
+        # Configure chain with structured output
+        self.chain = prompt_template | self.llm.with_structured_output(schema)
+    
+    def _get_prompt_name(self) -> str:
+        """Get prompt file name for current framework."""
+        prompt_mapping = {
+            "kruchten": "kruchten_classification_v2",
+            "quality_attributes": "quality_attributes_classification_v2",
+            "zimmermann": "zimmermann_classification_v2",
+        }
+        return prompt_mapping.get(self.framework)
     
     def classify(
         self,
@@ -207,7 +211,7 @@ Instructions:
         metadata: Optional[Dict] = None,
     ) -> Dict:
         """
-        Classify a single ADR.
+        Classify a single ADR with optional parser.
         
         Args:
             text: ADR text content
@@ -216,99 +220,46 @@ Instructions:
         Returns:
             Dictionary with classification results
         """
-        # Build prompt
-        prompt = self._build_prompt(text, self.framework, self.examples)
+        # Use parser if enabled
+        if self.use_parser and self.parser:
+            try:
+                # Extract decision section only (more focused for classification)
+                text = self.parser.get_decision_section(text)
+                
+                # Extract title and add to metadata
+                title = self.parser.get_title(text)
+                if metadata is None:
+                    metadata = {}
+                metadata["title"] = title
+                
+            except Exception as e:
+                # Fallback to full text
+                self.logger.warning(f"Parser failed for classification: {e}. Using full text.")
         
-        # Get classification from LLM
+        # Use structured output chain
         try:
-            response = self.llm.invoke(prompt)
-            response_text = response.content
+            result = self.chain.invoke({"adr": text})
         except Exception as e:
             raise RuntimeError(f"LLM classification failed: {e}")
         
-        # Parse response
-        try:
-            # Try to extract JSON from response
-            if "```json" in response_text:
-                json_str = response_text.split("```json")[1].split("```")[0].strip()
-            elif "```" in response_text:
-                json_str = response_text.split("```")[1].split("```")[0].strip()
-            else:
-                json_str = response_text.strip()
-            
-            result = json.loads(json_str)
-        except json.JSONDecodeError as e:
-            # Fallback: try to extract category from text
-            result = self._parse_fallback(response_text)
+        # Convert Pydantic model to dictionary
+        result_dict = result.model_dump()
         
-        # Validate and normalize result
-        result = self._normalize_result(result)
+        # Add metadata
+        if metadata:
+            result_dict["metadata"] = metadata
+        else:
+            result_dict["metadata"] = {}
         
+        # Normalize field names for backward compatibility
         return {
             "framework": self.framework,
-            "primary_category": result["category"],
-            "confidence": result["confidence"],
-            "explanation": result.get("explanation", ""),
-            "alternatives": result.get("alternatives", []),
-            "metadata": metadata or {},
+            "primary_category": result_dict["primary_category"],
+            "confidence": result_dict["primary_score"],
+            "explanation": result_dict["explanation"],
+            "alternatives": result_dict.get("alternative_categories", []),
+            "metadata": result_dict.get("metadata", {}),
         }
-    
-    def _parse_fallback(self, text: str) -> Dict:
-        """
-        Fallback parsing when JSON extraction fails.
-        
-        Args:
-            text: LLM response text
-        
-        Returns:
-            Parsed result dictionary
-        """
-        # Try to extract category from text
-        categories = FRAMEWORKS[self.framework]["categories"]
-        
-        for category in categories:
-            if category.lower() in text.lower():
-                return {
-                    "category": category,
-                    "confidence": 0.5,  # Low confidence for fallback
-                    "explanation": "Extracted from text (JSON parsing failed)",
-                    "alternatives": [],
-                }
-        
-        # Ultimate fallback
-        return {
-            "category": categories[0],
-            "confidence": 0.3,
-            "explanation": "Default category (parsing failed)",
-            "alternatives": [],
-        }
-    
-    def _normalize_result(self, result: Dict) -> Dict:
-        """
-        Normalize and validate classification result.
-        
-        Args:
-            result: Raw result dictionary
-        
-        Returns:
-            Normalized result
-        """
-        categories = FRAMEWORKS[self.framework]["categories"]
-        
-        # Validate category
-        if "category" not in result or result["category"] not in categories:
-            result["category"] = categories[0]
-        
-        # Validate confidence
-        if "confidence" not in result or not isinstance(result["confidence"], (int, float)):
-            result["confidence"] = 0.5
-        result["confidence"] = max(0.0, min(1.0, float(result["confidence"])))
-        
-        # Ensure fields exist
-        result.setdefault("explanation", "")
-        result.setdefault("alternatives", [])
-        
-        return result
     
     def classify_batch(
         self,
@@ -317,24 +268,52 @@ Instructions:
         parallel: bool = True,
     ) -> List[Dict]:
         """
-        Classify multiple ADRs.
+        Classify multiple ADRs with optional parallel processing.
         
         Args:
             texts: List of ADR text contents
             metadata_list: Optional list of metadata for each ADR
-            parallel: Enable parallel processing (not yet implemented)
+            parallel: Enable parallel processing
         
         Returns:
             List of classification results
         """
-        # For now, process sequentially
-        # TODO: Implement parallel processing with ThreadPoolExecutor or similar
         results = []
         
-        for i, text in enumerate(texts):
-            metadata = metadata_list[i] if metadata_list and i < len(metadata_list) else None
-            result = self.classify(text, metadata)
-            results.append(result)
+        if parallel and len(texts) > 1:
+            # Use ThreadPoolExecutor for parallel processing
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                # Store (index, future) pairs to maintain order
+                futures = []
+                for i, text in enumerate(texts):
+                    metadata = metadata_list[i] if metadata_list and i < len(metadata_list) else None
+                    future = executor.submit(self.classify, text, metadata)
+                    futures.append((i, future))
+                
+                # Wait for all futures to complete and collect in order
+                results = [None] * len(texts)
+                for i, future in futures:
+                    try:
+                        results[i] = future.result()
+                    except Exception as e:
+                        print(f"Warning: Failed to classify ADR at index {i}: {e}")
+                        # Create error result with metadata
+                        metadata = metadata_list[i] if metadata_list and i < len(metadata_list) else {}
+                        results[i] = {
+                            "framework": self.framework,
+                            "primary_category": FRAMEWORKS[self.framework]["categories"][0],
+                            "confidence": 0.0,
+                            "explanation": f"Classification failed: {e}",
+                            "alternatives": [],
+                            "metadata": metadata,
+                            "error": str(e),
+                        }
+        else:
+            # Sequential processing
+            for i, text in enumerate(texts):
+                metadata = metadata_list[i] if metadata_list and i < len(metadata_list) else None
+                result = self.classify(text, metadata)
+                results.append(result)
         
         return results
     
