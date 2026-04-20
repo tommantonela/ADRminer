@@ -29,13 +29,13 @@ def summary(
         None,
         "--output-summary",
         "-s",
-        help="Export summary report to Markdown file (if only filename provided, saves to ADR directory)",
+        help="Export summary report to Markdown file (if only filename provided, saves to parent of ADRs folder)",
     ),
     output_detailed: Optional[Path] = typer.Option(
         None,
         "--output-detailed",
         "-d",
-        help="Export detailed report to Markdown file with insights (if only filename provided, saves to ADR directory)",
+        help="Export detailed report to Markdown file with insights (if only filename provided, saves to parent of ADRs folder)",
     ),
     model: Optional[str] = typer.Option(
         None,
@@ -72,8 +72,9 @@ def summary(
         # Display console summary only
         adrminer summary examples/pharmacy-food/adrs
         
-        # Export summary report to ADR directory
+        # Export summary report to parent folder (default location)
         adrminer summary examples/pharmacy-food/adrs --output-summary summary.md
+        # Result: examples/pharmacy-food/summary.md
         
         # Export detailed report with full path
         adrminer summary examples/pharmacy-food/adrs --output-detailed ./reports/detailed.md
@@ -127,16 +128,21 @@ def summary(
     
     # Generate and export reports if requested
     if output_summary or output_detailed:
-        # Resolve output paths - if only filename provided, use ADR directory
-        adr_dir = path if path.is_dir() else path.parent
+        # Resolve output paths - save in parent folder by default to avoid mixing with ADRs
+        if path.is_dir():
+            # Input is ADR directory - save in parent folder
+            default_output_dir = path.parent
+        else:
+            # Input is single ADR file - save in parent of parent folder
+            default_output_dir = path.parent.parent
         
         resolved_summary = output_summary
         if output_summary and (not output_summary.parent.name or str(output_summary.parent) == "."):
-            resolved_summary = adr_dir / output_summary
+            resolved_summary = default_output_dir / output_summary
         
         resolved_detailed = output_detailed
         if output_detailed and (not output_detailed.parent.name or str(output_detailed.parent) == "."):
-            resolved_detailed = adr_dir / output_detailed
+            resolved_detailed = default_output_dir / output_detailed
         
         _generate_reports(
             adrs_data=adrs_data,
