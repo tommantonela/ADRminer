@@ -46,20 +46,31 @@ def create_llm(
     llm_max_tokens = max_tokens if max_tokens is not None else settings.llm.max_tokens
     
     # Validate provider
-    valid_providers = ["openai", "anthropic", "ollama", "azure", "google"]
+    valid_providers = ["openai", "anthropic", "ollama", "azure", "google", "groq"]
     if llm_provider not in valid_providers:
         raise ValueError(
             f"Invalid LLM provider: {llm_provider}. "
             f"Valid providers: {', '.join(valid_providers)}"
         )
     
+    # Prepare kwargs for init_chat_model
+    init_kwargs = {
+        "model": llm_model,
+        "model_provider": llm_provider,
+        "temperature": llm_temperature,
+        "max_tokens": llm_max_tokens,
+    }
+    
+    # Add Ollama-specific configuration
+    if llm_provider == "ollama":
+        # Get base URL from settings or environment variable
+        base_url = settings.llm.ollama_base_url
+        if base_url:
+            init_kwargs["base_url"] = base_url
+    
     # Create LLM using LangChain's factory function
     try:
-        llm = init_chat_model(
-            model=llm_model,
-            temperature=llm_temperature,
-            max_tokens=llm_max_tokens,
-        )
+        llm = init_chat_model(**init_kwargs)
         return llm
     except ImportError as e:
         raise ImportError(

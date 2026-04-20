@@ -57,6 +57,7 @@ from adrminer.cli.commands.topics import topics_app
 from adrminer.cli.commands.classify import classify_app
 from adrminer.cli.commands.check import check
 from adrminer.cli.commands.util import util_app
+from adrminer.cli.commands.summary import summary
 
 # Register subcommands
 cli.add_typer(init_app, name="init", help="Initialize ADRminer configuration")
@@ -64,6 +65,7 @@ cli.add_typer(topics_app, name="topics", help="Topic mining commands")
 cli.add_typer(classify_app, name="classify", help="Classification commands")
 cli.command(name="check")(check)
 cli.add_typer(util_app, name="util", help="Utility commands")
+cli.command(name="summary")(summary)
 
 
 if __name__ == "__main__":

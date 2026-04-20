@@ -18,7 +18,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class LLMConfig(BaseModel):
     """LLM configuration."""
     
-    provider: Literal["openai", "anthropic", "ollama", "azure", "google"] = Field(
+    provider: Literal["openai", "anthropic", "ollama", "azure", "google", "groq"] = Field(
         default="openai",
         description="LLM provider"
     )
@@ -36,6 +36,10 @@ class LLMConfig(BaseModel):
         default=2000,
         ge=1,
         description="Maximum tokens to generate"
+    )
+    ollama_base_url: Optional[str] = Field(
+        default=None,
+        description="Base URL for Ollama server (e.g., http://localhost:11434)"
     )
 
 
