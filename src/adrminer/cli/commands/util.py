@@ -172,6 +172,212 @@ def inspect(
         _display_metadata(path, display_console)
 
 
+def _load_adr_files(path: Path) -> list[Path]:
+    """
+    Load ADR files from a path.
+    
+    Args:
+        path: Path to ADR file or directory
+    
+    Returns:
+        List of ADR file paths
+    """
+    if path.is_file():
+        # Single ADR file
+        if path.suffix in [".md", ".MD", ".markdown"]:
+            return [path]
+        else:
+            return []
+    elif path.is_dir():
+        # Directory: load all .md files
+        return sorted(path.glob("*.md"))
+    else:
+        return []
+
+
+def _has_metadata(adr_path: Path) -> bool:
+    """
+    Check if an ADR has metadata file.
+    
+    Args:
+        adr_path: Path to ADR file
+    
+    Returns:
+        True if metadata file exists
+    """
+    metadata_paths = [
+        adr_path.with_suffix('.adrminer.checking.json'),
+        adr_path.with_suffix('.metadata.json'),
+        adr_path.with_suffix('.adrminer.classification.json'),
+    ]
+    return any(mp.exists() for mp in metadata_paths)
+
+
+def _load_metadata(adr_path: Path) -> dict | None:
+    """
+    Load metadata for an ADR.
+    
+    Args:
+        adr_path: Path to ADR file
+    
+    Returns:
+        Metadata dict or None
+    """
+    metadata_paths = [
+        adr_path.with_suffix('.adrminer.checking.json'),
+        adr_path.with_suffix('.metadata.json'),
+        adr_path.with_suffix('.adrminer.classification.json'),
+    ]
+    
+    for metadata_path in metadata_paths:
+        if metadata_path.exists():
+            try:
+                with open(metadata_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception:
+                continue
+    
+    return None
+
+
+def _extract_title(content: str) -> str:
+    """
+    Extract title from ADR content.
+    
+    Args:
+        content: ADR markdown content
+    
+    Returns:
+        Title string
+    """
+    # Try to find first heading
+    for line in content.split('\n'):
+        line = line.strip()
+        if line.startswith('#'):
+            # Remove # and trim
+            title = line.lstrip('#').strip()
+            return title[:60] + '...' if len(title) > 60 else title
+    return "No title"
+
+
+@util_app.command()
+def list(
+    path: Path = typer.Argument(
+        ...,
+        help="Path to ADR file or directory",
+        exists=True,
+    ),
+    has_metadata: bool = typer.Option(
+        False,
+        "--has-metadata",
+        "-m",
+        help="Show only ADRs that have metadata",
+    ),
+    details: bool = typer.Option(
+        False,
+        "--details",
+        "-d",
+        help="Show detailed information (title, status, topic, classifications)",
+    ),
+    compact: bool = typer.Option(
+        False,
+        "--compact",
+        "-c",
+        help="Show compact list (filenames only)",
+    ),
+) -> None:
+    """
+    List ADRs in a given location.
+    
+    Displays ADR files with optional filtering and detail levels.
+    Shows metadata information when available.
+    
+    \b
+    Examples:
+        # List all ADRs
+        adrminer util list examples/pharmacy-food/adrs
+        
+        # List only ADRs with metadata
+        adrminer util list examples/pharmacy-food/adrs --has-metadata
+        
+        # List with details
+        adrminer util list examples/pharmacy-food/adrs --details
+        
+        # Compact list (filenames only)
+        adrminer util list examples/pharmacy-food/adrs --compact
+    """
+    # Load ADR files
+    adr_files = _load_adr_files(path)
+    
+    if not adr_files:
+        console.print(f"[red]✗ No ADR files found in {path}[/red]")
+        raise typer.Exit(code=1)
+    
+    # Filter by metadata if requested
+    if has_metadata:
+        adr_files = [f for f in adr_files if _has_metadata(f)]
+        if not adr_files:
+            console.print(f"[yellow]⚠ No ADRs with metadata found in {path}[/yellow]")
+            raise typer.Exit(code=0)
+    
+    # Compact mode: just list filenames
+    if compact:
+        console.print(f"[cyan]Found {len(adr_files)} ADR(s):[/cyan]\n")
+        for adr_file in adr_files:
+            console.print(f"  • {adr_file.name}")
+        return
+    
+    # Display in table
+    if details:
+        # Detailed table
+        table = Table(title=f"ADRs ({len(adr_files)} found)")
+        table.add_column("#", style="cyan", width=4)
+        table.add_column("File", style="green", no_wrap=True)
+        table.add_column("Title", style="yellow")
+        table.add_column("Has Metadata", justify="center", width=14)
+        table.add_column("Topic", style="magenta")
+        
+        for idx, adr_file in enumerate(adr_files, 1):
+            # Read ADR content
+            try:
+                with open(adr_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                title = _extract_title(content)
+            except Exception:
+                title = "Error reading"
+            
+            # Check for metadata
+            has_meta = _has_metadata(adr_file)
+            meta_status = "[green]✓[/green]" if has_meta else "[dim]–[/dim]"
+            
+            # Load topic if available
+            topic = "N/A"
+            if has_meta:
+                metadata = _load_metadata(adr_file)
+                if metadata and "topics" in metadata:
+                    topic_data = metadata["topics"]
+                    topic = topic_data.get("topic_label", "N/A")
+                    # Truncate if too long
+                    topic = topic[:25] + '...' if len(topic) > 25 else topic
+            
+            table.add_row(str(idx), adr_file.name, title, meta_status, topic)
+        
+        console.print(table)
+    else:
+        # Simple table
+        table = Table(title=f"ADRs ({len(adr_files)} found)")
+        table.add_column("#", style="cyan", width=4)
+        table.add_column("File", style="green", no_wrap=True)
+        table.add_column("Has Metadata", justify="center", width=14)
+        
+        for idx, adr_file in enumerate(adr_files, 1):
+            has_meta = _has_metadata(adr_file)
+            meta_status = "[green]✓[/green]" if has_meta else "[dim]–[/dim]"
+            table.add_row(str(idx), adr_file.name, meta_status)
+        
+        console.print(table)
+
+
 def _display_metadata(adr_path: Path, console: Console) -> None:
     """
     Display metadata for an ADR if available in sidecar files.
