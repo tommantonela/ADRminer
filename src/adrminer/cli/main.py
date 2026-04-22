@@ -59,6 +59,29 @@ from adrminer.cli.commands.check import check
 from adrminer.cli.commands.util import util_app
 from adrminer.cli.commands.summary import summary
 
+def chat(
+    directory: Optional[Path] = typer.Argument(
+        None,
+        help="Initial directory for chat session (defaults to current directory)",
+        exists=True,
+    ),
+) -> None:
+    """
+    Start interactive chat CLI.
+    
+    Enter an interactive mode where you can run commands using "/" prefix.
+    Type /help to see available commands, /quit to exit.
+    """
+    from adrminer.chat import run_chat
+    from pathlib import Path
+    
+    # Convert to Path if provided
+    initial_dir = Path(directory) if directory else None
+    
+    # Run interactive chat
+    run_chat(initial_dir=initial_dir)
+
+
 # Register subcommands
 cli.add_typer(init_app, name="init", help="Initialize ADRminer configuration")
 cli.add_typer(topics_app, name="topics", help="Topic mining commands")
@@ -66,6 +89,7 @@ cli.add_typer(classify_app, name="classify", help="Classification commands")
 cli.command(name="check")(check)
 cli.add_typer(util_app, name="util", help="Utility commands")
 cli.command(name="summary")(summary)
+cli.command(name="chat")(chat)
 
 
 if __name__ == "__main__":

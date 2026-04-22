@@ -80,7 +80,7 @@ FRAMEWORKS = {
             "Implementation",
             "Other",
         ],
-        "description": "Classifies ADRs by architectural aspect using ATAM (Architecture Tradeoff Analysis Method) framework",
+        "description": "Classifies ADRs by architectural aspect",
         "category_descriptions": {
             "Design": "Decisions about system design, patterns, architectural principles, and structural organization.",
             "Technology": "Decisions about specific technologies, frameworks, languages, libraries, and technical stacks used in system.",

@@ -36,6 +36,7 @@ tqdm==4.67.1
 # Configuration & Logging
 python-dotenv==1.1.0
 pythonjsonlogger>=2.0.0
+prompt_toolkit>=3.0.0
 
 # Optional: Alternative Classification Methods
 catboost>=1.1.0
