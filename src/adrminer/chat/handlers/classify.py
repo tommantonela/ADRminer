@@ -62,7 +62,12 @@ class ClassifyPredictHandler(BaseHandler):
         
         # Update framework if specified
         if framework:
-            service.framework = framework
+            current_framework = service.framework
+            if framework != current_framework:
+                self.session.console.print(
+                    f"[blue]Switching framework from {current_framework} to {framework}[/blue]"
+                )
+                service.framework = framework
         
         # Build parser config
         parser_config = {}
@@ -73,7 +78,7 @@ class ClassifyPredictHandler(BaseHandler):
         
         # Process ADRs
         self.session.console.print(f"\nFound {len(adr_files)} ADR file(s) to analyze\n")
-        self.session.console.print(f"Framework: {service.framework}\n")
+        self.session.console.print(f"[bold]Framework:[/bold] {service.framework}\n")
         
         results = []
         

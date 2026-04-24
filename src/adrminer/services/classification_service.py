@@ -122,7 +122,7 @@ class ClassificationService(BaseService):
         # Initialize base class
         super().__init__(settings)
         
-        self.framework = framework or settings.classification.framework
+        self._framework = framework or settings.classification.framework
         self.examples_path = Path(examples_path) if examples_path else Path(settings.classification.examples)
         self.use_examples = use_examples if use_examples is not None else settings.classification.use_examples
         self.use_parser = use_parser if use_parser is not None else settings.classification.use_parser
@@ -150,6 +150,28 @@ class ClassificationService(BaseService):
         # Configure chain with structured output
         self.chain = None
         self._configure_chain()
+    
+    @property
+    def framework(self) -> str:
+        """Get current classification framework."""
+        return self._framework
+    
+    @framework.setter
+    def framework(self, value: str) -> None:
+        """
+        Set classification framework and reconfigure chain.
+        
+        Args:
+            value: New framework name (kruchten, quality_attributes, zimmermann)
+        """
+        if value not in FRAMEWORKS:
+            raise ValueError(
+                f"Invalid framework: {value}. "
+                f"Valid frameworks: {', '.join(FRAMEWORKS.keys())}"
+            )
+        
+        self._framework = value
+        self._configure_chain()  # Reconfigure with new framework
     
     def _load_examples(self) -> Optional[List[Dict]]:
         """Load classification examples from JSON file."""
