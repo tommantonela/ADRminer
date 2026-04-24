@@ -24,7 +24,7 @@ class HelpHandler(BaseHandler):
         Show help for commands.
         
         Args:
-            args: [command_name] (optional)
+            args: [command_name] or [command_name, subcommand_name] (optional)
             options: None
         """
         if args:
@@ -33,7 +33,12 @@ class HelpHandler(BaseHandler):
             if not command.startswith("/"):
                 command = f"/{command}"
             
-            self._show_command_help(command)
+            # Check if subcommand is provided (e.g., /help topics predict)
+            if len(args) >= 2:
+                subcommand = args[1].lower()
+                self._show_subcommand_help(command, subcommand)
+            else:
+                self._show_command_help(command)
         else:
             # Show general help
             self._show_general_help()
@@ -99,6 +104,58 @@ class HelpHandler(BaseHandler):
                     self.session.console.print(
                         f"  --{opt['name']}{default_str} - {opt['help']}"
                     )
+    
+    def _show_subcommand_help(self, command: str, subcommand: str):
+        """Show help for specific subcommand."""
+        cmd_info = get_command_info(command)
+        
+        if not cmd_info:
+            self.print_error(f"Unknown command: {command}")
+            self.session.console.print(
+                f"Use /help to see available commands"
+            )
+            return
+        
+        # Check if command has subcommands
+        if "subcommands" not in cmd_info or not cmd_info["subcommands"]:
+            self.print_error(f"Command {command} has no subcommands")
+            return
+        
+        # Get subcommand info
+        subcmd_info = get_subcommand_info(command, subcommand)
+        
+        if not subcmd_info:
+            self.print_error(f"Unknown subcommand: {subcommand}")
+            self.session.console.print(
+                f"Available subcommands: {', '.join(sorted(cmd_info['subcommands'].keys()))}"
+            )
+            return
+        
+        # Display subcommand help
+        self.session.console.print(f"\n[bold cyan]{command} {subcommand}[/bold cyan]")
+        self.session.console.print(f"{subcmd_info['description']}\n")
+        self.session.console.print(f"[bold]Usage:[/bold] {cmd_info['help']} {subcommand} [args] [options]\n")
+        
+        # Show args and options for subcommand
+        args = subcmd_info.get("args", [])
+        options = subcmd_info.get("options", [])
+        
+        if args:
+            self.session.console.print("[bold]Arguments:[/bold]")
+            for arg in args:
+                req = "required" if arg.get("required", True) else "optional"
+                self.session.console.print(
+                    f"  <{arg['name']}> ({req}) - {arg['help']}"
+                )
+        
+        if options:
+            self.session.console.print("\n[bold]Options:[/bold]")
+            for opt in options:
+                default = opt.get("default")
+                default_str = f" [default: {default}]" if default is not None else ""
+                self.session.console.print(
+                    f"  --{opt['name']}{default_str} - {opt['help']}"
+                )
 
 
 class ListHandler(BaseHandler):
@@ -542,22 +599,16 @@ class SummaryHandler(BaseHandler):
             self.session.console.print("[yellow]Operation cancelled.[/yellow]")
             return
         
-        # Load insight service
-        try:
-            reset_settings()  # Reset settings cache
-            reset_llm_cache()  # Reset LLM cache
-            
-            settings = get_settings()
-            self.session.console.print(f"[blue]Loading insight service (provider: {settings.llm.provider}, model: {settings.llm.model})...[/blue]")
-            
-            service = InsightService()
-            self.session.console.print(f"[green]✓ Service loaded (model: {service.model_name})[/green]")
-        except Exception as e:
-            self.print_error(f"Failed to load insight service: {e}")
-            return
+        # Use session's insight service (lazy-loaded)
+        service = self.session.insights_service
         
         # Display console summary
         self._display_console_summary(adrs_data)
+        
+        # Display project-level insights if available
+        all_metadata = [a["metadata"] for a in adrs_data if a["metadata"]]
+        if all_metadata:
+            self._display_project_insights(all_metadata)
         
         # Generate and export reports if requested
         if output_summary_path or output_detailed_path:
@@ -704,6 +755,78 @@ class SummaryHandler(BaseHandler):
             return "N/A"
         
         return classifications[framework].get("primary_category", "N/A")
+    
+    def _display_project_insights(self, all_metadata: list[dict]) -> None:
+        """Display project-level insights in console."""
+        from rich.table import Table
+        from rich.spinner import Spinner
+        from rich.live import Live
+        
+        # Show progress indicator while generating insights (LLM call)
+        with Live(Spinner("dots", text="Generating project insights..."), console=self.session.console) as live:
+            try:
+                project_insights = self.session.insights_service.generate_project_insights(all_metadata)
+            except Exception as e:
+                live.stop()
+                self.session.console.print(f"[yellow]Warning: Could not generate project insights: {e}[/yellow]")
+                return
+        
+        self.session.console.print("\n[bold cyan]📊 Project-Level Insights[/bold cyan]\n")
+        
+        # Overall summary
+        self.session.console.print(f"[bold]Overview:[/bold] {project_insights.overall_summary}\n")
+        
+        # Classification patterns
+        if project_insights.classification_patterns:
+            self.session.console.print("[bold]Top Classification Patterns:[/bold]")
+            table = Table(show_header=True, header_style="bold magenta")
+            table.add_column("Framework", style="cyan")
+            table.add_column("Category", style="green")
+            table.add_column("Count", justify="right")
+            table.add_column("Percentage", justify="right")
+            
+            for pattern in project_insights.classification_patterns[:5]:
+                table.add_row(
+                    pattern.framework,
+                    pattern.category,
+                    str(pattern.count),
+                    f"{pattern.percentage:.1f}%"
+                )
+            
+            self.session.console.print(table)
+            self.session.console.print()
+        
+        # Quality trends
+        self.session.console.print("[bold]Quality Trends:[/bold]")
+        trends = project_insights.quality_trends
+        self.session.console.print(f"  Average Adherence Score: {trends.average_adherence_score:.2f}")
+        self.session.console.print(f"  Quality Distribution: {trends.quality_distribution}")
+        if trends.common_missing_sections:
+            missing = ", ".join(trends.common_missing_sections[:3])
+            self.session.console.print(f"  Common Missing Sections: {missing}")
+        self.session.console.print()
+        
+        # Architectural themes
+        if project_insights.architectural_themes:
+            self.session.console.print("[bold]Architectural Themes:[/bold]")
+            for theme in project_insights.architectural_themes[:5]:
+                self.session.console.print(f"  • [cyan]{theme.theme}[/cyan]: {theme.description} ({theme.adr_count} ADRs)")
+            self.session.console.print()
+        
+        # Risk assessment
+        self.session.console.print("[bold]Risk Assessment:[/bold]")
+        self.session.console.print(f"  {project_insights.risk_assessment.risk_summary}")
+        self.session.console.print()
+        
+        # Top recommendations
+        if project_insights.recommendations:
+            self.session.console.print("[bold]Top Recommendations:[/bold]")
+            for rec in project_insights.recommendations[:3]:
+                priority_color = "red" if rec.priority == "High" else "yellow" if rec.priority == "Medium" else "green"
+                self.session.console.print(
+                    f"  [{priority_color}]{rec.priority}[/{priority_color}] [cyan]{rec.area}[/cyan]: {rec.recommendation}"
+                )
+            self.session.console.print()
     
     def _generate_reports(
         self,

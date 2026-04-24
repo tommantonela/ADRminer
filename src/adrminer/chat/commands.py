@@ -27,9 +27,10 @@ COMMAND_REGISTRY: Dict[str, Dict[str, Any]] = {
     "/help": {
         "handler": "handle_help",
         "description": "Show help for commands",
-        "help": "/help [command]  - Show help for all commands or specific command",
+        "help": "/help [command] [subcommand]  - Show help for all commands or specific command/subcommand",
         "args": [
-            {"name": "command", "help": "Command to show help for (optional)", "required": False}
+            {"name": "command", "help": "Command to show help for (optional)", "required": False},
+            {"name": "subcommand", "help": "Subcommand to show help for (optional)", "required": False}
         ]
     },
     "/list": {
@@ -62,7 +63,9 @@ COMMAND_REGISTRY: Dict[str, Dict[str, Any]] = {
                     {"name": "output", "help": "Output format (sidecar, consolidated)", "required": False, "default": "sidecar"},
                     {"name": "parallel", "help": "Enable parallel processing", "required": False, "default": True},
                     {"name": "threshold", "help": "Topic probability threshold (default: 0.0)", "required": False, "default": 0.0},
-                    {"name": "multiple", "help": "Allow multiple topics per ADR", "required": False, "default": False}
+                    {"name": "multiple", "help": "Allow multiple topics per ADR", "required": False, "default": False},
+                    {"name": "verbose", "help": "Show detailed output (default: auto based on result count)", "required": False, "default": False},
+                    {"name": "csv", "help": "Export results to CSV file", "required": False, "default": None}
                 ]
             },
             "info": {
@@ -95,7 +98,9 @@ COMMAND_REGISTRY: Dict[str, Dict[str, Any]] = {
                     {"name": "strict", "help": "Enable strict parsing (fail on errors)", "required": False, "default": False},
                     {"name": "no-language-detect", "help": "Disable language detection in parser", "required": False, "default": False},
                     {"name": "output", "help": "Output format (sidecar, consolidated)", "required": False, "default": "sidecar"},
-                    {"name": "parallel", "help": "Enable parallel processing", "required": False, "default": True}
+                    {"name": "parallel", "help": "Enable parallel processing", "required": False, "default": True},
+                    {"name": "verbose", "help": "Show detailed output (default: auto based on result count)", "required": False, "default": False},
+                    {"name": "csv", "help": "Export results to CSV file", "required": False, "default": None}
                 ]
             },
             "info": {
@@ -125,7 +130,8 @@ COMMAND_REGISTRY: Dict[str, Dict[str, Any]] = {
                     {"name": "parallel", "help": "Enable parallel processing", "required": False, "default": True},
                     {"name": "use-parser", "help": "Use ADR parser for section extraction", "required": False, "default": False},
                     {"name": "strict", "help": "Enable strict parsing (fail on errors)", "required": False, "default": False},
-                    {"name": "no-language-detect", "help": "Disable language detection in parser", "required": False, "default": False}
+                    {"name": "no-language-detect", "help": "Disable language detection in parser", "required": False, "default": False},
+                    {"name": "csv", "help": "Export results to CSV file", "required": False, "default": None}
                 ]
             }
         }

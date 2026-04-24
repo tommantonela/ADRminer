@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from typing import Dict, List, Any
+import csv
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
@@ -22,7 +23,7 @@ class TopicsPredictHandler(BaseHandler):
         
         Args:
             args: [path]
-            options: model, output, parallel, threshold, multiple
+            options: model, output, parallel, threshold, multiple, verbose, csv
         """
         path_str = args[0]
         path = Path(path_str)
@@ -49,6 +50,8 @@ class TopicsPredictHandler(BaseHandler):
         parallel = options.get("parallel", True)
         threshold = options.get("threshold", 0.0)
         multiple = options.get("multiple", False)
+        verbose = options.get("verbose", False)
+        csv_output = options.get("csv")
         
         # Load service
         service = self.session.topic_service
@@ -90,15 +93,15 @@ class TopicsPredictHandler(BaseHandler):
                     progress.update(task, advance=1)
         
         # Display results
-        self._display_results(results, service)
+        self._display_results(results, service, verbose)
         
         # Export results
-        self._export_results(results, output)
+        self._export_results(results, output, csv_output)
         
         # Store in session
         self.session.store_analysis_result("topics", results)
     
-    def _display_results(self, results: List[Dict], service):
+    def _display_results(self, results: List[Dict], service, verbose: bool = False):
         """Display topic results."""
         if not results:
             self.print_warning("No results to display")
@@ -112,7 +115,10 @@ class TopicsPredictHandler(BaseHandler):
         table.add_column("Probability", justify="right")
         table.add_column("Keywords")
         
-        for result in results[:10]:  # Show first 10
+        # Show all results if verbose, otherwise show first 10
+        results_to_show = results if verbose else results[:10]
+        
+        for result in results_to_show:
             keywords = ", ".join(result["keywords"][:5])
             topic_info = service.get_topic_info(result["topic_id"])
             if topic_info:
@@ -129,10 +135,10 @@ class TopicsPredictHandler(BaseHandler):
         
         self.session.console.print(table)
         
-        if len(results) > 10:
+        if not verbose and len(results) > 10:
             self.session.console.print(f"\n... and {len(results) - 10} more ADRs")
     
-    def _export_results(self, results: List[Dict], output_format: str):
+    def _export_results(self, results: List[Dict], output_format: str, csv_output: str = None):
         """Export results to files."""
         if not results:
             return
@@ -143,6 +149,16 @@ class TopicsPredictHandler(BaseHandler):
             self.session.console.print("\n[blue]Exporting sidecar files...[/blue]")
             for result in results:
                 adr_file = Path(result["adr_file"])
+                
+                # Use LLM-generated topic names if enabled
+                if self.session.topic_service.use_llm_representation:
+                    topic_id = result["topic_id"]
+                    topic_info = self.session.topic_service.get_topic_info(topic_id)
+                    if topic_info:
+                        # Override topic_label with LLM name
+                        result = result.copy()  # Don't modify original
+                        result["topic_label"] = topic_info["name"]
+                
                 exporter.export_sidecar(
                     adr_file=adr_file,
                     topics=result,
@@ -155,6 +171,39 @@ class TopicsPredictHandler(BaseHandler):
             output_path = self.session.current_dir / "topics_results.json"
             exporter.export_consolidated(results, output_path)
             self.print_success(f"Exported consolidated results to {output_path}")
+        
+        # Export to CSV if requested
+        if csv_output:
+            self._export_csv(results, csv_output)
+    
+    def _export_csv(self, results: List[Dict], csv_path: str):
+        """Export results to CSV file."""
+        try:
+            # Resolve path - use current directory if only filename provided
+            csv_file = Path(csv_path)
+            if not csv_file.parent.name or str(csv_file.parent) == ".":
+                csv_file = self.session.current_dir / csv_file
+            
+            # Write CSV
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                
+                # Header
+                writer.writerow(['File', 'Topic ID', 'Topic Name', 'Probability', 'Keywords'])
+                
+                # Rows
+                for result in results:
+                    file_name = Path(result["adr_file"]).name
+                    topic_id = result.get("topic_id", "")
+                    topic_name = result.get("topic_label", "")
+                    probability = result.get("probability", 0.0)
+                    keywords = ", ".join(result.get("keywords", []))
+                    
+                    writer.writerow([file_name, topic_id, topic_name, probability, keywords])
+            
+            self.print_success(f"Exported CSV to {csv_file}")
+        except Exception as e:
+            self.print_error(f"Failed to export CSV: {e}")
 
 
 class TopicsInfoHandler(BaseHandler):
@@ -226,3 +275,29 @@ class TopicsInfoHandler(BaseHandler):
                 table.add_row(str(tid), name, str(count))
             
             self.session.console.print(table)
+
+
+class TopicsTrainHandler(BaseHandler):
+    """Handler for /topics train command."""
+    
+    def execute(
+        self,
+        args: List[str],
+        options: Dict[str, Any]
+    ) -> None:
+        """
+        Train a new topic model.
+        
+        Note: This command is not supported in interactive mode.
+        
+        Args:
+            args: [path]
+            options: All training options
+        """
+        self.print_error(
+            "Topic model training is not supported in interactive mode.\n"
+            "Please use the non-interactive CLI command:\n"
+            "  adrminer topics train <path> [options]\n\n"
+            "For more information, run:\n"
+            "  adrminer topics train --help"
+        )

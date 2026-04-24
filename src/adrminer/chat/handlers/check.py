@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from typing import Dict, List, Any
+import csv
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
@@ -49,6 +50,7 @@ class CheckPredictHandler(BaseHandler):
         use_parser = options.get("use-parser", False)
         strict = options.get("strict", False)
         no_language_detect = options.get("no-language-detect", False)
+        csv_output = options.get("csv")
         
         # Load service
         service = self.session.checking_service
@@ -120,7 +122,7 @@ class CheckPredictHandler(BaseHandler):
         self._display_results(results, mode)
         
         # Export results
-        self._export_results(results)
+        self._export_results(results, csv_output)
         
         # Store in session
         self.session.store_analysis_result("check", results)
@@ -342,7 +344,7 @@ class CheckPredictHandler(BaseHandler):
                 
                 self.session.console.print(table)
     
-    def _export_results(self, results: List[Dict]):
+    def _export_results(self, results: List[Dict], csv_output: str = None):
         """Export results to sidecar files."""
         if not results:
             return
@@ -371,3 +373,71 @@ class CheckPredictHandler(BaseHandler):
                     exported_count += 1
         
         self.print_success(f"Exported {exported_count} sidecar file(s)")
+        
+        # Export to CSV if requested
+        if csv_output:
+            self._export_csv(results, csv_output)
+    
+    def _export_csv(self, results: List[Dict], csv_path: str):
+        """Export results to CSV file."""
+        try:
+            # Resolve path - use current directory if only filename provided
+            csv_file = Path(csv_path)
+            if not csv_file.parent.name or str(csv_file.parent) == ".":
+                csv_file = self.session.current_dir / csv_file
+            
+            # Write CSV
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                
+                # Header
+                writer.writerow([
+                    'File',
+                    'Adherence Score',
+                    'Section Presence',
+                    'Section Quality',
+                    'Section Consistency'
+                ])
+                
+                # Rows
+                for result in results:
+                    if "error" in result:
+                        writer.writerow([
+                            result.get("file", "Unknown"),
+                            "N/A",
+                            "Error",
+                            "Error",
+                            "Error"
+                        ])
+                    else:
+                        # Get adherence score
+                        template = result.get("template_adherence", {})
+                        score = template.get("adherence_score", 0.0)
+                        
+                        # Get section statistics
+                        assessments = result.get("section_assessments", [])
+                        
+                        if assessments:
+                            present = sum(1 for s in assessments if s.get("presence") == "Yes")
+                            quality = sum(1 for s in assessments if s.get("content_quality") == "Yes")
+                            consistent = sum(1 for s in assessments if s.get("purpose_consistency") == "Yes")
+                            
+                            present_str = f"{present}/{len(assessments)}"
+                            quality_str = f"{quality}/{len(assessments)}"
+                            consistent_str = f"{consistent}/{len(assessments)}"
+                        else:
+                            present_str = "N/A"
+                            quality_str = "N/A"
+                            consistent_str = "N/A"
+                        
+                        writer.writerow([
+                            result.get("file", "Unknown"),
+                            f"{score:.2f}",
+                            present_str,
+                            quality_str,
+                            consistent_str
+                        ])
+            
+            self.print_success(f"Exported CSV to {csv_file}")
+        except Exception as e:
+            self.print_error(f"Failed to export CSV: {e}")

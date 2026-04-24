@@ -3,6 +3,7 @@
 from pathlib import Path
 from typing import Dict, List, Any
 from collections import Counter
+import csv
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
@@ -53,6 +54,8 @@ class ClassifyPredictHandler(BaseHandler):
         strict = options.get("strict", False)
         no_language_detect = options.get("no-language-detect", False)
         output = options.get("output", "sidecar")
+        verbose = options.get("verbose", False)
+        csv_output = options.get("csv")
         
         # Load service
         service = self.session.classification_service
@@ -103,15 +106,15 @@ class ClassifyPredictHandler(BaseHandler):
                     progress.update(task, advance=1)
         
         # Display results
-        self._display_results(results)
+        self._display_results(results, verbose)
         
         # Export results
-        self._export_results(results, output)
+        self._export_results(results, output, csv_output)
         
         # Store in session
         self.session.store_analysis_result("classification", results)
     
-    def _display_results(self, results: List[Dict]):
+    def _display_results(self, results: List[Dict], verbose: bool = False):
         """Display classification results."""
         if not results:
             self.print_warning("No results to display")
@@ -125,7 +128,10 @@ class ClassifyPredictHandler(BaseHandler):
         table.add_column("Confidence", justify="right")
         table.add_column("Alternatives")
         
-        for result in results[:10]:  # Show first 10
+        # Show all results if verbose, otherwise show first 10
+        results_to_show = results if verbose else results[:10]
+        
+        for result in results_to_show:
             alternatives = ", ".join(result.get("alternatives", [])[:3])
             confidence = result.get("confidence", 0.0)
             confidence_color = (
@@ -143,7 +149,7 @@ class ClassifyPredictHandler(BaseHandler):
         
         self.session.console.print(table)
         
-        if len(results) > 10:
+        if not verbose and len(results) > 10:
             self.session.console.print(f"\n... and {len(results) - 10} more ADRs")
         
         # Show category distribution if multiple results
@@ -184,7 +190,7 @@ class ClassifyPredictHandler(BaseHandler):
             f"  High Confidence (>0.8): {high_conf} ({high_conf/len(results):.1%})"
         )
     
-    def _export_results(self, results: List[Dict], output_format: str):
+    def _export_results(self, results: List[Dict], output_format: str, csv_output: str = None):
         """Export results to files."""
         if not results:
             return
@@ -208,6 +214,39 @@ class ClassifyPredictHandler(BaseHandler):
             output_path = self.session.current_dir / "classification_results.json"
             exporter.export_consolidated(results, output_path)
             self.print_success(f"Exported consolidated results to {output_path}")
+        
+        # Export to CSV if requested
+        if csv_output:
+            self._export_csv(results, csv_output)
+    
+    def _export_csv(self, results: List[Dict], csv_path: str):
+        """Export results to CSV file."""
+        try:
+            # Resolve path - use current directory if only filename provided
+            csv_file = Path(csv_path)
+            if not csv_file.parent.name or str(csv_file.parent) == ".":
+                csv_file = self.session.current_dir / csv_file
+            
+            # Write CSV
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                
+                # Header
+                writer.writerow(['File', 'Framework', 'Primary Category', 'Confidence', 'Alternatives'])
+                
+                # Rows
+                for result in results:
+                    file_name = Path(result["adr_file"]).name
+                    framework = result.get("framework", "")
+                    primary_category = result.get("primary_category", "")
+                    confidence = result.get("confidence", 0.0)
+                    alternatives = ", ".join(result.get("alternatives", []))
+                    
+                    writer.writerow([file_name, framework, primary_category, confidence, alternatives])
+            
+            self.print_success(f"Exported CSV to {csv_file}")
+        except Exception as e:
+            self.print_error(f"Failed to export CSV: {e}")
 
 
 class ClassifyInfoHandler(BaseHandler):
