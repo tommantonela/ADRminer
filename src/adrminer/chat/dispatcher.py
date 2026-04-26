@@ -6,6 +6,7 @@ from rich.markdown import Markdown
 
 from adrminer.chat.session import SessionManager
 from adrminer.chat.parser import CommandParseError, CommandParser
+from adrminer.chat.recommendation_service import RecommendationService
 from adrminer.chat.handlers import (
     HelpHandler,
     ListHandler,
@@ -35,6 +36,7 @@ class CommandDispatcher:
         """
         self.session = session
         self.parser = CommandParser()
+        self.recommendation_service = RecommendationService(session.console)
         
         # Map command/subcommand to handler classes
         self._handler_map = {
@@ -214,6 +216,11 @@ class CommandDispatcher:
                                 self.session.console.print(f"  [dim]{key}:[/dim] {len(value)} items" if isinstance(value, list) else f"  [dim]{key}:[/dim] {value}")
                             else:
                                 self.session.console.print(f"  [dim]{key}:[/dim] {value}")
+                
+                # Show CLI command recommendations based on tools used
+                tool_calls = agent.extract_tool_calls(result)
+                if tool_calls:
+                    self.recommendation_service.show_recommendations(tool_calls)
                 
                 return True
             else:

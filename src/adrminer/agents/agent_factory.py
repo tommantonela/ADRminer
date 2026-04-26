@@ -124,3 +124,15 @@ class AdrminerAgent:
             LangChain agent instance
         """
         return self.langchain_agent.get_agent()
+    
+    def extract_tool_calls(self, result: Dict[str, Any]) -> list:
+        """
+        Extract names of tools used in the agent result.
+        
+        Args:
+            result: Result dictionary from agent processing
+        
+        Returns:
+            List of tool names that were called
+        """
+        return self.langchain_agent.extract_tool_calls(result)

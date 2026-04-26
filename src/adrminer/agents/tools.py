@@ -3,10 +3,13 @@
 This module provides tool wrappers that allow the Deep Agent to interact
 with ADRminer services for loading ADRs, mining topics, classification,
 quality checking, and generating insights.
+
+Tools include metadata decorators for CLI command recommendations.
 """
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from functools import wraps
 
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field
@@ -69,6 +72,38 @@ def get_session():
     return _session
 
 
+def tool_metadata(**metadata):
+    """Decorator to add CLI command recommendation metadata to tools.
+    
+    This decorator attaches metadata to tool functions, including:
+    - related_commands: List of CLI commands that provide similar functionality
+    - description: Description of the command group for UI display
+    
+    Args:
+        **metadata: Metadata key-value pairs to attach to the tool
+    
+    Returns:
+        Decorator function
+    
+    Example:
+        @tool_metadata(
+            related_commands=["/topics predict {path}", "/topics info"],
+            description="For topic mining and analysis"
+        )
+        @tool(parse_docstring=True)
+        def mine_topics(...):
+            ...
+    """
+    def decorator(func):
+        func._tool_metadata = metadata
+        return func
+    return decorator
+
+
+@tool_metadata(
+    related_commands=["/list", "/summary {path}"],
+    description="For loading and listing ADR files"
+)
 @tool(parse_docstring=True)
 def load_adrs(path: str) -> Dict[str, Any]:
     """Load ADR files from a directory.
@@ -163,6 +198,10 @@ def load_adrs(path: str) -> Dict[str, Any]:
         return result
 
 
+@tool_metadata(
+    related_commands=["/topics info", "/topics predict {path}"],
+    description="For viewing topic model information"
+)
 @tool(parse_docstring=True)
 def get_topics_info(
     topic_id: Optional[int] = None,
@@ -267,6 +306,10 @@ def get_topics_info(
         return result
 
 
+@tool_metadata(
+    related_commands=["/classify info", "/classify predict {path}"],
+    description="For viewing classification framework information"
+)
 @tool(parse_docstring=True)
 def get_classification_info(
     framework: Optional[str] = None
@@ -366,6 +409,10 @@ def get_classification_info(
         return result
 
 
+@tool_metadata(
+    related_commands=["/list", "/summary {path}"],
+    description="For discovering and listing ADR files"
+)
 @tool(parse_docstring=True)
 def list_adr_files(
     path: str
@@ -449,6 +496,10 @@ def list_adr_files(
         return result
 
 
+@tool_metadata(
+    related_commands=["/topics predict {path}", "/topics info", "/summary {path}"],
+    description="For topic mining and analysis"
+)
 @tool(parse_docstring=True)
 def mine_topics(
     path: Optional[str] = None,
@@ -560,6 +611,10 @@ def mine_topics(
         return result
 
 
+@tool_metadata(
+    related_commands=["/classify predict {path} --framework {framework}"],
+    description="For ADR classification using various frameworks"
+)
 @tool(parse_docstring=True)
 def classify_adrs(
     path: Optional[str] = None,
@@ -619,18 +674,25 @@ def classify_adrs(
         # Get classification service
         classification_service = session.classification_service
         
+        # Show framework change if different from current
+        current_framework = classification_service.framework
+        if framework != current_framework:
+            if hasattr(session, 'console'):
+                session.console.print(
+                    f"[blue]→[/blue] Switching framework from {current_framework} to {framework}"
+                )
+        
+        # Set framework using property setter
+        classification_service.framework = framework
+        
         # Read ADR contents
         texts = []
         for adr_path in session.loaded_adrs:
             with open(adr_path, 'r', encoding='utf-8') as f:
                 texts.append(f.read())
         
-        # Classify
-        classification_service.set_framework(framework)
-        results = classification_service.classify_batch(
-            texts,
-            use_examples=use_examples
-        )
+        # Classify (use_examples is set during service initialization)
+        results = classification_service.classify_batch(texts)
         
         # Store in session
         session.analysis_results["classification"] = {
@@ -641,10 +703,8 @@ def classify_adrs(
         # Count classifications
         classification_counts = {}
         for result in results:
-            cls = result.get("classification", {})
-            for category, value in cls.items():
-                if value:
-                    classification_counts[category] = classification_counts.get(category, 0) + 1
+            category = result.get("primary_category", "Unknown")
+            classification_counts[category] = classification_counts.get(category, 0) + 1
         
         result = ToolResult(
             success=True,
@@ -679,6 +739,10 @@ def classify_adrs(
         return result
 
 
+@tool_metadata(
+    related_commands=["/check predict {path}", "/summary {path}"],
+    description="For ADR quality checking and template validation"
+)
 @tool(parse_docstring=True)
 def check_quality(
     path: Optional[str] = None,
@@ -801,6 +865,10 @@ def check_quality(
         return result
 
 
+@tool_metadata(
+    related_commands=["/summary {path}", "/summary {path} --output-detailed"],
+    description="For generating insights from analysis results"
+)
 @tool(parse_docstring=True)
 def generate_insights(
     include_topics: bool = True,
@@ -934,6 +1002,10 @@ def generate_insights(
         return result
 
 
+@tool_metadata(
+    related_commands=["/reset_memory"],
+    description="For resetting agent memory and analysis results"
+)
 @tool(parse_docstring=True)
 def reset_memory() -> Dict[str, Any]:
     """Reset all agent memory and analysis results.

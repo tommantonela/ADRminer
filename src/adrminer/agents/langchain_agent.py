@@ -5,7 +5,7 @@ create_agent() with ADRminer tools and read-only file management capabilities.
 """
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from langchain_community.agent_toolkits.file_management.toolkit import FileManagementToolkit
 
@@ -28,45 +28,16 @@ from adrminer.agents.context import AgentContext
 from adrminer.config import get_settings
 from adrminer.models.llm_factory import create_llm
 
-# System prompt for the ADRminer agent
-SYSTEM_PROMPT = """You are ADRminer Assistant, an AI-powered assistant for analyzing Architectural Decision Records (ADRs).
 
-Your capabilities, which rely on specific tools you can access, include:
-- Loading and managing ADR files (tool: load_adrs)
-- Discovering ADR files in directories (tool: list_adr_files)
-- Reading file contents (tool: read_file)
-- Listing directory contents (tool: list_directory)
-- Mining topics using BERTopic (tool: mine_topics)
-- Viewing topic model information (tool: get_topics_info)
-- Classifying ADRs using various frameworks (Kruchten, Quality Attributes, Zimmermann) (tool: classify_adrs)
-- Viewing classification framework information (tool: get_classification_info)
-- Checking ADR quality against templates (e.g., MADR) (tool: check_quality)
-- Generating insights from analysis results (tool: generate_insights)
-- Resetting agent memory and analysis results (tool: reset_memory)
-- Exporting metadata in various formats (tool: export_metadata)
-
-Guidelines:
-1. Always ask for clarification if a request is ambiguous
-2. For batch operations affecting many ADRs, inform the user about the scope
-3. Provide clear, actionable insights and recommendations
-4. Use the available tools to perform analyses
-5. Maintain context across the session (remember loaded ADRs, previous results)
-6. Be concise but thorough in your responses
-7. Suggest follow-up analyses when appropriate
-
-Current context:
-- Available directories: {available_directories}
-- Loaded ADRs: {loaded_adr_count}
-- Available analyses: {available_analyses}
-
-You can help users with natural language queries like:
-- "Analyze all ADRs in the adrs/ directory"
-- "What topics are covered in my ADRs?"
-- "Check the quality of these ADRs"
-- "Classify ADRs using Kruchten's framework"
-- "Generate insights from the analysis results"
-- "Read the contents of ADR001.md"
-"""
+def load_system_prompt() -> str:
+    """Load the system prompt from the prompts directory."""
+    prompts_dir = Path(__file__).parent.parent / "prompts"
+    prompt_file = prompts_dir / "agent_system_prompt.md"
+    
+    if not prompt_file.exists():
+        raise FileNotFoundError(f"Agent system prompt not found at {prompt_file}")
+    
+    return prompt_file.read_text(encoding="utf-8")
 
 
 def create_langchain_agent(
@@ -160,7 +131,10 @@ def create_langchain_agent(
         "loaded_adr_count": agent_context.get_loaded_adr_count(),
         "available_analyses": list(agent_context.analysis_results.keys())
     }
-    customized_prompt = SYSTEM_PROMPT.format(**context_info)
+    
+    # Load and customize system prompt
+    system_prompt = load_system_prompt()
+    customized_prompt = system_prompt.format(**context_info)
     
     # Create agent using LangChain v1 API
     try:
@@ -284,6 +258,32 @@ class LangChainAdrminerAgent:
         """
         self.context.load_from_session(self.session)
         return self.context.to_dict()
+    
+    def extract_tool_calls(self, result: Dict[str, Any]) -> List[str]:
+        """
+        Extract names of tools used in the agent result.
+        
+        Args:
+            result: Result dictionary from agent processing
+        
+        Returns:
+            List of tool names that were called
+        """
+        tool_names = []
+        
+        # Navigate through the agent result structure
+        # LangChain agents store tool calls in messages
+        messages = result.get("data", {}).get("messages", [])
+        
+        for message in messages:
+            # Check if this is an AI message with tool calls
+            if hasattr(message, 'tool_calls') and message.tool_calls:
+                for tool_call in message.tool_calls:
+                    tool_name = tool_call.get('name', '')
+                    if tool_name:
+                        tool_names.append(tool_name)
+        
+        return tool_names
     
     def update_context(self, updates: Dict[str, Any]):
         """
