@@ -8,7 +8,8 @@ from adrminer.chat.handlers.util import (
     InspectHandler,
     EnhancedListHandler,
     SummaryHandler,
-    QuitHandler
+    QuitHandler,
+    ResetMemoryHandler
 )
 from adrminer.chat.handlers.topics import (
     TopicsPredictHandler,
@@ -29,6 +30,7 @@ __all__ = [
     "EnhancedListHandler",
     "SummaryHandler",
     "QuitHandler",
+    "ResetMemoryHandler",
     "TopicsPredictHandler",
     "TopicsInfoHandler",
     "ClassifyPredictHandler",

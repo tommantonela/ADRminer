@@ -2,6 +2,8 @@
 
 from typing import Dict, Optional
 
+from rich.markdown import Markdown
+
 from adrminer.chat.session import SessionManager
 from adrminer.chat.parser import CommandParseError, CommandParser
 from adrminer.chat.handlers import (
@@ -12,6 +14,7 @@ from adrminer.chat.handlers import (
     EnhancedListHandler,
     SummaryHandler,
     QuitHandler,
+    ResetMemoryHandler,
     TopicsPredictHandler,
     TopicsInfoHandler,
     ClassifyPredictHandler,
@@ -39,6 +42,7 @@ class CommandDispatcher:
             "/list": ListHandler,
             "/summary": SummaryHandler,
             "/quit": QuitHandler,
+            "/reset_memory": ResetMemoryHandler,
             "/topics": {
                 "predict": TopicsPredictHandler,
                 "info": TopicsInfoHandler,
@@ -71,6 +75,11 @@ class CommandDispatcher:
         # Add to history
         self.session.add_to_history(user_input)
         
+        # Check if natural language input
+        if self._is_natural_language(user_input):
+            return self._route_to_agent(user_input)
+        
+        # Handle as command
         try:
             # Parse command
             parsed = self.parser.parse(user_input)
@@ -136,3 +145,82 @@ class CommandDispatcher:
         
         # Handler is a class (no subcommands)
         return handler
+    
+    def _is_natural_language(self, user_input: str) -> bool:
+        """
+        Determine if input is natural language or a command.
+        
+        Args:
+            user_input: Raw user input string
+            
+        Returns:
+            True if input appears to be natural language, False if command
+        """
+        # Commands start with '/'
+        if user_input.strip().startswith('/'):
+            return False
+        
+        # Empty input is not natural language
+        if not user_input.strip():
+            return False
+        
+        # Short single words might be typos, treat as natural language
+        # Agent can clarify if needed
+        return True
+    
+    def _route_to_agent(self, user_input: str) -> Optional[bool]:
+        """
+        Route natural language input to Deep Agent.
+        
+        Args:
+            user_input: Natural language query string
+            
+        Returns:
+            True if processed successfully, False if quit, None if error
+        """
+        # Get agent (lazy-loaded)
+        agent = self.session.agent
+        
+        if agent is None:
+            self.session.console.print(
+                "[yellow]AI assistant not available.[/yellow]\n"
+                "[dim]Use commands (starting with /) for analysis.[/dim]"
+            )
+            return None
+        
+        # Sync context before processing
+        self.session.sync_agent_context()
+        
+        # Process natural language query
+        try:
+            result = agent.process_natural_language(user_input)
+            
+            if result["success"]:
+                # Display agent response with Markdown formatting
+                response = result["response"]
+                if response:
+                    self.session.console.print()
+                    self.session.console.print("[cyan bold]AI:[/cyan bold]")
+                    self.session.console.print(Markdown(response))
+                    self.session.console.print()
+                
+                # Display data if available
+                if result.get("data"):
+                    data = result["data"]
+                    if isinstance(data, dict):
+                        # Display structured data nicely
+                        for key, value in data.items():
+                            if isinstance(value, (list, dict)):
+                                self.session.console.print(f"  [dim]{key}:[/dim] {len(value)} items" if isinstance(value, list) else f"  [dim]{key}:[/dim] {value}")
+                            else:
+                                self.session.console.print(f"  [dim]{key}:[/dim] {value}")
+                
+                return True
+            else:
+                # Error occurred
+                self.session.console.print(f"[red]AI Error:[/red] {result['response']}")
+                return None
+                
+        except Exception as e:
+            self.session.console.print(f"[red]Error processing query:[/red] {e}")
+            return None

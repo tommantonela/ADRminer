@@ -65,6 +65,11 @@ def chat(
         help="Initial directory for chat session (defaults to current directory)",
         exists=True,
     ),
+    no_agent: bool = typer.Option(
+        False,
+        "--no-agent",
+        help="Disable AI assistant (commands only mode)"
+    ),
 ) -> None:
     """
     Start interactive chat CLI.
@@ -78,8 +83,8 @@ def chat(
     # Convert to Path if provided
     initial_dir = Path(directory) if directory else None
     
-    # Run interactive chat
-    run_chat(initial_dir=initial_dir)
+    # Run interactive chat (pass agent_enabled flag)
+    run_chat(initial_dir=initial_dir, agent_enabled=not no_agent)
 
 
 # Register subcommands

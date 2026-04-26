@@ -1146,6 +1146,32 @@ class SummaryHandler(BaseHandler):
             f.write("\n".join(lines))
 
 
+class ResetMemoryHandler(BaseHandler):
+    """Handler for /reset_memory command."""
+    
+    def execute(self, args: List[str], options: Dict[str, Any]) -> None:
+        """Reset all session memory and analysis results."""
+        # Reset session memory
+        summary = self.session.reset_memory()
+        
+        # Display what was reset
+        self.session.console.print("\n[green]✓ Memory reset complete[/green]")
+        self.session.console.print(f"  [dim]Analysis results cleared:[/dim] {len(summary['analysis_results'])}")
+        self.session.console.print(f"  [dim]Loaded ADRs cleared:[/dim] {summary['loaded_adrs_count']}")
+        self.session.console.print(f"  [dim]Command history cleared:[/dim] Yes")
+        
+        # Note about agent conversation
+        if summary['has_agent']:
+            self.session.console.print(
+                "  [dim]Note:[/dim] Agent conversation history persists in checkpointer. "
+                "Use natural language to start fresh."
+            )
+        else:
+            self.session.console.print(
+                "  [dim]Note:[/dim] Agent not initialized. No conversation history to clear."
+            )
+
+
 class QuitHandler(BaseHandler):
     """Handler for /quit command."""
     

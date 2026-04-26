@@ -76,39 +76,58 @@ class ClassifyPredictHandler(BaseHandler):
         if no_language_detect:
             parser_config["detect_language"] = False
         
-        # Process ADRs
+        # Process ADRs - use smart selection based on count
         self.session.console.print(f"\nFound {len(adr_files)} ADR file(s) to analyze\n")
         self.session.console.print(f"[bold]Framework:[/bold] {service.framework}\n")
         
         results = []
         
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            TaskProgressColumn(),
-            console=self.session.console,
-        ) as progress:
-            task = progress.add_task("Classifying ADRs...", total=len(adr_files))
-            
+        if len(adr_files) == 1:
+            # Single ADR: use direct classify() for efficiency
+            adr_file = adr_files[0]
+            try:
+                with open(adr_file, 'r') as f:
+                    text = f.read()
+                
+                result = service.classify(
+                    text,
+                    metadata={"file": str(adr_file)}
+                )
+                result["adr_file"] = str(adr_file)
+                results.append(result)
+            except Exception as e:
+                self.session.console.print(
+                    f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]"
+                )
+        else:
+            # Multiple ADRs: use batch method for parallel processing
+            texts = []
             for adr_file in adr_files:
                 try:
                     with open(adr_file, 'r') as f:
-                        text = f.read()
-                    
-                    result = service.classify(
-                        text,
-                        metadata={"file": str(adr_file)}
-                    )
-                    result["adr_file"] = str(adr_file)
-                    results.append(result)
-                    
-                    progress.update(task, advance=1)
+                        texts.append(f.read())
                 except Exception as e:
                     self.session.console.print(
-                        f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]"
+                        f"[yellow]Warning: Failed to read {adr_file}: {e}[/yellow]"
                     )
-                    progress.update(task, advance=1)
+            
+            if texts:
+                with Progress(
+                    SpinnerColumn(),
+                    TextColumn("[progress.description]{task.description}"),
+                    BarColumn(),
+                    TaskProgressColumn(),
+                    console=self.session.console,
+                ) as progress:
+                    task = progress.add_task("Classifying ADRs...", total=len(texts))
+                    
+                    results = service.classify_batch(texts, parallel=True)
+                    
+                    progress.update(task, completed=len(results))
+                
+                # Add file paths to results
+                for i, result in enumerate(results):
+                    result["adr_file"] = str(adr_files[i])
         
         # Display results
         self._display_results(results, verbose)

@@ -1,5 +1,6 @@
 """Session manager for interactive chat CLI."""
 
+import uuid
 from pathlib import Path
 from typing import Optional, List, Dict, Any
 from rich.console import Console
@@ -8,21 +9,26 @@ from adrminer.config import get_settings
 from adrminer.services import TopicService, ClassificationService
 from adrminer.services.checking_service import CheckingService
 from adrminer.services.insight_service import InsightService
+from adrminer.agents.context import AgentContext
 
 
 class SessionManager:
     """Manages shared resources and state across a chat session."""
     
-    def __init__(self, console: Console, initial_dir: Optional[Path] = None):
+    def __init__(self, console: Console, initial_dir: Optional[Path] = None, agent_enabled: bool = True):
         """
         Initialize session manager.
         
         Args:
             console: Rich console instance for output
             initial_dir: Initial working directory (defaults to cwd)
+            agent_enabled: Whether AI agent should be enabled (default: True)
         """
         self.console = console
         self.current_dir = initial_dir or Path.cwd()
+        
+        # Generate unique session ID
+        self.session_id = f"session-{uuid.uuid4().hex[:8]}"
         
         # Lazy-loaded services
         self._services: Dict[str, Any] = {}
@@ -32,6 +38,16 @@ class SessionManager:
         self.history_index: int = -1
         self.analysis_results: Dict[str, Any] = {}
         self.loaded_adrs: List[Path] = []
+        
+        # Agent state (lazy-loaded)
+        self._agent = None
+        self.agent_context: Optional[AgentContext] = None
+        self.agent_enabled = agent_enabled
+        
+        # Check if agent should be disabled
+        if not agent_enabled:
+            self._agent = False
+            self.console.print("[yellow]AI assistant disabled - commands only mode[/yellow]")
     
     @property
     def topic_service(self) -> TopicService:
@@ -76,6 +92,52 @@ class SessionManager:
             self._services["insights"] = InsightService()
             self.console.print("[green]✓ Insights service loaded[/green]")
         return self._services["insights"]
+    
+    @property
+    def agent(self):
+        """Lazy-load Deep Agent."""
+        if self._agent is None:
+            try:
+                self.console.print("[blue]Initializing AI assistant...[/blue]")
+                from adrminer.agents import AdrminerAgent
+                
+                settings = get_settings()
+                self._agent = AdrminerAgent(
+                    session=self,
+                    config=settings.agent
+                )
+                
+                # Initialize agent context
+                self.agent_context = AgentContext()
+                self.agent_context.load_from_session(self)
+                
+                self.console.print("[green]✓ AI assistant ready[/green]")
+            except ImportError as e:
+                self.console.print(f"[yellow]Warning: AI assistant not available: {e}[/yellow]")
+                self._agent = False  # Mark as not available
+            except Exception as e:
+                self.console.print(f"[red]Error initializing AI assistant: {e}[/red]")
+                self._agent = False
+        
+        return self._agent if self._agent is not False else None
+    
+    def initialize_agent(self):
+        """
+        Explicitly initialize the Deep Agent.
+        
+        This method can be called to pre-load the agent before first use.
+        """
+        _ = self.agent  # Access property to trigger lazy loading
+    
+    def sync_agent_context(self):
+        """
+        Sync agent context with session state.
+        
+        This ensures the agent has the latest information about
+        loaded ADRs and analysis results.
+        """
+        if self.agent_context:
+            self.agent_context.load_from_session(self)
     
     def load_adr_files(self, path: Path) -> List[Path]:
         """
@@ -164,6 +226,35 @@ class SessionManager:
             self.history_index = len(self.command_history)
             return ""  # Clear input when at end of history
         return None
+    
+    def reset_memory(self) -> Dict[str, Any]:
+        """
+        Reset all session memory and analysis results.
+        
+        This method clears all accumulated state including:
+        - Analysis results (topics, classification, checks, insights)
+        - Loaded ADR files
+        - Command history
+        
+        Returns:
+            Dictionary with summary of what was reset
+        """
+        # Get summary before reset
+        summary = {
+            "analysis_results": list(self.analysis_results.keys()),
+            "loaded_adrs_count": len(self.loaded_adrs),
+            "has_agent": self._agent is not None and self._agent is not False
+        }
+        
+        # Clear session state
+        self.analysis_results.clear()
+        self.loaded_adrs.clear()
+        
+        # Clear command history
+        self.command_history.clear()
+        self.history_index = -1
+        
+        return summary
     
     def reset_history_navigation(self):
         """Reset history navigation index to current position."""

@@ -1,8 +1,8 @@
 # ADRminer Interactive CLI Guide
 
-**Version:** 1.0  
-**Date:** 2026-04-21  
-**Status:** Phase 1 Complete (Command-Based)
+**Version:** 2.0  
+**Date:** 2026-04-24  
+**Status:** Phase 2 Complete (Deep Agents Integration)
 
 ---
 
@@ -11,26 +11,29 @@
 1. [Overview](#1-overview)
 2. [Getting Started](#2-getting-started)
 3. [Command Reference](#3-command-reference)
-4. [Session Management](#4-session-management)
-5. [Common Workflows](#5-common-workflows)
-6. [Tips and Tricks](#6-tips-and-tricks)
-7. [Future Enhancements](#7-future-enhancements)
+4. [Natural Language Interface](#4-natural-language-interface)
+5. [Session Management](#5-session-management)
+6. [Common Workflows](#6-common-workflows)
+7. [Tips and Tricks](#7-tips-and-tricks)
+8. [Configuration](#8-configuration)
 
 ---
 
 ## 1. Overview
 
-The ADRminer interactive CLI provides a chat-like interface for analyzing Architecture Decision Records (ADRs). It allows you to run commands interactively, manage sessions, and perform analyses without repeatedly typing full command-line arguments.
+The ADRminer interactive CLI provides a hybrid chat-like interface for analyzing Architecture Decision Records (ADRs). It supports both traditional command-based interactions and natural language queries powered by Deep Agents.
 
 ### Features
 
-- **Interactive Command Loop**: Enter commands using `/` prefix
+- **Dual Interface**: Use commands (`/command`) or natural language
+- **AI-Powered Assistant**: Natural language understanding and task planning
 - **Session State**: Maintain state across commands (working directory, loaded ADRs, analysis results)
 - **Lazy Service Loading**: Services load only when needed
 - **Command History**: Navigate previous commands with Up/Down arrows
 - **Auto-completion**: Tab-complete commands and options
 - **Progress Indicators**: Visual progress for batch operations
-- **Confirmation Prompts**: Protect against accidental batch operations
+- **Human-in-the-Loop**: Approval prompts for large operations
+- **Context Awareness**: Agent remembers previous analyses and results
 
 ### Current Status
 
@@ -39,10 +42,12 @@ The ADRminer interactive CLI provides a chat-like interface for analyzing Archit
 - Session management and state persistence
 - Command history and navigation
 
-**Phase 2 (LLM-Powered)**: 🔜 Planned
+**Phase 2 (Deep Agents Integration)**: ✅ Complete
 - Natural language queries
-- LLM interpretation of user intent
-- Smart command suggestions
+- AI-powered task planning and execution
+- Context-aware conversations
+- Human-in-the-loop for batch operations
+- Memory and persistence across sessions
 
 ---
 
@@ -409,9 +414,208 @@ Goodbye!
 
 ---
 
-## 4. Session Management
+## 4. Natural Language Interface
 
-### 4.1 Session State
+The ADRminer CLI now supports natural language queries powered by Deep Agents, allowing you to interact with the system conversationally without needing to remember specific commands.
+
+### 4.1 Using Natural Language
+
+Simply type your question or request in plain English:
+
+```bash
+# Analyze ADRs
+ADRminer [/Users/user/project]> Analyze all ADRs in the adrs directory
+AI: I'll load the ADRs from the adrs directory and analyze them.
+[blue]Loading ADRs...[/blue]
+[green]✓ Loaded 25 ADRs[/green]
+AI: I've loaded 25 ADRs. Would you like me to predict topics, classify them, or check their quality?
+
+# Topic analysis
+ADRminer [/Users/user/project]> What topics are covered in my ADRs?
+AI: I'll predict topics for the loaded ADRs.
+[blue]Loading topic model...[/blue]
+[Processing ADRs...]
+AI: I found 12 topics. The most common topics are:
+  • Database Migration (8 ADRs, 32%)
+  • API Design (6 ADRs, 24%)
+  • Authentication (4 ADRs, 16%)
+
+# Quality checking
+ADRminer [/Users/user/project]> Check if these ADRs follow the MADR template
+AI: I'll check the quality of all 25 ADRs against the MADR template.
+[Processing...]
+AI: Quality check complete. Average template adherence: 0.78. 5 ADRs are missing the 'alternatives' section.
+```
+
+### 4.2 Natural Language Examples
+
+#### Loading ADRs
+```bash
+# Load from directory
+Load all ADRs from ./docs/adrs
+
+# Load specific file
+Analyze the file adr-001.md
+
+# Load and analyze
+Read all ADRs in the current directory and classify them
+```
+
+#### Topic Analysis
+```bash
+# General topic query
+What topics are covered?
+
+# Specific topic query
+Which ADRs discuss database migration?
+
+# Topic info
+Show me details about topic 5
+
+# Compare topics
+How many ADRs are about API design vs database migration?
+```
+
+#### Classification
+```bash
+# Classify with framework
+Classify the ADRs using Kruchten's framework
+
+# Multi-framework
+Classify these ADRs using all available frameworks
+
+# Specific framework
+Use Quality Attributes framework for classification
+```
+
+#### Quality Checking
+```bash
+# Quality check
+Check the quality of these ADRs
+
+# Template-specific
+Verify these ADRs follow the MADR template
+
+# Section analysis
+Check which sections are missing
+```
+
+#### Insights
+```bash
+# Generate insights
+Generate insights from the analysis results
+
+# Project-level
+What are the key architectural decisions in this project?
+
+# Recommendations
+What should I improve about my ADRs?
+```
+
+#### Export
+```bash
+# Export results
+Export the classification results to JSON
+
+# Save to file
+Save the topics analysis to a CSV file
+
+# Multiple formats
+Export everything in consolidated format
+```
+
+### 4.3 Context-Aware Conversations
+
+The AI assistant maintains context across queries:
+
+```bash
+# Initial query
+ADRminer [/Users/user/project]> Load ADRs from ./adrs
+AI: Loaded 25 ADRs from ./adrs
+
+# Follow-up (knows about loaded ADRs)
+ADRminer [/Users/user/project]> Predict topics
+AI: Predicting topics for 25 ADRs...
+[Results...]
+
+# Another follow-up
+ADRminer [/Users/user/project]> Show me the top topic
+AI: The most common topic is "Database Migration" (8 ADRs, 32%)
+
+# Request classification of same ADRs
+ADRminer [/Users/user/project]> Now classify them
+AI: I'll classify the 25 ADRs using the default framework (kruchten)...
+[Results...]
+```
+
+### 4.4 Human-in-the-Loop Approvals
+
+Large operations require approval:
+
+```bash
+ADRminer [/Users/user/project]> Classify all ADRs in the project directory
+AI: Found 75 ADR files to classify using Kruchten framework. This may take a while.
+Proceed with classification? [y/N]: y
+[Processing...]
+AI: Classification complete. Results saved.
+```
+
+### 4.5 Mixed Usage
+
+You can mix commands and natural language:
+
+```bash
+# Start with command
+ADRminer [/Users/user/project]> /cd ./adrs
+ADRminer [/Users/user/project/adrs]> /ls
+
+# Switch to natural language
+ADRminer [/Users/user/project/adrs]> What topics are covered?
+AI: [Predicts topics...]
+
+# Back to commands
+ADRminer [/Users/user/project/adrs]> /topics info --topic-id 5
+
+# Natural language again
+ADRminer [/Users/user/project/adrs]> Check the quality of ADR-001.md
+AI: [Checks quality...]
+```
+
+### 4.6 When to Use Commands vs Natural Language
+
+**Use Commands When:**
+- You need precise control over options
+- You're familiar with the CLI interface
+- You want to repeat exact operations
+- You need specific output formats
+
+**Use Natural Language When:**
+- You're unsure which command to use
+- You want to explore your ADRs interactively
+- You prefer conversational interaction
+- You want recommendations or insights
+
+### 4.7 AI Assistant Capabilities
+
+The AI assistant can:
+- **Interpret intent**: Understand what you want to accomplish
+- **Plan tasks**: Break down complex requests into steps
+- **Invoke tools**: Use ADRminer services (topics, classification, checking)
+- **Maintain context**: Remember loaded ADRs and previous results
+- **Provide insights**: Synthesize results into actionable recommendations
+- **Request approval**: Ask before large operations
+
+**The AI assistant cannot:**
+- Execute arbitrary system commands
+- Access files outside the current project
+- Modify ADR files directly
+- Bypass safety checks
+
+---
+
+## 5. Session Management
+
+### 5.1 Session State
 
 The interactive CLI maintains session state across commands:
 

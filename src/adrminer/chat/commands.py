@@ -46,6 +46,11 @@ COMMAND_REGISTRY: Dict[str, Dict[str, Any]] = {
         "description": "Exit the interactive session",
         "help": "/quit  - Exit the interactive session"
     },
+    "/reset_memory": {
+        "handler": "handle_reset_memory",
+        "description": "Reset session memory and analysis results",
+        "help": "/reset_memory  - Clear all loaded ADRs, analysis results, and command history"
+    },
     "/topics": {
         "handler": "handle_topics",
         "description": "Topic mining commands",

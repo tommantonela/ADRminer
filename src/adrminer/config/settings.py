@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional, Literal
+from typing import Optional, Literal, List
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
@@ -151,6 +151,69 @@ class CheckConfig(BaseModel):
     )
 
 
+class MiddlewareConfig(BaseModel):
+    """Middleware configuration for Deep Agent."""
+    
+    todo_list_enabled: bool = Field(
+        default=True,
+        description="Enable task planning with TodoList middleware"
+    )
+    filesystem_enabled: bool = Field(
+        default=True,
+        description="Enable filesystem access"
+    )
+    virtual_filesystem: bool = Field(
+        default=True,
+        description="Use virtual filesystem mode"
+    )
+    memory_backend: Literal["memory", "store"] = Field(
+        default="store",
+        description="Memory backend type for persistence"
+    )
+    
+    # Human-in-the-loop configuration
+    hitl_auto_approve_threshold: int = Field(
+        default=5,
+        ge=0,
+        description="Auto-approve operations affecting <= this many ADRs"
+    )
+    hitl_require_commands: List[str] = Field(
+        default_factory=lambda: ["classify_adrs", "check_quality"],
+        description="Commands that always require approval"
+    )
+
+
+class AgentConfig(BaseModel):
+    """Configuration for Deep Agent."""
+    
+    agent_enabled: bool = Field(
+        default=True,
+        description="Enable AI assistant in chat mode"
+    )
+    memory_enabled: bool = Field(
+        default=True,
+        description="Enable persistent memory across sessions"
+    )
+    hitl_enabled: bool = Field(
+        default=True,
+        description="Enable human-in-the-loop approvals"
+    )
+    skills_dir: Optional[str] = Field(
+        default=None,
+        description="Path to skills directory"
+    )
+    default_session_prefix: str = Field(
+        default="adrminer-",
+        description="Prefix for session IDs"
+    )
+    
+    # Middleware configuration
+    middleware: MiddlewareConfig = Field(
+        default_factory=MiddlewareConfig,
+        description="Middleware configuration"
+    )
+
+
 class OutputConfig(BaseModel):
     """Output configuration."""
     
@@ -195,6 +258,9 @@ class Settings(BaseSettings):
     
     # Output Configuration
     output: OutputConfig = Field(default_factory=OutputConfig)
+    
+    # Agent Configuration
+    agent: AgentConfig = Field(default_factory=AgentConfig)
     
     # Path to config file (for reference)
     config_path: Optional[Path] = None

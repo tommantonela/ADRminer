@@ -142,75 +142,48 @@ def predict(
     # Get parallel setting from config
     use_parallel = settings.output.parallel
     
-    # Define processing function
-    def process_adr(adr_file):
-        """Process a single ADR file."""
+    # Process ADRs - use smart selection based on count
+    results = []
+    
+    if len(adr_files) == 1:
+        # Single ADR: use direct classify() for efficiency
+        adr_file = adr_files[0]
         try:
             with open(adr_file, "r") as f:
                 text = f.read()
             
             result = service.classify(text, metadata={"file": str(adr_file)})
             result["adr_file"] = str(adr_file)
-            return result, None
+            results.append(result)
         except Exception as e:
-            return None, (adr_file, e)
-    
-    # Process ADRs
-    results = []
-    
-    with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        TaskProgressColumn(),
-        console=console,
-    ) as progress:
-        task = progress.add_task("Processing ADRs...", total=len(adr_files))
+            console.print(f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]")
+    else:
+        # Multiple ADRs: use batch method for parallel processing
+        texts = []
+        for adr_file in adr_files:
+            try:
+                with open(adr_file, "r") as f:
+                    texts.append(f.read())
+            except Exception as e:
+                console.print(f"[yellow]Warning: Failed to read {adr_file}: {e}[/yellow]")
         
-        if use_parallel:
-            # Parallel processing
-            with ThreadPoolExecutor() as executor:
-                # Submit all tasks
-                future_to_file = {
-                    executor.submit(process_adr, adr_file): adr_file 
-                    for adr_file in adr_files
-                }
+        if texts:
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TaskProgressColumn(),
+                console=console,
+            ) as progress:
+                task = progress.add_task("Classifying ADRs...", total=len(texts))
                 
-                # Create list to store results in correct order
-                ordered_results = [None] * len(adr_files)
-                
-                # Map file to index
-                file_to_index = {adr_file: i for i, adr_file in enumerate(adr_files)}
-                
-                # Collect results as they complete and place in correct position
-                for future in as_completed(future_to_file):
-                    adr_file = future_to_file[future]
-                    result, error = future.result()
-                    
-                    if error:
-                        adr_file, e = error
-                        console.print(f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]")
-                    elif result:
-                        # Place result in correct position
-                        idx = file_to_index[adr_file]
-                        ordered_results[idx] = result
-                    
-                    progress.update(task, advance=1)
-                
-                # Filter out None values (errors) and assign to results
-                results = [r for r in ordered_results if r is not None]
-        else:
-            # Sequential processing
-            for adr_file in adr_files:
-                result, error = process_adr(adr_file)
-                
-                if error:
-                    adr_file, e = error
-                    console.print(f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]")
-                elif result:
-                    results.append(result)
-                
-                progress.update(task, advance=1)
+                results = service.classify_batch(texts, parallel=True)
+                progress.update(task, completed=len(results))
+            
+            # Add file paths to results
+            for i, adr_file in enumerate(adr_files):
+                if i < len(results):
+                    results[i]["adr_file"] = str(adr_file)
     
     # Display results
     if verbose or len(results) <= 10:

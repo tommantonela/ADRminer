@@ -13,12 +13,13 @@ __all__ = [
 ]
 
 
-def run_chat(initial_dir=None):
+def run_chat(initial_dir=None, agent_enabled=None):
     """
     Run interactive chat CLI.
     
     Args:
         initial_dir: Initial working directory (defaults to cwd)
+        agent_enabled: Whether AI agent should be enabled (None = use config, True/False = override)
     """
     from rich.console import Console
     from prompt_toolkit import prompt
@@ -32,8 +33,18 @@ def run_chat(initial_dir=None):
     # Print welcome banner
     _print_welcome_banner(console)
     
+    # Determine agent enabled setting
+    from adrminer.config import get_settings
+    settings = get_settings()
+    
+    # Agent enabled: CLI flag takes precedence over config
+    if agent_enabled is None:
+        # Use config setting
+        agent_enabled = settings.agent.agent_enabled
+    # else: use the passed value (True/False)
+    
     # Initialize session
-    session = SessionManager(console, initial_dir=initial_dir)
+    session = SessionManager(console, initial_dir=initial_dir, agent_enabled=agent_enabled)
     
     # Initialize dispatcher
     dispatcher = CommandDispatcher(session)
@@ -64,7 +75,7 @@ def run_chat(initial_dir=None):
     })
     
     def get_prompt():
-        """Return the prompt text."""
+        """Return prompt text."""
         return [('class:prompt', 'ADRminer > ')]
     
     # Main loop
@@ -137,4 +148,4 @@ def _print_welcome_banner(console):
     console.print("  [dim]•[/dim] Type [bold cyan]/quit[/bold cyan] to exit\n")
     
     # Tips
-    # console.print("[dim]💡 Tip: Use Tab for auto-completion and ↑/↓ for command history[/dim]\n")
+    # console.print("[dim]💡 Tip: Use Tab for auto-completion and ↑/↓ for command history[/dim]\n")
