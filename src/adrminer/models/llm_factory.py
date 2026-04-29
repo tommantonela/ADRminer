@@ -18,6 +18,7 @@ def create_llm(
     temperature: Optional[float] = None,
     max_tokens: Optional[int] = None,
     settings: Optional[Settings] = None,
+    max_input_tokens: Optional[int] = None,
 ) -> BaseChatModel:
     """
     Create an LLM instance using LangChain's init_chat_model().
@@ -44,7 +45,8 @@ def create_llm(
     llm_model = model or settings.llm.model
     llm_temperature = temperature if temperature is not None else settings.llm.temperature
     llm_max_tokens = max_tokens if max_tokens is not None else settings.llm.max_tokens
-    
+    llm_max_input_tokens = max_input_tokens if max_input_tokens is not None else settings.llm.max_input_tokens
+
     # Validate provider
     valid_providers = ["openai", "anthropic", "ollama", "azure", "google", "groq"]
     if llm_provider not in valid_providers:
@@ -59,6 +61,7 @@ def create_llm(
         "model_provider": llm_provider,
         "temperature": llm_temperature,
         "max_tokens": llm_max_tokens,
+        "profile": {"max_input_tokens": llm_max_input_tokens}
     }
     
     # Add Ollama-specific configuration

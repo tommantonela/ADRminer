@@ -4,10 +4,11 @@
 
 # LLM Configuration
 llm:
-  provider: openai  # openai, anthropic, ollama, azure, google
+  provider: openai  # openai, anthropic, ollama, azure, google, groq
   model: gpt-4.1-mini
   temperature: 0.0
   max_tokens: 2000
+  max_input_tokens: 500000  # Model context window size (used by SummarizationMiddleware)
 
 # Topic Model Configuration
 topic_model:
@@ -32,6 +33,14 @@ classification:
 # Check Service Configuration
 check:
   template: madr
+
+# Agent Configuration
+agent:
+  agent_enabled: true
+  middleware:
+    summarization_trigger_fraction: 0.8  # Fraction of context window that triggers summarization
+    summarization_trigger_messages: 30   # Max messages before triggering summarization
+    summarization_keep_fraction: 0.3     # Fraction of context to keep after summarization
 
 # Output Configuration
 output:

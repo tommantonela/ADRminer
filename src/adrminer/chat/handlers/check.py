@@ -126,6 +126,10 @@ class CheckPredictHandler(BaseHandler):
         
         # Store in session
         self.session.store_analysis_result("check", results)
+        
+        # Sync agent context with updated session
+        if self.session.agent_context:
+            self.session.agent_context.load_from_session(self.session)
     
     def _display_results(self, results: List[Dict], mode: str):
         """Display check results."""

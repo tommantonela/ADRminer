@@ -46,6 +46,14 @@ def run_chat(initial_dir=None, agent_enabled=None):
     # Initialize session
     session = SessionManager(console, initial_dir=initial_dir, agent_enabled=agent_enabled)
     
+    # Initialize agent early if enabled (ensures shared context exists from start)
+    if agent_enabled:
+        try:
+            _ = session.agent  # Access property to trigger lazy loading
+            console.print("[dim]AI assistant ready (initialized at startup)[/dim]\n")
+        except Exception as e:
+            console.print(f"[yellow]Warning: AI assistant initialization failed: {e}[/yellow]")
+    
     # Initialize dispatcher
     dispatcher = CommandDispatcher(session)
     

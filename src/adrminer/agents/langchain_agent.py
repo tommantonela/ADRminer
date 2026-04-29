@@ -4,12 +4,15 @@ This module provides an alternative agent implementation using LangChain's
 create_agent() with ADRminer tools and read-only file management capabilities.
 """
 
+from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from langchain_community.agent_toolkits.file_management.toolkit import FileManagementToolkit
 
 from langgraph.checkpoint.memory import InMemorySaver  
+
+from langchain.agents.middleware import SummarizationMiddleware
 
 from adrminer.agents.tools import (
     load_adrs,
@@ -121,8 +124,8 @@ def create_langchain_agent(
     # Combine all tools
     all_tools = adrminer_tools + file_tools
     
-    # Create LLM
-    llm = settings.llm.model # create_llm(settings.llm)
+    # Create LLM via factory (passes max_input_tokens to the model)
+    llm = create_llm(settings=settings)
     
     # Customize system prompt with current context
     dirs_str = ", ".join(str(d) for d in agent_context.available_directories)
@@ -136,13 +139,29 @@ def create_langchain_agent(
     system_prompt = load_system_prompt()
     customized_prompt = system_prompt.format(**context_info)
     
+    # Read summarization middleware parameters from settings
+    mw = settings.agent.middleware
+    
     # Create agent using LangChain v1 API
     try:
         agent = create_agent(
             model=llm,
             tools=all_tools,
             system_prompt=customized_prompt,
-            checkpointer=InMemorySaver()
+            checkpointer=InMemorySaver(),
+            middleware=[
+                # Trigger automatic summarization when the context window reaches
+                # a given fraction of capacity or a max number of messages accumulated,
+                # then reduce the context keeping only a fraction of it
+                SummarizationMiddleware(
+                    model=llm,
+                    trigger=[
+                        ("fraction", mw.summarization_trigger_fraction),
+                        ("messages", mw.summarization_trigger_messages),
+                    ],
+                    keep=("fraction", mw.summarization_keep_fraction)
+                )
+            ]
         )
         
         return agent
@@ -169,7 +188,9 @@ class LangChainAdrminerAgent:
         """
         self.session = session
         self.config = config
-        self.context = AgentContext()
+        
+        # Use session's shared agent context instead of creating a new one
+        self.context = session.agent_context
         self.context.load_from_session(session)
         
         # Create the LangChain agent
@@ -185,6 +206,91 @@ class LangChainAdrminerAgent:
         prefix = settings.agent.default_session_prefix
         return f"{prefix}{uuid.uuid4().hex[:8]}"
     
+    def _build_context_summary(self) -> str:
+        """
+        Build a human-readable context summary from current session state.
+        
+        This summary is injected into each user message so the LLM always
+        sees the latest analysis results, even if they were produced by
+        direct commands (not by the agent's own tools).
+        
+        Returns:
+            Formatted context string for LLM consumption
+        """
+        lines = ["[Current Session Context]"]
+        
+        # Loaded ADRs
+        adr_count = self.context.get_loaded_adr_count()
+        if adr_count > 0:
+            lines.append(f"- Loaded ADRs: {adr_count} file(s)")
+        else:
+            lines.append("- Loaded ADRs: none")
+        
+        # Analysis results
+        results = self.context.analysis_results
+        if results:
+            lines.append("- Available analyses:")
+            
+            # Classification results
+            if "classification" in results:
+                cls_data = results["classification"]
+                if isinstance(cls_data, list):
+                    count = len(cls_data)
+                    categories = [r.get("primary_category", "Unknown") for r in cls_data if isinstance(r, dict)]
+                    confidences = [r.get("confidence", 0.0) for r in cls_data if isinstance(r, dict)]
+                    avg_conf = sum(confidences) / len(confidences) if confidences else 0
+                    top_cats = Counter(categories).most_common(3)
+                    cat_summary = ", ".join(f"{cat} ({cnt})" for cat, cnt in top_cats)
+                    lines.append(f"  * Classification: {count} ADR(s) classified "
+                                 f"(avg confidence: {avg_conf:.2f}, top: {cat_summary})")
+                elif isinstance(cls_data, dict):
+                    inner = cls_data.get("results", [])
+                    framework = cls_data.get("framework", "unknown")
+                    count = len(inner) if isinstance(inner, list) else 0
+                    lines.append(f"  * Classification: {count} ADR(s) classified "
+                                 f"(framework: {framework})")
+            
+            # Topics results
+            if "topics" in results:
+                topic_data = results["topics"]
+                if isinstance(topic_data, list):
+                    count = len(topic_data)
+                    topic_labels = [r.get("topic_label", "Unknown") for r in topic_data if isinstance(r, dict)]
+                    top_topics = Counter(topic_labels).most_common(3)
+                    topic_summary = ", ".join(f"{t} ({c})" for t, c in top_topics)
+                    lines.append(f"  * Topics: {count} ADR(s) analyzed "
+                                 f"(top topics: {topic_summary})")
+            
+            # Check results
+            if "check" in results:
+                check_data = results["check"]
+                if isinstance(check_data, list):
+                    count = len(check_data)
+                    scores = [r.get("template_adherence", {}).get("adherence_score", 0) 
+                              for r in check_data 
+                              if isinstance(r, dict) and "template_adherence" in r]
+                    avg_score = sum(scores) / len(scores) if scores else 0
+                    lines.append(f"  * Quality check: {count} ADR(s) checked "
+                                 f"(avg adherence: {avg_score:.2f})")
+                elif isinstance(check_data, dict):
+                    inner = check_data.get("results", [])
+                    mode = check_data.get("mode", "full")
+                    count = len(inner) if isinstance(inner, list) else 0
+                    lines.append(f"  * Quality check: {count} ADR(s) checked "
+                                 f"(mode: {mode})")
+            
+            # Insights results
+            if "insights" in results:
+                insights = results["insights"]
+                if isinstance(insights, dict):
+                    lines.append(f"  * Insights: generated")
+                elif isinstance(insights, list):
+                    lines.append(f"  * Insights: {len(insights)} insight(s) generated")
+        else:
+            lines.append("- Available analyses: none yet")
+        
+        return "\n".join(lines)
+    
     def process_natural_language(self, user_input: str) -> Dict[str, Any]:
         """
         Process natural language query through the agent.
@@ -199,13 +305,17 @@ class LangChainAdrminerAgent:
             RuntimeError: If agent execution fails
         """
         try:
-            # Update context
+            # Update context from session (picks up results from commands)
             self.context.load_from_session(self.session)
             
-            # Invoke agent with standard message format
+            # Build dynamic context summary and inject into message
+            context_block = self._build_context_summary()
+            enriched_input = f"{context_block}\n\n{user_input}"
+            
+            # Invoke agent with enriched message
             result = self.agent.invoke({
                 "messages": [
-                    {"role": "user", "content": user_input}
+                    {"role": "user", "content": enriched_input}
                 ]
             }, config={"configurable": {"thread_id": self.thread_id}})
             

@@ -41,7 +41,7 @@ class SessionManager:
         
         # Agent state (lazy-loaded)
         self._agent = None
-        self.agent_context: Optional[AgentContext] = None
+        self._agent_context: Optional[AgentContext] = None  # Private attribute for shared context
         self.agent_enabled = agent_enabled
         
         # Check if agent should be disabled
@@ -94,6 +94,18 @@ class SessionManager:
         return self._services["insights"]
     
     @property
+    def agent_context(self) -> AgentContext:
+        """Get or create shared agent context (singleton).
+        
+        This property ensures there's a single AgentContext instance
+        shared between the session and the agent. The agent uses
+        this context to maintain state across interactions.
+        """
+        if self._agent_context is None:
+            self._agent_context = AgentContext()
+        return self._agent_context
+    
+    @property
     def agent(self):
         """Lazy-load Deep Agent."""
         if self._agent is None:
@@ -107,9 +119,10 @@ class SessionManager:
                     config=settings.agent
                 )
                 
-                # Initialize agent context
-                self.agent_context = AgentContext()
-                self.agent_context.load_from_session(self)
+                # Note: agent_context is already initialized via the property
+                # by AdrminerAgent.__init__() which calls session.agent_context.
+                # Just ensure it's loaded with current session state.
+                self._agent_context.load_from_session(self)
                 
                 self.console.print("[green]✓ AI assistant ready[/green]")
             except ImportError as e:

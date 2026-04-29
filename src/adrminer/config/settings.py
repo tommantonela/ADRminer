@@ -37,6 +37,11 @@ class LLMConfig(BaseModel):
         ge=1,
         description="Maximum tokens to generate"
     )
+    max_input_tokens: int = Field(
+        default=500000,
+        ge=1,
+        description="Maximum input tokens for the model context window"
+    )
     ollama_base_url: Optional[str] = Field(
         default=None,
         description="Base URL for Ollama server (e.g., http://localhost:11434)"
@@ -152,7 +157,7 @@ class CheckConfig(BaseModel):
 
 
 class MiddlewareConfig(BaseModel):
-    """Middleware configuration for Deep Agent."""
+    """Middleware configuration for the Agent."""
     
     todo_list_enabled: bool = Field(
         default=True,
@@ -180,6 +185,25 @@ class MiddlewareConfig(BaseModel):
     hitl_require_commands: List[str] = Field(
         default_factory=lambda: ["classify_adrs", "check_quality"],
         description="Commands that always require approval"
+    )
+    
+    # Summarization middleware configuration
+    summarization_trigger_fraction: float = Field(
+        default=0.8,
+        ge=0.1,
+        le=1.0,
+        description="Fraction of context window usage that triggers summarization"
+    )
+    summarization_trigger_messages: int = Field(
+        default=30,
+        ge=5,
+        description="Number of accumulated messages that triggers summarization"
+    )
+    summarization_keep_fraction: float = Field(
+        default=0.3,
+        ge=0.1,
+        le=0.9,
+        description="Fraction of context to keep after summarization"
     )
 
 

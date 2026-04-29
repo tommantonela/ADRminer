@@ -100,6 +100,10 @@ class TopicsPredictHandler(BaseHandler):
         
         # Store in session
         self.session.store_analysis_result("topics", results)
+        
+        # Sync agent context with updated session
+        if self.session.agent_context:
+            self.session.agent_context.load_from_session(self.session)
     
     def _display_results(self, results: List[Dict], service, verbose: bool = False):
         """Display topic results."""

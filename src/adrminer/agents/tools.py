@@ -510,7 +510,7 @@ def mine_topics(
     
     This tool analyzes a batch of ADRs and extracts topics using the
     pre-trained BERTopic model. Topics are identified based on
-    semantic similarity of ADR content.
+    semantic similarity of ADR content. '-1' is the label for the "noise topic (which is an artificial topic)/
     
     Args:
         path: Optional path (folder) to load ADRs from (if not already loaded)
@@ -574,6 +574,10 @@ def mine_topics(
         
         # Store in session
         session.analysis_results["topics"] = results
+        
+        # Sync agent context with updated session
+        if session.agent_context:
+            session.agent_context.load_from_session(session)
         
         # Get distribution
         distribution = topic_service.get_topic_distribution(results)
@@ -700,6 +704,10 @@ def classify_adrs(
             "results": results
         }
         
+        # Sync agent context with updated session
+        if session.agent_context:
+            session.agent_context.load_from_session(session)
+        
         # Count classifications
         classification_counts = {}
         for result in results:
@@ -822,6 +830,10 @@ def check_quality(
             "template": template,
             "results": results
         }
+        
+        # Sync agent context with updated session
+        if session.agent_context:
+            session.agent_context.load_from_session(session)
         
         # Calculate aggregate scores
         total_score = sum(r.get("overall_score", 0) for r in results)
@@ -972,6 +984,8 @@ def generate_insights(
         except Exception as e:
             # Service might not support this, continue with basic insights
             pass
+        
+        # Note: generate_insights doesn't modify session state, so no context sync needed
         
         result = ToolResult(
             success=True,

@@ -185,7 +185,7 @@ class TopicService(BaseService):
         
         # Get topic info
         topic_info = self.model.get_topic_info(topic_id)
-        topic_label = topic_info["Name"].iloc[0] if not topic_info.empty else f"Topic {topic_id}"
+        topic_label = self._get_topic_display_name(topic_info, topic_id)
         
         # Get topic keywords
         if topic_id != -1:  # -1 is outlier topic
@@ -266,7 +266,7 @@ class TopicService(BaseService):
         results = []
         for i, (topic_id, prob) in enumerate(zip(topics, probs)):
             topic_info = self.model.get_topic_info(topic_id)
-            topic_label = topic_info["Name"].iloc[0] if not topic_info.empty else f"Topic {topic_id}"
+            topic_label = self._get_topic_display_name(topic_info, topic_id)
             
             if topic_id != -1:
                 words = self.model.get_topic(topic_id)
@@ -327,6 +327,34 @@ class TopicService(BaseService):
             "distribution": distribution,
         }
     
+    def _get_topic_display_name(self, topic_info_df: pd.DataFrame, topic_id: int) -> str:
+        """
+        Get the best available display name for a topic.
+        
+        Checks for stored LLM representation first, falls back to KeyBERT Name.
+        
+        Args:
+            topic_info_df: DataFrame from model.get_topic_info(topic_id)
+            topic_id: Topic ID
+        
+        Returns:
+            Display name string
+        """
+        if topic_info_df.empty:
+            return f"Topic {topic_id}"
+        
+        keybert_name = str(topic_info_df["Name"].iloc[0])
+        
+        # Check for stored LLM representation
+        if "LLM" in topic_info_df.columns and topic_id != -1:
+            llm_stored = topic_info_df["LLM"].iloc[0]
+            if llm_stored and isinstance(llm_stored, list) and len(llm_stored) > 0:
+                return str(llm_stored[0])
+            elif llm_stored and isinstance(llm_stored, str) and llm_stored.strip():
+                return str(llm_stored)
+        
+        return keybert_name
+    
     def get_topic_info(self, topic_id: int) -> Dict:
         """
         Get detailed information about a topic.
@@ -353,15 +381,24 @@ class TopicService(BaseService):
         else:
             word_list = []
         
-        # Get topic name
+        # Get topic name — prefer stored LLM representation, then runtime LLM, then KeyBERT
         keybert_name = str(topic_row["Name"].iloc[0])
+        display_name = keybert_name
         
-        # Use LLM to generate human-readable name if enabled
-        if self.use_llm_representation and self.llm is not None and topic_id != -1:
+        # 1. Check if model was trained with LLM representation (stored in "LLM" column)
+        if "LLM" in topic_row.columns and topic_id != -1:
+            llm_stored = topic_row["LLM"].iloc[0]
+            if llm_stored and isinstance(llm_stored, list) and len(llm_stored) > 0:
+                # LLM column stores a list of candidate names; use the first
+                display_name = str(llm_stored[0])
+            elif llm_stored and isinstance(llm_stored, str) and llm_stored.strip():
+                display_name = str(llm_stored)
+        
+        # 2. If no stored LLM name, try runtime LLM generation (if enabled)
+        if display_name == keybert_name and self.use_llm_representation and self.llm is not None and topic_id != -1:
             llm_name = self._generate_llm_topic_name(topic_id, words[:10])
-            display_name = llm_name if llm_name else keybert_name
-        else:
-            display_name = keybert_name
+            if llm_name:
+                display_name = llm_name
         
         return {
             "topic_id": int(topic_id),
