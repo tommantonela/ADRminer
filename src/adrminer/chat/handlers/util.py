@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
 from adrminer.chat.handlers.base import BaseHandler
 from adrminer.chat.commands import (
@@ -18,8 +18,9 @@ class HelpHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Show help for commands.
         
@@ -164,8 +165,9 @@ class ListHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         List ADRs in directory.
         
@@ -203,8 +205,9 @@ class LLMHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Test LLM configuration.
         
@@ -274,8 +277,9 @@ class InspectHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Inspect and display an ADR with Rich Markdown rendering.
         
@@ -409,8 +413,9 @@ class EnhancedListHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         List ADRs in directory with optional filtering and details.
         
@@ -550,25 +555,26 @@ class SummaryHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Generate summaries and insights for ADRs.
         
         Args:
             args: [path] (required)
             options: --output-summary, --output-detailed, --verbose, --force-rewrite
+            silent: If True, suppress console output and return structured data
         """
         from adrminer.services import InsightService
-        from adrminer.models.llm_factory import reset_llm_cache
-        from adrminer.config import reset_settings, get_settings
         from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
         from rich.table import Table
         
         if not args:
-            self.print_error("Path to ADR file or directory is required")
-            self.session.console.print("Usage: /summary <path> [--output-summary <file>] [--output-detailed <file>]")
-            return
+            if not silent:
+                self.print_error("Path to ADR file or directory is required")
+                self.session.console.print("Usage: /summary <path> [--output-summary <file>] [--output-detailed <file>]")
+            return None
         
         path = Path(args[0])
         
@@ -579,63 +585,73 @@ class SummaryHandler(BaseHandler):
         force_rewrite = options.get("force-rewrite", False)
         
         if not path.exists():
-            self.print_error(f"Path does not exist: {path}")
-            return
+            if not silent:
+                self.print_error(f"Path does not exist: {path}")
+            return None
         
         # Collect ADR files and metadata
         adrs_data = self._collect_adrs_with_metadata(path)
         
         if not adrs_data:
-            self.print_warning(f"No ADR files found at {path}")
-            return
+            if not silent:
+                self.print_warning(f"No ADR files found at {path}")
+            return None
         
-        # Ask for confirmation
+        # Ask for confirmation (skip if silent)
         file_count = len(adrs_data)
-        if not self.confirm_batch_operation(
+        if not silent and not self.confirm_batch_operation(
             operation="Generate summaries and insights",
             file_count=file_count,
             threshold=1
         ):
             self.session.console.print("[yellow]Operation cancelled.[/yellow]")
-            return
+            return None
         
         # Use session's insight service (lazy-loaded)
         service = self.session.insights_service
         
-        # Display console summary
-        self._display_console_summary(adrs_data)
-        
-        # Display project-level insights if available
-        all_metadata = [a["metadata"] for a in adrs_data if a["metadata"]]
-        if all_metadata:
-            self._display_project_insights(all_metadata)
-        
-        # Generate and export reports if requested
-        if output_summary_path or output_detailed_path:
-            # Resolve output paths
-            if path.is_dir():
-                # Input is ADR directory - save in parent folder
-                default_output_dir = path.parent
-            else:
-                # Input is single ADR file - save in parent of parent folder
-                default_output_dir = path.parent.parent
+        if not silent:
+            # Display console summary
+            self._display_console_summary(adrs_data)
             
-            resolved_summary = output_summary_path
-            if output_summary_path and (not output_summary_path.parent.name or str(output_summary_path.parent) == "."):
-                resolved_summary = default_output_dir / output_summary_path
+            # Display project-level insights if available
+            all_metadata = [a["metadata"] for a in adrs_data if a["metadata"]]
+            if all_metadata:
+                self._display_project_insights(all_metadata)
             
-            resolved_detailed = output_detailed_path
-            if output_detailed_path and (not output_detailed_path.parent.name or str(output_detailed_path.parent) == "."):
-                resolved_detailed = default_output_dir / output_detailed_path
-            
-            self._generate_reports(
-                adrs_data=adrs_data,
-                service=service,
-                output_summary=resolved_summary,
-                output_detailed=resolved_detailed,
-                force_rewrite=force_rewrite,
-                verbose=verbose,
-            )
+            # Generate and export reports if requested
+            if output_summary_path or output_detailed_path:
+                # Resolve output paths
+                if path.is_dir():
+                    default_output_dir = path.parent
+                else:
+                    default_output_dir = path.parent.parent
+                
+                resolved_summary = output_summary_path
+                if output_summary_path and (not Path(output_summary_path).parent.name or str(Path(output_summary_path).parent) == "."):
+                    resolved_summary = default_output_dir / output_summary_path
+                
+                resolved_detailed = output_detailed_path
+                if output_detailed_path and (not Path(output_detailed_path).parent.name or str(Path(output_detailed_path).parent) == "."):
+                    resolved_detailed = default_output_dir / output_detailed_path
+                
+                self._generate_reports(
+                    adrs_data=adrs_data,
+                    service=service,
+                    output_summary=resolved_summary,
+                    output_detailed=resolved_detailed,
+                    force_rewrite=force_rewrite,
+                    verbose=verbose,
+                )
+            return None
+        else:
+            # Return structured data in silent mode
+            all_metadata = [a["metadata"] for a in adrs_data if a["metadata"]]
+            return {
+                "adr_count": len(adrs_data),
+                "has_metadata_count": len(all_metadata),
+                "adrs": [{"file": a["adr_file"].name, "has_metadata": a["metadata"] is not None} for a in adrs_data]
+            }
     
     def _collect_adrs_with_metadata(self, path: Path) -> list[dict]:
         """Collect ADR files and their metadata."""
@@ -1149,7 +1165,12 @@ class SummaryHandler(BaseHandler):
 class ResetMemoryHandler(BaseHandler):
     """Handler for /reset_memory command."""
     
-    def execute(self, args: List[str], options: Dict[str, Any]) -> None:
+    def execute(
+        self,
+        args: List[str],
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """Reset all session memory and analysis results."""
         # Reset session memory
         summary = self.session.reset_memory()
@@ -1178,8 +1199,9 @@ class QuitHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Exit interactive session.
         

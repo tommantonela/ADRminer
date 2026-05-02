@@ -154,7 +154,7 @@ class SessionManager:
     
     def load_adr_files(self, path: Path) -> List[Path]:
         """
-        Load ADR files from a path.
+        Load ADR files from a path using centralized discovery.
         
         Args:
             path: Path to ADR file or directory
@@ -162,14 +162,12 @@ class SessionManager:
         Returns:
             List of ADR file paths
         """
-        if path.is_file():
-            adr_files = [path]
-        elif path.is_dir():
-            adr_files = list(path.glob("*.md")) + list(path.glob("*.MD"))
-        else:
-            return []
+        from adrminer.utils.filesystem import discover_adrs
         
-        self.loaded_adrs = sorted(adr_files)
+        # Discover ADRs (recursive by default for interactive CLI)
+        adr_files = discover_adrs(path, recursive=True)
+        
+        self.loaded_adrs = adr_files
         return self.loaded_adrs
     
     def get_adr_contents(self, adr_files: Optional[List[Path]] = None) -> Dict[str, str]:

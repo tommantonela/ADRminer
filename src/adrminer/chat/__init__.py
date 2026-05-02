@@ -1,5 +1,7 @@
 """Interactive chat CLI module."""
 
+from pathlib import Path
+
 from adrminer.chat.session import SessionManager
 from adrminer.chat.parser import CommandParser, CommandParseError
 from adrminer.chat.dispatcher import CommandDispatcher
@@ -58,7 +60,16 @@ def run_chat(initial_dir=None, agent_enabled=None):
     dispatcher = CommandDispatcher(session)
     
     # Setup command history
-    history = InMemoryHistory()
+    from prompt_toolkit.history import FileHistory
+    import os
+    
+    # Ensure .adrminer directory exists in user's home
+    adrminer_dir = Path.home() / ".adrminer"
+    if not adrminer_dir.exists():
+        os.makedirs(adrminer_dir, exist_ok=True)
+    
+    history_file = adrminer_dir / "history"
+    history = FileHistory(str(history_file))
     
     # Setup command auto-completion
     # Get all commands and subcommands for completion

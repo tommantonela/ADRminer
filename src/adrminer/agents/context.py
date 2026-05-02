@@ -50,13 +50,17 @@ class AgentContext(BaseModel):
         Args:
             session: SessionManager instance
         """
+        from adrminer.config import get_settings
+        settings = get_settings()
+        exclusions = settings.standard_exclusions
+
         # Load available directories (root + subdirectories)
         root_dir = Path.cwd()
         self.available_directories = [root_dir]
         
         # Add immediate subdirectories (non-hidden, excluding __pycache__, etc.)
         for item in root_dir.iterdir():
-            if item.is_dir() and not item.name.startswith('.') and item.name not in ['__pycache__', 'node_modules', '.git', '.venv', 'venv']:
+            if item.is_dir() and not item.name.startswith('.') and item.name not in exclusions:
                 self.available_directories.append(item)
         
         # Sort directories for consistent ordering

@@ -1,7 +1,7 @@
 """Check command handlers."""
 
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 import csv
 from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
@@ -16,53 +16,57 @@ class CheckPredictHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Check ADR quality against MADR template.
         
         Args:
             args: [path]
             options: mode, parallel, use-parser, strict, no-language-detect
+            silent: If True, suppress console output and return structured data
         """
         path_str = args[0]
         path = Path(path_str)
         
         if not path.exists():
-            self.print_error(f"Path does not exist: {path}")
-            return
+            if not silent:
+                self.print_error(f"Path does not exist: {path}")
+            return None
         
         # Load ADR files
         adr_files = self.session.load_adr_files(path)
         
         if not adr_files:
-            self.print_warning(f"No ADRs found in {path}")
-            return
+            if not silent:
+                self.print_warning(f"No ADRs found in {path}")
+            return None
         
-        # Confirm batch operation
-        if not self.confirm_batch_operation("check quality of", len(adr_files)):
+        # Confirm batch operation (skip if silent)
+        if not silent and not self.confirm_batch_operation("check quality of", len(adr_files)):
             self.print_info("Operation cancelled")
-            return
+            return None
         
         # Get options
         mode = options.get("mode", "full")
         parallel = options.get("parallel", True)
-        use_parser = options.get("use-parser", False)
-        strict = options.get("strict", False)
-        no_language_detect = options.get("no-language-detect", False)
+        # use_parser = options.get("use-parser", False)
+        # strict = options.get("strict", False)
+        # no_language_detect = options.get("no-language-detect", False)
         csv_output = options.get("csv")
         
         # Load service
         service = self.session.checking_service
         
         # Build parser config
-        parser_config = None
-        if use_parser:
-            parser_config = {}
-            if strict:
-                parser_config["strict"] = True
-            if no_language_detect:
-                parser_config["detect_language"] = False
+        # parser_config = None
+        # if use_parser:
+        #     parser_config = {}
+        #     if strict:
+        #         parser_config["strict"] = True
+        #     if no_language_detect:
+        #         parser_config["detect_language"] = False
         
         # Extract texts and metadata
         texts = []
@@ -75,12 +79,9 @@ class CheckPredictHandler(BaseHandler):
                 texts.append(text)
                 
                 # Create metadata
-                if adr_file.is_absolute():
-                    try:
-                        file_path = str(adr_file.relative_to(Path.cwd()))
-                    except ValueError:
-                        file_path = str(adr_file)
-                else:
+                try:
+                    file_path = str(adr_file.relative_to(Path.cwd()))
+                except ValueError:
                     file_path = str(adr_file)
                 
                 metadata_list.append({
@@ -88,41 +89,46 @@ class CheckPredictHandler(BaseHandler):
                     "name": adr_file.name
                 })
             except Exception as e:
-                self.session.console.print(
-                    f"[yellow]Warning: Failed to read {adr_file}: {e}[/yellow]"
-                )
+                if not silent:
+                    self.session.console.print(
+                        f"[yellow]Warning: Failed to read {adr_file}: {e}[/yellow]"
+                    )
         
         if not texts:
-            self.print_error("No ADR texts to check")
-            return
+            if not silent:
+                self.print_error("No ADR texts to check")
+            return None
         
         # Run checks
-        self.session.console.print(f"\nFound {len(texts)} ADR file(s) to analyze")
-        self.session.console.print(f"Mode: {mode}\n")
-        
-        with Progress(
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            TaskProgressColumn(),
-            console=self.session.console,
-        ) as progress:
-            task = progress.add_task(f"Checking {len(texts)} ADR(s)...", total=len(texts))
+        if not silent:
+            self.session.console.print(f"\nFound {len(texts)} ADR file(s) to analyze")
+            self.session.console.print(f"Mode: {mode}\n")
             
+            with Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TaskProgressColumn(),
+                console=self.session.console,
+            ) as progress:
+                task = progress.add_task(f"Checking {len(texts)} ADR(s)...", total=len(texts))
+                
+                if mode == "adherence":
+                    results = service.check_adherence_batch(texts, metadata_list, parallel)
+                elif mode == "sections":
+                    results = service.check_sections_batch(texts, metadata_list, parallel)
+                else:  # full
+                    results = service.check_batch(texts, metadata_list, parallel)
+                
+                progress.update(task, completed=len(results))
+        else:
+            # Use batch method for efficiency even in silent mode
             if mode == "adherence":
                 results = service.check_adherence_batch(texts, metadata_list, parallel)
             elif mode == "sections":
                 results = service.check_sections_batch(texts, metadata_list, parallel)
             else:  # full
                 results = service.check_batch(texts, metadata_list, parallel)
-            
-            progress.update(task, completed=len(results))
-        
-        # Display results
-        self._display_results(results, mode)
-        
-        # Export results
-        self._export_results(results, csv_output)
         
         # Store in session
         self.session.store_analysis_result("check", results)
@@ -130,6 +136,54 @@ class CheckPredictHandler(BaseHandler):
         # Sync agent context with updated session
         if self.session.agent_context:
             self.session.agent_context.load_from_session(self.session)
+            
+        if not silent:
+            # Display results
+            self._display_results(results, mode)
+            # Export results
+            self._export_results(results, csv_output)
+            return None
+        else:
+            # Return structured data in silent mode
+            return {
+                "results": results,
+                "mode": mode,
+                "count": len(results),
+                "statistics": self._calculate_statistics(results, mode)
+            }
+
+    def _calculate_statistics(self, results: List[Dict], mode: str) -> Dict:
+        """Calculate statistics for structured return."""
+        stats = {
+            "total_adrs": len(results),
+            "errors": sum(1 for r in results if "error" in r)
+        }
+        
+        valid_results = [r for r in results if "error" not in r]
+        
+        if mode in ["full", "adherence"]:
+            scores = [r.get("template_adherence", {}).get("adherence_score", 0.0) for r in valid_results]
+            stats["average_adherence"] = sum(scores) / len(scores) if scores else 0.0
+            stats["high_quality_count"] = sum(1 for s in scores if s >= 0.8)
+        
+        if mode in ["full", "sections"]:
+            present_counts = []
+            quality_counts = []
+            consistent_counts = []
+            
+            for r in valid_results:
+                assessments = r.get("section_assessments", [])
+                if assessments:
+                    present_counts.append(sum(1 for s in assessments if s.get("presence") == "Yes"))
+                    quality_counts.append(sum(1 for s in assessments if s.get("content_quality") == "Yes"))
+                    consistent_counts.append(sum(1 for s in assessments if s.get("purpose_consistency") == "Yes"))
+            
+            if present_counts:
+                stats["avg_section_presence"] = sum(present_counts) / len(present_counts)
+                stats["avg_section_quality"] = sum(quality_counts) / len(quality_counts)
+                stats["avg_section_consistency"] = sum(consistent_counts) / len(consistent_counts)
+        
+        return stats
     
     def _display_results(self, results: List[Dict], mode: str):
         """Display check results."""
@@ -142,8 +196,32 @@ class CheckPredictHandler(BaseHandler):
         # Create summary table
         if len(results) > 1:
             self._display_summary_table(results, mode)
+            self._show_check_statistics(results, mode)
         else:
             self._display_single_result(results[0], mode)
+
+    def _show_check_statistics(self, results: List[Dict], mode: str):
+        """Show quality check statistics summary."""
+        from rich.panel import Panel
+        
+        stats = self._calculate_statistics(results, mode)
+        
+        lines = []
+        lines.append(f"Total ADRs checked: [bold cyan]{stats['total_adrs']}[/bold cyan]")
+        
+        if stats['errors'] > 0:
+            lines.append(f"Errors encountered: [bold red]{stats['errors']}[/bold red]")
+            
+        if mode in ["full", "adherence"]:
+            lines.append(f"Average adherence score: [bold yellow]{stats.get('average_adherence', 0.0):.2f}[/bold yellow]")
+            lines.append(f"High quality ADRs (>=0.8): [bold green]{stats.get('high_quality_count', 0)}[/bold green]")
+            
+        if mode in ["full", "sections"]:
+            lines.append(f"Avg section presence: [bold blue]{stats.get('avg_section_presence', 0.0):.1f}[/bold blue] / 7")
+            lines.append(f"Avg section quality: [bold blue]{stats.get('avg_section_quality', 0.0):.1f}[/bold blue] / 7")
+            
+        self.session.console.print("\n")
+        self.session.console.print(Panel("\n".join(lines), title="Quality Check Statistics", border_style="blue"))
     
     def _display_summary_table(self, results: List[Dict], mode: str):
         """Display summary table for multiple ADRs."""

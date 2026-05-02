@@ -160,13 +160,20 @@ class ADRParserService:
         lines = text.strip().split('\n')
         title = ""
         
+        # Standard section headers for various templates (MADR, Zimmermann, Nygard)
+        standard_sections = [
+            "Status", "Context", "Decision", "Consequences", "Decision Drivers", 
+            "Considered Options", "Problem", "Rationale", "Proposed Solution", 
+            "Alternative", "Pros and Cons", "Argument", "Scope", "Constraints"
+        ]
+
         # First, try to find a # heading at the start (but skip section headers)
         for i, line in enumerate(lines[:10]):  # Check first 10 lines
             line_stripped = line.strip()
             if line_stripped.startswith('#'):
-                # Skip if it's a MADR section header
-                if not any(section in line_stripped for section in ["Status", "Context", "Decision", "Consequences", "Decision Drivers", "Considered Options"]):
-                    title = line_stripped[2:].strip()
+                # Skip if it's a known section header
+                if not any(section in line_stripped for section in standard_sections):
+                    title = line_stripped.lstrip('#').strip()
                     break
         
         # If no # heading found, use first non-empty line (but skip section headers and section content)
@@ -176,9 +183,9 @@ class ADRParserService:
                 line_stripped = line.strip()
                 if line_stripped:
                     # Remove ## prefix for comparison
-                    line_without_hash = line_stripped.replace('##', '').strip()
+                    line_without_hash = line_stripped.replace('#', '').strip()
                     # Check if this is a section header
-                    if line_without_hash in ["Status", "Context", "Decision", "Consequences", "Decision Drivers", "Considered Options"]:
+                    if line_without_hash in standard_sections:
                         prev_was_section_header = True
                         continue
                     # Skip content immediately following a section header (likely not a title)

@@ -22,14 +22,19 @@ class BaseHandler(ABC):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Execute the command.
         
         Args:
             args: Positional arguments
             options: Key-value options
+            silent: If True, suppress console output and return structured data
+        
+        Returns:
+            Structured result dict if silent=True, None otherwise
         """
         pass
     

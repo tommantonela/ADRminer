@@ -1,7 +1,7 @@
 """Classification command handlers."""
 
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from collections import Counter
 import csv
 from rich.table import Table
@@ -17,8 +17,9 @@ class ClassifyPredictHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Classify ADRs using specified framework.
         
@@ -26,31 +27,34 @@ class ClassifyPredictHandler(BaseHandler):
             args: [path]
             options: framework, examples, no-examples, use-parser, strict,
                      no-language-detect, output, parallel
+            silent: If True, suppress console output and return structured data
         """
         path_str = args[0]
         path = Path(path_str)
         
         if not path.exists():
-            self.print_error(f"Path does not exist: {path}")
-            return
+            if not silent:
+                self.print_error(f"Path does not exist: {path}")
+            return None
         
         # Load ADR files
         adr_files = self.session.load_adr_files(path)
         
         if not adr_files:
-            self.print_warning(f"No ADRs found in {path}")
-            return
+            if not silent:
+                self.print_warning(f"No ADRs found in {path}")
+            return None
         
-        # Confirm batch operation
-        if not self.confirm_batch_operation("classify", len(adr_files)):
+        # Confirm batch operation (skip if silent)
+        if not silent and not self.confirm_batch_operation("classify", len(adr_files)):
             self.print_info("Operation cancelled")
-            return
+            return None
         
         # Get options
         framework = options.get("framework")
-        examples = options.get("examples")
-        no_examples = options.get("no-examples", False)
-        use_parser = options.get("use-parser", False)
+        # examples = options.get("examples")
+        # no_examples = options.get("no-examples", False)
+        # use_parser = options.get("use-parser", False)
         strict = options.get("strict", False)
         no_language_detect = options.get("no-language-detect", False)
         output = options.get("output", "sidecar")
@@ -64,54 +68,40 @@ class ClassifyPredictHandler(BaseHandler):
         if framework:
             current_framework = service.framework
             if framework != current_framework:
-                self.session.console.print(
-                    f"[blue]Switching framework from {current_framework} to {framework}[/blue]"
-                )
+                if not silent:
+                    self.session.console.print(
+                        f"[blue]Switching framework from {current_framework} to {framework}[/blue]"
+                    )
                 service.framework = framework
         
         # Build parser config
-        parser_config = {}
-        if strict:
-            parser_config["strict"] = True
-        if no_language_detect:
-            parser_config["detect_language"] = False
+        # parser_config = {}
+        # if strict:
+        #     parser_config["strict"] = True
+        # if no_language_detect:
+        #     parser_config["detect_language"] = False
         
-        # Process ADRs - use smart selection based on count
-        self.session.console.print(f"\nFound {len(adr_files)} ADR file(s) to analyze\n")
-        self.session.console.print(f"[bold]Framework:[/bold] {service.framework}\n")
+        # Process ADRs
+        if not silent:
+            self.session.console.print(f"\nFound {len(adr_files)} ADR file(s) to analyze\n")
+            self.session.console.print(f"[bold]Framework:[/bold] {service.framework}\n")
         
         results = []
         
-        if len(adr_files) == 1:
-            # Single ADR: use direct classify() for efficiency
-            adr_file = adr_files[0]
+        # Read contents
+        texts = []
+        for adr_file in adr_files:
             try:
                 with open(adr_file, 'r') as f:
-                    text = f.read()
-                
-                result = service.classify(
-                    text,
-                    metadata={"file": str(adr_file)}
-                )
-                result["adr_file"] = str(adr_file)
-                results.append(result)
+                    texts.append(f.read())
             except Exception as e:
-                self.session.console.print(
-                    f"[yellow]Warning: Failed to classify {adr_file}: {e}[/yellow]"
-                )
-        else:
-            # Multiple ADRs: use batch method for parallel processing
-            texts = []
-            for adr_file in adr_files:
-                try:
-                    with open(adr_file, 'r') as f:
-                        texts.append(f.read())
-                except Exception as e:
+                if not silent:
                     self.session.console.print(
                         f"[yellow]Warning: Failed to read {adr_file}: {e}[/yellow]"
                     )
-            
-            if texts:
+        
+        if texts:
+            if not silent:
                 with Progress(
                     SpinnerColumn(),
                     TextColumn("[progress.description]{task.description}"),
@@ -120,20 +110,16 @@ class ClassifyPredictHandler(BaseHandler):
                     console=self.session.console,
                 ) as progress:
                     task = progress.add_task("Classifying ADRs...", total=len(texts))
-                    
                     results = service.classify_batch(texts, parallel=True)
-                    
                     progress.update(task, completed=len(results))
-                
-                # Add file paths to results
-                for i, result in enumerate(results):
+            else:
+                # Use batch method for efficiency even in silent mode
+                results = service.classify_batch(texts, parallel=True)
+            
+            # Add file paths to results
+            for i, result in enumerate(results):
+                if i < len(adr_files):
                     result["adr_file"] = str(adr_files[i])
-        
-        # Display results
-        self._display_results(results, verbose)
-        
-        # Export results
-        self._export_results(results, output, csv_output)
         
         # Store in session
         self.session.store_analysis_result("classification", results)
@@ -141,6 +127,38 @@ class ClassifyPredictHandler(BaseHandler):
         # Sync agent context with updated session
         if self.session.agent_context:
             self.session.agent_context.load_from_session(self.session)
+        
+        if not silent:
+            # Display results
+            self._display_results(results, verbose)
+            # Export results
+            self._export_results(results, output, csv_output)
+            return None
+        else:
+            # Return structured data in silent mode
+            return {
+                "results": results,
+                "framework": service.framework,
+                "count": len(results),
+                "statistics": self._calculate_statistics(results)
+            }
+
+    def _calculate_statistics(self, results: List[Dict]) -> Dict:
+        """Calculate statistics for structured return."""
+        categories = [r.get('primary_category', 'Unknown') for r in results]
+        category_counts = Counter(categories)
+        
+        confidences = [r.get('confidence', 0.0) for r in results]
+        avg_confidence = sum(confidences) / len(confidences) if confidences else 0.0
+        high_conf = sum(1 for r in results if r.get('confidence', 0.0) > 0.8)
+        
+        return {
+            "total_adrs": len(results),
+            "average_confidence": avg_confidence,
+            "high_confidence_count": high_conf,
+            "high_confidence_percentage": high_conf / len(results) if results else 0.0,
+            "category_distribution": dict(category_counts.most_common())
+        }
     
     def _display_results(self, results: List[Dict], verbose: bool = False):
         """Display classification results."""
@@ -283,8 +301,9 @@ class ClassifyInfoHandler(BaseHandler):
     def execute(
         self,
         args: List[str],
-        options: Dict[str, Any]
-    ) -> None:
+        options: Dict[str, Any],
+        silent: bool = False
+    ) -> Optional[Dict[str, Any]]:
         """
         Show information about classification frameworks.
         

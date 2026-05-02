@@ -15,7 +15,7 @@ topic_model:
   path: ./notebooks/saved_topicmodel
   embedding_model: all-MiniLM-L6-v2
   n_topics: null
-  use_llm_representation: false  # Use LLM to generate human-readable topic names
+  use_llm_representation: true  # Use LLM to generate human-readable topic names
   reduce_topics: false  # Reduce number of topics after training
   language: english  # Language for stop words in vectorizer
   # UMAP parameters for dimensionality reduction

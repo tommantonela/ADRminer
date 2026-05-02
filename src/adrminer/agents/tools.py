@@ -140,20 +140,9 @@ def load_adrs(path: str) -> Dict[str, Any]:
         if not path_obj.is_absolute():
             path_obj = Path.cwd() / path_obj
         
-        # Get ADR paths
-        adr_paths = []
-        if path_obj.is_file():
-            # Single file
-            if path_obj.suffix in ['.md', '.txt']:
-                adr_paths.append(path_obj)
-        elif path_obj.is_dir():
-            # Directory - load all markdown files
-            adr_paths = list(path_obj.glob("**/*.md"))
-            # Filter out common non-ADR files
-            adr_paths = [
-                p for p in adr_paths 
-                if not any(excl in str(p) for excl in ['node_modules', '.git', '__pycache__'])
-            ]
+        # Get ADR paths using centralized discovery
+        from adrminer.utils.filesystem import discover_adrs
+        adr_paths = discover_adrs(path_obj, recursive=True)
         
         if not adr_paths:
             return ToolResult(
@@ -451,19 +440,9 @@ def list_adr_files(
         if not path_obj.is_absolute():
             path_obj = Path.cwd() / path_obj
         
-        # Find ADR files
-        adr_files = []
-        if path_obj.is_file():
-            if path_obj.suffix in ['.md', '.MD', '.txt', '.TXT']:
-                adr_files.append(path_obj)
-        elif path_obj.is_dir():
-            # Search recursively
-            adr_files = list(path_obj.glob("**/*.md")) + list(path_obj.glob("**/*.MD"))
-            # Filter out common non-ADR files
-            adr_files = [
-                p for p in adr_files 
-                if not any(excl in str(p) for excl in ['node_modules', '.git', '__pycache__'])
-            ]
+        # Find ADR files using centralized discovery
+        from adrminer.utils.filesystem import discover_adrs
+        adr_files = discover_adrs(path_obj, recursive=True)
         
         result = ToolResult(
             success=True,
@@ -538,61 +517,44 @@ def mine_topics(
         session.console.print(f"  [dim]path: {path}, threshold: {threshold}[/dim]")
     
     try:
-        # Load ADRs if path provided
+        # Resolve search path
         if path is not None:
-            load_result = load_adrs.invoke({"path": path})
-            if not load_result["success"]:
-                return ToolResult(
-                    success=False,
-                    message=f"Failed to load ADRs: {load_result['message']}",
-                    requires_approval=False
-                ).model_dump()
+            search_path = path
+        elif session.loaded_adrs:
+            # Use the first loaded ADR's parent directory if none provided
+            search_path = str(session.loaded_adrs[0].parent)
+        else:
+            search_path = "."
+
+        # Import handler
+        from adrminer.chat.handlers.topics import TopicsPredictHandler
         
-        # Check if ADRs are loaded
-        if not hasattr(session, 'loaded_adrs') or not session.loaded_adrs:
+        # Create handler instance
+        handler = TopicsPredictHandler(session)
+        
+        # Call handler in silent mode
+        result_data = handler.execute(
+            args=[search_path],
+            options={
+                "threshold": threshold
+            },
+            silent=True
+        )
+        
+        if result_data is None:
             return ToolResult(
                 success=False,
-                message="No ADRs loaded. Use load_adrs first or provide a path.",
+                message="Topic mining failed",
                 requires_approval=False
             ).model_dump()
         
-        # Get topic service
-        topic_service = session.topic_service
-        
-        # Read ADR contents
-        texts = []
-        for adr_path in session.loaded_adrs:
-            with open(adr_path, 'r', encoding='utf-8') as f:
-                texts.append(f.read())
-        
-        # Predict topics
-        results = topic_service.predict_batch(texts, parallel=True)
-        
-        # Filter by threshold if specified
-        if threshold > 0:
-            results = [r for r in results if r["probability"] >= threshold]
-        
-        # Store in session
-        session.analysis_results["topics"] = results
-        
-        # Sync agent context with updated session
-        if session.agent_context:
-            session.agent_context.load_from_session(session)
-        
-        # Get distribution
-        distribution = topic_service.get_topic_distribution(results)
-        
         result = ToolResult(
             success=True,
-            message=f"Analyzed {len(results)} ADR(s) for topics",
-            data={
-                "results": results,
-                "distribution": distribution,
-                "threshold": threshold
-            },
-            requires_approval=False,
+            message=f"Analyzed {result_data['count']} ADR(s) for topics",
+            data=result_data,
+            requires_approval=True,
             batch_operation=True,
-            num_affected=len(session.loaded_adrs)
+            num_affected=result_data['count']
         ).model_dump()
         
         # Log completion
@@ -657,74 +619,45 @@ def classify_adrs(
         session.console.print(f"  [dim]framework: {framework}, use_examples: {use_examples}[/dim]")
     
     try:
-        # Load ADRs if path provided
+        # Resolve search path
         if path is not None:
-            load_result = load_adrs.invoke({"path": path})
-            if not load_result["success"]:
-                return ToolResult(
-                    success=False,
-                    message=f"Failed to load ADRs: {load_result['message']}",
-                    requires_approval=False
-                ).model_dump()
+            search_path = path
+        elif session.loaded_adrs:
+            # Use the first loaded ADR's parent directory if none provided
+            search_path = str(session.loaded_adrs[0].parent)
+        else:
+            search_path = "."
+
+        # Import handler
+        from adrminer.chat.handlers.classify import ClassifyPredictHandler
         
-        # Check if ADRs are loaded
-        if not hasattr(session, 'loaded_adrs') or not session.loaded_adrs:
+        # Create handler instance
+        handler = ClassifyPredictHandler(session)
+        
+        # Call handler in silent mode
+        result_data = handler.execute(
+            args=[search_path],
+            options={
+                "framework": framework,
+                "use_examples": use_examples
+            },
+            silent=True
+        )
+        
+        if result_data is None:
             return ToolResult(
                 success=False,
-                message="No ADRs loaded. Use load_adrs first or provide a path.",
+                message="Classification failed",
                 requires_approval=False
             ).model_dump()
         
-        # Get classification service
-        classification_service = session.classification_service
-        
-        # Show framework change if different from current
-        current_framework = classification_service.framework
-        if framework != current_framework:
-            if hasattr(session, 'console'):
-                session.console.print(
-                    f"[blue]→[/blue] Switching framework from {current_framework} to {framework}"
-                )
-        
-        # Set framework using property setter
-        classification_service.framework = framework
-        
-        # Read ADR contents
-        texts = []
-        for adr_path in session.loaded_adrs:
-            with open(adr_path, 'r', encoding='utf-8') as f:
-                texts.append(f.read())
-        
-        # Classify (use_examples is set during service initialization)
-        results = classification_service.classify_batch(texts)
-        
-        # Store in session
-        session.analysis_results["classification"] = {
-            "framework": framework,
-            "results": results
-        }
-        
-        # Sync agent context with updated session
-        if session.agent_context:
-            session.agent_context.load_from_session(session)
-        
-        # Count classifications
-        classification_counts = {}
-        for result in results:
-            category = result.get("primary_category", "Unknown")
-            classification_counts[category] = classification_counts.get(category, 0) + 1
-        
         result = ToolResult(
             success=True,
-            message=f"Classified {len(results)} ADR(s) using {framework} framework",
-            data={
-                "results": results,
-                "counts": classification_counts,
-                "framework": framework
-            },
+            message=f"Classified {result_data['count']} ADR(s) using {framework} framework",
+            data=result_data,
             requires_approval=True,
             batch_operation=True,
-            num_affected=len(session.loaded_adrs)
+            num_affected=result_data['count']
         ).model_dump()
         
         # Log completion
@@ -789,72 +722,45 @@ def check_quality(
         session.console.print(f"  [dim]mode: {mode}, template: {template}[/dim]")
     
     try:
-        # Load ADRs if path provided
+        # Resolve search path
         if path is not None:
-            load_result = load_adrs.invoke({"path": path})
-            if not load_result["success"]:
-                return ToolResult(
-                    success=False,
-                    message=f"Failed to load ADRs: {load_result['message']}",
-                    requires_approval=False
-                ).model_dump()
+            search_path = path
+        elif session.loaded_adrs:
+            # Use the first loaded ADR's parent directory if none provided
+            search_path = str(session.loaded_adrs[0].parent)
+        else:
+            search_path = "."
+
+        # Import handler
+        from adrminer.chat.handlers.check import CheckPredictHandler
         
-        # Check if ADRs are loaded
-        if not hasattr(session, 'loaded_adrs') or not session.loaded_adrs:
-            return ToolResult(
-                success=False,
-                message="No ADRs loaded. Use load_adrs first or provide a path.",
-                requires_approval=False
-            ).model_dump()
+        # Create handler instance
+        handler = CheckPredictHandler(session)
         
-        # Get checking service
-        checking_service = session.checking_service
-        
-        # Read ADR contents
-        texts = []
-        for adr_path in session.loaded_adrs:
-            with open(adr_path, 'r', encoding='utf-8') as f:
-                texts.append(f.read())
-        
-        # Check quality
-        if mode == "adherence":
-            results = checking_service.check_adherence_batch(texts)
-        elif mode == "sections":
-            results = checking_service.check_sections_batch(texts)
-        else:  # full
-            results = checking_service.check_batch(texts)
-        
-        # Store in session
-        session.analysis_results["check"] = {
-            "mode": mode,
-            "template": template,
-            "results": results
-        }
-        
-        # Sync agent context with updated session
-        if session.agent_context:
-            session.agent_context.load_from_session(session)
-        
-        # Calculate aggregate scores
-        total_score = sum(r.get("overall_score", 0) for r in results)
-        avg_score = total_score / len(results) if results else 0
-        
-        # Count issues
-        total_issues = sum(len(r.get("issues", [])) for r in results)
-        
-        result = ToolResult(
-            success=True,
-            message=f"Checked quality of {len(results)} ADR(s)",
-            data={
-                "results": results,
-                "average_score": avg_score,
-                "total_issues": total_issues,
+        # Call handler in silent mode
+        result_data = handler.execute(
+            args=[search_path],
+            options={
                 "mode": mode,
                 "template": template
             },
+            silent=True
+        )
+        
+        if result_data is None:
+            return ToolResult(
+                success=False,
+                message="Quality check failed",
+                requires_approval=False
+            ).model_dump()
+        
+        result = ToolResult(
+            success=True,
+            message=f"Checked quality of {result_data['count']} ADR(s)",
+            data=result_data,
             requires_approval=True,
             batch_operation=True,
-            num_affected=len(session.loaded_adrs)
+            num_affected=result_data['count']
         ).model_dump()
         
         # Log completion
@@ -919,81 +825,42 @@ def generate_insights(
         session.console.print(f"  [dim]include_topics: {include_topics}, include_classification: {include_classification}, include_check: {include_check}[/dim]")
     
     try:
-        # Check if analysis results exist
-        insights = {}
+        # Resolve path from session or default to cwd
+        if session.loaded_adrs:
+            search_path = str(session.loaded_adrs[0].parent)
+        else:
+            search_path = "."
+
+        # Import handler
+        from adrminer.chat.handlers.util import SummaryHandler
         
-        if include_topics and "topics" in session.analysis_results:
-            topic_results = session.analysis_results["topics"]
-            # Generate topic insights
-            topic_distribution = {}
-            for result in topic_results:
-                label = result.get("topic_label", "Unknown")
-                if label not in topic_distribution:
-                    topic_distribution[label] = 0
-                topic_distribution[label] += 1
-            
-            insights["topics"] = {
-                "total_topics": len(topic_distribution),
-                "top_topics": sorted(
-                    topic_distribution.items(),
-                    key=lambda x: x[1],
-                    reverse=True
-                )[:5],
-                "distribution": topic_distribution
-            }
+        # Create handler instance
+        handler = SummaryHandler(session)
         
-        if include_classification and "classification" in session.analysis_results:
-            class_results = session.analysis_results["classification"]
-            # Generate classification insights
-            insights["classification"] = {
-                "framework": class_results.get("framework"),
-                "count": len(class_results.get("results", []))
-            }
+        # Call handler in silent mode
+        result_data = handler.execute(
+            args=[search_path],
+            options={
+                "verbose": False,
+                "force-rewrite": False
+            },
+            silent=True
+        )
         
-        if include_check and "check" in session.analysis_results:
-            check_results = session.analysis_results["check"]
-            # Generate quality insights
-            total_score = sum(
-                r.get("overall_score", 0) 
-                for r in check_results.get("results", [])
-            )
-            avg_score = total_score / len(check_results.get("results", [])) if check_results.get("results") else 0
-            
-            insights["check"] = {
-                "average_score": avg_score,
-                "total_adrs": len(check_results.get("results", [])),
-                "mode": check_results.get("mode")
-            }
-        
-        if not insights:
+        if result_data is None:
             return ToolResult(
                 success=False,
-                message="No analysis results available. Run analysis tools first.",
+                message="Failed to generate insights",
                 requires_approval=False
             ).model_dump()
         
-        # Get insight service for detailed insights
-        insight_service = session.insight_service
-        
-        # Generate detailed insights if service available
-        try:
-            detailed_insights = insight_service.generate_project_insights(
-                session.analysis_results
-            )
-            insights["detailed"] = detailed_insights
-        except Exception as e:
-            # Service might not support this, continue with basic insights
-            pass
-        
-        # Note: generate_insights doesn't modify session state, so no context sync needed
-        
         result = ToolResult(
             success=True,
-            message="Generated insights from analysis results",
-            data=insights,
+            message="Generated insights and summaries from ADR collection",
+            data=result_data,
             requires_approval=False,
             batch_operation=False,
-            num_affected=0
+            num_affected=result_data.get('count', 0)
         ).model_dump()
         
         # Log completion

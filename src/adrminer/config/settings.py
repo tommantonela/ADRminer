@@ -286,6 +286,12 @@ class Settings(BaseSettings):
     # Agent Configuration
     agent: AgentConfig = Field(default_factory=AgentConfig)
     
+    # Standard exclusions for file discovery
+    standard_exclusions: List[str] = Field(
+        default_factory=lambda: ["node_modules", ".git", "__pycache__", ".venv", "venv", ".pytest_cache", ".cline", ".deepeval", ".vscode"],
+        description="Standard directory names to exclude during file discovery"
+    )
+    
     # Path to config file (for reference)
     config_path: Optional[Path] = None
     
