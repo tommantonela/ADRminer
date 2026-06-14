@@ -1,0 +1,23 @@
+{
+  "skill_name": "adr-checker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've got a bunch of ADRs sitting in docs/adr/ that were written by different people over the last year. Our tech lead wants us to do a quality audit before the architecture review next Tuesday. Can you check them all and give me a summary of which ones need work?",
+      "expected_output": "Should run adrchecker on the directory with --json, read results, present a summary table of scores + per-ADR top issues, and highlight common patterns across the set.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I just wrote this ADR about switching from REST to gRPC for our internal microservices communication. Someone told me it should follow the MADR format but I've never used that template before. Can you look at docs/adr/0015-switch-to-grpc.md and tell me what I'm doing wrong?",
+      "expected_output": "Should run adrchecker in full mode on the single file with --json, read the detailed results, explain each section issue with justification, and offer concrete suggestions for fixing missing or weak sections.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We're onboarding new engineers and want them to write good ADRs. Can you validate this decision record I drafted and then help me improve the sections that aren't great?",
+      "expected_output": "Should run adrchecker on the provided file, identify weak sections, then actually help rewrite those sections following the MADR template, using the checker's extracted text as a starting point.",
+      "files": [".claude/skills/adr-checker/examples/poor-adr.md"]
+    }
+  ]
+}

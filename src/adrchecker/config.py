@@ -4,6 +4,7 @@ Settings are loaded from environment variables (or a `.env` file) with the
 `ADRCHECKER_` prefix.
 """
 
+import os
 from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -14,7 +15,8 @@ class Settings(BaseSettings):
 
     All values can be overridden via environment variables prefixed with
     `ADRCHECKER_` (e.g., `ADRCHECKER_MODEL`, `ADRCHECKER_OPENAI_API_KEY`)
-    or via a `.env` file.
+    or via a `.env` file. As a fallback, ``OPENAI_API_KEY`` is used if
+    ``ADRCHECKER_OPENAI_API_KEY`` is not set.
     """
 
     model_config = SettingsConfigDict(
@@ -30,6 +32,15 @@ class Settings(BaseSettings):
     max_tokens: Optional[int] = None
     openai_api_key: Optional[str] = None
     openai_base_url: Optional[str] = None
+
+    def resolved_api_key(self) -> Optional[str]:
+        """Return the best available API key.
+
+        Prefers ``ADRCHECKER_OPENAI_API_KEY`` and falls back to
+        ``OPENAI_API_KEY`` so the tool works out of the box when the
+        standard OpenAI key is already in the environment.
+        """
+        return self.openai_api_key or os.getenv("OPENAI_API_KEY")
 
     # Checking defaults
     default_mode: str = "full"  # "full", "adherence", or "sections"

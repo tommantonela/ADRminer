@@ -58,11 +58,17 @@ class ADRChecker:
             self.llm = llm
         else:
             settings = get_settings()
-            self.llm = ChatOpenAI(
+            kwargs = dict(
                 model=model_name or settings.model,
                 temperature=temperature if temperature is not None else settings.temperature,
                 max_tokens=max_tokens or settings.max_tokens,
             )
+            api_key = settings.resolved_api_key()
+            if api_key:
+                kwargs["api_key"] = api_key
+            if settings.openai_base_url:
+                kwargs["base_url"] = settings.openai_base_url
+            self.llm = ChatOpenAI(**kwargs)
 
         self.configure_chains()
 
