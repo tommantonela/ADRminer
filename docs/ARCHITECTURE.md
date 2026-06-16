@@ -8,41 +8,48 @@ Overview of ADRMiner's modular design and component relationships.
 
 ## High-Level Architecture
 
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                          JUPYTER NOTEBOOKS                              │
-│                     (Orchestration & User Interaction)                  │
-├──────────────────┬────────────────────┬──────────────────┬──────────────┤
-│  adrs_bertopic   │ adrs_llm_checking  │ per-framework    │ classification│
-│  .ipynb          │ .ipynb             │ classification   │ _analysis.ipynb│
-│  (Topics)        │ (MADR adherence)   │ .ipynb (×3)      │ (Evaluation)  │
-└──────────┬───────┴─────────┬──────────┴────────┬─────────┴───────┬──────┘
-           │                 │                   │                 │
-┌──────────▼─────────────────▼───────────────────▼─────────────────▼──────┐
-│                       CORE PYTHON MODULES                              │
-├─────────────┬──────────────────┬──────────────────┬─────────────┬──────┤
-│   adr.py    │  adr_topic_      │  adr_            │ adr_checking│ utils│
-│ (Parser)    │  mining.py       │ classification   │ .py         │ .py  │
-│             │ (BERTopic)       │ .py (LLM Class.) │ (MADR Check)│      │
-└─────────────┴──────────────────┴──────────────────┴─────────────┴──────┘
-           │              │                │              │           │
-┌──────────▼──┐  ┌────────▼────────┐  ┌───▼──────┐  ┌────▼────┐  ┌──▼────┐
-│   markdown  │  │  Embeddings &   │  │  OpenAI  │  │ OpenAI  │  │Metrics│
-│   parsing   │  │  Clustering     │  │   API    │  │   API   │  │Analysis│
-│(BeautifulSoup) │ (UMAP, BERT)    │  │ (Class.) │  │ (Check) │  │(sklearn)│
-└─────────────┘  └─────────────────┘  └──────────┘  └─────────┘  └───────┘
-           │              │                │              │           │
-┌──────────▼──────────────▼────────────────▼──────────────▼───────────▼──┐
-│                      EXTERNAL DEPENDENCIES                            │
-├────────────────────────────────────────────────────────────────────────┤
-│ • sentence-transformers (embeddings)                                  │
-│ • bertopic (topic modeling)                                           │
-│ • langchain + openai (LLM integration)                                │
-│ • sklearn (metrics & preprocessing)                                   │
-│ • pandas, numpy (data processing)                                     │
-│ • matplotlib, seaborn (visualization)                                 │
-│ • umap (dimensionality reduction)                                     │
-└────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph NB["Jupyter Notebooks (orchestration & user interaction)"]
+      direction LR
+      NB1["adrs_bertopic.ipynb — Topics"]
+      NB2["adrs_llm_checking.ipynb — MADR adherence"]
+      NB3["*-adrs_llm_classification.ipynb — x3 frameworks"]
+      NB4["classification_analysis.ipynb — Evaluation"]
+    end
+
+    subgraph CORE["Core Python Modules"]
+      direction LR
+      M1["adr.py — Parser"]
+      M2["adr_topic_mining.py — BERTopic"]
+      M3["adr_classification.py — LLM classification"]
+      M4["adr_checking.py — MADR check"]
+      M5["utils.py"]
+    end
+
+    subgraph SUB["Subsystem Libraries"]
+      direction LR
+      S1["Markdown parsing (BeautifulSoup)"]
+      S2["Embeddings & clustering (UMAP, BERT)"]
+      S3["OpenAI API — classification"]
+      S4["OpenAI API — checking"]
+      S5["Metrics & analysis (scikit-learn)"]
+    end
+
+    subgraph EXT["External Dependencies"]
+      direction LR
+      E1["sentence-transformers"]
+      E2["bertopic"]
+      E3["langchain + openai"]
+      E4["scikit-learn"]
+      E5["pandas, numpy"]
+      E6["matplotlib, seaborn"]
+      E7["umap-learn"]
+    end
+
+    NB --> CORE
+    CORE --> SUB
+    SUB --> EXT
 ```
 
 ---
