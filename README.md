@@ -99,7 +99,7 @@ ADRMiner analyzes software architecture decisions captured in markdown ADR docum
    pip install -r requirements.txt
    ```
 
-4. **Set up LLM API (optional)**
+4. **Set up LLM API**
    
    If using LLM classification, ADR checking, or OpenAI-based topic representation:
    ```bash
