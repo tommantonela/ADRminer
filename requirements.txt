@@ -12,6 +12,7 @@ sentence-transformers==4.0.2
 Markdown==3.8
 wordcloud==1.9.4
 umap-learn>=0.5.0
+datamapplot==0.5.1
 
 # LLM & Language Models
 langchain-core>=0.1.0,<0.2.0
@@ -33,7 +34,7 @@ tqdm==4.67.1
 
 # Configuration & Logging
 python-dotenv==1.1.0
-pythonjsonlogger>=2.0.0
+python-json-logger>=2.0.0
 
 # Optional: Alternative Classification Methods
 catboost>=1.1.0

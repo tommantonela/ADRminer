@@ -1,6 +1,6 @@
 # Approach & Methodology
 
-Overview of the analysis methodology for ADR content classification and topic discovery.
+Overview of the analysis methodology for ADR content classification, topic discovery, and MADR adherence checking.
 
 ---
 
@@ -11,7 +11,7 @@ This work conducts an empirical analysis of Architecture Decision Record (ADR) c
 1. **Identify main design concerns** captured in ADRs via topic modeling
 2. **Assess alignment** with established taxonomies/frameworks of design decision types
 3. **Check adherence** to the [MADR](https://adr.github.io/madr/) (Markdown Architecture Decision Records) template structure
-4. **Develop automated pipeline** that combines topic modeling + LLM-based classification
+4. **Develop automated pipeline** that combines topic modeling + LLM-based checking + LLM-based classification
 5. **Evaluate performance** of LLM classification approaches
 
 ---
@@ -41,7 +41,8 @@ Key indicators:
 
 ## Analysis Pipeline
 
-The approach combines **topic modeling** and **LLM-based classification**:
+The approach combines **topic modeling**, **LLM-based ADR checking (MADR adherence)**,
+and **LLM-based classification**:
 
 ```
 Raw ADR Documents
@@ -51,20 +52,27 @@ Raw ADR Documents
     - Clean text, remove code blocks
     - Normalize whitespace and formatting
     ↓
-[2] Topic Modeling (BERTopic)
+[2] Topic Modeling (BERTopic)                         → RQ1
     - Sentence embeddings (all-MiniLM-L6-v2)
     - UMAP dimensionality reduction
     - Auto-detect topics (typically 30-70)
     - Dual representation: KeyBERT + LLM-based labels
     ↓
-[3] LLM Classification
+[3] ADR Checking / MADR Adherence                     → RQ3
+    - Overall template-adherence assessment (LLM)
+    - Per-section consistency analysis:
+      Context, Decision, Consequences,
+      Decision Drivers, Considered Options
+    - Adherence score + section presence/quality
+    ↓
+[4] LLM Classification                                → RQ2
     - Zero-shot / Few-shot learning
     - 3 classification frameworks:
       * Kruchten (4 categories)
       * Quality Attributes (10 categories)
       * Zimmermann (9 categories)
     ↓
-[4] Evaluation
+[5] Evaluation
     - Confusion matrices
     - Per-class metrics (precision, recall, F1)
     ↓
@@ -123,6 +131,55 @@ Based on Zimmermann et al.'s classification of architectural decisions:
 - **Other**: Unclassifiable or miscellaneous decisions
 
 **Use case**: Categorizing decisions by their scope and nature.
+
+---
+
+## ADR Checking Approach (MADR Adherence)
+
+ADR Checking directly addresses **RQ3** (mismatches/inconsistent practices in
+ADR/MADR structure). It is implemented in `notebooks/adr_checking.py`
+(`ADRChecker`) and driven by `notebooks/adrs_llm_checking.ipynb`.
+
+The LLM is prompted to assess each ADR against the
+[MADR](https://adr.github.io/madr/) template at two granularities:
+
+### 1. Global Adherence Assessment
+
+`ADRChecker.check_madr_adherence(adr_text)` produces an overall assessment of
+whether the ADR conforms to the MADR template, including:
+- `template_match`: whether the document follows the expected structure
+- `purpose_match`: whether each present section fulfills its intended purpose
+- `adherence_score`: an overall score (0–1)
+- `problems`: list of identified structural/content issues
+- `suggestions`: recommended improvements
+
+### 2. Per-Section Consistency Analysis
+
+`ADRChecker.check_sections(adr_text)` evaluates, for each of the five core
+MADR sections, whether the section is present and whether its content is
+consistent with its purpose:
+
+| Section | Expected purpose |
+|---------|------------------|
+| Context | Background, problem statement, forces/constraints |
+| Decision | The chosen solution and its rationale |
+| Consequences | Positive/negative impacts and trade-offs |
+| Decision Drivers | Key requirements/constraints driving the decision |
+| Considered Options | Alternatives evaluated before deciding |
+
+For each section the checker reports presence, a content-quality score, a
+purpose-consistency flag, and specific issues. `ADRChecker.check()` runs both
+assessments and merges the results.
+
+### Outputs
+
+Batch runs are saved as JSON (e.g., `results/all_projects-checks_results*.json`).
+These outputs support aggregate analyses such as the MADR-adherence statistics
+reported below (~80% Status field, ~65% decision drivers, ~50% consequences,
+~40% alternatives) and the adherence heatmap in `figures/`.
+
+See [Architecture → ADR Checking Flow](ARCHITECTURE.md#adr-checking-flow) for
+the component-level pipeline.
 
 ---
 
@@ -220,7 +277,7 @@ LLM produces structured JSON:
 - Usability, Portability, Observability
 - Testability
 
-### MADR Template Adherence
+### MADR Template Adherence (RQ3)
 
 - ~80%: Include Status field
 - ~65%: Document decision drivers/rationale

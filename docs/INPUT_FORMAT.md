@@ -2,6 +2,31 @@
 
 Specifications for ADR documents and dataset organization.
 
+## Dataset Formats (pickle vs. markdown)
+
+ADRMiner supports two input paths:
+
+1. **Pickle dataset (used by the reproducibility notebooks).** The notebooks load
+   a pre-collected dataset as a Python pickle, e.g.
+   `data/LLM4ADR-adrs__adrs_english.pickle`. The pickle is a nested dict keyed by
+   organization → project → ADR key, where the value is an `adr` object (or its raw
+   text, depending on the snapshot). This is the format the study dataset ships in.
+
+   ```python
+   import pickle
+   with open('../data/LLM4ADR-adrs__adrs_english.pickle', 'rb') as f:
+       dict_adrs = pickle.load(f)  # {org: {project: {adr_key: adr_or_text}}}
+   ```
+
+2. **Markdown files (for your own data).** You can also organize ADRs as markdown
+   files on disk (see below) and load them with the `adr` parser. This is the
+   recommended path when bringing your own dataset.
+
+The markdown structure documented in the rest of this file applies to both paths,
+since the ADR parser expects MADR-style markdown.
+
+---
+
 ## ADR Markdown Structure
 
 ADRs should follow a standard markdown format compatible with [MADR](https://adr.github.io/madr/) (Markdown Architecture Decision Records):
@@ -160,11 +185,12 @@ ADRMiner provides filtering utilities:
 from utils import process_projects
 
 # Filter out small projects and short ADRs
-valid_projects = process_projects(
+projects = process_projects(
     dict_adrs,
     min_adrs_per_project=5,      # At least 5 ADRs
     min_adr_length=500           # At least 500 characters
 )
+valid_projects = projects['valid_projects']
 
 # Extract documents from valid projects only
 from utils import get_documents
@@ -180,7 +206,18 @@ adr_texts = get_documents(
 
 ## Loading ADRs into Python
 
-### From Local Files
+### From a Pickle (study dataset)
+
+```python
+import pickle
+import os
+
+relative_path = os.path.join('..', 'data', 'LLM4ADR-adrs__adrs_english.pickle')
+with open(relative_path, 'rb') as file:
+    dict_adrs = pickle.load(file)  # {org: {project: {adr_key: ...}}}
+```
+
+### From Local Markdown Files
 
 ```python
 from adr import adr
@@ -226,7 +263,7 @@ from utils import get_documents
 
 # Different extraction modes
 docs = get_documents(
-    org_projects=[('org', 'project')],
+    org_projects=valid_projects,
     adrs_dict=adrs_dict,
     field='both'  # Choose one:
 )
@@ -234,9 +271,13 @@ docs = get_documents(
 # field='title'       → Only document titles
 # field='content'     → Text content (excluding code)
 # field='both'        → Title + content
-# field='raw'         → Full original markdown
+# field='raw'         → Full original markdown (used for ADR checking)
 # field='decision'    → Decision section only
 ```
+
+> **Note for ADR checking.** `ADRChecker` should be run on `field='raw'` so it can
+> see the original markdown structure (headings, sections) that it assesses against
+> the MADR template.
 
 Output:
 ```python
@@ -283,11 +324,14 @@ Check data quality before running analysis:
 from utils import process_projects
 
 # Validate projects
-all_projects, valid_projects, filtered = process_projects(
+projects = process_projects(
     dict_adrs,
     min_adrs_per_project=5,
     min_adr_length=500
 )
+all_projects = projects['all_projects']
+valid_projects = projects['valid_projects']
+filtered = projects['filtered']
 
 print(f"Total projects: {len(all_projects)}")
 print(f"Valid projects: {len(valid_projects)}")
@@ -304,4 +348,3 @@ print(f"Properties: {doc.get_properties()}")
 ```
 
 ---
-

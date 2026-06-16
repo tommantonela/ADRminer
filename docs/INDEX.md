@@ -19,16 +19,17 @@ Complete guide to ADRMiner documentation.
 **When to read**: You're implementing the analysis pipeline
 
 **Covers**:
-- ✅ Complete notebook workflow (3 stages)
-- ✅ Python API reference for all modules
+- ✅ Complete notebook workflow (4 stages: Topics → Checking → Classification → Analysis)
+- ✅ Python API reference for all modules (`adr.py`, `adr_topic_mining.py`, `adr_checking.py`, `adr_classification.py`)
 - ✅ Configuration parameters
 - ✅ Few-shot learning strategies
+- ✅ ADR checking / MADR adherence API
 - ✅ Evaluation metrics explanation
 - ✅ Complete working examples
 
 **Sections**:
-1. Notebook Workflow (Topic Modeling, Classification, Analysis)
-2. Python API Reference (adr.py, adr_topic_mining.py, adr_classification.py)
+1. Notebook Workflow (Topic Modeling, ADR Checking, Classification, Analysis)
+2. Python API Reference (parser, topic mining, checking, classification)
 3. Configuration (Environment variables, notebook parameters)
 4. Tips & Best Practices
 5. Complete end-to-end example
@@ -40,6 +41,7 @@ Complete guide to ADRMiner documentation.
 **When to read**: You're preparing ADR data for analysis
 
 **Covers**:
+- ✅ Dataset formats (pickle vs. markdown)
 - ✅ ADR markdown structure (minimal and full templates)
 - ✅ Supported markdown elements
 - ✅ Dataset directory organization
@@ -48,12 +50,13 @@ Complete guide to ADRMiner documentation.
 - ✅ Ground truth annotation format
 
 **Sections**:
-1. ADR Markdown Structure (MADR template)
-2. Dataset Organization (directory hierarchy)
-3. Loading ADRs into Python
-4. Extracting content for analysis
-5. Ground truth annotation format
-6. Data validation checks
+1. Dataset Formats (pickle study dataset, markdown files)
+2. ADR Markdown Structure (MADR template)
+3. Dataset Organization (directory hierarchy)
+4. Loading ADRs into Python (pickle, markdown, string)
+5. Extracting content for analysis (incl. `field='raw'` for checking)
+6. Ground truth annotation format
+7. Data validation checks
 
 ---
 
@@ -62,9 +65,10 @@ Complete guide to ADRMiner documentation.
 **When to read**: You want to understand the research approach and methodology
 
 **Covers**:
-- ✅ Research questions (RQ1-RQ4)
-- ✅ Methodology overview (topic modeling + LLM classification)
+- ✅ Research questions (RQ1–RQ3)
+- ✅ Methodology overview (topic modeling + ADR checking + LLM classification)
 - ✅ Classification frameworks (Kruchten, Quality Attributes, Zimmermann)
+- ✅ ADR checking approach (MADR adherence + per-section consistency)
 - ✅ LLM approach and prompting strategies
 - ✅ Results summary (findings, metrics, per-framework performance)
 - ✅ Limitations and future work
@@ -74,11 +78,12 @@ Complete guide to ADRMiner documentation.
 1. Research Objectives & Questions
 2. Methodology (data collection, analysis pipeline)
 3. Classification Frameworks (3 approaches)
-4. LLM Classification Strategy
-5. Evaluation Methodology
-6. Key Findings Summary
-7. Limitations & Future Directions
-8. Reproducibility Notes
+4. ADR Checking Approach (MADR adherence)
+5. LLM Classification Strategy
+6. Evaluation Methodology
+7. Key Findings Summary
+8. Limitations & Future Directions
+9. Reproducibility Notes
 
 ---
 
@@ -88,12 +93,12 @@ Complete guide to ADRMiner documentation.
 
 **Covers**:
 - ✅ High-level system architecture (diagram)
-- ✅ Module breakdown (adr.py, adr_topic_mining.py, adr_classification.py, utils.py)
-- ✅ Data flow (topic modeling, classification, evaluation)
+- ✅ Module breakdown (`adr.py`, `adr_topic_mining.py`, `adr_checking.py`, `adr_classification.py`, `utils.py`)
+- ✅ Data flow (topic modeling, ADR checking, classification, evaluation)
 - ✅ Dependencies (libraries and versions)
 - ✅ Design patterns used
 - ✅ Configuration system
-- ✅ Extensibility points (custom frameworks, alternative models)
+- ✅ Extensibility points (custom frameworks, alternative models, new MADR sections)
 - ✅ Performance considerations (memory, compute time)
 
 **Sections**:
@@ -113,21 +118,23 @@ Complete guide to ADRMiner documentation.
 ```
 README.md (START HERE)
 ├── Quick Start → Installation
-├── Features
+├── Features (parsing, topics, checking, classification, evaluation)
 └── Documentation (links to)
     ├── USAGE.md
-    │   ├── Notebook workflow
-    │   ├── API reference
+    │   ├── Notebook workflow (4 stages)
+    │   ├── API reference (incl. ADRChecker)
     │   ├── Configuration
     │   └── Examples
     ├── INPUT_FORMAT.md
+    │   ├── Dataset formats (pickle vs markdown)
     │   ├── ADR structure
     │   ├── Dataset organization
     │   └── Data validation
-    ├── PAPER.md
-    │   ├── Research questions
+    ├── APPROACH.md
+    │   ├── Research questions (RQ1–RQ3)
     │   ├── Methodology
     │   ├── Frameworks
+    │   ├── ADR checking (RQ3)
     │   └── Results
     └── ARCHITECTURE.md
         ├── System design
@@ -146,6 +153,12 @@ README.md (START HERE)
 2. Read: [INPUT_FORMAT.md](#input) (prepare your data)
 3. Read: [USAGE.md](#usage) (run the notebooks)
 
+### "I want to check MADR adherence"
+
+1. Read: [USAGE.md](#usage) (Section 2: ADR Checking)
+2. Read: [APPROACH.md](#approach) (ADR Checking Approach, RQ3)
+3. Reference: [ARCHITECTURE.md](#arch) (ADR Checking Flow)
+
 ### "I want to understand the research approach"
 
 1. Read: [README.md](../README.md) (overview)
@@ -156,7 +169,7 @@ README.md (START HERE)
 
 1. Read: [ARCHITECTURE.md](#arch) (system design)
 2. Read: [USAGE.md](#usage) (API reference)
-3. Reference: [PAPER.md](#paper) (for domain knowledge)
+3. Reference: [APPROACH.md](#approach) (for domain knowledge)
 
 ### "I want to contribute"
 
@@ -170,6 +183,10 @@ README.md (START HERE)
 ## Key Concepts
 
 **Architecture Decision Record (ADR)**: Lightweight documentation of design decisions, including context, decision, and consequences.
+
+**MADR**: Markdown Architecture Decision Records — a structured ADR template with defined sections (Context, Decision, Consequences, Decision Drivers, Considered Options).
+
+**ADR Checking**: LLM-based assessment of whether an ADR follows the MADR template (global adherence + per-section consistency).
 
 **Topic Modeling**: Unsupervised learning to discover main themes in a document collection (BERTopic).
 
@@ -192,10 +209,13 @@ README.md (START HERE)
 A: See [USAGE.md - Notebook Workflow](#usage)
 
 **Q: What format should my ADRs be in?**  
-A: See [INPUT_FORMAT.md - ADR Markdown Structure](#input)
+A: See [INPUT_FORMAT.md - Dataset Formats](#input)
 
 **Q: How are ADRs classified?**  
 A: See [APPROACH.md - Classification Frameworks](#approach)
+
+**Q: How do I check MADR adherence?**  
+A: See [USAGE.md - ADR Checking](#usage) and [APPROACH.md - ADR Checking Approach](#approach)
 
 **Q: Can I use a different LLM?**  
 A: See [ARCHITECTURE.md - Extensibility Points](#arch)

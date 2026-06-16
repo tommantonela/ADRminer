@@ -2,46 +2,47 @@
 
 Overview of ADRMiner's modular design and component relationships.
 
+> **Note on code location.** The canonical, runnable implementation lives under `notebooks/` (Jupyter notebooks plus the `.py` modules they import). The `src/` directory holds an in-progress package refactor and currently contains no source files; do not rely on it to run the workflow.
+
 ---
 
 ## High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                  JUPYTER NOTEBOOKS                          │
-│  (Orchestration & User Interaction)                         │
-├──────────────────┬──────────────────┬──────────────────────┤
-│  adrs_bertopic   │ adr_llm_         │ classification_      │
-│  .ipynb          │ classification   │ analysis.ipynb       │
-│                  │ .ipynb           │                      │
-└──────────┬───────┴────────┬─────────┴──────────────┬────────┘
-           │                │                       │
-┌──────────▼────────────────▼───────────────────────▼────────┐
-│              CORE PYTHON MODULES                           │
-├─────────────┬──────────────────┬──────────────────┬────────┤
-│   adr.py    │  adr_topic_      │  adr_            │ utils  │
-│ (Parser)    │  mining.py       │ classification   │ .py    │
-│             │ (BERTopic)       │ .py (LLM)        │        │
-│             │                  │                  │        │
-└─────────────┴──────────────────┴──────────────────┴────────┘
-           │              │                │              │
-┌──────────▼──┐  ┌────────▼────────┐  ┌───▼──────┐  ┌───▼────┐
-│   markdown  │  │  Embeddings &   │  │  OpenAI  │  │ Metrics│
-│   parsing   │  │  Clustering     │  │   API    │  │Analysis│
-│  (BeautifulSoup)│  (UMAP, BERT)   │  │ (LLM)    │  │(sklearn)│
-└─────────────┘  └─────────────────┘  └──────────┘  └────────┘
-           │              │                │              │
-┌──────────▼──────────────▼────────────────▼──────────────▼──┐
-│              EXTERNAL DEPENDENCIES                         │
-├─────────────────────────────────────────────────────────────┤
-│ • sentence-transformers (embeddings)                        │
-│ • bertopic (topic modeling)                                 │
-│ • langchain + openai (LLM integration)                      │
-│ • sklearn (metrics & preprocessing)                         │
-│ • pandas, numpy (data processing)                           │
-│ • matplotlib, seaborn (visualization)                       │
-│ • umap (dimensionality reduction)                           │
-└─────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────┐
+│                          JUPYTER NOTEBOOKS                              │
+│                     (Orchestration & User Interaction)                  │
+├──────────────────┬────────────────────┬──────────────────┬──────────────┤
+│  adrs_bertopic   │ adrs_llm_checking  │ per-framework    │ classification│
+│  .ipynb          │ .ipynb             │ classification   │ _analysis.ipynb│
+│  (Topics)        │ (MADR adherence)   │ .ipynb (×3)      │ (Evaluation)  │
+└──────────┬───────┴─────────┬──────────┴────────┬─────────┴───────┬──────┘
+           │                 │                   │                 │
+┌──────────▼─────────────────▼───────────────────▼─────────────────▼──────┐
+│                       CORE PYTHON MODULES                              │
+├─────────────┬──────────────────┬──────────────────┬─────────────┬──────┤
+│   adr.py    │  adr_topic_      │  adr_            │ adr_checking│ utils│
+│ (Parser)    │  mining.py       │ classification   │ .py         │ .py  │
+│             │ (BERTopic)       │ .py (LLM Class.) │ (MADR Check)│      │
+└─────────────┴──────────────────┴──────────────────┴─────────────┴──────┘
+           │              │                │              │           │
+┌──────────▼──┐  ┌────────▼────────┐  ┌───▼──────┐  ┌────▼────┐  ┌──▼────┐
+│   markdown  │  │  Embeddings &   │  │  OpenAI  │  │ OpenAI  │  │Metrics│
+│   parsing   │  │  Clustering     │  │   API    │  │   API   │  │Analysis│
+│(BeautifulSoup) │ (UMAP, BERT)    │  │ (Class.) │  │ (Check) │  │(sklearn)│
+└─────────────┘  └─────────────────┘  └──────────┘  └─────────┘  └───────┘
+           │              │                │              │           │
+┌──────────▼──────────────▼────────────────▼──────────────▼───────────▼──┐
+│                      EXTERNAL DEPENDENCIES                            │
+├────────────────────────────────────────────────────────────────────────┤
+│ • sentence-transformers (embeddings)                                  │
+│ • bertopic (topic modeling)                                           │
+│ • langchain + openai (LLM integration)                                │
+│ • sklearn (metrics & preprocessing)                                   │
+│ • pandas, numpy (data processing)                                     │
+│ • matplotlib, seaborn (visualization)                                 │
+│ • umap (dimensionality reduction)                                     │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -165,7 +166,72 @@ Topics DataFrame
 
 ---
 
-### 3. `adr_classification.py` – LLM Classification
+### 3. `adr_checking.py` – ADR Checking / MADR Adherence
+
+**Purpose**: Assess whether each ADR adheres to the [MADR](https://adr.github.io/madr/) template — both an overall adherence assessment and a fine-grained, per-section consistency analysis.
+
+**Key Class**:
+```python
+class ADRChecker:
+    # State
+    - llm: ChatOpenAI (LLM instance)
+    - pydantic parser for structured outputs
+
+    # Key methods
+    - check_madr_adherence(adr_text, metadata=None) → Dict
+        # Overall adherence assessment: template_match, purpose_match,
+        # problems, adherence_score, suggestions, ...
+    - check_sections(adr_text, metadata=None) → Dict
+        # Per-section consistency analysis across the 5 MADR sections:
+        # Context, Decision, Consequences, Decision Drivers, Considered Options
+        # For each: presence, content score, purpose-consistency, issues
+    - check(adr_text, metadata=None) → Dict
+        # Combined: runs both assessments and merges results
+    - check_batch(adr_texts_dict, organization, project,
+                  parallel=True, json_file=None) → List[Dict]
+```
+
+**Pydantic result models** (structured LLM output):
+- `ADRTemplate` — overall template/adherence assessment
+- `ADRConsistecySections` / `ADRConsistencyResult` — per-section consistency
+- `ADRAlternative`, `ADRAssessmentReport` — supporting fields
+
+**Prompts** (in `prompts.py`):
+- `FULL_CONSISTENCY_OVER_EXTRACTED_ADR` — global adherence assessment
+- `CONSISTENCY_PROMPT_ALL_SECTIONS` — all-sections consistency
+- `CONSISTENCY_PROMPT_BY_SECTION` — per-section consistency
+- `get_adr_sections_metadata()` — helper to derive section structure
+
+**Assessed MADR Sections**:
+| Section | Assessed aspects |
+|---------|------------------|
+| Context | Presence, content quality, purpose consistency |
+| Decision | Presence, content quality, purpose consistency |
+| Consequences | Presence, content quality, purpose consistency |
+| Decision Drivers | Presence, content quality, purpose consistency |
+| Considered Options | Presence, content quality, purpose consistency |
+
+**Output Format** (combined `check()`):
+```json
+{
+  "metadata": {"organization": "...", "project": "..."},
+  "template": { "template_match": true, "adherence_score": 0.85, ... },
+  "sections": {
+     "Context":            { "present": true, "content_score": 0.9, ... },
+     "Decision":           { "present": true, "content_score": 0.8, ... },
+     "Consequences":       { "present": false, ... },
+     "Decision Drivers":   { "present": true, ... },
+     "Considered Options": { "present": false, ... }
+  }
+}
+```
+
+**Notebook**: `notebooks/adrs_llm_checking.ipynb` drives this stage. Batch runs
+are persisted as `results/all_projects-checks_results*.json`.
+
+---
+
+### 4. `adr_classification.py` – LLM Classification
 
 **Purpose**: Classify ADRs using language models
 
@@ -257,7 +323,7 @@ Classification Result Object
 
 ---
 
-### 4. `utils.py` – Utilities & Helpers
+### 5. `utils.py` – Utilities & Helpers
 
 **Purpose**: Data processing, visualization, document extraction
 
@@ -266,6 +332,7 @@ Classification Result Object
 | Function | Purpose |
 |----------|---------|
 | `get_documents(org_projects, adrs_dict, field)` | Extract texts from ADRs |
+| `get_documents_by_key((org, project), adrs_dict, field)` | Extract texts for a single org/project |
 | `process_projects(dict_adrs, min_adrs, min_length)` | Filter small projects |
 | `prune_corpus(dict_adrs)` | Clean and deduplicate |
 | `extract_gt_summary(gt_df)` | Ground truth statistics |
@@ -279,22 +346,18 @@ Classification Result Object
 
 ---
 
-### 5. Supporting Modules
+### 6. Supporting Modules
 
 **`prompts.py`**:
-- Classification prompt templates for each framework
-- Zero-shot and few-shot variants
+- Classification prompt templates for each framework (zero-shot and few-shot variants)
+- ADR-checking prompts: `FULL_CONSISTENCY_OVER_EXTRACTED_ADR`,
+  `CONSISTENCY_PROMPT_ALL_SECTIONS`, `CONSISTENCY_PROMPT_BY_SECTION`
 - Instruction engineering for LLM consistency
 
 **`custom_selector.py`**:
 - Few-shot example selection logic
 - Semantic similarity search (max-marginal-relevance)
 - Dynamic prompt building
-
-**`adr_checking.py`**:
-- Validation utilities
-- Data quality checks
-- Preprocessing helpers
 
 ---
 
@@ -304,7 +367,7 @@ Classification Result Object
 
 ```
 INPUT: ADR Dataset
-  (org/project/adr-*.md files)
+  (pickle of org/project -> ADR raw text, or org/project/adr-*.md files)
     ↓
 [ADR Parser] (adr.py)
   Extract: titles, content, hierarchy
@@ -326,9 +389,35 @@ INPUT: ADR Dataset
   OpenAI: semantic labeling (opt)
     ↓
 OUTPUT: Topic Model
-  - Saved as BERTopic folder
+  - Saved as BERTopic folder (notebooks/saved_topicmodel/)
   - Topics DataFrame (CSV/pickle)
   - Corpus JSON
+```
+
+### ADR Checking Flow
+
+```
+INPUT: ADR Text (raw markdown)
+    ↓
+[Prompt Construction] (prompts.py)
+  - Global adherence prompt (FULL_CONSISTENCY_OVER_EXTRACTED_ADR)
+  - Section-consistency prompt (CONSISTENCY_PROMPT_ALL_SECTIONS /
+    CONSISTENCY_PROMPT_BY_SECTION)
+    ↓
+[LLM Calls] (adr_checking.py via ChatOpenAI)
+  - Overall adherence assessment
+  - Per-section presence/quality/consistency
+    ↓
+[Pydantic Parsing]
+  ADRTemplate, ADRConsistencyResult, ADRConsistecySections
+    ↓
+OUTPUT: Checking Result
+  {
+    template: adherence_score, template_match, problems, suggestions
+    sections: { Context, Decision, Consequences,
+                Decision Drivers, Considered Options }
+  }
+  → results/all_projects-checks_results*.json
 ```
 
 ### Classification Flow
@@ -432,6 +521,9 @@ n_topics = 50                    # Number of topics
 use_openai = True               # GPT-4 labeling
 embedding_model = 'all-MiniLM-L6-v2'
 
+# Checking
+# (uses the same llm/temperature as classification)
+
 # Classification
 temperature = 0.0               # LLM determinism
 include_examples = True         # Few-shot
@@ -471,6 +563,13 @@ min_adr_length = 500           # Minimum doc length
        return prompt | llm.with_structured_output(NewFrameworkResult)
    ```
 
+### Adding New MADR Sections to Checking
+
+1. Update the section list used by `ADRChecker.check_sections()`.
+2. Adjust `CONSISTENCY_PROMPT_ALL_SECTIONS` / `CONSISTENCY_PROMPT_BY_SECTION`
+   in `prompts.py`.
+3. Extend the relevant Pydantic models in `adr_checking.py`.
+
 ### Using Alternative Topic Models
 
 Replace BERTopic in `adr_topic_mining.py`:
@@ -487,7 +586,7 @@ topics = lda.fit_transform(tfidf_matrix)
 
 ### Using Different LLM Providers
 
-Replace OpenAI in `adr_classification.py`:
+Replace OpenAI in `adr_classification.py` (or `adr_checking.py`):
 ```python
 from langchain_anthropic import ChatAnthropic
 # or
@@ -495,18 +594,20 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 llm = ChatAnthropic(model="claude-3-sonnet")
 classifier = ADRClassifier(llm)
+checker = ADRChecker(llm)
 ```
 
 ---
 
 ### Optimization Tips
-- Use `parallel=True` for batch LLM calls
+- Use `parallel=True` for batch LLM calls (classification and checking)
 - Pre-compute embeddings, save, reload for iterations
 - Filter corpus before modeling (min length, max length)
 
 ### Unit Testing
 - Parse ADRs: Verify title, content extraction
 - Topic model: Check topic count, coherence > 0.6
+- Checking: Verify JSON output structure (template + sections)
 - Classification: Verify JSON output structure
 - Metrics: Compare against known baselines
 
@@ -515,6 +616,7 @@ classifier = ADRClassifier(llm)
 - Embeddings: No NaN values
 - Topics: Coherence > 0.6, diversity > 0.5
 - Classifications: All scores sum to 1.0
+- Checks: adherence_score in [0,1], sections fully covered
 
 ---
 

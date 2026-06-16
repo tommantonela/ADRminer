@@ -2,9 +2,11 @@
 
 Complete workflow and API documentation for ADRMiner.
 
+> The canonical, runnable code lives under `notebooks/` (notebooks + `.py` modules). The `src/` directory is an in-progress refactor scaffold and is not required.
+
 ## Notebook Workflow
 
-### 1. Topic Modeling (`adrs_bertopic.ipynb`)
+### 1. Topic Modeling (`notebooks/adrs_bertopic.ipynb`)
 
 Discover topics in your ADR corpus using BERTopic.
 
@@ -54,9 +56,76 @@ Topics dataframe with columns:
 
 ---
 
-### 2. Classification (`adr_llm_classification.ipynb`)
+### 2. ADR Checking / MADR Adherence (`notebooks/adrs_llm_checking.ipynb`)
 
-Classify ADRs using LLM across multiple frameworks.
+Assess whether each ADR follows the [MADR](https://adr.github.io/madr/) template,
+at both the global level and per MADR section.
+
+```python
+from adr_checking import ADRChecker
+
+# Create the checker (uses the same LLM configuration as classification)
+checker = ADRChecker(llm)
+
+# 1) Global MADR adherence assessment
+adherence = checker.check_madr_adherence(
+    adr_text,
+    metadata={'organization': 'acme', 'project': 'backend'}
+)
+
+# 2) Per-section consistency analysis
+sections = checker.check_sections(
+    adr_text,
+    metadata={'organization': 'acme', 'project': 'backend'}
+)
+
+# 3) Combined (global + sections)
+result = checker.check(
+    adr_text,
+    metadata={'organization': 'acme', 'project': 'backend'}
+)
+
+# Batch over many ADRs (parallel by default)
+results = checker.check_batch(
+    adr_texts_dict,
+    organization="acme",
+    project="backend",
+    parallel=True,
+    json_file="results/all_projects-checks_results.json"
+)
+```
+
+**Key Methods:**
+
+| Method | Purpose |
+|--------|---------|
+| `check_madr_adherence(adr_text, metadata=None)` | Overall template-adherence assessment (score, problems, suggestions) |
+| `check_sections(adr_text, metadata=None)` | Per-section consistency (Context, Decision, Consequences, Decision Drivers, Considered Options) |
+| `check(adr_text, metadata=None)` | Combined adherence + sections |
+| `check_batch(adr_texts_dict, organization, project, parallel, json_file)` | Batch checking with JSON export |
+
+**Assessed MADR Sections:**
+
+| Section | Reported fields |
+|---------|-----------------|
+| Context | presence, content-quality score, purpose-consistency, issues |
+| Decision | presence, content-quality score, purpose-consistency, issues |
+| Consequences | presence, content-quality score, purpose-consistency, issues |
+| Decision Drivers | presence, content-quality score, purpose-consistency, issues |
+| Considered Options | presence, content-quality score, purpose-consistency, issues |
+
+**Output:** JSON files with adherence scores + section assessments
+(e.g., `results/all_projects-checks_results.json`).
+
+---
+
+### 3. Classification (per-framework notebooks)
+
+There is **one notebook per framework** (rather than a single combined notebook):
+
+- `notebooks/krutchen-adrs_llm_classification.ipynb` (Kruchten)
+- `notebooks/qas-adrs_llm_classification.ipynb` (Quality Attributes)
+- `notebooks/zimmermann-adrs_llm_classification.ipynb` (Zimmermann)
 
 ```python
 from adr_classification import ADRClassifier, ClassificationFramework
@@ -86,6 +155,9 @@ results = classifier.classify_batch(
     json_file="results.json"
 )
 ```
+
+A non-LLM baseline classifier is also available in
+`notebooks/adrs_catboost_classification.ipynb`.
 
 **Classification Frameworks:**
 
@@ -134,7 +206,7 @@ classifier.set_framework(
 
 ---
 
-### 3. Analysis (`classification_analysis.ipynb`)
+### 4. Analysis (`notebooks/classification_analysis.ipynb`)
 
 Evaluate classification results and generate insights.
 
@@ -248,6 +320,59 @@ diversity = model.compute_topic_diversity(top_n=20)
 
 ---
 
+### `adr_checking.py` – ADR Checking / MADR Adherence
+
+LLM-based assessment of ADR conformance to the MADR template.
+
+```python
+from adr_checking import ADRChecker
+
+checker = ADRChecker(llm)
+
+# Combined adherence + sections assessment
+result = checker.check(
+    adr_text,
+    metadata={'organization': 'acme', 'project': 'backend'}
+)
+# result: {
+#   'metadata': {...},
+#   'template': {
+#       'template_match': bool,
+#       'purpose_match': bool,
+#       'adherence_score': float (0-1),
+#       'problems': [str],
+#       'suggestions': [str]
+#   },
+#   'sections': {
+#       'Context':            { 'present': bool, 'content_score': float, ... },
+#       'Decision':           { 'present': bool, 'content_score': float, ... },
+#       'Consequences':       { ... },
+#       'Decision Drivers':   { ... },
+#       'Considered Options': { ... }
+#   }
+# }
+
+# Batch checking with JSON export
+results = checker.check_batch(
+    adr_texts_dict,
+    organization="acme",
+    project="backend",
+    parallel=True,
+    json_file="results/all_projects-checks_results.json"
+)
+```
+
+**Methods:**
+
+| Method | Returns |
+|--------|---------|
+| `check_madr_adherence(adr_text, metadata=None)` | dict: overall adherence assessment |
+| `check_sections(adr_text, metadata=None)` | dict: per-section consistency |
+| `check(adr_text, metadata=None)` | dict: combined adherence + sections |
+| `check_batch(adr_texts_dict, organization, project, parallel, json_file)` | list[dict] |
+
+---
+
 ### `adr_classification.py` – Classification
 
 Complete LLM-based classification pipeline.
@@ -338,6 +463,11 @@ Key parameters to adjust in notebooks:
 - **Topics**: Auto-detection usually finds 30-60 topics; adjust manually if needed
 - **OpenAI**: Requires API key for computing text embeddings (one-time cost)
 
+### ADR Checking
+- **Input field**: Use `field='raw'` so the checker sees the original markdown structure
+- **Cost**: Each `check()` issues multiple LLM calls (adherence + per-section); batch with `parallel=True`
+- **Outputs**: Persist to JSON so aggregate adherence/heatmap analyses can reuse them
+
 ### Classification
 - **LLM choice**: `gpt-4o-mini` is cost-effective; `gpt-4o` is more accurate
 - **Temperature**: Use 0.0 for consistent results; increase only if variation is desired
@@ -351,11 +481,12 @@ Key parameters to adjust in notebooks:
 
 ## Examples
 
-### Complete Topic + Classification Pipeline
+### Complete Topic + Checking + Classification Pipeline
 
 ```python
 import json
 from adr_topic_mining import ADRTopicModel
+from adr_checking import ADRChecker
 from adr_classification import ADRClassifier, ClassificationFramework
 from langchain_openai import ChatOpenAI
 
@@ -370,18 +501,25 @@ topic_model.prepare_corpus(docs=adr_texts)
 topics_df = topic_model.build(n_topics=50, use_openai=True)
 topic_model.persist("./saved_topicmodel")
 
-# Step 3: Get topic predictions
-topic_results = topic_model.predict_batch(adr_texts, json_file="topics.json")
+# Step 3: ADR checking / MADR adherence
+llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.0)
+checker = ADRChecker(llm)
+check_results = checker.check_batch(
+    adr_texts,
+    organization="acme",
+    project="backend",
+    parallel=True,
+    json_file="results/all_projects-checks_results.json"
+)
 
 # Step 4: Classify ADRs
-llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.0)
 classifier = ADRClassifier(llm)
 classifier.set_framework(ClassificationFramework.QUALITY_ATTRIBUTES, include_examples=True)
 
 classifications = classifier.classify_batch(
     adr_texts,
     parallel=True,
-    json_file="classifications.json"
+    json_file="results/all_projects-qas_classification_results.json"
 )
 
 # Step 5: Evaluate (if you have ground truth)

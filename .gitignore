@@ -29,3 +29,5 @@ REQUIREMENTS_UPDATE.md
 /tests/__pycache__
 /examples
 /src/adrminer.egg-info
+/src/adrchecker/__pycache__
+/tests/test_adrchecker/__pycache__
