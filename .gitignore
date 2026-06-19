@@ -31,3 +31,5 @@ REQUIREMENTS_UPDATE.md
 /src/adrminer.egg-info
 /src/adrchecker/__pycache__
 /tests/test_adrchecker/__pycache__
+/cambios
+.DS_Store
