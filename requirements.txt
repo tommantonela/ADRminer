@@ -26,6 +26,7 @@ pydantic==2.12.5
 matplotlib==3.10.1
 seaborn==0.13.2
 sankeyflow==0.4.1
+nbformat
 
 # Jupyter & Environment
 ipython==9.1.0

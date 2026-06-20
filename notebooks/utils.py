@@ -309,11 +309,11 @@ def show_classification_mosaic(cm, cm_labels: list[str], color_dict: dict[str, s
     colors = deque(my_colors) # deque(pallet[:n_classes])
     # print("my colors", len(my_colors))
     all_colors = []
-    for i in range(n_classes):
+    for i in range(0,len(mosaic_tuples)): # TODO: Check if this correct, before it was up to n_classes
         if i > 0:
             colors.rotate(-1)
         all_colors.extend(colors)
-    # print("All colors:", len(all_colors), "classes:", n_classes, "mosaic tuples:", len(mosaic_tuples))
+    print("All colors:", len(all_colors), "classes:", n_classes, "mosaic tuples:", len(mosaic_tuples))
     props = {(str(a), str(b)):{'color':all_colors[i]} for i,(a, b) in enumerate(mosaic_tuples)}
 
     labelizer = lambda k: ''
@@ -356,7 +356,7 @@ def show_classification_mosaic(cm, cm_labels: list[str], color_dict: dict[str, s
     # Iterate over the labels and set their individual colors
     if x_labels_colored:
         for tick in ax.get_xticklabels():
-            tick.set_color(color_dict[tick.get_text()])
+            tick.set_color(color_dict.get(tick.get_text(),'#FFFFFF'))
 
     # ax.set_title(title) #, fontdict=title_font_dict, pad=25)
     ax.set_xlabel('Actual (true) Label', fontsize=12) #, fontdict=axis_label_font_dict, labelpad=10)
