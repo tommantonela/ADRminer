@@ -537,3 +537,105 @@ with open("evaluation_results.json", "w") as f:
 ---
 
 **See [Input Format](INPUT_FORMAT.md) for data structure requirements.**
+
+--------------------------
+
+## Running the notebooks in Google Colab
+
+The notebooks can be executed in Google Colab. We recommend using Colab's **Runtime version 2025.07**, which already includes Python 3.11. This avoids manually replacing the Python interpreter and makes the setup more stable.
+
+### 1. Select the Colab runtime
+
+Before running the notebook, configure the Colab runtime as follows:
+
+1. Open the notebook in Google Colab.
+2. Go to **Runtime** → **Change runtime type**.
+3. Select **Runtime version: 2025.07**.
+4. Save the runtime configuration.
+
+The 2025.07 runtime already provides Python 3.11, which is the expected Python version for this artifact.
+
+### 2. Add the initial setup cell
+
+Add the following cell at the beginning of the notebook and run it before executing the original notebook cells:
+
+```python
+!curl -fsSL https://raw.githubusercontent.com/tommantonela/ADRminer/main/notebooks/scripts/colab_setup.py -o /content/colab_setup.py
+
+%run /content/colab_setup.py \
+    --force-reinstall-requirements
+````
+
+This cell downloads the Colab setup script, installs the repository dependencies, and prepares the execution environment. The option `--force-reinstall-requirements` ensures that the versions specified in `requirements.txt` are installed even when Colab already provides different package versions.
+
+### 3. Restart the Colab kernel
+
+After the setup cell finishes, restart the kernel by running the following cell:
+
+```python
+get_ipython().kernel.do_shutdown(restart=True)
+```
+
+This restart is important because packages such as NumPy and pandas may already be loaded by the running kernel. Restarting ensures that the newly installed dependency versions are used.
+
+### 4. Run the post-restart setup cell
+
+After Colab reconnects, add and run a second setup cell. This cell restores the repository paths and configuration without reinstalling Python or the dependencies.
+
+For notebooks that do not require an LLM provider, use:
+
+```python
+%run /content/colab_setup.py \
+    --skip-python-setup \
+    --skip-requirements
+```
+
+### 5. Post-restart setup for LLM notebooks
+
+If the notebook requires an LLM provider, adapt the post-restart setup cell accordingly.
+
+For Ollama-based execution, use:
+
+```python
+%run /content/colab_setup.py \
+    --skip-python-setup \
+    --skip-requirements \
+    --provider ollama \
+    --ollama-model qwen3:8b
+```
+
+For OpenAI-based execution, first provide the API key (also in an .env file or as a Google Colab Secret) and then run the setup script:
+
+```python
+from getpass import getpass
+import os
+
+os.environ["OPENAI_API_KEY"] = getpass("OpenAI API key: ")
+
+%run /content/colab_setup.py \
+    --skip-python-setup \
+    --skip-requirements \
+    --provider openai \
+    --openai-model gpt-4.1-mini
+```
+
+### 6. Verify the environment
+
+Optionally, verify that the expected Python and package versions are active before running the notebook:
+
+```python
+import sys
+import numpy as np
+import pandas as pd
+
+print("Python:", sys.version)
+print("Executable:", sys.executable)
+print("NumPy:", np.__version__, np.__file__)
+print("pandas:", pd.__version__, pd.__file__)
+```
+
+### 7. Run the notebook
+
+Once the post-restart setup cell has completed successfully, continue running the original notebook cells in order.
+
+The setup script changes the working directory to the repository's `notebooks/` directory, so the relative paths used by the notebooks should resolve correctly.
